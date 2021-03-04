@@ -7,7 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlugInsComponent implements OnInit {
 
-  createPluginRoute = '/plugins/create';
+  listOfPlugins = [
+    {
+      identifier: 'asdfghjkl',
+      title: 'Fight Plugin',
+      description: 'Fight plugin'
+    },
+    {
+      identifier: 'cbvcbcvbcvbcv',
+      title: 'Quiz Plugin',
+      description: 'Quiz plugin'
+    }
+  ];
 
   constructor() { }
 

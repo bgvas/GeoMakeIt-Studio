@@ -7,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GamesComponent implements OnInit {
 
-  listOfGames = [{
-    title: 'Hello',
-    description: 'asdfsdfvadsvsdvsdag'
-  }];
+  listOfGames = [
+      {
+        title: 'Fight Club',
+        description: 'My First Game'
+      },
+      {
+        title: 'Quiz game',
+        description: 'My First quiz Game'
+      }
+      ];
 
   constructor() { }
 

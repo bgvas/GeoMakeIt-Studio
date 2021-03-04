@@ -13,15 +13,19 @@
                         <p class="card-category"></p>
                     </div>
                     <div class="card-content table-responsive table-full-width">
-                        <table class="table">
+                        <table class="table" >
                             <thead class="text-danger">
                             <th>Title</th>
                             <th>Description</th>
                             </thead>
                             <tbody>
-                                <tr *ngFor = "let game of listOfGames">
-                                    <td>{{game.title}}</td>
-                                    <td>{{game.description}}</td>
+                                <tr *ngFor = "let game of listOfGames" class="mat-h3">
+                                    <td *ngIf="game.title === ''" class="text-gray" >- no games -</td>
+                                    <td >{{game.title}}</td>
+                                    <td >{{game.description}}</td>
+                                    <td class="text-right">
+                                        <app-button-toggles></app-button-toggles>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

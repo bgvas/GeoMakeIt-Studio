@@ -18,7 +18,7 @@
                                     <textarea class="mb-2" matInput type="text" placeholder="Description" #description formControlName="description" ></textarea>
                                     <mat-error *ngIf = "createGameForm.controls['description'].value === ''">Description is required</mat-error>
                                 </mat-form-field>
-                                <button type="submit" class="btn btn-info m-2" >Save</button>
+                                <button type="submit" class="btn btn-info m-4" >Save</button>
                                 <button type="reset" class="btn btn-secondary m-2" (click) = onCancel()>Cancel</button>
                             </form>
                         </div>

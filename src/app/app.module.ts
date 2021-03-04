@@ -27,6 +27,10 @@ import { PlugInsComponent } from './plugins/plug-ins/plug-ins.component';
 import { CreatePluginComponent } from './plugins/create-plugin/create-plugin.component';
 import {MatInputModule} from '@angular/material/input';
 import { CreateGameComponent } from './games/create-game/create-game.component';
+import { ButtonTogglesComponent } from './button-toggles/button-toggles.component';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { EditPluginComponent } from './plugins/edit-plugin/edit-plugin.component';
 
 
 @NgModule({
@@ -38,10 +42,12 @@ import { CreateGameComponent } from './games/create-game/create-game.component';
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
+    MatButtonToggleModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     }),
-    MatInputModule
+    MatInputModule,
+    MatTooltipModule
   ],
   declarations: [
     AppComponent,
@@ -49,7 +55,9 @@ import { CreateGameComponent } from './games/create-game/create-game.component';
     GamesComponent,
     PlugInsComponent,
     CreatePluginComponent,
-    CreateGameComponent
+    CreateGameComponent,
+    ButtonTogglesComponent,
+    EditPluginComponent
 
   ],
   providers: [],
