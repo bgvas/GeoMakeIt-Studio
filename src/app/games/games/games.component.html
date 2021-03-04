@@ -1,0 +1,33 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 text-right">
+                <a class="btn btn-info" role="button" routerLinkActive="active" href="#/games/create">+ New</a>
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger" >
+                        <h4 class="card-title">My Games</h4>
+                        <p class="card-category"></p>
+                    </div>
+                    <div class="card-content table-responsive table-full-width">
+                        <table class="table">
+                            <thead class="text-danger">
+                            <th>Title</th>
+                            <th>Description</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor = "let game of listOfGames">
+                                    <td>{{game.title}}</td>
+                                    <td>{{game.description}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

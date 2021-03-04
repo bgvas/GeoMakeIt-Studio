@@ -1,0 +1,28 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-6 ">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">New Plugin</h4>
+                        <p class="card-category">Type a unique identifier</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="col-sm-12">
+                            <form [formGroup]="createPluginForm">
+                                <mat-form-field class="example-full-width" style="height:80px">
+                                    <input class="mb-2" matInput type="text" placeholder="Identifier" #identifier formControlName="identifier" />
+                                    <mat-error *ngIf = "createPluginForm.controls['identifier'].value === ''">Identifier is required</mat-error>
+                                    <mat-error *ngIf = "createPluginForm.get('identifier').value?.length < 3 || createPluginForm.get('identifier').value?.length > 32">Identifier must have min-3 to max-32 characters</mat-error>
+                                    <mat-error *ngIf = "createPluginForm.controls['identifier'].errors?.pattern">Identifier must start with an alphabetic character and contains only lowercase</mat-error>
+                                </mat-form-field>
+                                <button type="submit" class="btn btn-info m-2" >Save</button>
+                                <button type="reset" class="btn btn-secondary m-2" (click) = onCancel()>Cancel</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
