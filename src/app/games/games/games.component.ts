@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NotificationsComponent} from '../../notifications/notifications.component';
 
 @Component({
   selector: 'app-games',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./games.component.css']
 })
 export class GamesComponent implements OnInit {
+
+    delete;
+    notification = new NotificationsComponent();
 
   listOfGames = [
       {
@@ -22,5 +26,13 @@ export class GamesComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  onDelete(data): void{
+      if (data) {
+          this.delete = true;
+          this.notification.showNotification('Game Deleted', 'success');
+      }
+  }
+
 
 }

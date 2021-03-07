@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-button-toggles',
@@ -7,9 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ButtonTogglesComponent implements OnInit {
 
+  @Input() element: string;
+  @Input() name: string;
+  @Input() id: number;
+
+  @Output() delete = new EventEmitter();
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onDelete(data): void {
+    this.delete.emit(data);
   }
 
 }

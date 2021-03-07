@@ -31,6 +31,15 @@ import { ButtonTogglesComponent } from './button-toggles/button-toggles.componen
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { EditPluginComponent } from './plugins/edit-plugin/edit-plugin.component';
+import { DetailsCardComponent } from './details-card/details-card.component';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
+import {MatIconModule} from '@angular/material/icon';
+import { DeletePopUpComponent } from './delete-pop-up/delete-pop-up.component';
+import {MatButtonModule} from '@angular/material/button';
+import {AdminLayoutModule} from './layouts/admin-layout/admin-layout.module';
+import { Error404Component } from './error404/error404.component';
+import { AvailablePluginsComponent } from './plugins/available-plugins/available-plugins.component';
+
 
 
 @NgModule({
@@ -43,11 +52,15 @@ import { EditPluginComponent } from './plugins/edit-plugin/edit-plugin.component
     RouterModule,
     AppRoutingModule,
     MatButtonToggleModule,
+    MaterialFileInputModule,
+    MatIconModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     }),
     MatInputModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatButtonModule,
+    AdminLayoutModule
   ],
   declarations: [
     AppComponent,
@@ -57,7 +70,11 @@ import { EditPluginComponent } from './plugins/edit-plugin/edit-plugin.component
     CreatePluginComponent,
     CreateGameComponent,
     ButtonTogglesComponent,
-    EditPluginComponent
+    EditPluginComponent,
+    DetailsCardComponent,
+    DeletePopUpComponent,
+    Error404Component,
+    AvailablePluginsComponent
 
   ],
   providers: [],

@@ -24,7 +24,7 @@
                                     <td >{{game.title}}</td>
                                     <td >{{game.description}}</td>
                                     <td class="text-right">
-                                        <app-button-toggles></app-button-toggles>
+                                        <app-button-toggles [id] = '5' [element] = "'game'" [name] = "'Fight Club'" (delete) = "onDelete($event)"></app-button-toggles>
                                     </td>
                                 </tr>
                             </tbody>

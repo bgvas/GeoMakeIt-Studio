@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, EventEmitter, OnInit, Output} from '@angular/core';
+import {Location} from '@angular/common';
+
 
 @Component({
   selector: 'app-delete-pop-up',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeletePopUpComponent implements OnInit {
 
-  constructor() { }
+  @Input() element: string;
+  @Input() name: string;
+
+  @Output() delete = new EventEmitter();
+
+  constructor(private location: Location) { }
 
   ngOnInit(): void {
   }
 
+  onCancel(): void {
+    this.location.back();
+  }
+
+  onDelete(): void {
+    this.delete.emit(true);
+    window.close();
+  }
 }

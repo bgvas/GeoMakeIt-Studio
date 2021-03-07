@@ -1,9 +1,9 @@
 <p>
-    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" class="bg-primary">
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
         <mat-button-toggle matTooltip="Read view of the game" value=""><i class="material-icons text-gray">visibility</i></mat-button-toggle>
-        <mat-button-toggle matTooltip="View plugins of the game" value=""><i class="material-icons text-info">extension</i></mat-button-toggle>
+        <mat-button-toggle matTooltip="View plugins of the game" routerLinkActive = true [routerLink]="'/plugins/available-plugins'" [queryParams]="{id: 'id'}" value=""><i class="material-icons text-info">extension</i></mat-button-toggle>
         <mat-button-toggle matTooltip="Build and download the game" value=""><i class="material-icons text-primary">build</i></mat-button-toggle>
         <mat-button-toggle matTooltip="Edit the game" value="underline"><i class="material-icons text-success">sticky_note_2</i></mat-button-toggle>
-        <mat-button-toggle matTooltip="Delete the game" value=""><i class="material-icons text-danger">delete</i></mat-button-toggle>
+        <mat-button-toggle><app-delete-pop-up [element]="'game'" [name]="'Fight Club'" (delete) = "onDelete($event)"></app-delete-pop-up></mat-button-toggle>
     </mat-button-toggle-group>
 </p>
