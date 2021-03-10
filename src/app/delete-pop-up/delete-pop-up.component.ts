@@ -1,5 +1,6 @@
 import {Component, Input, EventEmitter, OnInit, Output} from '@angular/core';
 import {Location} from '@angular/common';
+import {GameService} from '../games/game.service';
 
 
 @Component({
@@ -9,14 +10,15 @@ import {Location} from '@angular/common';
 })
 export class DeletePopUpComponent implements OnInit {
 
-  @Input() element: string;
-  @Input() name: string;
+  @Input() element;
 
   @Output() delete = new EventEmitter();
+
 
   constructor(private location: Location) { }
 
   ngOnInit(): void {
+
   }
 
   onCancel(): void {
@@ -27,4 +29,5 @@ export class DeletePopUpComponent implements OnInit {
     this.delete.emit(true);
     window.close();
   }
+
 }

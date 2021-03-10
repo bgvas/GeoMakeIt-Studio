@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AvailablePluginsComponent } from './available-plugins.component';
+import { PluginsForGamesComponent } from './plugins-for-games.component';
 
-describe('AvailablePluginsComponent', () => {
-  let component: AvailablePluginsComponent;
-  let fixture: ComponentFixture<AvailablePluginsComponent>;
+describe('PluginsForGamesComponent', () => {
+  let component: PluginsForGamesComponent;
+  let fixture: ComponentFixture<PluginsForGamesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AvailablePluginsComponent ]
+      declarations: [ PluginsForGamesComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AvailablePluginsComponent);
+    fixture = TestBed.createComponent(PluginsForGamesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

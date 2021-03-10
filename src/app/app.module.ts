@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 
+
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 
@@ -38,7 +39,9 @@ import { DeletePopUpComponent } from './delete-pop-up/delete-pop-up.component';
 import {MatButtonModule} from '@angular/material/button';
 import {AdminLayoutModule} from './layouts/admin-layout/admin-layout.module';
 import { Error404Component } from './error404/error404.component';
-import { AvailablePluginsComponent } from './plugins/available-plugins/available-plugins.component';
+import { PluginCardComponent } from './plugins/plugin-card/plugin-card.component';
+import { PluginsForGamesComponent } from './games/plugins-for-games/plugins-for-games.component';
+import { PluginConfigsComponent } from './games/plugin-configs/plugin-configs.component';
 
 
 
@@ -74,7 +77,9 @@ import { AvailablePluginsComponent } from './plugins/available-plugins/available
     DetailsCardComponent,
     DeletePopUpComponent,
     Error404Component,
-    AvailablePluginsComponent
+    PluginCardComponent,
+    PluginsForGamesComponent,
+    PluginConfigsComponent
 
   ],
   providers: [],

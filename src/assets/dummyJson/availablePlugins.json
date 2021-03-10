@@ -1,0 +1,24 @@
+[
+      {
+        "id": 0,
+        "name": "Map Plugin",
+        "description": "Plugin for maps",
+        "version": "1.0.1",
+        "downloads": 156,
+        "valuation": 4,
+        "state": "enabled",
+        "required": false,
+        "gameId": ""
+      },
+      {
+        "id": 1,
+        "name": "Color Plugin",
+        "description": "Plugin for colors",
+        "version": "1.0.1",
+        "downloads": 2345,
+        "valuation": 5,
+        "state": "enabled",
+        "required": false,
+        "gameId": ""
+      }
+]

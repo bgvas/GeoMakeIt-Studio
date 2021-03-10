@@ -1,0 +1,91 @@
+<div class="card shadow">
+    <div class="card-header card-header-info" >
+        <h4 class="card-title">
+            {{plugin.name}}
+        </h4>
+        <p class="card-category">
+            {{plugin.description}}
+        </p>
+    </div>
+    <div class="card-body">
+        <div class="col-12">
+            <strong>
+                version:
+                <span class="text-info">
+                    {{plugin.version}}
+                </span>
+            </strong>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <table class="w-100">
+                    <tr>
+                        <td class="text-center border border-info">
+                            <span *ngIf="plugin.state === 'enabled'" class="text-success" style="font-weight: bold">
+                                <span *ngIf = "plugin.gameId === ''">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <i class="material-icons pt-2">
+                                                download
+                                            </i>
+                                            {{plugin.downloads}}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            {{plugin.valuation}} *
+                                        </div>
+                                    </div>
+                                </span>
+                                <span *ngIf = "plugin.gameId !== ''">
+                                    Enabled
+                                </span>
+                            </span>
+                            <span *ngIf="plugin.state !== 'enabled'" class="text-danger" style="font-weight: bold">
+                                Disabled
+                            </span>
+                        </td>
+                        <td class="text-center border border-info">
+                            <div *ngIf="plugin.gameId !== ''">
+                                <mat-button-toggle matTooltip="enter to configurations" (click)="goToConfig()" routerLinkActive = true style="border: 0">
+                                    <i class="material-icons text-info">
+                                        settings
+                                    </i>
+                                    <span class="font-weight-bold text-info">
+                                        Configuration
+                                    </span>
+                                </mat-button-toggle>
+                            </div>
+                            <div *ngIf="plugin.gameId === ''">
+                                <mat-button-toggle matTooltip="Information about this plugin" routerLinkActive = true style="border: 0">
+                                    <i class="material-icons text-info">
+                                        info
+                                    </i>
+                                    <span class="text-info" style="font-weight: bold">
+                                        Info
+                                    </span>
+                                </mat-button-toggle>
+                            </div>
+                        </td>
+                        <td class="text-center border border-info">
+                            <span *ngIf="plugin.required" class="text-black">this plugin is required</span>
+                            <span *ngIf="!plugin.required" class="text-black">
+                                <mat-button-toggle  *ngIf="plugin.gameId !== ''" style="border: 0">
+                                    <app-delete-pop-up  [element] = "plugin" (delete)="deletePlugin($event)"></app-delete-pop-up>
+                                </mat-button-toggle>
+                                <mat-button-toggle  *ngIf="plugin.gameId === ''" style="border: 0">
+                                    <i class="material-icons text-success">
+                                        download
+                                    </i>
+                                    <span class="text-success" style="font-weight: bold">
+                                       Install
+                                    </span>
+                                </mat-button-toggle>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

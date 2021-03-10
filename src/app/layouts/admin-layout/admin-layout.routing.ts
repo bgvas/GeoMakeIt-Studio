@@ -13,7 +13,8 @@ import {PlugInsComponent} from '../../plugins/plug-ins/plug-ins.component';
 import {CreatePluginComponent} from '../../plugins/create-plugin/create-plugin.component';
 import {CreateGameComponent} from '../../games/create-game/create-game.component';
 import {EditPluginComponent} from '../../plugins/edit-plugin/edit-plugin.component';
-import {AvailablePluginsComponent} from '../../plugins/available-plugins/available-plugins.component';
+import {PluginsForGamesComponent} from '../../games/plugins-for-games/plugins-for-games.component'
+import {PluginConfigsComponent} from '../../games/plugin-configs/plugin-configs.component';
 
 export const AdminLayoutRoutes: Routes = [
 
@@ -21,8 +22,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'user-profile',   component: UserProfileComponent },
     { path: 'games',   component: GamesComponent },
     { path: 'games/create', component: CreateGameComponent},
+    { path: 'games/plugins', component: PluginsForGamesComponent},
+    { path: 'games/plugins/config', component: PluginConfigsComponent},
     { path: 'plugins', component: PlugInsComponent},
     { path: 'plugins/create', component: CreatePluginComponent},
-    { path: 'plugins/edit', component: EditPluginComponent},
-    { path: 'plugins/available-plugins', component: AvailablePluginsComponent}
+    { path: 'plugins/edit', component: EditPluginComponent}
 ];

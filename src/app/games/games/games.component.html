@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 text-right">
-                <a class="btn btn-info" role="button" routerLinkActive="active" href="#/games/create">+ New</a>
+                <a class="btn btn-info" role="button" routerLinkActive="active" href="#/games/create">+ New</a>  <!-- Create new game if button clicked -->
             </div>
         </div>
         <div class="row m-2">
@@ -15,16 +15,16 @@
                     <div class="card-content table-responsive table-full-width">
                         <table class="table" >
                             <thead class="text-danger">
-                            <th>Title</th>
-                            <th>Description</th>
+                                <th>Title</th>
+                                <th>Description</th>
                             </thead>
                             <tbody>
-                                <tr *ngFor = "let game of listOfGames" class="mat-h3">
+                                <tr *ngFor = "let game of listOfGames" class="mat-h3">   <!-- Display the list of user's games  -->
                                     <td *ngIf="game.title === ''" class="text-gray" >- no games -</td>
-                                    <td >{{game.title}}</td>
-                                    <td >{{game.description}}</td>
+                                    <td *ngIf="game.title !== ''">{{game.title}}</td>
+                                    <td *ngIf="game.description !== ''">{{game.description}}</td>
                                     <td class="text-right">
-                                        <app-button-toggles [id] = '5' [element] = "'game'" [name] = "'Fight Club'" (delete) = "onDelete($event)"></app-button-toggles>
+                                        <app-button-toggles [game] = "game" (click)="onClick(game)" (delete) = "onDelete($event)" ></app-button-toggles>
                                     </td>
                                 </tr>
                             </tbody>

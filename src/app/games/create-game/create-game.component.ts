@@ -18,6 +18,7 @@ export class CreateGameComponent implements OnInit {
     this.initializeForm();
   }
 
+  // declare form structure //
   initializeForm(): void {
     this.createGameForm = this.fb.group({
       title: this.fb.control('', Validators.required),
@@ -26,6 +27,7 @@ export class CreateGameComponent implements OnInit {
   }
 
 
+  // on cancel, return to parent component //
   onCancel(): void {
     this.location.back();
   }

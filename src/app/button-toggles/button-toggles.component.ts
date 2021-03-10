@@ -1,4 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {GameService} from '../games/game.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-button-toggles',
@@ -7,19 +9,26 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class ButtonTogglesComponent implements OnInit {
 
-  @Input() element: string;
-  @Input() name: string;
-  @Input() id: number;
-
   @Output() delete = new EventEmitter();
+  @Input() game: any;
 
-  constructor() { }
+
+  constructor(public service: GameService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  // if clicked, delete button, return true to parent component //
   onDelete(data): void {
-    this.delete.emit(data);
+    if (data) {
+      this.delete.emit(true);
+    }
+  }
+
+  // send gameObject to pluginForGames, in order to add or edit plugins of your game//
+  sendDataToPluginsForGames(): void {
+    this.service.object = this.game;
+    this.router.navigate(['/games/plugins']);
   }
 
 }

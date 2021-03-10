@@ -19,7 +19,7 @@ export class DetailsCardComponent implements OnInit {
   }
 
   isEmptyObject(): boolean {
-   if (this.details.title){
+   if (this.details.title) {
      console.log(true);
    } else {
      console.log(false);

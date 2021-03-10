@@ -1,0 +1,13 @@
+[
+      {
+        "id": 0,
+        "name": "GeoMakeIt!",
+        "description": "The main API",
+        "version": "1.0.1",
+        "downloads": 156,
+        "valuation": 4,
+        "state": "enabled",
+        "required": true,
+        "gameId": "1"
+      }
+]
