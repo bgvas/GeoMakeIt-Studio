@@ -1,0 +1,52 @@
+
+{
+  "page_title":"Questions Editor",
+  "page_description":"You can add/edit/remove your questions in here",
+  "designer_type":"data",
+  "file":"questions",
+  "designer":{
+    "0":{
+      "title":"Question Group1",
+      "tooltip":"Just an example tooltip",
+      "components":{
+        "question":{
+          "type":"textBox",
+          "validation":"required|string|min:5|max:80",
+          "tooltip":"The question that the user will have to answer",
+          "placeholder": "type text"
+        },
+        "question_type":{
+          "type":"dropdown",
+          "value":"multiple_choice",
+          "items":[
+            "multiple_choice",
+            "multiple_choice_any",
+            "multiple_choice_all",
+            "fill_in_the_blank",
+            "textBox"
+          ],
+          "validation":"required"
+        },
+        "possible_answers":{
+          "type":"arrayString",
+          "validation":"visible_if:this.question_type,(multiple_choice, multiple_choice_any, multiple_choice_all)"
+        },
+        "correct_answer":{
+          "type":"textBox",
+          "tooltip":"The unique id of a possible answer",
+          "placeholder":"0",
+          "validation":"required_if:this.question_type,(multiple_choice, multiple_choice_any, multiple_choice_all)"
+        }
+      }
+    },
+    "1":{
+      "components":{
+        "image":{
+          "type":"image",
+          "validation":""
+        }
+      }
+    }
+  }
+}
+
