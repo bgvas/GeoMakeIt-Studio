@@ -42,6 +42,11 @@ import { Error404Component } from './error404/error404.component';
 import { PluginCardComponent } from './plugins/plugin-card/plugin-card.component';
 import { PluginsForGamesComponent } from './games/plugins-for-games/plugins-for-games.component';
 import { PluginConfigsComponent } from './games/plugin-configs/plugin-configs.component';
+import { TabGroupComponent } from './tab-group/tab-group.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { InformationComponent } from './games/plugin-configs/information/information.component';
+import { ConfigsComponent } from './games/plugin-configs/configs/configs.component';
+import { StringsComponent } from './games/plugin-configs/strings/strings.component';
 
 
 
@@ -63,7 +68,8 @@ import { PluginConfigsComponent } from './games/plugin-configs/plugin-configs.co
     MatInputModule,
     MatTooltipModule,
     MatButtonModule,
-    AdminLayoutModule
+    AdminLayoutModule,
+    MatTabsModule
   ],
   declarations: [
     AppComponent,
@@ -79,7 +85,11 @@ import { PluginConfigsComponent } from './games/plugin-configs/plugin-configs.co
     Error404Component,
     PluginCardComponent,
     PluginsForGamesComponent,
-    PluginConfigsComponent
+    PluginConfigsComponent,
+    TabGroupComponent,
+    InformationComponent,
+    ConfigsComponent,
+    StringsComponent
 
   ],
   providers: [],
