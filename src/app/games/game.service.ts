@@ -13,7 +13,7 @@ export class GameService {
   constructor(private http: HttpClient) { }
 
   getGameById(id) {
-    const url = './assets/dummyJson/listWithGamesOfUser';
+    const url = './assets/dummyJson/gameById.json';
     return this.http.get(url);
   }
 
