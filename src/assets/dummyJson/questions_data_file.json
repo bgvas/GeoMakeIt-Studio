@@ -1,0 +1,38 @@
+{
+  "question_1": {
+    "question": "When you mix red and blue paint, what color does it make?",
+    "question_type": "multiple_choice",
+    "possible_answers": [
+      "Aqua",
+      "Purple",
+      "Green"
+    ],
+    "correct_answer": 1,
+    "image": "@drawable/geoquiz_palette"
+  },
+
+  "question_2": {
+    "question": "How are you?",
+    "question_type": "textBox",
+    "possible_answers": [],
+    "correct_answer": "Fine",
+    "image": "@drawable/geoquiz_palette"
+  },
+
+
+  "question_3": {
+    "question": "What Day is it?",
+    "question_type": "multiple_choice_any",
+    "possible_answers": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Tuesday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ],
+    "correct_answer": 6,
+    "image": "@drawable/geoquiz_palette"
+  }
+}

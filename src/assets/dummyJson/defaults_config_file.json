@@ -1,0 +1,19 @@
+{
+  "questions": {
+    "allowed_wrong_answers_per_question": 0,
+    "reward_on_correct": [],
+    "reward_on_wrong": []
+  },
+  "quizzes": {
+    "next_question_delay": 1,
+    "ratio_for_success": 1.0,
+    "reward_on_success": [],
+    "reward_on_failure": 2
+  },
+  "fights": {
+    "date_of_fight": 4,
+    "ratio_for_success": 3.2,
+    "reward_on_success": [],
+    "reward_on_failure": 9
+  }
+}
