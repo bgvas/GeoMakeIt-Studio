@@ -15,10 +15,33 @@
                     <div class="card-content table-responsive table-full-width">
                         <table class="table">
                             <thead class="text-danger">
-                            <th>Identifier</th>
-                            <th>Title</th>
-                            <th>Description</th>
+                                <th>Identifier</th>
+                                <th>Title</th>
+                                <th>Description</th>
                             </thead>
+                            <tbody>
+                                <tr *ngFor = "let plugin of listOfPlugins" class="mat-h3">
+                                    <td *ngIf="plugin.identifier === ''" class="text-gray" >- no plugins -</td>
+                                    <td>{{plugin.identifier}}</td>
+                                    <td>{{plugin.title}}</td>
+                                    <td>{{plugin.description}}</td>
+                                    <td class="text-right">
+                                        <div>
+                                            <form>
+                                                <mat-button-toggle class="mr-2 bg-info text-white" [routerLink]="'/plugins/edit'" [queryParams]="{id: 5}">
+                                                    Upload
+                                                    <i class="material-icons text-white">
+                                                        file_upload
+                                                    </i>
+                                                </mat-button-toggle>
+                                                <mat-button-toggle class="border-danger">
+                                                    <app-delete-pop-up  [element] = "plugin" (delete)="onDelete($event)"></app-delete-pop-up>
+                                                </mat-button-toggle>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>

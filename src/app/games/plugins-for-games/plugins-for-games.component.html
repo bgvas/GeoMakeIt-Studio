@@ -1,0 +1,51 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-12 ">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Plugins for {{game?.title}}<span *ngIf="!game?.title">a Game</span></h4>
+                        <p class="card-category"></p>
+                    </div>
+                    <div class="card-body">
+                        <div class="col-12">
+                            <p>     <!-- Installed Plugins  -->
+                                <button  class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#installedPlugins" aria-expanded="false" aria-controls="installedPlugins">
+                                    installed Plugins
+                                </button>
+                            </p>
+                            <hr>
+                            <div class="collapse" id="installedPlugins">
+                                <div class="card card-body border border-info" >
+                                    <div class="row">
+                                        <div class="col-4" *ngFor="let installedPlugin of installedPlugins">  <!-- installed plugins -->
+                                            <app-plugin-card [plugin] = "installedPlugin"></app-plugin-card>
+                                        </div>  <!-- end of installed plugins -->
+                                    </div>
+                                </div>
+                            </div>
+                            <p>         <!-- Available plugins -->
+                                <button class="btn btn-outline-info" type="button" data-toggle="collapse"
+                                        data-target="#availablePlugins" aria-expanded="false"
+                                        aria-controls="availablePlugins">
+                                    Available Plugins
+                                </button>
+                            </p>
+                            <hr>
+                            <div class="collapse" id="availablePlugins">
+                                <div class="card card-body border border-info" >
+                                    <div class="row">
+                                        <div class="col-4" *ngFor="let availablePlugin of availablePlugins">  <!-- available plugins -->
+                                            <app-plugin-card [plugin] = "availablePlugin"></app-plugin-card>
+                                        </div>  <!-- end of available plugins -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

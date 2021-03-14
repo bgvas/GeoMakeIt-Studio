@@ -1,0 +1,39 @@
+<div class="main-content align-middle">
+    <div class="container">
+        <div class="row w-50" style="margin-left: 270px">
+            <div class="col-12 ">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card" style="height: 600px">
+                            <div class="card-header card-header-danger" >
+                                <h4 class="card-title">Plugin</h4>
+                                <p class="card-category"></p>
+                            </div>
+                            <div class="row m-2">
+                                <div class="col-12" *ngIf="descriptionObject">
+                                    <app-details-card [details]="descriptionObject"></app-details-card>
+                                </div>
+                                <div class="col-12" *ngIf="!descriptionObject">
+                                    <h3>- no plugin -</h3>
+                                </div>
+
+                                <div class="row m-2">
+                                    <div class="col-12 input-group" >
+                                        <mat-form-field appearance="outline" [style.width.px]="465">
+                                        <mat-label>Choose a file</mat-label>
+                                        <ngx-mat-file-input placeholder="Choose a file" [disabled]="false"></ngx-mat-file-input>
+                                        <mat-icon matSuffix class="text-info">folder</mat-icon>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-12 m-2">
+                                    <button type="reset" class="btn btn-secondary m-2" (click) = onCancel()>Back</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

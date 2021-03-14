@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 
+
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 
@@ -27,6 +28,21 @@ import { PlugInsComponent } from './plugins/plug-ins/plug-ins.component';
 import { CreatePluginComponent } from './plugins/create-plugin/create-plugin.component';
 import {MatInputModule} from '@angular/material/input';
 import { CreateGameComponent } from './games/create-game/create-game.component';
+import { ButtonTogglesComponent } from './button-toggles/button-toggles.component';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { EditPluginComponent } from './plugins/edit-plugin/edit-plugin.component';
+import { DetailsCardComponent } from './details-card/details-card.component';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
+import {MatIconModule} from '@angular/material/icon';
+import { DeletePopUpComponent } from './delete-pop-up/delete-pop-up.component';
+import {MatButtonModule} from '@angular/material/button';
+import {AdminLayoutModule} from './layouts/admin-layout/admin-layout.module';
+import { Error404Component } from './error404/error404.component';
+import { PluginCardComponent } from './plugins/plugin-card/plugin-card.component';
+import { PluginsForGamesComponent } from './games/plugins-for-games/plugins-for-games.component';
+import { PluginConfigsComponent } from './games/plugin-configs/plugin-configs.component';
+
 
 
 @NgModule({
@@ -38,10 +54,16 @@ import { CreateGameComponent } from './games/create-game/create-game.component';
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
+    MatButtonToggleModule,
+    MaterialFileInputModule,
+    MatIconModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     }),
-    MatInputModule
+    MatInputModule,
+    MatTooltipModule,
+    MatButtonModule,
+    AdminLayoutModule
   ],
   declarations: [
     AppComponent,
@@ -49,7 +71,15 @@ import { CreateGameComponent } from './games/create-game/create-game.component';
     GamesComponent,
     PlugInsComponent,
     CreatePluginComponent,
-    CreateGameComponent
+    CreateGameComponent,
+    ButtonTogglesComponent,
+    EditPluginComponent,
+    DetailsCardComponent,
+    DeletePopUpComponent,
+    Error404Component,
+    PluginCardComponent,
+    PluginsForGamesComponent,
+    PluginConfigsComponent
 
   ],
   providers: [],

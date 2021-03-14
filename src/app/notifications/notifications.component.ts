@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 declare var $: any;
 @Component({
   selector: 'app-notifications',
@@ -8,21 +8,21 @@ declare var $: any;
 export class NotificationsComponent implements OnInit {
 
   constructor() { }
-  showNotification(from, align){
-      const type = ['','info','success','warning','danger'];
 
-      const color = Math.floor((Math.random() * 4) + 1);
+  showNotification(message, notificationType) {
+      const type = ['', 'info', 'success', 'warning', 'danger'];
+
 
       $.notify({
-          icon: "notifications",
-          message: "Welcome to <b>Material Dashboard</b> - a beautiful freebie for every web developer."
+          icon: 'notifications',
+          message: message
 
-      },{
-          type: type[color],
-          timer: 4000,
+      }, {
+          type: notificationType,
+          timer: 500,   // display notification, for 500ms
           placement: {
-              from: from,
-              align: align
+              from: 'top', // begin from
+              align: 'right'// notification alignment
           },
           template: '<div data-notify="container" class="col-xl-4 col-lg-4 col-11 col-sm-4 col-md-4 alert alert-{0} alert-with-icon" role="alert">' +
             '<button mat-button  type="button" aria-hidden="true" class="close mat-button" data-notify="dismiss">  <i class="material-icons">close</i></button>' +
