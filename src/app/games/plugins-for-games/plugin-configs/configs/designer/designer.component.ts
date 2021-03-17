@@ -97,6 +97,18 @@ export class DesignerComponent implements OnInit {
       }
   }
 
+  isEmpty(value): boolean {
+      if (value.length === 0) {
+          return true;
+      } else if (value === '{}') {
+          return true;
+      } else if (value === new Array([])) {
+          return true;
+      }
+      return false;
+
+  }
+
 
 
 }

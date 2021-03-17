@@ -59,7 +59,7 @@
       "tooltip": "Just an example tooltip",
       "components": {
         "fight.date_of_fight": {
-          "type": "datepicker",
+          "type": "integer",
           "validation": ".....",
           "tooltip": "choose date"
         },

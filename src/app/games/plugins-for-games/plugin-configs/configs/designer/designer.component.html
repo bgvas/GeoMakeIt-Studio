@@ -34,7 +34,7 @@
                                     <div class="col-12">
                                         <div class="border p-2 shadow">
                                             <div *ngFor="let designerItem of designer?.designer[y].components | keyvalue; let z = index">
-                                                <div *ngIf="designerItem.value" class="row">
+                                                <div *ngIf="!isEmpty(dataResult.value[removeStringBeforeDot(designerItem.key)])" class="row">
                                                     <div class="col-6">
                                                         <div class="form-control form-control-plaintext mb-2 p-2">
                                                             {{removeUnderscore(removeStringBeforeDot(designerItem.key)) | titlecase}}
