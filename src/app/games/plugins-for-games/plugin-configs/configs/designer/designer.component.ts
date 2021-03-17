@@ -81,7 +81,7 @@ export class DesignerComponent implements OnInit {
   }
 
   onSubmit(): void {
-      console.log(this.dataForm.controls);
+      console.log(JSON.stringify(this.dataForm.value));
   }
 
   removeUnderscore(str): string {
@@ -99,10 +99,6 @@ export class DesignerComponent implements OnInit {
 
   isEmpty(value): boolean {
       if (value.length === 0) {
-          return true;
-      } else if (value === '{}') {
-          return true;
-      } else if (value === new Array([])) {
           return true;
       }
       return false;

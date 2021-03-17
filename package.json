@@ -1,10 +1,9 @@
 {
-  "name": "material-dashboard-angular",
-  "version": "2.5.0",
-  "license": "MIT",
+  "name": "geomakeitstudio-fe",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",// ng serve
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -32,6 +31,9 @@
     "@angular/platform-server": "10.1.4",
     "@angular/router": "10.1.4",
     "@ng-bootstrap/ng-bootstrap": "^8.0.4",
+    "@angular-devkit/build-angular": "0.1001.4",
+    "@angular/cli": "10.1.4",
+    "@angular/compiler-cli": "10.1.4",
     "ajv": "6.12.5",
     "arrive": "2.4.1",
     "bootstrap": "^4.5.2",

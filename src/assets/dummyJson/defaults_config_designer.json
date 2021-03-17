@@ -68,7 +68,7 @@
           "validation": "....."
         },
         "fight.reward_on_success": {
-          "type": "arrayOfCommands",
+          "type": "arrayOfIntegers",
           "items": [
             "plugin_identifier::command <parameters and flags>"
           ],
