@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {DesignerService} from './designer.service';
+import {DesignerService} from './designer/designer.service';
 import {RootDesigner} from '../../../../classes/rootDesignerClass/root-designer';
 import {DesignerItem} from '../../../../classes/designerItem/designer-item';
+import {DataFileService} from './designer/data-file.service';
 
 @Component({
   selector: 'app-configs',
@@ -11,18 +12,13 @@ import {DesignerItem} from '../../../../classes/designerItem/designer-item';
 export class ConfigsComponent implements OnInit {
 
   designer: RootDesigner;
+  data: any;
 
-  constructor(public service: DesignerService) { }
+  constructor(public designerService: DesignerService, public dataService: DataFileService) { }
 
   ngOnInit(): void {
-    this.service.getDefaultConfigDesigner().subscribe(data => {
+    this.designerService.getDefaultConfigDesigner().subscribe(data => {
       this.designer = data;
-      /*for (const item in data.designer) {
-        for (const obj in data.designer[item].components) {
-          console.log(data.designer[item].components[obj].type);
-        }
-      }*/
-
     })
   }
 

@@ -1,7 +1,72 @@
-<div class="container-fluid">
+
+    <div class="container-fluid w-100">
     <div class="row">
-        <div class="col-12">
-            Hello
+        <div class="col-12 text-center" *ngIf="!designer">
+            <span class="text-danger" style="font-weight: bold">
+                -empty designer file-
+            </span>
+        </div>
+        <div class="col-12 mt-4" *ngIf="designer">
+            <div class="row " style="width: 100%">
+                <div class="col-12 mb-4">
+                    <div *ngIf="!designer?.page_title" class="text-center">
+                        <p>
+                            <span class="text-center  h4" style="font-weight: bold">
+                                {{designer.page_title}}Questions Editor
+                            </span>
+                        </p>
+                        <span *ngIf="!designer.page_description" class="text-center">
+                            {{designer.page_description}}You can add/edit/remove your questions in here
+                        </span>
+                    </div>
+                    <div *ngFor="let dataResult of data | keyvalue: asIsOrderInPipe; let i = index">
+                        <div *ngFor="let designerResult of designer?.designer | keyvalue; let y = index">
+                            <div *ngIf = "y === i">
+                                <div class="row mt-4">
+                                    <div class="col-12">
+                                        <span style="font-weight: bold">
+                                            {{designerResult.value['title']}}
+                                            <app-tooltip-info-circle *ngIf="designerResult.value['tooltip']" [tooltip] = "designerResult.value['tooltip']"></app-tooltip-info-circle>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="border p-2 shadow">
+                                            <div *ngFor="let designerItem of designer?.designer[y].components | keyvalue; let z = index">
+                                                <div *ngIf="designerItem.value" class="row">
+                                                    <div class="col-6">
+                                                        <div class="form-control form-control-plaintext mb-2 p-2">
+                                                            {{removeUnderscore(removeStringBeforeDot(designerItem.key)) | titlecase}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <app-input [formName]="dataForm"
+                                                                   [value] = dataResult.value[removeStringBeforeDot(designerItem.key)]
+                                                                   [groupName] = "dataResult.key"
+                                                                   [type] = "designerItem.value['type']"
+                                                                   [controlName]="removeStringBeforeDot(designerItem.key)">
+                                                        </app-input>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <button class="btn btn-info" type="submit" (click) = "onSubmit()">
+                                Submit Form
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+

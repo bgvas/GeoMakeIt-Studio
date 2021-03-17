@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {RootDesigner} from '../../../../classes/rootDesignerClass/root-designer';
+import {RootDesigner} from '../../../../../classes/rootDesignerClass/root-designer';
 
 @Injectable({
   providedIn: 'root'

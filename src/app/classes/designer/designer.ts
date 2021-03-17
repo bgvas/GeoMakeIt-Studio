@@ -1,6 +1,9 @@
-export class Designer {
+import {ComponentsModule} from '../../components/components.module';
+import {Component} from '../component/component';
+import {DesignerItem} from '../designerItem/designer-item';
 
-    public title?: string;
-    public tooltip?: string;
-    public components?: any;
+export interface Designer {
+
+    [key: string]: DesignerItem;
 }
+

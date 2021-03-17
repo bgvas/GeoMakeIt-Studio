@@ -1,6 +1,6 @@
 import {ComponentObject} from '../componentObject/component-object';
 
-export interface Components {
+export interface Component {
 
     [key: string]: ComponentObject;
 }

@@ -1,7 +1,7 @@
 {
   "questions": {
     "allowed_wrong_answers_per_question": 0,
-    "reward_on_correct": [],
+    "reward_on_correct": ["a", "b", "c"],
     "reward_on_wrong": []
   },
   "quizzes": {

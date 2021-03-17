@@ -1,7 +1,7 @@
-import { Components } from './components';
+import { Component } from './component';
 
 describe('Components', () => {
   it('should create an instance', () => {
-    expect(new Components()).toBeTruthy();
+    expect(new Component()).toBeTruthy();
   });
 });
