@@ -1,7 +1,7 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 
@@ -24,10 +24,10 @@ import {
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { GamesComponent } from './games/games/games.component';
-import { PlugInsComponent } from './plugins/plug-ins/plug-ins.component';
-import { CreatePluginComponent } from './plugins/create-plugin/create-plugin.component';
+import { PlugInsComponent } from './plugins/my-plugins/plug-ins.component';
+import { CreatePluginComponent } from './plugins/create/create-plugin.component';
 import {MatInputModule} from '@angular/material/input';
-import { CreateGameComponent } from './games/create-game/create-game.component';
+import { CreateGameComponent } from './games/create/create-game.component';
 import { ButtonTogglesComponent } from './button-toggles/button-toggles.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -41,12 +41,18 @@ import {AdminLayoutModule} from './layouts/admin-layout/admin-layout.module';
 import { Error404Component } from './error404/error404.component';
 import { PluginCardComponent } from './plugins/plugin-card/plugin-card.component';
 import { PluginsForGamesComponent } from './games/plugins-for-games/plugins-for-games.component';
-import { PluginConfigsComponent } from './games/plugin-configs/plugin-configs.component';
+import { PluginConfigsComponent } from './games/plugins-for-games/plugin-configs/plugin-configs.component';
 import { TabGroupComponent } from './tab-group/tab-group.component';
 import { MatTabsModule } from '@angular/material/tabs';
-import { InformationComponent } from './games/plugin-configs/information/information.component';
-import { ConfigsComponent } from './games/plugin-configs/configs/configs.component';
-import { StringsComponent } from './games/plugin-configs/strings/strings.component';
+import { InformationComponent } from './games/plugins-for-games/plugin-configs/information/information.component';
+import { ConfigsComponent } from './games/plugins-for-games/plugin-configs/configs/configs.component';
+import { StringsComponent } from './games/plugins-for-games/plugin-configs/strings/strings.component';
+import {GlobalHttpInterceptor} from './global-http.interceptor';
+import { DesignerComponent } from './games/plugins-for-games/plugin-configs/configs/designer/designer.component';
+import { TooltipInfoCircleComponent } from './tooltip-info-circle/tooltip-info-circle.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { InputComponent } from './input/input.component';
+
 
 
 
@@ -69,7 +75,8 @@ import { StringsComponent } from './games/plugin-configs/strings/strings.compone
     MatTooltipModule,
     MatButtonModule,
     AdminLayoutModule,
-    MatTabsModule
+    MatTabsModule,
+    NgbModule
   ],
   declarations: [
     AppComponent,
@@ -89,10 +96,17 @@ import { StringsComponent } from './games/plugin-configs/strings/strings.compone
     TabGroupComponent,
     InformationComponent,
     ConfigsComponent,
-    StringsComponent
+    StringsComponent,
+    DesignerComponent,
+    TooltipInfoCircleComponent,
+    InputComponent
 
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: GlobalHttpInterceptor,
+    multi: true,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

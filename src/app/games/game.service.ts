@@ -7,7 +7,7 @@ import {Observable} from 'rxjs';
 })
 export class GameService {
 
-  // creation of an object, for general use (save and pass values between components)
+  // creation of an object, for general use (save and pass values between component)
   _object: any;
 
   constructor(private http: HttpClient) { }

@@ -20,7 +20,7 @@ export class GamesComponent implements OnInit {
       this.service.getGamesOfSpecificUser(1).subscribe(data => this.listOfGames = data)
   }
 
-  // save game-object to service, for sharing between components //
+  // save game-object to service, for sharing between component //
   onClick(obj) {
       this.service.object = obj;
   }

@@ -12,7 +12,7 @@
           "tooltip": "......."
         },
         "questions.reward_on_correct": {
-          "type": "arrayOfCommands",
+          "type": "arrayOfStrings",
           "items": [
             "plugin_identifier::command <parameters and flags"
           ],

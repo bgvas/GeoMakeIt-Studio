@@ -12,7 +12,7 @@ export class InformationComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.plugin.name);
+
   }
 
 }

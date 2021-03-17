@@ -9,12 +9,12 @@ import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import {GamesComponent} from '../../games/games/games.component';
-import {PlugInsComponent} from '../../plugins/plug-ins/plug-ins.component';
-import {CreatePluginComponent} from '../../plugins/create-plugin/create-plugin.component';
-import {CreateGameComponent} from '../../games/create-game/create-game.component';
+import {PlugInsComponent} from '../../plugins/my-plugins/plug-ins.component';
+import {CreatePluginComponent} from '../../plugins/create/create-plugin.component';
+import {CreateGameComponent} from '../../games/create/create-game.component';
 import {EditPluginComponent} from '../../plugins/edit-plugin/edit-plugin.component';
 import {PluginsForGamesComponent} from '../../games/plugins-for-games/plugins-for-games.component'
-import {PluginConfigsComponent} from '../../games/plugin-configs/plugin-configs.component';
+import {PluginConfigsComponent} from '../../games/plugins-for-games/plugin-configs/plugin-configs.component';
 
 export const AdminLayoutRoutes: Routes = [
 
