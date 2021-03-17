@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {GameService} from '../game.service';
+import {GameService} from '../../game.service';
 import {Router} from '@angular/router';
 import {Location} from '@angular/common';
 
@@ -25,6 +25,10 @@ export class PluginConfigsComponent implements OnInit {
         this.plugin = false;
         this.location.back();
       }
+  }
+
+  gameExist(game): boolean {
+    return (game instanceof Object)
   }
 
 }

@@ -4,10 +4,10 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header card-header-danger" >
-                        <p><span class="card-title h4"> Configuration of Game</span></p>
+                        <p><span class="card-title h4">Configuration of Game</span></p>
                         <p class="card-category"></p>
                     </div>
-                    <div class="card-content table-responsive table-full-width">
+                    <div *ngIf="gameExist(game)" class="card-content table-responsive table-full-width">
                         <mat-tab-group>
                             <mat-tab label="Game Information">
                                 <div class="row" style="width: 98%">
@@ -35,7 +35,12 @@
                                                     <app-information [plugin] = "plugin"></app-information>
                                                 </div>
                                                 <div class="tab-pane fade" id="configs-pill" role="tabpanel" aria-labelledby="configs">
-                                                    <app-configs></app-configs>
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <app-configs></app-configs>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                                 <div class="tab-pane fade" id="strings-pill" role="tabpanel" aria-labelledby="strings">
                                                     <app-strings></app-strings>
@@ -46,6 +51,9 @@
                                 </div>
                             </mat-tab>
                         </mat-tab-group>
+                    </div>
+                    <div *ngIf="!gameExist(game)" class="card-content table-responsive table-full-width text-center mt-4">
+                        <span class="text-danger" style="font-weight: bold">- no game selected -</span>
                     </div>
                 </div>
             </div>

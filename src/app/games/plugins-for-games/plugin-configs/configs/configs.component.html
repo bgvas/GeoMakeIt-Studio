@@ -1,0 +1,13 @@
+
+    <div class="container-fluid">
+        <div class="row border">
+            <div class="col-12">
+                <mat-tab-group>
+                    <mat-tab label="{{designer?.file | titlecase}}">
+                        <app-designer [designerFile]="service.getDefaultConfigDesigner()"></app-designer>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </div>
+    </div>
+
