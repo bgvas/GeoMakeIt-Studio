@@ -14,7 +14,7 @@ export class NavbarComponent implements OnInit {
       mobile_menu_visible: any = 0;
     private toggleButton: any;
     private sidebarVisible: boolean;
-    private link = '/user-profile';
+    public link = '/user-profile';
 
     constructor(location: Location,  private element: ElementRef, private router: Router) {
       this.location = location;
@@ -27,7 +27,8 @@ export class NavbarComponent implements OnInit {
       this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
       this.router.events.subscribe((event) => {
         this.sidebarClose();
-         var $layer: any = document.getElementsByClassName('close-layer')[0];
+          // tslint:disable-next-line:prefer-const
+         const $layer: any = document.getElementsByClassName('close-layer')[0];
          if ($layer) {
            $layer.remove();
            this.mobile_menu_visible = 0;
@@ -94,7 +95,7 @@ export class NavbarComponent implements OnInit {
                 $layer.classList.add('visible');
             }, 100);
 
-            $layer.onclick = function() { //asign a function
+            $layer.onclick = function() { // asign a function
               body.classList.remove('nav-open');
               this.mobile_menu_visible = 0;
               $layer.classList.remove('visible');
@@ -112,7 +113,7 @@ export class NavbarComponent implements OnInit {
 
     getTitle(){
       var titlee = this.location.prepareExternalUrl(this.location.path());
-      if(titlee.charAt(0) === '#'){
+      if(titlee.charAt(0) === '#') {
           titlee = titlee.slice( 1 );
       }
 
