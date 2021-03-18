@@ -12,11 +12,11 @@
                     <div *ngIf="!designer?.page_title" class="text-center">
                         <p>
                             <span class="text-center  h4" style="font-weight: bold">
-                                {{designer.page_title}}Questions Editor
+                                {{designer.page_title}}
                             </span>
                         </p>
                         <span *ngIf="!designer.page_description" class="text-center">
-                            {{designer.page_description}}You can add/edit/remove your questions in here
+                            {{designer.page_description}}
                         </span>
                     </div>
                     <div *ngFor="let dataResult of data | keyvalue: asIsOrderInPipe; let i = index">
@@ -25,7 +25,7 @@
                                 <div class="row mt-4">
                                     <div class="col-12">
                                         <p>
-                                            <button  class="btn btn-outline-info" type="button" data-toggle="collapse" [attr.data-target]="'#tab' + i" aria-expanded="false" [attr.aria-controls]="'tab' + i">
+                                            <button  class="btn btn-outline-info" type="button" style="width: 100%" data-toggle="collapse" [attr.data-target]="'#tab' + i" aria-expanded="false" [attr.aria-controls]="'tab' + i">
                                                 {{designerResult.value['title']}}
                                                 <app-tooltip-info-circle *ngIf="designerResult.value['tooltip']" [tooltip] = "designerResult.value['tooltip']"></app-tooltip-info-circle>
                                             </button>
@@ -41,6 +41,7 @@
                                                         <div class="col-6">
                                                             <div class="form-control mb-2 p-2" style="background-color: skyblue">
                                                                 {{removeUnderscore(removeStringBeforeDot(designerItem.key)) | titlecase}}
+                                                                <app-tooltip-info-circle *ngIf="designerItem.value['tooltip']" [tooltip] = "designerItem.value['tooltip']"></app-tooltip-info-circle>
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
@@ -64,7 +65,7 @@
                     <div class="row">
                         <div class="col-12">
                             <button class="btn btn-info" type="submit" (click) = "onSubmit()">
-                                Submit Form
+                                Save Changes
                             </button>
                         </div>
                     </div>

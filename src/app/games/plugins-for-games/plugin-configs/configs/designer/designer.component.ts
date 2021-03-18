@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {RootDesigner} from '../../../../../classes/rootDesignerClass/root-designer';
+import {RootDesigner} from '../../../../../classes/designers/rootDesignerClass/root-designer';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 
 @Component({
