@@ -1,0 +1,85 @@
+{
+  "designer_type": "config",
+  "file": "defaults",
+  "designer": {
+    "0": {
+      "title": "Questions Group",
+      "tooltip": "Just an example tooltip",
+      "components": {
+        "questions.allowed_wrong_answers_per_question": {
+          "type": "integer",
+          "validation": ".....",
+          "tooltip": "......."
+        },
+        "questions.reward_on_correct": {
+          "type": "arrayOfStrings",
+          "items": [
+            "plugin_identifier::command <parameters and flags"
+          ],
+          "validation": "....."
+        },
+        "questions.reward_on_wrong": {
+          "type": "arrayOfCommands",
+          "items": [
+            "plugin_identifier::command <parameters and flags"
+          ],
+          "validation": "....."
+        }
+      }
+    },
+    "1": {
+      "title": "Quizzes Group",
+      "tooltip": "Just an example tooltip",
+      "components": {
+        "quizzes.next_question_delay": {
+          "type": "integer",
+          "validation": ".....",
+          "tooltip": "......."
+        },
+        "quizzes.ratio_for_success": {
+          "type": "float",
+          "validation": "....."
+        },
+        "quizzes.reward_on_success": {
+          "type": "arrayOfCommands",
+          "items": [
+            "plugin_identifier::command <parameters and flags>"
+          ],
+          "validation": "....."
+        },
+        "quizzes.reward_on_failure": {
+          "type": "integer",
+          "validation": "....."
+        }
+
+      }
+    },
+    "2": {
+      "title": "Fights Group",
+      "tooltip": "Just an example tooltip",
+      "components": {
+        "fight.date_of_fight": {
+          "type": "integer",
+          "validation": ".....",
+          "tooltip": "choose date"
+        },
+        "fight.ratio_for_success": {
+          "type": "float",
+          "validation": "....."
+        },
+        "fight.reward_on_success": {
+          "type": "arrayOfIntegers",
+          "items": [
+            "plugin_identifier::command <parameters and flags>"
+          ],
+          "validation": "....."
+        },
+        "fight.reward_on_failure": {
+          "type": "integer",
+          "validation": "....."
+        }
+
+      }
+    }
+  }
+}
