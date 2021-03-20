@@ -1,12 +1,30 @@
-<div class="container-fluid">
+<div *ngIf="error?.length > 0">
+    <app-error-handling [errorCode]="error"></app-error-handling>
+</div>
+
+<div class="container-fluid"  *ngIf="error?.length <= 0">
     <div class="row border">
         <div class="col-12">
             <mat-tab-group>
                 <mat-tab label="{{designer?.file | titlecase}}">
-                    <app-designer [designerFile]="designerService.getDefaultConfigDesigner()" [dataFile]="dataService.getDataJsonFile()"></app-designer>
+                    <app-designer *ngIf="designer?.designer_type === 'config'"
+                                  [designerFile]="designerService.getConfigDesigner()"
+                                  [dataFile]="dataService.getDataDefaultJsonFile()">
+                    </app-designer>
+                    <app-data-designer *ngIf="designer?.designer_type === 'data'"
+                                  [dataDesigner]="designerService.getDataDesigner()"
+                                  [dataFile]="dataService.getDataJsonFile()">
+                    </app-data-designer>
                 </mat-tab>
-                <mat-tab label="{{'questions' | titlecase}}">
-                    <app-designer [designerFile]="designerService.getDefaultConfigDesigner()" [dataFile]="dataService.getDataJsonFile()"></app-designer>
+                <mat-tab label="{{defaultDesigner?.file | titlecase}}">
+                    <app-designer *ngIf="defaultDesigner?.designer_type === 'config'"
+                                  [designerFile]="designerService.getConfigDesigner()"
+                                  [dataFile]="dataService.getDataDefaultJsonFile()">
+                    </app-designer>
+                    <app-data-designer *ngIf="defaultDesigner?.designer_type === 'data'"
+                                       [dataDesigner]="designerService.getDataDesigner()"
+                                       [dataFile]="dataService.getDataJsonFile()">
+                    </app-data-designer>
                 </mat-tab>
             </mat-tab-group>
         </div>

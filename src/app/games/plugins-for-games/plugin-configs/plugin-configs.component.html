@@ -8,7 +8,7 @@
                         <p class="card-category"></p>
                     </div>
                     <div *ngIf="gameExist(game)" class="card-content table-responsive table-full-width">
-                        <mat-tab-group>
+                        <mat-tab-group >
                             <mat-tab label="Game Information">
                                 <div class="row" style="width: 99%">
                                     <div class="col-12 m-4">
@@ -22,16 +22,16 @@
                                 </div>
                             </mat-tab>
                             <mat-tab label="Plugins">
-                                <div class="row"  style="width: 99%">
+                                <div class="row"  style="width: 98%">
                                     <div class="col-12 ml-2 mt-2 mb-2">
                                         <div class="row">
-                                            <div class="col-1">
+                                            <div class="col-2">
                                                 <div class="list-group" id="plugins-list" role="tablist">
                                                     <a class="list-group-item list-group-item-action active" id="plugIn-information" data-bs-toggle="list" href="#info-content" role="tab">Information</a>
                                                     <a class="list-group-item list-group-item-action" id="plugIn-configs" data-bs-toggle="list" href="#config-content" role="tab" >Config</a>
                                                 </div>
                                             </div>
-                                            <div class="col-11">
+                                            <div class="col-10">
                                                 <div class="tab-content">
                                                     <div class="tab-pane fade show active" id="info-content" role="tabpanel">
                                                         <app-information></app-information>

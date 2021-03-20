@@ -48,10 +48,13 @@ import { InformationComponent } from './games/plugins-for-games/plugin-configs/i
 import { ConfigsComponent } from './games/plugins-for-games/plugin-configs/configs/configs.component';
 import { StringsComponent } from './games/plugins-for-games/plugin-configs/strings/strings.component';
 import {GlobalHttpInterceptor} from './global-http.interceptor';
-import { DesignerComponent } from './games/plugins-for-games/plugin-configs/configs/designer/designer.component';
+import { DesignerComponent } from './games/plugins-for-games/plugin-configs/configs/config-designer/designer.component';
 import { TooltipInfoCircleComponent } from './tooltip-info-circle/tooltip-info-circle.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { InputComponent } from './input/input.component';
+import { DataDesignerComponent } from './games/plugins-for-games/plugin-configs/configs/data-designer/data-designer.component';
+import { ErrorHandlingComponent } from './error-handling/error-handling.component';
+
 
 
 
@@ -99,7 +102,9 @@ import { InputComponent } from './input/input.component';
     StringsComponent,
     DesignerComponent,
     TooltipInfoCircleComponent,
-    InputComponent
+    InputComponent,
+    DataDesignerComponent,
+    ErrorHandlingComponent
 
   ],
   providers: [{

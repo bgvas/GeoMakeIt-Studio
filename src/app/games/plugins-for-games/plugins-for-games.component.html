@@ -10,7 +10,11 @@
                     <div class="card-body">
                         <div class="col-12">
                             <p>     <!-- Installed Plugins  -->
-                                <button  class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#installedPlugins" aria-expanded="false" aria-controls="installedPlugins">
+                                <button  class="btn btn-outline-info"
+                                         type="button" data-toggle="collapse"
+                                         data-target="#installedPlugins"
+                                         aria-expanded="false"
+                                         aria-controls="installedPlugins">
                                     installed Plugins
                                 </button>
                             </p>
@@ -25,8 +29,10 @@
                                 </div>
                             </div>
                             <p>         <!-- Available plugins -->
-                                <button class="btn btn-outline-info" type="button" data-toggle="collapse"
-                                        data-target="#availablePlugins" aria-expanded="false"
+                                <button class="btn btn-outline-info" type="button"
+                                        data-toggle="collapse"
+                                        data-target="#availablePlugins"
+                                        aria-expanded="false"
                                         aria-controls="availablePlugins">
                                     Available Plugins
                                 </button>
@@ -37,7 +43,7 @@
                                     <div class="row">
                                         <div class="col-4" *ngFor="let availablePlugin of availablePlugins">  <!-- available plugins -->
                                             <app-plugin-card [plugin] = "availablePlugin"></app-plugin-card>
-                                        </div>  <!-- end of available plugins -->
+                                        </div>   <!--end of available plugins-->
                                     </div>
                                 </div>
                             </div>

@@ -1,12 +1,40 @@
-[
-    {
-      "id": 0,
-      "title": "Fight Club",
-      "description": "My First Game"
-    },
+{
+  "data": [
     {
       "id": 1,
-      "title": "Quiz game",
-      "description": "My First quiz Game"
+      "title": "GeoMakeIt! Test Game",
+      "main": "play.geomakeit.game1",
+      "user_id": 1,
+      "created_at": "2021-02-24T09:41:20.000000Z",
+      "updated_at": "2021-03-02T11:01:46.000000Z",
+      "deleted_at": "2021-03-02T11:01:46.000000Z"
+    },
+    {
+      "id": 2,
+      "title": "TestGame2",
+      "main": "play.geomakeit.game2",
+      "user_id": 1,
+      "created_at": "2021-03-02T10:11:55.000000Z",
+      "updated_at": "2021-03-02T11:01:48.000000Z",
+      "deleted_at": "2021-03-02T11:01:48.000000Z"
+    },
+    {
+      "id": 3,
+      "title": "NewQuizTestGame",
+      "main": "play.geomakeit.game3",
+      "user_id": 1,
+      "created_at": "2021-03-02T10:49:04.000000Z",
+      "updated_at": "2021-03-02T10:49:04.000000Z",
+      "deleted_at": null
+    },
+    {
+      "id": 4,
+      "title": "My Game",
+      "main": "play.geomakeit.game4",
+      "user_id": 1,
+      "created_at": "2021-03-03T11:36:41.000000Z",
+      "updated_at": "2021-03-03T11:36:41.000000Z",
+      "deleted_at": null
     }
-]
+  ]
+}

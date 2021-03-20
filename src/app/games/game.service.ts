@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {GameRoot} from '../classes/games/game-root';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +29,8 @@ export class GameService {
   }
 
   // Get-Http request //
-  getGamesOfSpecificUser(userId): Observable<any> {
+  getGamesOfSpecificUser(userId): Observable<GameRoot> {
     const url = 'assets/dummyJson/listWithGamesOfUser.json';
-    return this.http.get(url);
+    return this.http.get<GameRoot>(url);
   }
 }

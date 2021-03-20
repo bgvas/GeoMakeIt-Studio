@@ -1,7 +1,7 @@
-import { InstalledGameRoot } from './installed-game-root';
+import { GameRoot } from './game-root';
 
 describe('InstalledGameRoot', () => {
   it('should create an instance', () => {
-    expect(new InstalledGameRoot()).toBeTruthy();
+    expect(new GameRoot()).toBeTruthy();
   });
 });

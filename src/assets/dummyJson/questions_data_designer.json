@@ -22,13 +22,12 @@
             "multiple_choice",
             "multiple_choice_any",
             "multiple_choice_all",
-            "fill_in_the_blank",
-            "textBox"
+            "fill_in_the_blank"
           ],
           "validation":"required"
         },
         "possible_answers":{
-          "type":"arrayString",
+          "type":"arrayOfStrings",
           "validation":"visible_if:this.question_type,(multiple_choice, multiple_choice_any, multiple_choice_all)"
         },
         "correct_answer":{
@@ -40,6 +39,7 @@
       }
     },
     "1":{
+      "title":"Question Group2",
       "components":{
         "image":{
           "type":"image",

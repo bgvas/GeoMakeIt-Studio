@@ -14,6 +14,8 @@ export class InputComponent implements OnInit {
   @Input() groupName: string;
   @Input() type: string;
   @Input() value: any;
+  @Input() placeholder: string;
+  @Input() validation: any;
 
   buttonValue = false;
   collapseText = 'Click to open...';
@@ -26,8 +28,10 @@ export class InputComponent implements OnInit {
     if (this.type.includes('array')) {
         (this.formName.get(this.groupName) as FormGroup).addControl(this.controlName, new FormArray([]));
         this.arrayValues = this.value;
-    };
+    }
+
     (this.formName.get(this.groupName) as FormGroup).addControl(this.controlName, new FormControl(''));
+
   }
 
   isArray(obj): boolean {

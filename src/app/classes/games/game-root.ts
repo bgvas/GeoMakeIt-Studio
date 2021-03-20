@@ -1,8 +1,8 @@
-import {InstalledGame} from './installed-game';
+import {Game} from './game';
 
-export class InstalledGameRoot {
+export class GameRoot {
 
-    public data: InstalledGame[];
+    public data: Game[];
 }
 
 

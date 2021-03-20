@@ -1,17 +1,17 @@
 <form [formGroup]="formName">
     <div formGroupName="{{groupName}}">
         <div ngSwitch="{{type}}">
-            <div *ngSwitchCase="'textbox'">
-                <input type="text" class="form-control text-secondary" style="font-weight: bold" [formControlName]="controlName">
+            <div *ngSwitchCase="'textBox'">
+                <input type="text" class="form-control text-secondary" style="font-weight: bold" [formControlName]="controlName" placeholder="{{placeholder}}">
             </div>
             <div *ngSwitchCase="'integer'">
-                <input type="number" class="form-control text-secondary" style="font-weight: bold" step="1"  min="0" [formControlName]="controlName">
+                <input type="number" class="form-control text-secondary" placeholder="{{placeholder}}"  style="font-weight: bold" step="1"  min="0" [formControlName]="controlName">
             </div>
             <div *ngSwitchCase="'double'">
-                <input type="number" class="form-control text-secondary" style="font-weight: bold" step="0.1"  min="0" [formControlName]="controlName">
+                <input type="number" class="form-control text-secondary" placeholder="{{placeholder}}" style="font-weight: bold" step="0.1"  min="0" [formControlName]="controlName">
             </div>
             <div *ngSwitchCase="'float'">
-                <input type="number" class="form-control text-secondary" style="font-weight: bold" step="0.1"  min="0" [formControlName]="controlName">
+                <input type="number" class="form-control text-secondary" placeholder="{{placeholder}}" style="font-weight: bold" step="0.1"  min="0" [formControlName]="controlName">
             </div>
             <div *ngSwitchCase="'arrayOfStrings'">
                 <div class="row justify-content-center text-center" [formArrayName]="controlName">

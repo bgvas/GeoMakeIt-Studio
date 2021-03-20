@@ -34,7 +34,8 @@
         "quizzes.next_question_delay": {
           "type": "integer",
           "validation": ".....",
-          "tooltip": "......."
+          "tooltip": ".......",
+          "placeholder": "type an integer"
         },
         "quizzes.ratio_for_success": {
           "type": "float",

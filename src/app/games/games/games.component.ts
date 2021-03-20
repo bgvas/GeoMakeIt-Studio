@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationsComponent} from '../../notifications/notifications.component';
 import {GameService} from '../game.service';
+import {GameRoot} from '../../classes/games/game-root';
 
 @Component({
   selector: 'app-games',
@@ -12,7 +13,7 @@ export class GamesComponent implements OnInit {
     delete: any;
     afterDelete = new NotificationsComponent();
     object: any;
-    listOfGames: any;
+    listOfGames: GameRoot;
 
   constructor(private service: GameService) { }
 

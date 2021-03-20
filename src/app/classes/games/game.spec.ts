@@ -1,7 +1,7 @@
-import { InstalledGame } from './installed-game';
+import { Game } from './game';
 
 describe('InstalledGame', () => {
   it('should create an instance', () => {
-    expect(new InstalledGame()).toBeTruthy();
+    expect(new Game()).toBeTruthy();
   });
 });

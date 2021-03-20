@@ -3,6 +3,8 @@ import {AvailablePluginsService} from './availbable-plugins/available-plugins.se
 import {InstalledPluginsService} from './instaled-plugins-of-a-game/installed-plugins.service';
 import {Router} from '@angular/router';
 import {GameService} from '../game.service';
+import {RootAvailablePlugins} from '../../classes/plugins/root-available-plugins';
+import {AvailablePlugin} from '../../classes/plugins/available-plugin';
 
 @Component({
   selector: 'app-plugins-for-games',
@@ -11,7 +13,7 @@ import {GameService} from '../game.service';
 })
 export class PluginsForGamesComponent implements OnInit {
 
-  availablePlugins: any;
+  availablePlugins: AvailablePlugin[];
   installedPlugins: any;
   game: any;
   gameId: number;
@@ -28,7 +30,9 @@ export class PluginsForGamesComponent implements OnInit {
     this.gameId = 1; // this.game.id;
 
     this.availableService.getAvailablePlugins().subscribe(data => {
-      this.availablePlugins = data;
+      this.availablePlugins = data.data;
+      console.log(this.availablePlugins);
+
     });
 
     this.installedService.getInstalledPluginsPerGame(this.gameId).subscribe(data => {
