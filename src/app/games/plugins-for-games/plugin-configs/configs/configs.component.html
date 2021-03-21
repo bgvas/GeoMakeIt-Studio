@@ -1,8 +1,9 @@
-<div *ngIf="error?.length > 0">
-    <app-error-handling [errorCode]="error"></app-error-handling>
+
+<div *ngIf="error?.message !== null">
+    {{ error?.message }}
 </div>
 
-<div class="container-fluid"  *ngIf="error?.length <= 0">
+<div class="container-fluid"  *ngIf="error?.message === null">
     <div class="row border">
         <div class="col-12">
             <mat-tab-group>

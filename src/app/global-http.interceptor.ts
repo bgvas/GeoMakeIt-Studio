@@ -7,6 +7,7 @@ import {
 } from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
+import {Error} from './classes/error/error';
 
 @Injectable()
 export class GlobalHttpInterceptor implements HttpInterceptor {
@@ -27,18 +28,18 @@ export class GlobalHttpInterceptor implements HttpInterceptor {
 
     return next.handle(requestWithAuth).pipe(
     catchError((error: HttpErrorResponse) => {
-        if (error.status === 401) {
-            // TODO auto redirect to login form //
-        }
-      let errorMessage = '';
-      if (error.error instanceof ErrorEvent) {
-        errorMessage = 'Error: ' + error.error.message;
-      } else {
-        errorMessage = Object.assign({
-            code: error.status,
-            message: error.statusText
-        })
+      if (error.status === 401) {
+          // TODO auto redirect to login form //
       }
+      const errorMessage =  new Error();
+      if (error.error instanceof ErrorEvent) {
+        errorMessage.message = error.statusText;
+        errorMessage.code = error.status;
+      } else {
+        errorMessage.message = error.statusText;
+        errorMessage.code = error.status;
+      }
+
       return throwError(errorMessage);
     })
     );

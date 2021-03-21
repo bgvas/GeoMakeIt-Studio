@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {DesignerService} from './designer.service';
 import {RootDesigner} from '../../../../classes/designers/rootDesignerClass/root-designer';
 import {DataFileService} from './data-file.service';
+import {Error} from '../../../../classes/error/error';
 
 @Component({
   selector: 'app-configs',
@@ -13,15 +14,12 @@ export class ConfigsComponent implements OnInit {
   designer: RootDesigner;
   defaultDesigner: RootDesigner;
   data: any;
-  error: any;
+  error: Error;
 
   constructor(public designerService: DesignerService, public dataService: DataFileService) { }
 
   ngOnInit(): void {
 
-    /*this.designerService.getAPi().subscribe(data => {
-      console.log(data);
-    })*/
 
     this.designerService.getDataDesigner().subscribe(data => {
       this.designer = data;

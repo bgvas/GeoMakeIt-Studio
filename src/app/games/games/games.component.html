@@ -18,7 +18,12 @@
                                 <th>Title</th>
                                 <th>Description</th>
                             </thead>
-                            <tbody>
+                            <tbody *ngIf="error?.message !== null">
+                                <span class="m-2" style="font-weight: bold">
+                                    {{error?.message}}
+                                </span>
+                            </tbody>
+                            <tbody *ngIf="error?.message === null">
                                 <tr *ngFor = "let game of listOfGames?.data" class="mat-h3">   <!-- Display the list of user's games  -->
                                     <td *ngIf="game.title === ''" class="text-gray" >- no games -</td>
                                     <td *ngIf="game.title !== ''">{{game.title}}</td>
@@ -30,6 +35,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <app-spinner [visible]="showSpinner"></app-spinner>
                 </div>
             </div>
         </div>

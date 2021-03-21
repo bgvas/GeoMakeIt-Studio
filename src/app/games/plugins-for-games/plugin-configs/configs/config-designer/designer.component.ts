@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {RootDesigner} from '../../../../../classes/designers/rootDesignerClass/root-designer';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-designer',
@@ -17,7 +18,7 @@ export class DesignerComponent implements OnInit {
   data: any;
   dataForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private location: Location) {
 
   }
 
@@ -99,6 +100,10 @@ export class DesignerComponent implements OnInit {
       }
       return false;
 
+  }
+
+  onCancel(): void {
+      this.location.back();
   }
 
 

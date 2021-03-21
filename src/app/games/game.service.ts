@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {GameRoot} from '../classes/games/game-root';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,11 @@ export class GameService {
 
   constructor(private http: HttpClient) { }
 
-  getGameById(id) {
-    const url = './assets/dummyJson/gameById.json';
-    return this.http.get(url);
+  getGameById(id): Observable<GameRoot> {
+    const url = environment.apiUrl + 'games/' + id;
+    return this.http.get<GameRoot>(url);
   }
+
 
   // get values from the general-use object //
   get object(): any {
@@ -30,7 +32,7 @@ export class GameService {
 
   // Get-Http request //
   getGamesOfSpecificUser(userId): Observable<GameRoot> {
-    const url = 'assets/dummyJson/listWithGamesOfUser.json';
+    const url = environment.apiUrl + 'games';
     return this.http.get<GameRoot>(url);
   }
 }

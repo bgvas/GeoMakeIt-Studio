@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {RootDesigner} from '../../../../../classes/designers/rootDesignerClass/root-designer';
 import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {DesignerService} from '../designer.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-data-designer',
@@ -19,7 +20,7 @@ export class DataDesignerComponent implements OnInit {
   dataForm: FormGroup;
   dataArray: any;
 
-  constructor(private fb: FormBuilder, private service: DesignerService) { }
+  constructor(private fb: FormBuilder, private service: DesignerService, private location: Location) { }
 
   ngOnInit(): void {
 
@@ -143,6 +144,10 @@ export class DataDesignerComponent implements OnInit {
     } else {
       return 'card_' + 1;
     }
+  }
+
+  onCancel(): void {
+    this.location.back();
   }
 
 

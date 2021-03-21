@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-    apiUrl: 'http://api.geomakeit.com'
+    apiUrl: 'http://api.geomakeit.com/v1/'
 };

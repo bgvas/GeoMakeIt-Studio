@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NotificationsComponent} from '../../notifications/notifications.component';
 import {GameService} from '../game.service';
 import {GameRoot} from '../../classes/games/game-root';
+import {Error} from '../../classes/error/error';
 
 @Component({
   selector: 'app-games',
@@ -14,11 +15,31 @@ export class GamesComponent implements OnInit {
     afterDelete = new NotificationsComponent();
     object: any;
     listOfGames: GameRoot;
+    gameById: GameRoot;
+    error: Error;
+    showSpinner: boolean
 
   constructor(private service: GameService) { }
 
   ngOnInit(): void {
-      this.service.getGamesOfSpecificUser(1).subscribe(data => this.listOfGames = data)
+      this.showSpinner = true;
+      this.service.getGamesOfSpecificUser(1).subscribe(data => {
+          this.listOfGames = data;
+          this.showSpinner = false;
+      },
+      error => {
+          error.message = 'No games found.'
+          this.error = error;
+          this.showSpinner = false;
+      });
+      this.service.getGameById(1).subscribe(data => {
+         
+      },
+          error => {
+               error.message = 'Game not found'
+              this.error = error;
+              this.showSpinner = false;
+          });
   }
 
   // save game-object to service, for sharing between component //

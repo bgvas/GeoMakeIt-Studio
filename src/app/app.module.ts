@@ -54,6 +54,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { InputComponent } from './input/input.component';
 import { DataDesignerComponent } from './games/plugins-for-games/plugin-configs/configs/data-designer/data-designer.component';
 import { ErrorHandlingComponent } from './error-handling/error-handling.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 
 
@@ -104,7 +105,8 @@ import { ErrorHandlingComponent } from './error-handling/error-handling.componen
     TooltipInfoCircleComponent,
     InputComponent,
     DataDesignerComponent,
-    ErrorHandlingComponent
+    ErrorHandlingComponent,
+    SpinnerComponent
 
   ],
   providers: [{
