@@ -1,0 +1,98 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 text-center" *ngIf="!editor">
+            <span class="text-danger" style="font-weight: bold">
+                -empty designer file-
+            </span>
+        </div>
+        <div class="col-12 mt-4" *ngIf="editor">
+            <div class="row " style="width: 100%">
+                <div class="col-12 mb-4">
+                    <div *ngIf="editor?.page_title" class="text-center">
+                        <p>
+                            <span class="text-center  h4" style="font-weight: bold">
+                                {{editor.page_title}}
+                            </span>
+                        </p>
+                        <span *ngIf="editor.page_description" class="text-center">
+                            {{editor.page_description}}
+                        </span>
+                    </div>
+                    <div *ngFor="let dataResult of dataFromForm?.controls | keyvalue: asIsOrderInPipe; let i = index">
+                        <div>
+                            <div class="row mt-4">
+                                <div class="col-11">
+                                    <p>
+                                        <button  class="btn btn-outline-info" type="button" style="width: 100%" data-toggle="collapse" [attr.data-target]="'#tab' + i" aria-expanded="false" [attr.aria-controls]="'tab' + i">
+                                                {{removeUnderscore(dataResult.key)}}
+                                        </button>
+                                    </p>
+                                </div>
+                                <div class="col-1">
+                                    <p>
+                                        <button class="btn btn-danger btn-just-icon" type="button" (click) = "deleteGroup(dataResult.key)">
+                                            X
+                                        </button>
+                                    </p>
+                                </div>
+                            </div>
+                            <div *ngFor="let designerResult of editor?.designer | keyvalue: asIsOrderInPipe; let y = index">
+                                <div class="collapse" id="tab{{i}}">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            {{designerResult.value['title']}}
+                                            <app-tooltip-info-circle *ngIf="designerResult.value['tooltip']" [tooltip] = "designerResult.value['tooltip']"></app-tooltip-info-circle>
+                                            <div class="border p-2 shadow">
+                                                <div *ngFor="let designerItem of editor?.designer[y].components | keyvalue: asIsOrderInPipe; let z = index">
+                                                    <div  class="row">
+                                                        <div class="col-6">
+                                                            <div class="form-control mb-2 p-2" style="background-color: skyblue">
+                                                                {{removeStringBeforeDot(removeUnderscore(designerItem.key)) }}
+                                                                <app-tooltip-info-circle *ngIf="designerItem.value['tooltip']" [tooltip] = "designerItem.value['tooltip']"></app-tooltip-info-circle>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <app-input [formName]="dataForm"
+                                                                       [items]="designerItem.value['items']"
+                                                                       [groupName] = "dataResult.key"
+                                                                       [value] = "this.dataFromForm.controls[dataResult.key].get(designerItem.key).value"
+                                                                       [type] = "designerItem.value['type']"
+                                                                       [placeholder] = "designerItem.value['placeholder']"
+                                                                       [validation] = "designerItem.value['validation']"
+                                                                       [controlName]="designerItem.key">
+                                                            </app-input>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-8">
+                            <button class="btn btn-info" type="button" (click) = "addGroup()">
+                                add
+                            </button>
+                        </div>
+                        <div class="col-4">
+                            <div class="text-right">
+                                <button class="btn btn-success" type="submit" (click) = "onSubmit()">
+                                     Save Changes
+                                </button>
+                                <button class="btn btn-outline-danger ml-2" type="submit" (click) = "onSubmit()">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

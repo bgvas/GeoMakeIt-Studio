@@ -19,10 +19,10 @@
                                 <th>Description</th>
                             </thead>
                             <tbody>
-                                <tr *ngFor = "let game of listOfGames" class="mat-h3">   <!-- Display the list of user's games  -->
+                                <tr *ngFor = "let game of listOfGames?.data" class="mat-h3">   <!-- Display the list of user's games  -->
                                     <td *ngIf="game.title === ''" class="text-gray" >- no games -</td>
                                     <td *ngIf="game.title !== ''">{{game.title}}</td>
-                                    <td *ngIf="game.description !== ''">{{game.description}}</td>
+                                   <!-- <td *ngIf="game.desciption !== ''">{{game.description}}</td>-->
                                     <td class="text-right">
                                         <app-button-toggles [game] = "game" (click)="onClick(game)" (delete) = "onDelete($event)" ></app-button-toggles>
                                     </td>

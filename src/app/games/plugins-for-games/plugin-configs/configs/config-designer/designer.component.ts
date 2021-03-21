@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {RootDesigner} from '../../../../../classes/rootDesignerClass/root-designer';
+import {RootDesigner} from '../../../../../classes/designers/rootDesignerClass/root-designer';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 
 @Component({
@@ -11,32 +11,28 @@ export class DesignerComponent implements OnInit {
 
   @Input() designerFile: any;
   @Input() dataFile: any;
+  @Input() error: any;
 
   designer: RootDesigner;
   data: any;
   dataForm: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder) {
+
+  }
 
   ngOnInit(): void {
-   console.log('Designer file is valid: ' + (this.designerFile instanceof Object));
-   console.log('Data file is valid: ' + (this.dataFile instanceof Object));
    this.designerFile.subscribe(data => {
-     this.designer = data;
-     console.log('Subscriber of designer-file is valid: ' + (data instanceof Object));
+       this.designer = data;
    });
     this.dataFile.subscribe(data => {
       this.data = data;
-      console.log('Subscriber of data-file is valid: ' + (data instanceof Object));
+
       this.initializeForm();
       this.fillForm(data);
     })
-
   }
 
-  get dataFormGroup(): FormGroup {
-      return this.dataForm as FormGroup;
-  }
 
   initializeForm(): void {
     this.dataForm = this.fb.group({

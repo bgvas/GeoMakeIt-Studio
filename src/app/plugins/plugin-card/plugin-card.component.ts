@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {GameService} from '../../games/game.service';
 import {Router} from '@angular/router';
+import {RootAvailablePlugins} from '../../classes/plugins/root-available-plugins';
+import {AvailablePlugin} from '../../classes/plugins/available-plugin';
 
 @Component({
   selector: 'app-plugin-card',
@@ -9,8 +11,7 @@ import {Router} from '@angular/router';
 })
 export class PluginCardComponent implements OnInit {
 
-  @Input() state: boolean;
-  @Input() plugin: any;
+  @Input() plugin: AvailablePlugin;
 
   constructor(private service: GameService, private router: Router) { }
 
