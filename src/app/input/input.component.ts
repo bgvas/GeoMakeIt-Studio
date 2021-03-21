@@ -16,6 +16,7 @@ export class InputComponent implements OnInit {
   @Input() value: any;
   @Input() placeholder: string;
   @Input() validation: any;
+  @Input() items: any;
 
   buttonValue = false;
   collapseText = 'Click to open...';
@@ -24,14 +25,13 @@ export class InputComponent implements OnInit {
   constructor(private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
+
     this.formName.addControl(this.groupName, new FormGroup({}));
     if (this.type.includes('array')) {
         (this.formName.get(this.groupName) as FormGroup).addControl(this.controlName, new FormArray([]));
         this.arrayValues = this.value;
     }
-
     (this.formName.get(this.groupName) as FormGroup).addControl(this.controlName, new FormControl(''));
-
   }
 
   isArray(obj): boolean {
@@ -44,10 +44,10 @@ export class InputComponent implements OnInit {
   }
 
   buttonText(value): string {
-    if(!value) {
+    if (!value) {
       return 'Click to open table...';
     }
-    if(value){
+    if (value) {
       return  'Click to close table...';
     }
   }

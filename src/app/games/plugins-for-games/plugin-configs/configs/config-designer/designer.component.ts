@@ -27,14 +27,12 @@ export class DesignerComponent implements OnInit {
    });
     this.dataFile.subscribe(data => {
       this.data = data;
+
       this.initializeForm();
       this.fillForm(data);
     })
   }
 
-  get dataFormGroup(): FormGroup {
-      return this.dataForm as FormGroup;
-  }
 
   initializeForm(): void {
     this.dataForm = this.fb.group({

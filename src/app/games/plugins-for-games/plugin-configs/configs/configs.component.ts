@@ -32,11 +32,10 @@ export class ConfigsComponent implements OnInit {
 
     this.designerService.getConfigDesigner().subscribe(data => {
           this.defaultDesigner = data;
-          console.log(data);
     },
     error => {
       this.error = error;
     })
-  }
+}
 
 }

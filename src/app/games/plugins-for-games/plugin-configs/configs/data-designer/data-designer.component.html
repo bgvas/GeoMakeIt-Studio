@@ -53,10 +53,12 @@
                                                         </div>
                                                         <div class="col-6">
                                                             <app-input [formName]="dataForm"
-                                                                       [value] = dataResult.value[designerItem.key]
+                                                                       [items]="designerItem.value['items']"
                                                                        [groupName] = "dataResult.key"
+                                                                       [value] = "this.dataFromForm.controls[dataResult.key].get(designerItem.key).value"
                                                                        [type] = "designerItem.value['type']"
                                                                        [placeholder] = "designerItem.value['placeholder']"
+                                                                       [validation] = "designerItem.value['validation']"
                                                                        [controlName]="designerItem.key">
                                                             </app-input>
                                                         </div>
@@ -71,15 +73,20 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-8">
                             <button class="btn btn-info" type="button" (click) = "addGroup()">
                                 add
                             </button>
                         </div>
-                        <div class="col-6">
-                            <button class="btn btn-info" type="submit" (click) = "onSubmit()">
-                                Save Changes
-                            </button>
+                        <div class="col-4">
+                            <div class="text-right">
+                                <button class="btn btn-success" type="submit" (click) = "onSubmit()">
+                                     Save Changes
+                                </button>
+                                <button class="btn btn-outline-danger ml-2" type="submit" (click) = "onSubmit()">
+                                    Cancel
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

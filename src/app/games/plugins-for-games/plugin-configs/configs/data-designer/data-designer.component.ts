@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {RootDesigner} from '../../../../../classes/designers/rootDesignerClass/root-designer';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {DesignerService} from '../designer.service';
 
 @Component({
@@ -17,6 +17,7 @@ export class DataDesignerComponent implements OnInit {
   editor: RootDesigner;
   data: any;
   dataForm: FormGroup;
+  dataArray: any;
 
   constructor(private fb: FormBuilder, private service: DesignerService) { }
 
@@ -32,9 +33,9 @@ export class DataDesignerComponent implements OnInit {
       this.fillForm(data);
     })
 
-    this.service.getAPi().subscribe(data => {
+    /*this.service.getAPi().subscribe(data => {
       console.log(data);
-    })
+    })*/
 
   }
 
@@ -83,6 +84,7 @@ export class DataDesignerComponent implements OnInit {
       }
     }
   }
+
 
   onSubmit(): void {
     console.log(this.dataForm.controls);
