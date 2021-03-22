@@ -28,6 +28,7 @@ export class ButtonTogglesComponent implements OnInit {
   // send gameObject to pluginForGames, in order to add or edit plugins of your game//
   sendDataToPluginsForGames(): void {
     this.service.object = this.game;
+    console.log('buttonTogle: ' + this.game?.id);
     this.router.navigate(['/games/plugins']);
   }
 

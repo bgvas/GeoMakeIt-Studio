@@ -20,7 +20,6 @@ export class ConfigsComponent implements OnInit {
 
   ngOnInit(): void {
 
-
     this.designerService.getDataDesigner().subscribe(data => {
       this.designer = data;
     },

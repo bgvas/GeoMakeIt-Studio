@@ -22,20 +22,19 @@
                     <tr>
                         <td class="text-center border border-info">
                             <span *ngIf="plugin.is_building" class="text-success" style="font-weight: bold">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <i class="material-icons pt-2">
-                                                download
-                                            </i>
-                                            {{plugin.installs}}
-                                        </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <i class="material-icons pt-2">
+                                            download
+                                        </i>
+                                        {{plugin.installs}}
                                     </div>
-                                    <div class="row">
-                                        <div class="col-12">
-                                            -add valuation-
-                                        </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        -add valuation-
                                     </div>
-
+                                </div>
                             </span>
                             <span *ngIf="!plugin.is_building" class="text-danger" style="font-weight: bold">
                                 Disabled

@@ -16,6 +16,7 @@ export class PluginCardComponent implements OnInit {
   constructor(private service: GameService, private router: Router) { }
 
   ngOnInit(): void {
+    console.log('pluginCard: ' + this.service.object.id);
   }
 
   deletePlugin(event): boolean {
@@ -23,7 +24,10 @@ export class PluginCardComponent implements OnInit {
   }
 
   goToConfig(): void {
-    this.service.object = this.plugin;
+    this.service.object = {
+      plugin: this.plugin,
+      game: this.service.object
+    }
     this.router.navigate(['/games/plugins/config']);
   }
 
