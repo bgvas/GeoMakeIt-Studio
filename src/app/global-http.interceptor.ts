@@ -6,15 +6,18 @@ import {
   HttpInterceptor, HttpErrorResponse
 } from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {catchError, retry} from 'rxjs/operators';
+import {catchError} from 'rxjs/operators';
 import {Error} from './classes/error/error';
+import {Router} from '@angular/router';
+import {AuthService} from './auth/auth.service';
+
 
 @Injectable()
 export class GlobalHttpInterceptor implements HttpInterceptor {
 
 
 
-  constructor() {}
+  constructor(private router: Router, private auth: AuthService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -28,12 +31,14 @@ export class GlobalHttpInterceptor implements HttpInterceptor {
 
     return next.handle(requestWithAuth).pipe(
     catchError((error: HttpErrorResponse) => {
-      if (error.status === 401) {
-          // TODO auto redirect to login form //
+      if (error.status === 401) {  // if user is not authenticated, redirect to login form
+        this.auth.logout();
+        this.router.navigate(['login'])
       }
+
       const errorMessage =  new Error();
       if (error.error instanceof ErrorEvent) {
-        errorMessage.message = error.statusText;
+        errorMessage.message = error.message;
         errorMessage.code = error.status;
       } else {
         errorMessage.message = error.statusText;

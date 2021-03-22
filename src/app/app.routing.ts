@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import {Error404Component} from './error404/error404.component';
+import {LoginComponent} from './auth/login/login/login.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: '**',
     redirectTo: '/pageNotFound'
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   }
 ];
 

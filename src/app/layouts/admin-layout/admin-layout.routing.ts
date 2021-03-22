@@ -26,5 +26,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'games/plugins/config', component: PluginConfigsComponent},
     { path: 'plugins', component: PlugInsComponent},
     { path: 'plugins/create', component: CreatePluginComponent},
-    { path: 'plugins/edit', component: EditPluginComponent}
+    { path: 'plugins/edit', component: EditPluginComponent},
+    { path: 'login', redirectTo: '/login'}
 ];

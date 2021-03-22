@@ -13,7 +13,7 @@ export class InputComponent implements OnInit {
   @Input() controlName: string;
   @Input() groupName: string;
   @Input() type: string;
-  @Input() value: any;
+  @Input() value?: any;
   @Input() placeholder: string;
   @Input() validation: any;
   @Input() items: any;
@@ -59,8 +59,11 @@ export class InputComponent implements OnInit {
   }
 
   addArrayItem(groupName, controlName): void {
-    this.arrayValues.push('');
+    if (typeof this.arrayValues === 'undefined') {
+      this.arrayValues = [];
+    }
     (this.formName.get(groupName).get(controlName) as FormArray).push(new FormControl(''));
+    this.arrayValues.push('');
   }
 
 

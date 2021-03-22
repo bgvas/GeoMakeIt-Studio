@@ -122,7 +122,7 @@ export class DataDesignerComponent implements OnInit {
   addGroup(): void {
       const name = this.getNameForNewFormGroup(this.dataForm.controls);    // create name //
       this.dataForm.addControl(name, new FormGroup({}));      // add new formGroup to form //
-      this.dataFromForm.addControl(name, new FormGroup({}));  // add new FormGroup, to display it//
+      this.dataFromForm?.addControl(name, new FormGroup({}));  // add new FormGroup, to display it//
   }
 
   // create name for the new formGroup //
@@ -134,6 +134,7 @@ export class DataDesignerComponent implements OnInit {
     for (const item in form) {
       name = item;             // keep the name of last fromGroup
     }
+
     if (name === '' && this.service.variable !== '') {            // if we remove all previous group names, get from service the stored name //
       name = this.service.variable.substring(0, this.service.variable.length - 1);
       return name + 1;
@@ -148,6 +149,13 @@ export class DataDesignerComponent implements OnInit {
 
   onCancel(): void {
     this.location.back();
+  }
+
+  passValueToChild(value): any {
+    if(Array.isArray(value) && value.length > 0) {
+      return value;
+    }
+
   }
 
 
