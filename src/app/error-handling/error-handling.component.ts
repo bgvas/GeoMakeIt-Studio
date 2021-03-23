@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Error} from '../classes/error/error';
 
 @Component({
   selector: 'app-error-handling',
@@ -7,11 +8,12 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class ErrorHandlingComponent implements OnInit {
 
-  @Input() errorCode: any;
+  @Input() errorCode: Error;
 
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
   errorResponse() {

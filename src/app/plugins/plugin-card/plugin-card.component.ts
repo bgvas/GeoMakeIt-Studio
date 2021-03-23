@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {GameService} from '../../games/game.service';
 import {Router} from '@angular/router';
-import {RootAvailablePlugins} from '../../classes/plugins/root-available-plugins';
-import {AvailablePlugin} from '../../classes/plugins/available-plugin';
+import { Plugin } from '../../classes/plugins/plugin';
+
 
 @Component({
   selector: 'app-plugin-card',
@@ -11,11 +11,12 @@ import {AvailablePlugin} from '../../classes/plugins/available-plugin';
 })
 export class PluginCardComponent implements OnInit {
 
-  @Input() plugin: AvailablePlugin;
+  @Input() plugin: Plugin;
 
   constructor(private service: GameService, private router: Router) { }
 
   ngOnInit(): void {
+    console.log('pluginCard: ' + this.service.object.id);
   }
 
   deletePlugin(event): boolean {
@@ -23,7 +24,10 @@ export class PluginCardComponent implements OnInit {
   }
 
   goToConfig(): void {
-    this.service.object = this.plugin;
+    this.service.object = {
+      plugin: this.plugin,
+      game: this.service.object
+    }
     this.router.navigate(['/games/plugins/config']);
   }
 

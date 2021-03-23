@@ -18,18 +18,28 @@
                                 <th>Title</th>
                                 <th>Description</th>
                             </thead>
-                            <tbody>
-                                <tr *ngFor = "let game of listOfGames?.data" class="mat-h3">   <!-- Display the list of user's games  -->
-                                    <td *ngIf="game.title === ''" class="text-gray" >- no games -</td>
+                            <tbody *ngIf="error?.message !== null">
+                                <span class="m-2" style="font-weight: bold">
+                                    {{error?.message}}
+                                </span>
+                            </tbody>
+                            <tbody *ngIf="error?.message === null">
+                                <tr *ngFor = "let game of listOfGames" class="mat-h3">   <!-- Display the list of user's games  -->
                                     <td *ngIf="game.title !== ''">{{game.title}}</td>
-                                   <!-- <td *ngIf="game.desciption !== ''">{{game.description}}</td>-->
+                                    <td *ngIf="game.description !== ''">{{game.description}}</td>
                                     <td class="text-right">
                                         <app-button-toggles [game] = "game" (click)="onClick(game)" (delete) = "onDelete($event)" ></app-button-toggles>
                                     </td>
                                 </tr>
+                                <tr *ngIf="listOfGames?.length === 0" >
+                                    <span class="m-2" style="font-weight: bold">
+                                        No games found
+                                    </span>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
+                    <app-spinner [visible]="showSpinner"></app-spinner>
                 </div>
             </div>
         </div>

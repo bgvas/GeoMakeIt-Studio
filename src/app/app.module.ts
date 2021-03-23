@@ -24,7 +24,7 @@ import {
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { GamesComponent } from './games/games/games.component';
-import { PlugInsComponent } from './plugins/my-plugins/plug-ins.component';
+import { PluginsComponent } from './plugins/my-plugins/plugins.component';
 import { CreatePluginComponent } from './plugins/create/create-plugin.component';
 import {MatInputModule} from '@angular/material/input';
 import { CreateGameComponent } from './games/create/create-game.component';
@@ -54,6 +54,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { InputComponent } from './input/input.component';
 import { DataDesignerComponent } from './games/plugins-for-games/plugin-configs/configs/data-designer/data-designer.component';
 import { ErrorHandlingComponent } from './error-handling/error-handling.component';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { LoginComponent } from './auth/login/login/login.component';
 
 
 
@@ -85,7 +87,7 @@ import { ErrorHandlingComponent } from './error-handling/error-handling.componen
     AppComponent,
     AdminLayoutComponent,
     GamesComponent,
-    PlugInsComponent,
+    PluginsComponent,
     CreatePluginComponent,
     CreateGameComponent,
     ButtonTogglesComponent,
@@ -104,7 +106,9 @@ import { ErrorHandlingComponent } from './error-handling/error-handling.componen
     TooltipInfoCircleComponent,
     InputComponent,
     DataDesignerComponent,
-    ErrorHandlingComponent
+    ErrorHandlingComponent,
+    SpinnerComponent,
+    LoginComponent
 
   ],
   providers: [{

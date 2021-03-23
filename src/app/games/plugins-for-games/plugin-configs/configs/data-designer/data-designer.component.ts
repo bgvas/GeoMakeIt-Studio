@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {RootDesigner} from '../../../../../classes/designers/rootDesignerClass/root-designer';
 import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {DesignerService} from '../designer.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-data-designer',
@@ -19,7 +20,7 @@ export class DataDesignerComponent implements OnInit {
   dataForm: FormGroup;
   dataArray: any;
 
-  constructor(private fb: FormBuilder, private service: DesignerService) { }
+  constructor(private fb: FormBuilder, private service: DesignerService, private location: Location) { }
 
   ngOnInit(): void {
 
@@ -121,7 +122,7 @@ export class DataDesignerComponent implements OnInit {
   addGroup(): void {
       const name = this.getNameForNewFormGroup(this.dataForm.controls);    // create name //
       this.dataForm.addControl(name, new FormGroup({}));      // add new formGroup to form //
-      this.dataFromForm.addControl(name, new FormGroup({}));  // add new FormGroup, to display it//
+      this.dataFromForm?.addControl(name, new FormGroup({}));  // add new FormGroup, to display it//
   }
 
   // create name for the new formGroup //
@@ -133,6 +134,7 @@ export class DataDesignerComponent implements OnInit {
     for (const item in form) {
       name = item;             // keep the name of last fromGroup
     }
+
     if (name === '' && this.service.variable !== '') {            // if we remove all previous group names, get from service the stored name //
       name = this.service.variable.substring(0, this.service.variable.length - 1);
       return name + 1;
@@ -143,6 +145,17 @@ export class DataDesignerComponent implements OnInit {
     } else {
       return 'card_' + 1;
     }
+  }
+
+  onCancel(): void {
+    this.location.back();
+  }
+
+  passValueToChild(value): any {
+    if(Array.isArray(value) && value.length > 0) {
+      return value;
+    }
+
   }
 
 

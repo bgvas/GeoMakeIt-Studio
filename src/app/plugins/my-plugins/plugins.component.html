@@ -19,7 +19,10 @@
                                 <th>Title</th>
                                 <th>Description</th>
                             </thead>
-                            <tbody>
+                            <tbody *ngIf="error !== null">
+                                <span class="text-danger m-2" style="font-weight: bold">{{error.message}}</span>
+                            </tbody>
+                            <tbody *ngIf="error === null">
                                 <tr *ngFor = "let plugin of listOfPlugins" class="mat-h3">
                                     <td *ngIf="plugin.identifier === ''" class="text-gray" >- no plugins -</td>
                                     <td>{{plugin.identifier}}</td>
@@ -35,15 +38,21 @@
                                                     </i>
                                                 </mat-button-toggle>
                                                 <mat-button-toggle class="border-danger">
-                                                    <app-delete-pop-up  [element] = "plugin" (delete)="onDelete($event)"></app-delete-pop-up>
+                                                    <app-delete-pop-up (click)="setPlugInForDelete(plugin)"  [element] = "deletePlugin" (delete)="onDelete($event, plugin.id)"></app-delete-pop-up>
                                                 </mat-button-toggle>
                                             </form>
                                         </div>
                                     </td>
                                 </tr>
+                                <tr *ngIf="listOfPlugins?.length === 0">
+                                    <span class="m-2" style="font-weight: bold">
+                                        No plugins found
+                                    </span>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
+                    <app-spinner [visible]="setSpinnerActive"></app-spinner>
                 </div>
             </div>
         </div>

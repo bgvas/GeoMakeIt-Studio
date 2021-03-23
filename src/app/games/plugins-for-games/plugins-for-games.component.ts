@@ -3,8 +3,7 @@ import {AvailablePluginsService} from './availbable-plugins/available-plugins.se
 import {InstalledPluginsService} from './instaled-plugins-of-a-game/installed-plugins.service';
 import {Router} from '@angular/router';
 import {GameService} from '../game.service';
-import {RootAvailablePlugins} from '../../classes/plugins/root-available-plugins';
-import {AvailablePlugin} from '../../classes/plugins/available-plugin';
+import {Plugin} from '../../classes/plugins/plugin';
 
 @Component({
   selector: 'app-plugins-for-games',
@@ -13,10 +12,9 @@ import {AvailablePlugin} from '../../classes/plugins/available-plugin';
 })
 export class PluginsForGamesComponent implements OnInit {
 
-  availablePlugins: AvailablePlugin[];
+  availablePlugins: Plugin[];
   installedPlugins: any;
   game: any;
-  gameId: number;
 
 
   constructor(private availableService: AvailablePluginsService,
@@ -27,17 +25,22 @@ export class PluginsForGamesComponent implements OnInit {
 
     // get game-object from game-service and send HTTP request for the installed plugins //
     this.game = this.gameService.object;
-    this.gameId = 1; // this.game.id;
+
+    if(this.game?.id === undefined) {
+      this.router.navigate(['games']);
+    }
 
     this.availableService.getAvailablePlugins().subscribe(data => {
       this.availablePlugins = data.data;
-      console.log(this.availablePlugins);
-
     });
 
-    this.installedService.getInstalledPluginsPerGame(this.gameId).subscribe(data => {
+    this.installedService.getInstalledPluginsPerGame(this.game?.id).subscribe(data => {
       this.installedPlugins = data;
     });
+  }
+
+  goToGamesList(){
+    this.router.navigate(['games']);
   }
 
 

@@ -18,7 +18,6 @@ export class DeletePopUpComponent implements OnInit {
   constructor(private location: Location) { }
 
   ngOnInit(): void {
-
   }
 
   onCancel(): void {
