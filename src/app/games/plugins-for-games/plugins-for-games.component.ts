@@ -3,7 +3,7 @@ import {AvailablePluginsService} from './availbable-plugins/available-plugins.se
 import {InstalledPluginsService} from './instaled-plugins-of-a-game/installed-plugins.service';
 import {Router} from '@angular/router';
 import {GameService} from '../game.service';
-import {AvailablePlugin} from '../../classes/plugins/available-plugin';
+import {Plugin} from '../../classes/plugins/plugin';
 
 @Component({
   selector: 'app-plugins-for-games',
@@ -12,7 +12,7 @@ import {AvailablePlugin} from '../../classes/plugins/available-plugin';
 })
 export class PluginsForGamesComponent implements OnInit {
 
-  availablePlugins: AvailablePlugin[];
+  availablePlugins: Plugin[];
   installedPlugins: any;
   game: any;
 

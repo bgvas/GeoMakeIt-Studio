@@ -27,7 +27,7 @@ export class CreateGameComponent implements OnInit {
   initializeForm(): void {
     this.createGameForm = this.fb.group({
       title: this.fb.control('', Validators.required),
-      description: this.fb.control('') // TODO add , Validators.required)  //
+      description: this.fb.control('', Validators.required)
     })
   }
 
@@ -38,7 +38,9 @@ export class CreateGameComponent implements OnInit {
   }
 
   onSubmit() {
-    this.createNewGame(<Game>this.createGameForm.value);
+    if(this.createGameForm.valid) {
+      this.createNewGame(<Game>this.createGameForm.value);
+    }
   }
 
   createNewGame(newGame: Game): any {
@@ -52,4 +54,6 @@ export class CreateGameComponent implements OnInit {
           console.log(error.code + ' - ' + error.message);
           this.location.back();
     })}
+
+    i
 }

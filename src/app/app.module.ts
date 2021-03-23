@@ -24,7 +24,7 @@ import {
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { GamesComponent } from './games/games/games.component';
-import { PlugInsComponent } from './plugins/my-plugins/plug-ins.component';
+import { PluginsComponent } from './plugins/my-plugins/plugins.component';
 import { CreatePluginComponent } from './plugins/create/create-plugin.component';
 import {MatInputModule} from '@angular/material/input';
 import { CreateGameComponent } from './games/create/create-game.component';
@@ -87,7 +87,7 @@ import { LoginComponent } from './auth/login/login/login.component';
     AppComponent,
     AdminLayoutComponent,
     GamesComponent,
-    PlugInsComponent,
+    PluginsComponent,
     CreatePluginComponent,
     CreateGameComponent,
     ButtonTogglesComponent,

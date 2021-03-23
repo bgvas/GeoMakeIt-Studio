@@ -18,7 +18,8 @@
                                     <textarea class="mb-2" matInput type="text" placeholder="Description" #description formControlName="description" ></textarea>
                                     <mat-error>Description is required</mat-error> <!-- validation -->
                                 </mat-form-field>
-                                <button type="submit" class="btn btn-info m-4" (click) = "onSubmit()">Save</button>
+
+                                <button type="submit" class="btn btn-info m-4" (click) = "onSubmit()" [disabled]="!createGameForm.valid">Save</button>
                                 <button type="reset" class="btn btn-secondary m-2" (click) = onCancel()>Cancel</button>
                             </form>
                         </div>

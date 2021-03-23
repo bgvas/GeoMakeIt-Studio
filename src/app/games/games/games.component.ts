@@ -26,16 +26,7 @@ export class GamesComponent implements OnInit {
   ngOnInit(): void {
       this.showSpinner = true; // display spinner while loading //
 
-      this.service.getGamesOfSpecificUser().subscribe(data => {
-          this.listOfGames = data.data.filter(items => items.deleted_at === null);
-          this.showSpinner = false;   // hide spinner
-      },
-      error => {
-         /* error.message = 'No games found.'*/
-          console.log('List of games: ' + error.code + ' - ' + error.message);
-          this.error = error;
-          this.showSpinner = false;    // hide spinner
-      });
+      this.loadListOfGames();
 
       /*this.service.getGameById(1).subscribe(data => {
 
@@ -58,20 +49,30 @@ export class GamesComponent implements OnInit {
           this.service.deleteGameOfSpecificUser(this.service.object.id).subscribe(
               deletedGame => {
                   this.service.getGamesOfSpecificUser().subscribe(values => {
-                          this.listOfGames = data.data?.filter(items => items.deleted_at === null);
-                  },
-                      error => {
-                          /* error.message = 'No games found.'*/
-                          console.log('Refresh Game List: ' + error.code + ' - ' + error.message);
-                          this.error = error;
+                          this.listOfGames = data.data;
                   })
                   this.afterDelete.showNotification('Game ' + this.service.object.title + '  Deleted', 'success');
+                  this.loadListOfGames();
               },
               error => {
                   console.log('Deleting game: ' + error.code + ' - ' + error.message);
                   this.afterDelete.showNotification('Can\'t delete game: ' + this.service.object.title + '. Something went wrong!', 'danger');
               })
       }
+  }
+
+
+  loadListOfGames() {
+        this.service.getGamesOfSpecificUser().subscribe(data => {
+            this.listOfGames = data.data;
+            this.showSpinner = false;    // hide spinner
+        },
+        error => {
+            /* error.message = 'No games found.'*/
+            console.log('Game List: ' + error.code + ' - ' + error.message);
+            this.error = error;
+            this.showSpinner = false;    // hide spinner
+        })
   }
 
 
