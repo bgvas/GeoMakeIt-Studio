@@ -13,7 +13,7 @@
 
   "question_2": {
     "question": "How are you?",
-    "question_type": "textBox",
+    "question_type": "multiple_choice_all",
     "possible_answers": [],
     "correct_answer": "Fine",
     "image": "@drawable/geoquiz_palette"

@@ -1,10 +1,10 @@
-<div class="card shadow">
+<div class="card shadow" *ngIf="error?.message === null">
     <div class="card-header card-header-info" >
         <h4 class="card-title">
-            {{plugin.title}}
+            {{plugin?.title}}
         </h4>
         <p class="card-category">
-            -add description-
+            {{plugin?.description}}
         </p>
     </div>
     <div class="card-body">
@@ -12,7 +12,7 @@
             <strong>
                 version:
                 <span class="text-info">
-                    -add plugin's current release-
+                    - release of plugin - <!-- TODO add dropdown menu with all available releases -->
                 </span>
             </strong>
         </div>
@@ -42,7 +42,7 @@
                         </td>
                         <td class="text-center border border-info">
                           <!--  <div *ngIf="plugin.gameId !== ''">-->
-                                <mat-button-toggle matTooltip="enter to configurations" (click)="goToConfig()" routerLinkActive = true style="border: 0">
+                                <mat-button-toggle matTooltip="enter to configurations" (click)="goToPluginConfigurations()"  style="border: 0">
                                     <i class="material-icons text-info">
                                         settings
                                     </i>

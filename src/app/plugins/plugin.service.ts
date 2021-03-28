@@ -37,8 +37,9 @@ export class PluginService {
     return this.http.get<RootPlugins>(this.path);
   }
 
-  getPluginById(pluginId): Observable<any> {
-    return this.http.get<any>(this.path + '/' + pluginId);
+  getPluginById(pluginId): Observable<RootPlugins> {
+    /*return this.http.get<any>(this.path + '/' + pluginId);*/
+    return this.http.get<RootPlugins>('assets/dummyJson/availablePlugins.json')
   }
 
   putPluginById(pluginId: number, updatedPlugin: Plugin): Observable<any> {

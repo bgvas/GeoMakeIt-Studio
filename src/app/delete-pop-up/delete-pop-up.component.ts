@@ -1,6 +1,6 @@
 import {Component, Input, EventEmitter, OnInit, Output} from '@angular/core';
 import {Location} from '@angular/common';
-import {GameService} from '../games/game.service';
+
 
 
 @Component({
