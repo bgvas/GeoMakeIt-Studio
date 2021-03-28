@@ -25,7 +25,8 @@ export class PluginsComponent implements OnInit {
       this.loadListOfPlugins();
   }
 
-  onDelete(data, pluginId): void {
+  onDelete(data): void {
+    const pluginId = this.service.object.id;
     if (data) {
       this.service.deletePluginById(pluginId).subscribe((data: Plugin) => {
         this.notification.showNotification('Plugin Deleted!', 'success');
@@ -51,12 +52,9 @@ export class PluginsComponent implements OnInit {
     });
   }
 
-  setToService(plugin){
+  rememberPlugin(plugin){
     this.service.object = plugin;
-  }
-
-  setPlugInForDelete(data){
-    this.deletePlugin = data;
+    this.deletePlugin = this.service.object;
   }
 
 }

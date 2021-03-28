@@ -1,13 +1,16 @@
-[
-      {
-        "id": 4,
-        "name": "GeoMakeIt!",
-        "description": "The main API",
-        "version": "1.0.1",
-        "downloads": 156,
-        "valuation": 4,
-        "state": "enabled",
-        "required": true,
-        "gameId": "1"
-      }
-]
+{
+  "data": [
+    {
+      "game_id": 37,
+      "plugin_id": 3,
+      "plugin_release_id": 42,
+      "enabled": true
+    },
+    {
+      "game_id": 37,
+      "plugin_id": 4,
+      "plugin_release_id": 11,
+      "enabled": true
+    }
+  ]
+}

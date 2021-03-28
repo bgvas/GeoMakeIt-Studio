@@ -23,11 +23,11 @@ import {
   AgmCoreModule
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { GamesComponent } from './games/games/games.component';
+import { GamesComponent } from './games/my-games/games.component';
 import { PluginsComponent } from './plugins/my-plugins/plugins.component';
-import { CreatePluginComponent } from './plugins/create/create-plugin.component';
+import { CreatePluginComponent } from './plugins/create-plugin/create-plugin.component';
 import {MatInputModule} from '@angular/material/input';
-import { CreateGameComponent } from './games/create/create-game.component';
+import { CreateGameComponent } from './games/create-game/create-game.component';
 import { ButtonTogglesComponent } from './button-toggles/button-toggles.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -56,6 +56,8 @@ import { DataDesignerComponent } from './games/plugins-for-games/plugin-configs/
 import { ErrorHandlingComponent } from './error-handling/error-handling.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { LoginComponent } from './auth/login/login/login.component';
+import { ValidationMessagesComponent } from './validations/validation-messages/validation-messages.component';
+
 
 
 
@@ -108,7 +110,8 @@ import { LoginComponent } from './auth/login/login/login.component';
     DataDesignerComponent,
     ErrorHandlingComponent,
     SpinnerComponent,
-    LoginComponent
+    LoginComponent,
+    ValidationMessagesComponent
 
   ],
   providers: [{

@@ -19,7 +19,8 @@ export class GamesComponent implements OnInit {
     listOfGames: Game[];
     gameById: Game;
     error: Error;
-    showSpinner: boolean
+    showSpinner: boolean;
+
 
   constructor(private service: GameService, private location: Location) { }
 

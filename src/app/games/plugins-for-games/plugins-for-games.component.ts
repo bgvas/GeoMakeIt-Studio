@@ -4,6 +4,8 @@ import {InstalledPluginsService} from './instaled-plugins-of-a-game/installed-pl
 import {Router} from '@angular/router';
 import {GameService} from '../game.service';
 import {Plugin} from '../../classes/plugins/plugin';
+import {Error} from '../../classes/error/error';
+import {InstalledPlugin} from '../../classes/plugins/installed_plugins/installed-plugin';
 
 @Component({
   selector: 'app-plugins-for-games',
@@ -13,8 +15,9 @@ import {Plugin} from '../../classes/plugins/plugin';
 export class PluginsForGamesComponent implements OnInit {
 
   availablePlugins: Plugin[];
-  installedPlugins: any;
+  installedPlugins: InstalledPlugin[];
   game: any;
+  error: Error;
 
 
   constructor(private availableService: AvailablePluginsService,
@@ -23,25 +26,34 @@ export class PluginsForGamesComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // get game-object from game-service and send HTTP request for the installed plugins //
+    // get saved-game from service //
     this.game = this.gameService.object;
 
-    if(this.game?.id === undefined) {
+
+    // if there is no game, return to games-list
+    if (this.game?.id === undefined) {
       this.router.navigate(['games']);
     }
+
+    // get installed plugins of a game //
+    this.gameService.getInstalledPluginsOfGame(this.game?.id).subscribe((plugins) => {
+      console.log(plugins);
+      this.installedPlugins = plugins.data;
+    },
+    (error: Error) => {
+       this.error = error;
+       console.log('Installed plugins of game: ' + this.error.message + ' - ' + this.error.code);
+    })
 
     this.availableService.getAvailablePlugins().subscribe(data => {
       this.availablePlugins = data.data;
     });
 
-    this.installedService.getInstalledPluginsPerGame(this.game?.id).subscribe(data => {
+   /* this.installedService.getInstalledPluginsPerGame(this.game?.id).subscribe(data => {
       this.installedPlugins = data;
-    });
+    });*/
   }
 
-  goToGamesList(){
-    this.router.navigate(['games']);
-  }
 
 
 

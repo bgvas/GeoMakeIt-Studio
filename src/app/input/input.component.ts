@@ -1,5 +1,6 @@
-import {ChangeDetectorRef, Component, forwardRef, Input, OnInit} from '@angular/core';
-import {AbstractControl, ControlValueAccessor, FormArray, FormControl, FormGroup, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {EventEmitter, Component, forwardRef, Input, OnInit, Output} from '@angular/core';
+import {FormArray, FormControl, FormGroup, NG_VALUE_ACCESSOR, Validators} from '@angular/forms';
+
 
 @Component({
   selector: 'app-input',
@@ -18,20 +19,24 @@ export class InputComponent implements OnInit {
   @Input() validation: any;
   @Input() items: any;
 
+
   buttonValue = false;
   collapseText = 'Click to open...';
   arrayValues = [];
 
-  constructor(private cd: ChangeDetectorRef) { }
+  constructor() { }
 
   ngOnInit() {
 
     this.formName.addControl(this.groupName, new FormGroup({}));
+    // this adds values, inside FormArrays //
     if (this.type.includes('array')) {
         (this.formName.get(this.groupName) as FormGroup).addControl(this.controlName, new FormArray([]));
         this.arrayValues = this.value;
     }
+    // This initialize,  a new formGroup //
     (this.formName.get(this.groupName) as FormGroup).addControl(this.controlName, new FormControl(''));
+
   }
 
   isArray(obj): boolean {
@@ -54,17 +59,18 @@ export class InputComponent implements OnInit {
 
   deleteArrayItem(groupName, controlName, i): void {
     (this.formName.get(groupName).get(controlName) as FormArray).removeAt(i);
-      this.arrayValues.splice(i, 1);
+    this.arrayValues.splice(i, 1);
 
   }
 
   addArrayItem(groupName, controlName): void {
-    if (typeof this.arrayValues === 'undefined') {
+    if ( this.arrayValues === undefined) {
       this.arrayValues = [];
     }
     (this.formName.get(groupName).get(controlName) as FormArray).push(new FormControl(''));
     this.arrayValues.push('');
   }
+
 
 
 }

@@ -38,7 +38,7 @@
                                                     </i>
                                                 </mat-button-toggle>
                                                 <mat-button-toggle class="border-danger">
-                                                    <app-delete-pop-up (click)="setPlugInForDelete(plugin)"  [element] = "deletePlugin" (delete)="onDelete($event, plugin.id)"></app-delete-pop-up>
+                                                    <app-delete-pop-up (click)="rememberPlugin(plugin)" [element] = "deletePlugin" (delete)="onDelete($event)"></app-delete-pop-up>
                                                 </mat-button-toggle>
                                             </form>
                                         </div>
