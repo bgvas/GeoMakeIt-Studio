@@ -1,5 +1,5 @@
 <div *ngIf="!details.title">
-    <div class="text-center text-danger"> - no plugIn - {{noPlugInContent()}}</div>
+    <div class="text-center text-danger"> - no plugIn - {{noPlugin()}}</div>
 </div>
 <div class = "card shadow border" *ngIf="details.title" style="height:330px">
     <div class="row">
@@ -9,7 +9,7 @@
                     {{details.title}}
                 </div>
                 <div class="mat-h5 text-gray text-center">
-                    {{details.subTitle}}
+                    {{details.description}}
                 </div>
                 <hr>
             </div>
@@ -23,7 +23,7 @@
         </div>
         <div class="col-6">
             <div class="p-2 text-right">
-                {{details.version}}
+                {{details.identifier}}
             </div>
         </div>
     </div>
@@ -35,7 +35,7 @@
         </div>
         <div class="col-6">
             <div class="p-2 text-right">
-                {{details.main}}
+                {{details.is_required}}
             </div>
         </div>
     </div>
@@ -48,30 +48,6 @@
         <div class="col-6">
             <div class="p-2 text-right">
                 {{details.status}}
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <div class="p-2">
-                <strong>Updated at</strong>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="p-2 text-right">
-                {{details.updatedAt}}
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <div class="p-2">
-                <strong>Created at</strong>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="p-2 text-right">
-                {{details.createdAt}}
             </div>
         </div>
     </div>

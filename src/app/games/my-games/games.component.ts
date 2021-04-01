@@ -47,18 +47,14 @@ export class GamesComponent implements OnInit {
   // onClick delete-button, delete game and display notification
   onDelete(data): void {
       if (data) {
-          this.service.deleteGameOfSpecificUser(this.service.object.id).subscribe(
-              deletedGame => {
-                  this.service.getGamesOfSpecificUser().subscribe(values => {
-                          this.listOfGames = data.data;
-                  })
-                  this.afterDelete.showNotification('Game ' + this.service.object.title + '  Deleted', 'success');
-                  this.loadListOfGames();
-              },
-              error => {
-                  console.log('Deleting game: ' + error.code + ' - ' + error.message);
-                  this.afterDelete.showNotification('Can\'t delete game: ' + this.service.object.title + '. Something went wrong!', 'danger');
-              })
+            this.service.deleteGameOfSpecificUser(this.service.object.id).subscribe(deletedGame => {
+              this.loadListOfGames();
+              this.afterDelete.showNotification('Game deleted!', 'success');
+            },
+            error => {
+              console.log('Deleting game: ' + error.code + ' - ' + error.message);
+              this.afterDelete.showNotification('Can\'t delete game. Something went wrong!', 'danger');
+            })
       }
   }
 

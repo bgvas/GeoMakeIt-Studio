@@ -29,12 +29,12 @@ export class InputComponent implements OnInit {
   ngOnInit() {
 
     this.formName.addControl(this.groupName, new FormGroup({}));
-    // this adds values, inside FormArrays //
+    // add values to FormArray //
     if (this.type.includes('array')) {
         (this.formName.get(this.groupName) as FormGroup).addControl(this.controlName, new FormArray([]));
         this.arrayValues = this.value;
     }
-    // This initialize,  a new formGroup //
+    // This initialize,  a new formControl //
     (this.formName.get(this.groupName) as FormGroup).addControl(this.controlName, new FormControl(''));
 
   }

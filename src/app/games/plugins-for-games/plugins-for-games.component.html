@@ -21,10 +21,15 @@
                             <hr>
                             <div class="collapse" id="installedPlugins">
                                 <div class="card card-body border border-info" >
-                                    <div class="row">
+                                    <div class="row" *ngIf="installedPlugins?.length > 0">
                                         <div class="col-4" *ngFor="let installedPlugin of installedPlugins">  <!-- installed plugins -->
                                             <app-plugin-card [plugin] = "installedPlugin"></app-plugin-card>
                                         </div>  <!-- end of installed plugins -->
+                                    </div>
+                                    <div class="row" *ngIf="installedPlugins?.length <= 0">
+                                        <div class="col-12">
+                                            <span></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

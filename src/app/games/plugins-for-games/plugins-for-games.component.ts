@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AvailablePluginsService} from './availbable-plugins/available-plugins.service';
 import {InstalledPluginsService} from './instaled-plugins-of-a-game/installed-plugins.service';
 import {Router} from '@angular/router';

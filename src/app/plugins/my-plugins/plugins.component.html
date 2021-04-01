@@ -15,36 +15,55 @@
                     <div class="card-content table-responsive table-full-width">
                         <table class="table">
                             <thead class="text-danger">
-                                <th>Identifier</th>
-                                <th>Title</th>
-                                <th>Description</th>
+                                <th style="width: 18%">Identifier</th>
+                                <th style="width: 20%">Title</th>
+                                <th style="width: 24%">Description</th>
+                                <th style="width: 13%">Latest Release</th>
+                                <th style="width: 25%"></th>
                             </thead>
                             <tbody *ngIf="error !== null">
-                                <span class="text-danger m-2" style="font-weight: bold">{{error.message}}</span>
+                                <span class="text-danger m-2" style="font-weight: bold">
+                                    {{error.message}}
+                                </span>
                             </tbody>
                             <tbody *ngIf="error === null">
-                                <tr *ngFor = "let plugin of listOfPlugins" class="mat-h3">
-                                    <td *ngIf="plugin.identifier === ''" class="text-gray" >- no plugins -</td>
+                                <tr *ngFor = "let plugin of getMapKeys()" class="mat-h3">
+                                    <td *ngIf="plugin === null" class="text-gray" >- no plugins -</td>
                                     <td>{{plugin.identifier}}</td>
                                     <td>{{plugin.title}}</td>
                                     <td>{{plugin.description}}</td>
+                                    <td>
+                                        <div *ngIf = "pluginReleasesMap.get(plugin).length <= 0">
+                                            ----
+                                        </div>
+                                        <div *ngIf = "pluginReleasesMap.get(plugin).length > 0">
+                                            {{pluginReleasesMap.get(plugin)[pluginReleasesMap.get(plugin).length - 1].name}}
+                                        </div>
+                                    </td>
                                     <td class="text-right">
                                         <div>
                                             <form>
-                                                <mat-button-toggle class="mr-2 bg-info text-white" [routerLink]="'/plugins/edit'" [queryParams]="{id: 5}">
-                                                    Upload
-                                                    <i class="material-icons text-white">
-                                                        file_upload
-                                                    </i>
-                                                </mat-button-toggle>
-                                                <mat-button-toggle class="border-danger">
-                                                    <app-delete-pop-up (click)="rememberPlugin(plugin)" [element] = "deletePlugin" (delete)="onDelete($event)"></app-delete-pop-up>
-                                                </mat-button-toggle>
+                                                <div>
+                                                    <mat-button-toggle class="mr-2 bg-info text-white" (click) = "uploadRelease(plugin)">
+                                                        <span *ngIf="pluginReleasesMap?.get(plugin).length <= 0">
+                                                            Upload first version
+                                                        </span>
+                                                        <span *ngIf="pluginReleasesMap?.get(plugin).length > 0">
+                                                            Upload a new version
+                                                        </span>
+                                                        <i class="material-icons text-white">
+                                                            file_upload
+                                                        </i>
+                                                    </mat-button-toggle>
+                                                    <mat-button-toggle class="border-danger">
+                                                        <app-delete-pop-up (click)="rememberPlugin(plugin)" [element] = "deletePlugin" (delete)="onDelete($event)"></app-delete-pop-up>
+                                                    </mat-button-toggle>
+                                                </div>
                                             </form>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr *ngIf="listOfPlugins?.length === 0">
+                                <tr *ngIf="pluginReleasesMap.size === 0">
                                     <span class="m-2" style="font-weight: bold">
                                         No plugins found
                                     </span>

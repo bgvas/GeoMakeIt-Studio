@@ -5,6 +5,10 @@
                 <input type="text" class="form-control text-secondary" style="font-weight: bold" [formControlName]="controlName" placeholder="{{placeholder}}">
                 <app-validation-messages [formName]="formName" [groupName]="groupName" [controlName]="controlName" [validation]="validation"></app-validation-messages>
             </div>
+            <div *ngSwitchCase="'image'">
+                <input type="text" class="form-control text-secondary" style="font-weight: bold" [formControlName]="controlName" placeholder="{{placeholder}}">
+                <app-validation-messages [formName]="formName" [groupName]="groupName" [controlName]="controlName" [validation]="validation"></app-validation-messages>
+            </div>
             <div *ngSwitchCase="'integer'">
                 <input type="number" class="form-control text-secondary" placeholder="{{placeholder}}"  style="font-weight: bold" step="1"[formControlName]="controlName">
                 <app-validation-messages  [formName]="formName" [groupName]="groupName" [controlName]="controlName" [validation]="validation"></app-validation-messages>

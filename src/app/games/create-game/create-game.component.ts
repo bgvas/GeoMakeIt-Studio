@@ -46,11 +46,15 @@ export class CreateGameComponent implements OnInit {
   createNewGame(newGame: Game): any {
     return this.service.postNewGameForSpecificUser(newGame).subscribe(
         (game: Game) => {
-          this.notification.showNotification('Game: ' + newGame.title + ', created successfully', 'success');
+          this.notification.showNotification('Game, created successfully', 'success');
           this.location.back();
     },
         (error: Error) => {
-          this.notification.showNotification('Can\'t create new game', 'danger');
+          if(error.code === 422){
+            this.notification.showNotification('This game title, already exists', 'danger');
+          } else {
+            this.notification.showNotification('Can\'t create new game', 'danger');
+          }
           console.log(error.code + ' - ' + error.message);
           this.location.back();
     })}

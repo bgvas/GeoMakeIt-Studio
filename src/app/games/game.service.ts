@@ -4,8 +4,6 @@ import {Observable} from 'rxjs';
 import {GameRoot} from '../classes/games/game-root';
 import {environment} from '../../environments/environment';
 import {Game} from '../classes/games/game';
-import {Plugin} from '../classes/plugins/plugin';
-import {RootPlugins} from '../classes/plugins/root-plugins';
 import {RootInstalledPlugins} from '../classes/plugins/installed_plugins/root-installed-plugins';
 
 

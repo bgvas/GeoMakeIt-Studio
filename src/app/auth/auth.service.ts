@@ -3,6 +3,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {map} from 'rxjs/operators';
+import {AuthCredentials} from '../classes/auth/auth-credentials';
 
 @Injectable({
   providedIn: 'root'
@@ -21,16 +22,23 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  login(username: string, password: string) {
+ /* login(user: AuthCredentials) {
     const url = '';
-    return this.http.post<any>(environment.apiUrl + url, {username, password})
-        .pipe(map(user => {
-          localStorage.setItem('currentUser', JSON.stringify(user));
-          this.currentUserSubject.next(user);
-          return user;
+    return this.http.post<any>(environment.apiUrl + url, user)
+        .pipe(map(checkUser => {
+          localStorage.setItem('currentUser', JSON.stringify(checkUser));
+          this.currentUserSubject.next(checkUser);
+          return checkUser;
         }));
+    }*/
 
+    login(user: AuthCredentials) {
+      if (user.username === 'user' && user.password === 'test') {
+        localStorage.setItem('token', '1|XxqPWqgRFk9yj9B7KKmwRBOFziaeiaKsHYb235HA');
+        return true;
+      } else { return false }
     }
+
 
     logout() {
     localStorage.removeItem('currentUser');

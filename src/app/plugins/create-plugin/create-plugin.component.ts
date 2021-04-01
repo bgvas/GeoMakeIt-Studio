@@ -42,12 +42,16 @@ export class CreatePluginComponent implements OnInit {
 
   createNewPlugin(newPlugin: Plugin): any {
     return this.service.postPlugin(newPlugin).subscribe((savePlugin: Plugin) => {
-        this.notification.showNotification('Plugin ' + newPlugin.identifier  + ', created successful', 'success');
+        this.notification.showNotification('Plugin, created successfully', 'success');
         this.location.back();
     },
         (error: Error) => {
-          this.notification.showNotification('Can\'t create new plugin', 'danger');
-          this.location.back();
+            if(error.code === 422){
+                this.notification.showNotification('This plugin identifier, already exists', 'danger');
+            } else {
+                this.notification.showNotification('Can\'t create new plugin', 'danger');
+            }
+            this.location.back();
         })
   }
 

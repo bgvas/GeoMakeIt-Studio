@@ -4,6 +4,8 @@ import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {RootPlugins} from '../classes/plugins/root-plugins';
 import {Plugin} from '../classes/plugins/plugin';
+import {RootPluginReleases} from '../classes/plugins/available_plugins/root-plugin-releases';
+import {PluginRelease} from '../classes/plugins/available_plugins/plugin-release';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +15,7 @@ export class PluginService {
   path = environment.apiUrl + 'plugins'
 
   _object: any;
+  pluginReleases = new Array<PluginRelease>();
 
   constructor(private http: HttpClient) { }
 
@@ -25,6 +28,16 @@ export class PluginService {
     return this._object;
   }
 
+  pluginReleasesById(pluginId): PluginRelease[] {
+
+    this.getReleasesOfPlugin(pluginId).subscribe(releases => {
+      console.log(releases.data);
+      this.pluginReleases =  releases.data;
+    })
+
+    return this.pluginReleases;
+  }
+
   getInstalledPluginsOfAGame(gameId): Observable<any> {
     return this.http.get<any>(this.path + '/' + gameId);
   }
@@ -35,6 +48,11 @@ export class PluginService {
 
   getAllPluginsOfUser(): Observable<RootPlugins> {
     return this.http.get<RootPlugins>(this.path);
+  }
+
+  getReleasesOfPlugin(pluginId): Observable<RootPluginReleases> {
+    /*return this.http.get<RootPluginReleases>(this.path + '/' + pluginId + '/releases');*/
+    return this.http.get<RootPluginReleases>('assets/dummyJson/plugin_release.json');
   }
 
   getPluginById(pluginId): Observable<RootPlugins> {

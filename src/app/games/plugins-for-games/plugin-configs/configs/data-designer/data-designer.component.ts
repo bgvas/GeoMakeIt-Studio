@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, Input, OnInit, AfterContentChecked} from '@angular/core';
 import {RootDesigner} from '../../../../../classes/designers/rootDesignerClass/root-designer';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {AbstractControl, Form, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DesignerService} from '../designer.service';
 import {Location} from '@angular/common';
 import {ValidationsService} from '../../../../../validations/validations.service';
@@ -33,15 +33,10 @@ export class DataDesignerComponent implements OnInit, AfterContentChecked {
     this.dataDesigner.subscribe(data => {
       this.editor = data;
     });
-    this.dataFile.subscribe(data => {
-      this.data = data;
 
-      // form creation //
-      this.initializeForm();
-
-      // add controls to form //
-      this.declareService.fillForm(data, this.dataForm);
-    })
+    // form creation //
+    this.initializeForm();
+    this.loadDataFile();
   }
 
   // wait child, to detect form changes first //
@@ -72,8 +67,8 @@ export class DataDesignerComponent implements OnInit, AfterContentChecked {
 
   onSubmit(): void {
     console.log(this.dataForm.valid);
+    console.log(this.dataForm.controls);
     console.log(this.dataForm.value);
-
   }
 
   removeUnderscore(str): string {
@@ -108,10 +103,12 @@ export class DataDesignerComponent implements OnInit, AfterContentChecked {
 
   // create a new formGroup //
   addGroup(): void {
-      const name = this.getNameForNewFormGroup(this.dataForm.controls);    // create name //
-      this.dataForm.addControl(name, new FormGroup({}));      // declare new formGroup, to form //
-      this.dataFromForm?.addControl(name, new FormGroup({}));  // display new FormGroup//
+    const name = this.getNameForNewFormGroup(this.dataForm.controls);    // create name //
+    (this.dataFromForm as FormGroup)?.addControl(name, new FormGroup({}));  // display new FormGroup//
+    (this.dataForm as FormGroup).addControl(name, new FormGroup({}));      // add new formGroup, to form //
+    this.loadDataFile();
   }
+
 
   // create name for the new formGroup //
   getNameForNewFormGroup(form): any {
@@ -155,6 +152,12 @@ export class DataDesignerComponent implements OnInit, AfterContentChecked {
       }
       (this.dataForm.get(formGroupName).get(formControlName) as FormControl)?.setValidators(validators);
     }
+  }
+
+  loadDataFile(): void {
+    this.dataFile.subscribe(data => {
+      this.declareService.fillForm(data, this.dataForm);
+    })
   }
 
 
