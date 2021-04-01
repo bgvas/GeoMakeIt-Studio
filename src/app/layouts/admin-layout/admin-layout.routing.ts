@@ -15,17 +15,18 @@ import {CreateGameComponent} from '../../games/create-game/create-game.component
 import {EditPluginComponent} from '../../plugins/edit-plugin/edit-plugin.component';
 import {PluginsForGamesComponent} from '../../games/plugins-for-games/plugins-for-games.component'
 import {PluginConfigsComponent} from '../../games/plugins-for-games/plugin-configs/plugin-configs.component';
+import {CanActivateRouteService} from '../../auth/can-activate-route.service';
 
 export const AdminLayoutRoutes: Routes = [
 
-    { path: 'studio',  component: DashboardComponent },
-    { path: 'user-profile',   component: UserProfileComponent },
-    { path: 'games',   component: GamesComponent },
-    { path: 'games/create', component: CreateGameComponent},
-    { path: 'games/plugins', component: PluginsForGamesComponent},
-    { path: 'games/plugins/config', component: PluginConfigsComponent},
-    { path: 'plugins', component: PluginsComponent},
-    { path: 'plugins/create', component: CreatePluginComponent},
-    { path: 'plugins/edit', component: EditPluginComponent},
+    { path: 'studio',  component: DashboardComponent, canActivate: [CanActivateRouteService]},
+    { path: 'user-profile',   component: UserProfileComponent, canActivate: [CanActivateRouteService]},
+    { path: 'games',   component: GamesComponent, canActivate: [CanActivateRouteService]},
+    { path: 'games/create', component: CreateGameComponent, canActivate: [CanActivateRouteService]},
+    { path: 'games/plugins', component: PluginsForGamesComponent, canActivate: [CanActivateRouteService]},
+    { path: 'games/plugins/config', component: PluginConfigsComponent, canActivate: [CanActivateRouteService]},
+    { path: 'plugins', component: PluginsComponent, canActivate: [CanActivateRouteService]},
+    { path: 'plugins/create', component: CreatePluginComponent, canActivate: [CanActivateRouteService]},
+    { path: 'plugins/edit', component: EditPluginComponent, canActivate: [CanActivateRouteService]},
     { path: 'login', redirectTo: '/login'}
 ];

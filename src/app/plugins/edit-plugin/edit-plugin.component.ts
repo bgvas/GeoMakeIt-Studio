@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router'
 import {Location} from '@angular/common';
+import {PluginService} from '../plugin.service';
+import { Plugin} from '../../classes/plugins/plugin';
 
 @Component({
   selector: 'app-edit-plugin',
@@ -9,23 +11,13 @@ import {Location} from '@angular/common';
 })
 export class EditPluginComponent implements OnInit {
 
-  pluginId;
-  descriptionObject = {
-    title: 'Demo Plugin',
-    subTitle: 'small description of plugin',
-    version: '1.0.0',
-    main: 'example.plugin',
-    status: '0',
-    updatedAt: '1 second ago',
-    createdAt: '15 second ago'
-  }
+  plugin: Plugin;
 
-  constructor(private router: ActivatedRoute, private location: Location) { }
+
+  constructor(private router: ActivatedRoute, private location: Location, private service: PluginService) { }
 
   ngOnInit(): void {
-
-    // getting id of plugin from url query
-    this.router.queryParams.subscribe(params => { this.pluginId = +params['id'] || 0; })
+    this.plugin = this.service.object;
   }
 
   onCancel(): void {

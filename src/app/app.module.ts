@@ -3,14 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
-
-
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
-
+import {CanActivateRouteService} from './auth/can-activate-route.service';
+import {AuthService} from './auth/auth.service';
 import { AppComponent } from './app.component';
-
 import { DashboardComponent } from './studio/dashboard.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { TableListComponent } from './table-list/table-list.component';
@@ -118,7 +115,8 @@ import { ValidationMessagesComponent } from './validations/validation-messages/v
     provide: HTTP_INTERCEPTORS,
     useClass: GlobalHttpInterceptor,
     multi: true,
-  }],
+  },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

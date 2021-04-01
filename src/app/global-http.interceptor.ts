@@ -22,10 +22,10 @@ export class GlobalHttpInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     // Todo  add Uth Token Service //
-    localStorage.setItem('token', '1|XxqPWqgRFk9yj9B7KKmwRBOFziaeiaKsHYb235HA');
+    const token = localStorage.getItem('token');
     const requestWithAuth = request.clone({
       setHeaders: {
-        Authorization: 'Bearer ' +  localStorage.getItem('token')
+        Authorization: 'Bearer ' +  token
       }
     });
 

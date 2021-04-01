@@ -10,7 +10,7 @@ import {DeclareFormControlsService} from '../../../../../declareFormControls/dec
   templateUrl: './designer.component.html',
   styleUrls: ['./designer.component.css']
 })
-export class DesignerComponent implements OnInit, AfterContentChecked{
+export class DesignerComponent implements OnInit, AfterContentChecked {
 
   @Input() designerFile: any;
   @Input() dataFile: any;
