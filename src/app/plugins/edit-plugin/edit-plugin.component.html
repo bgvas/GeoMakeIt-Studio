@@ -12,21 +12,61 @@
                             <div class="row m-2">
                                 <div class="col-12 m-4" *ngIf="plugin?.id === null">
                                     <h5>no plugin selected</h5>
-                                </div>
-                                <div class="col-12" *ngIf="plugin?.id > 0">
-                                    <app-details-card [details]="plugin"></app-details-card>
-                                </div>
-                                <div class="row m-2" *ngIf="plugin?.id !== null">
-                                    <div class="col-12 input-group" >
-                                        <mat-form-field appearance="outline" [style.width.px]="465">
-                                        <mat-label>Choose a file</mat-label>
-                                        <ngx-mat-file-input placeholder="Choose a file" [disabled]="false"></ngx-mat-file-input>
-                                        <mat-icon matSuffix class="text-info">folder</mat-icon>
-                                        </mat-form-field>
+                                    <div class="col-12 ">
+                                        <button type="reset" class="btn btn-outline-danger m-2" (click) = onCancel()>Back</button>
                                     </div>
                                 </div>
-                                <div class="col-12 m-2">
-                                    <button type="reset" class="btn btn-outline-danger m-2" (click) = onCancel()>Back</button>
+                                <div class="row m-2" *ngIf="plugin?.id !== null">
+                                    <form [formGroup]="fileUploadForm">
+                                        <div class="col-12">
+                                            <div class="mat-h2 text-center">
+                                                {{plugin?.title}}
+                                            </div>
+                                            <div *ngIf="plugin?.description !== ''" class="mat-h5 text-gray text-center">
+                                                {{plugin?.description}}
+                                            </div>
+                                            <hr>
+                                            <div class="row m-2">
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <span style="font-weight: bold">
+                                                                Version
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control" placeholder="type a name for version" formControlName="name">
+                                                            <mat-error *ngIf="fileUploadForm.get('name').invalid && fileUploadForm.get('name').touched">
+                                                                Version name is required
+                                                            </mat-error>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 input-group" >
+                                            <mat-form-field appearance="outline" [style.width.px]="465">
+                                                <mat-label>
+                                                    Choose an *.aar file, to upload
+                                                </mat-label>
+                                                <ngx-mat-file-input (change) = "onSelect($event)"></ngx-mat-file-input>
+                                                <mat-icon matSuffix class="text-info">
+                                                    folder
+                                                </mat-icon>
+                                            </mat-form-field>
+                                            <mat-error *ngIf="fileUploadForm.get('file').invalid && fileUploadForm.get('file').touched">
+                                                Version name is required
+                                            </mat-error>
+                                        </div>
+                                        <div class="row text-center">
+                                            <div class="col-6">
+                                                <button type="reset" class="btn btn-info m-2" [disabled]="fileUploadForm.invalid" (click) = onSubmit()>Upload</button>
+                                            </div>
+                                            <div class="col-6 ">
+                                                <button type="reset" class="btn btn-outline-danger m-2" (click) = onCancel()>Cancel</button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

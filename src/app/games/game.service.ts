@@ -15,31 +15,25 @@ export class GameService {
   _object: any;
   path = environment.apiUrl + 'games';
 
-
   constructor(private http: HttpClient) { }
 
   // Get-Http request //
   getGameById(id): Observable<GameRoot> {
-
     return this.http.get<GameRoot>(this.path + '/' + id);
-
   }
 
   // Get-Http request //
   getGamesOfSpecificUser(): Observable<GameRoot> {
-
     return this.http.get<GameRoot>(this.path);
   }
 
   // Post-HTTP request //
   postNewGameForSpecificUser(game: Game): Observable<Game> {
-
     return this.http.post<Game>(this.path, game);
   }
 
   // Delete-HTTP request //
   deleteGameOfSpecificUser(gameId: number): Observable<any> {
-
     return this.http.delete(this.path + '/' + gameId);
   }
 
@@ -47,8 +41,6 @@ export class GameService {
     /*return this.http.get<RootInstalledPlugins>(this.path + '/' + gameId + '/plugins'); */
     return this.http.get<RootInstalledPlugins>('assets/dummyJson/installedPlugins.json');
   }
-
-
 
   // get values from this general-use object //
   get object(): any {

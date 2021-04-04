@@ -20,7 +20,7 @@ export class PluginService {
   constructor(private http: HttpClient) { }
 
 
-  set object(obj){
+  set object(obj) {
     this._object = obj;
   }
 
@@ -29,9 +29,7 @@ export class PluginService {
   }
 
   pluginReleasesById(pluginId): PluginRelease[] {
-
     this.getReleasesOfPlugin(pluginId).subscribe(releases => {
-      console.log(releases.data);
       this.pluginReleases =  releases.data;
     })
 
@@ -51,8 +49,11 @@ export class PluginService {
   }
 
   getReleasesOfPlugin(pluginId): Observable<RootPluginReleases> {
-    /*return this.http.get<RootPluginReleases>(this.path + '/' + pluginId + '/releases');*/
-    return this.http.get<RootPluginReleases>('assets/dummyJson/plugin_release.json');
+    return this.http.get<RootPluginReleases>(this.path + '/' + pluginId + '/releases');
+  }
+
+  postReleaseForPlugin(pluginId, release: FormData): Observable<any> {
+    return this.http.post(this.path + '/' + pluginId + '/releases', release)
   }
 
   getPluginById(pluginId): Observable<RootPlugins> {
@@ -71,4 +72,6 @@ export class PluginService {
   deletePluginById(pluginId: number): Observable<any> {
     return this.http.delete<any>(this.path + '/' + pluginId);
   }
+
+
 }

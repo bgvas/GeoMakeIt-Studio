@@ -1,53 +1,29 @@
-<div *ngIf="!details.title">
-    <div class="text-center text-danger"> - no plugIn - {{noPlugin()}}</div>
+<div *ngIf="plugin?.id === null">
+    <div class="text-center m-4">no plugin selected</div>
 </div>
-<div class = "card shadow border" *ngIf="details.title" style="height:330px">
+<div class = "card shadow border" *ngIf="plugin?.title !== null" style="height: auto">
     <div class="row">
         <div class="col-12">
             <div class="p-2">
                 <div class="mat-h2 text-center">
-                    {{details.title}}
+                    {{plugin?.title}}
                 </div>
-                <div class="mat-h5 text-gray text-center">
-                    {{details.description}}
+                <div *ngIf="plugin?.description !== ''" class="mat-h5 text-gray text-center">
+                    {{plugin?.description}}
                 </div>
                 <hr>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-6">
+        <div class="col-4">
             <div class="p-2">
                 <strong>Version</strong>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-8">
             <div class="p-2 text-right">
-                {{details.identifier}}
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <div class="p-2">
-                <strong>Main</strong>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="p-2 text-right">
-                {{details.is_required}}
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <div class="p-2">
-                <strong>Status</strong>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="p-2 text-right">
-                {{details.status}}
+                {{release?.name}}
             </div>
         </div>
     </div>

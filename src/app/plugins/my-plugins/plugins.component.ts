@@ -49,7 +49,7 @@ export class PluginsComponent implements OnInit{
       this.service.getAllPluginsOfUser().subscribe(plugins => {
           this.setSpinnerActive = false;
           for (const plugin of plugins.data) {
-              this.service.getReleasesOfPlugin(plugin).subscribe(releases => {
+              this.service.getReleasesOfPlugin(plugin.id).subscribe(releases => {
                   this.pluginReleasesMap.set(plugin, releases.data);
               },
               (error: Error) => {

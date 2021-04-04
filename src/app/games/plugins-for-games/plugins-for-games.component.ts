@@ -6,6 +6,7 @@ import {GameService} from '../game.service';
 import {Plugin} from '../../classes/plugins/plugin';
 import {Error} from '../../classes/error/error';
 import {InstalledPlugin} from '../../classes/plugins/installed_plugins/installed-plugin';
+import {PluginService} from '../../plugins/plugin.service';
 
 @Component({
   selector: 'app-plugins-for-games',
@@ -20,7 +21,7 @@ export class PluginsForGamesComponent implements OnInit {
   error: Error;
 
 
-  constructor(private availableService: AvailablePluginsService,
+  constructor(private pluginService: PluginService,
               private installedService: InstalledPluginsService,
               private router: Router, private gameService: GameService) { }
 
@@ -30,14 +31,13 @@ export class PluginsForGamesComponent implements OnInit {
     this.game = this.gameService.object;
 
 
-    // if there is no game, return to games-list
+    // if there are no game, return to games-list
     if (this.game?.id === undefined) {
       this.router.navigate(['games']);
     }
 
     // get installed plugins of a game //
     this.gameService.getInstalledPluginsOfGame(this.game?.id).subscribe((plugins) => {
-      console.log(plugins);
       this.installedPlugins = plugins.data;
     },
     (error: Error) => {
@@ -45,7 +45,7 @@ export class PluginsForGamesComponent implements OnInit {
        console.log('Installed plugins of game: ' + this.error.message + ' - ' + this.error.code);
     })
 
-    this.availableService.getAvailablePlugins().subscribe(data => {
+    this.pluginService.getAvailablePlugins().subscribe(data => {
       this.availablePlugins = data.data;
     });
 

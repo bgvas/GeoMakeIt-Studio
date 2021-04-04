@@ -1,6 +1,8 @@
 import {Component, Input, OnInit, Output} from '@angular/core';
 import {EventEmitter} from 'events';
 import {Plugin} from '../classes/plugins/plugin';
+import {PluginService} from '../plugins/plugin.service';
+import {PluginRelease} from '../classes/plugins/available_plugins/plugin-release';
 
 
 @Component({
@@ -12,20 +14,27 @@ import {Plugin} from '../classes/plugins/plugin';
 
 export class DetailsCardComponent implements OnInit {
 
-  @Input() details: Plugin;
-  @Output() plugin = new EventEmitter();
+  @Input() plugin: Plugin;
 
-  constructor() { }
+  release: PluginRelease;
+
+  constructor(private service: PluginService) { }
 
   ngOnInit(): void {
-      this.plugin.emit(true);
+      this.service.getReleasesOfPlugin(this.plugin?.id).subscribe(releases => {
+          this.release = this.lastReleaseOfPlugin(releases.data);
+      })
   }
 
-  isEmptyObject(): boolean {
-       return !!this.details.title;
-  }
+    lastReleaseOfPlugin(releases: PluginRelease[]): PluginRelease {
 
-  noPlugin(): void {
-     this.plugin.emit(false);
-  }
+        const index = releases.length - 1;
+        if ( index < 0 || index === undefined) {
+            return new PluginRelease();
+        } else {
+            return releases[index];
+        }
+    }
+
+
 }

@@ -15,6 +15,7 @@ import {Error} from '../../classes/error/error';
 export class PluginCardComponent implements OnInit {
 
   @Input() plugin: any;
+  @Input() type: string;
 
   displayPlugin: Plugin;
   error: Error;
@@ -53,6 +54,10 @@ export class PluginCardComponent implements OnInit {
     } else {
       this.displayPlugin = this.plugin;
     }
+  }
+
+  getLastVersionOfPlugin(){
+
   }
 
 }
