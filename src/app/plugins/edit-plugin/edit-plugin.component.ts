@@ -21,6 +21,8 @@ export class EditPluginComponent implements OnInit {
   fileUploadForm: FormGroup;
   fileName = '';
   notification = new NotificationsComponent();
+  uploadStarted: boolean;
+  errorFileType: boolean;
 
 
   constructor(
@@ -30,10 +32,10 @@ export class EditPluginComponent implements OnInit {
       private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.uploadStarted = false;
     this.plugin = this.service.object;
     this.initializeForm();
 }
-
 
   onCancel(): void {
     this.location.back();
@@ -47,24 +49,29 @@ export class EditPluginComponent implements OnInit {
   }
 
   onSubmit() {
+      this.uploadStarted = true;
       const release = new FormData();
       release.append('name', this.fileUploadForm.get('name').value);
       release.append('file', this.fileUploadForm.get('file').value);
       this.service.postReleaseForPlugin(this.plugin.id, release).subscribe(result => {
-          this.notification.showNotification('Plugin uploaded successfully. Will be visible after approval.', 'success');
-          this.router.navigate(['plugins']);
+           this.notification.showNotification('Plugin version, uploaded successfully. Will be visible after approval.', 'success');
+           this.router.navigate(['plugins']);
       },
       (error: Error) => {
-            console.log('New Release: ' + error.message + ' - ' + error.code);
-            this.notification.showNotification('Plugin didn\'t created', 'danger');
+          console.log('New Release: ' + error.message + ' - ' + error.code);
+          this.notification.showNotification('Plugin version, didn\'t created', 'danger');
       })
   }
 
-  onSelect(event){
-      if(event.target.files.length > 0) {
+  onFileSelect(event) {
+      const extension = (event.target.files[0].name);
+      if (event.target.files.length > 0 && extension.endsWith('aar')) {
           const file = event.target.files[0];
           this.fileUploadForm.get('file').setValue(file);
+      } else {
+         this.errorFileType = true;
       }
+
   }
 
 }

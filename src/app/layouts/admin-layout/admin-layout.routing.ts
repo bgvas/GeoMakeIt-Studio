@@ -16,6 +16,7 @@ import {EditPluginComponent} from '../../plugins/edit-plugin/edit-plugin.compone
 import {PluginsForGamesComponent} from '../../games/plugins-for-games/plugins-for-games.component'
 import {PluginConfigsComponent} from '../../games/plugins-for-games/plugin-configs/plugin-configs.component';
 import {CanActivateRouteService} from '../../auth/can-activate-route.service';
+import {GameViewComponent} from '../../games/game-view/game-view.component';
 
 export const AdminLayoutRoutes: Routes = [
 
@@ -23,6 +24,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'user-profile',   component: UserProfileComponent, canActivate: [CanActivateRouteService]},
     { path: 'games',   component: GamesComponent, canActivate: [CanActivateRouteService]},
     { path: 'games/create', component: CreateGameComponent, canActivate: [CanActivateRouteService]},
+    { path: 'games/view', component: GameViewComponent, canActivate: [CanActivateRouteService]},
     { path: 'games/plugins', component: PluginsForGamesComponent, canActivate: [CanActivateRouteService]},
     { path: 'games/plugins/config', component: PluginConfigsComponent, canActivate: [CanActivateRouteService]},
     { path: 'plugins', component: PluginsComponent, canActivate: [CanActivateRouteService]},

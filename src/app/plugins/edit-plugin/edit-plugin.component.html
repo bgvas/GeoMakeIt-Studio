@@ -49,7 +49,7 @@
                                                 <mat-label>
                                                     Choose an *.aar file, to upload
                                                 </mat-label>
-                                                <ngx-mat-file-input (change) = "onSelect($event)"></ngx-mat-file-input>
+                                                <ngx-mat-file-input (change) = "onFileSelect($event)" [accept]="'.aar'"></ngx-mat-file-input>
                                                 <mat-icon matSuffix class="text-info">
                                                     folder
                                                 </mat-icon>
@@ -57,6 +57,12 @@
                                             <mat-error *ngIf="fileUploadForm.get('file').invalid && fileUploadForm.get('file').touched">
                                                 Version name is required
                                             </mat-error>
+                                            <mat-error *ngIf="errorFileType" class = "mb-2">
+                                                Error file type. Only *.aar files allowed
+                                            </mat-error>
+                                        </div>
+                                        <div *ngIf="uploadStarted">
+                                            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
                                         </div>
                                         <div class="row text-center">
                                             <div class="col-6">

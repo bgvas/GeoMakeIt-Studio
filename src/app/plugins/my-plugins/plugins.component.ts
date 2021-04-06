@@ -30,9 +30,9 @@ export class PluginsComponent implements OnInit{
   }
 
   onDelete(data): void {
+    this.pluginReleasesMap = null;
     if (data) {
       this.service.deletePluginById(this.service.object.id).subscribe(value => {
-        this.pluginReleasesMap.clear();
           this.loadListOfPlugins();
           this.notification.showNotification('Plugin Deleted!', 'success');
       },

@@ -5,6 +5,7 @@ import {GameRoot} from '../classes/games/game-root';
 import {environment} from '../../environments/environment';
 import {Game} from '../classes/games/game';
 import {RootInstalledPlugins} from '../classes/plugins/installed_plugins/root-installed-plugins';
+import {Plugin} from '../classes/plugins/plugin';
 
 
 @Injectable({
@@ -37,9 +38,17 @@ export class GameService {
     return this.http.delete(this.path + '/' + gameId);
   }
 
+  deleteInstalledPluginFromGame(gameId: number, pluginId: number): Observable<any> {
+   return this.http.delete(this.path + '/' + gameId + '/plugins/' + pluginId);
+  }
+
   getInstalledPluginsOfGame(gameId: number): Observable<RootInstalledPlugins> {
     /*return this.http.get<RootInstalledPlugins>(this.path + '/' + gameId + '/plugins'); */
     return this.http.get<RootInstalledPlugins>('assets/dummyJson/installedPlugins.json');
+  }
+
+  getGameRelease(gameId: number): Observable<GameRoot> {
+    return this.http.get<GameRoot>(this.path + '/' + gameId + '/releases')
   }
 
   // get values from this general-use object //

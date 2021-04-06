@@ -54,6 +54,8 @@ import { ErrorHandlingComponent } from './error-handling/error-handling.componen
 import { SpinnerComponent } from './spinner/spinner.component';
 import { LoginComponent } from './auth/login/login/login.component';
 import { ValidationMessagesComponent } from './validations/validation-messages/validation-messages.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { GameViewComponent } from './games/game-view/game-view.component';
 
 
 
@@ -61,27 +63,28 @@ import { ValidationMessagesComponent } from './validations/validation-messages/v
 
 
 @NgModule({
-  imports: [
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    ComponentsModule,
-    RouterModule,
-    AppRoutingModule,
-    MatButtonToggleModule,
-    MaterialFileInputModule,
-    MatIconModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-    }),
-    MatInputModule,
-    MatTooltipModule,
-    MatButtonModule,
-    AdminLayoutModule,
-    MatTabsModule,
-    NgbModule
-  ],
+    imports: [
+        BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        ComponentsModule,
+        RouterModule,
+        AppRoutingModule,
+        MatButtonToggleModule,
+        MaterialFileInputModule,
+        MatIconModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
+        }),
+        MatInputModule,
+        MatTooltipModule,
+        MatButtonModule,
+        AdminLayoutModule,
+        MatTabsModule,
+        NgbModule,
+        MatProgressBarModule
+    ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
@@ -108,7 +111,8 @@ import { ValidationMessagesComponent } from './validations/validation-messages/v
     ErrorHandlingComponent,
     SpinnerComponent,
     LoginComponent,
-    ValidationMessagesComponent
+    ValidationMessagesComponent,
+    GameViewComponent
 
   ],
   providers: [{
