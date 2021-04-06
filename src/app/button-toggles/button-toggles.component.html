@@ -1,6 +1,6 @@
 <p>  <!-- button system for My-games page -->
     <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-        <mat-button-toggle matTooltip="Read view of the game" value="">
+        <mat-button-toggle matTooltip="Read view of the game" (click) = "sendDataToGameView()"> <!-- if button clicked, go to game-view component -->
             <i class="material-icons text-gray">
                 visibility
             </i>
@@ -10,7 +10,7 @@
                 extension
             </i>
         </mat-button-toggle>
-        <mat-button-toggle matTooltip="Build and download the game" value="">
+        <mat-button-toggle matTooltip="View plugins of the game" (click) = "sendDataToGameBuild()">   <!-- if button clicked, go to game-build component -->
             <i class="material-icons text-primary">
                 build
             </i>

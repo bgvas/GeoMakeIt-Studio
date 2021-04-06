@@ -11,9 +11,6 @@ export class AvailablePluginsService {
 
   url = 'assets/dummyJson/availablePlugins.json';
 
-
-
-
   constructor(private http: HttpClient) { }
 
   getAvailablePlugins(): Observable<RootPlugins> {

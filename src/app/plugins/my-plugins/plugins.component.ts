@@ -30,9 +30,9 @@ export class PluginsComponent implements OnInit{
   }
 
   onDelete(data): void {
+    this.pluginReleasesMap = null;
     if (data) {
       this.service.deletePluginById(this.service.object.id).subscribe(value => {
-        this.pluginReleasesMap.clear();
           this.loadListOfPlugins();
           this.notification.showNotification('Plugin Deleted!', 'success');
       },
@@ -49,7 +49,7 @@ export class PluginsComponent implements OnInit{
       this.service.getAllPluginsOfUser().subscribe(plugins => {
           this.setSpinnerActive = false;
           for (const plugin of plugins.data) {
-              this.service.getReleasesOfPlugin(plugin).subscribe(releases => {
+              this.service.getReleasesOfPlugin(plugin.id).subscribe(releases => {
                   this.pluginReleasesMap.set(plugin, releases.data);
               },
               (error: Error) => {

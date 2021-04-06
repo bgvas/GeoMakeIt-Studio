@@ -38,7 +38,7 @@ export class GlobalHttpInterceptor implements HttpInterceptor {
 
       const errorMessage =  new Error();
       if (error.error instanceof ErrorEvent) {
-        errorMessage.message = error.message;
+        errorMessage.message = error.error.message;
         errorMessage.code = error.status;
       } else {
         errorMessage.message = error.statusText;

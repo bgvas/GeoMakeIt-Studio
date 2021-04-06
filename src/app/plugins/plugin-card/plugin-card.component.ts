@@ -1,10 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {GameService} from '../../games/game.service';
 import {Router} from '@angular/router';
 import { Plugin } from '../../classes/plugins/plugin';
 import {PluginService} from '../plugin.service';
 import {Error} from '../../classes/error/error';
-
 
 
 @Component({
@@ -15,6 +14,9 @@ import {Error} from '../../classes/error/error';
 export class PluginCardComponent implements OnInit {
 
   @Input() plugin: any;
+  @Input() type: string;
+
+  @Output() delete = new EventEmitter();
 
   displayPlugin: Plugin;
   error: Error;
@@ -29,8 +31,11 @@ export class PluginCardComponent implements OnInit {
   }
 
   // return true if delete-button clicked //
-  deletePlugin(event): boolean {
-    return event;
+  onDeletePlugin(event, plugin){
+    const events = [];
+    events.push(event);
+    events.push(plugin);
+    this.delete.emit(events);
   }
 
   goToPluginConfigurations(): void {
@@ -54,5 +59,11 @@ export class PluginCardComponent implements OnInit {
       this.displayPlugin = this.plugin;
     }
   }
+
+  rememberPlugin(plugin) {
+    this.service.object = plugin;
+  }
+
+
 
 }

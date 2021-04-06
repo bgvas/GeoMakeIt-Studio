@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {AvailablePluginsService} from './availbable-plugins/available-plugins.service';
 import {InstalledPluginsService} from './instaled-plugins-of-a-game/installed-plugins.service';
 import {Router} from '@angular/router';
 import {GameService} from '../game.service';
 import {Plugin} from '../../classes/plugins/plugin';
 import {Error} from '../../classes/error/error';
 import {InstalledPlugin} from '../../classes/plugins/installed_plugins/installed-plugin';
+import {PluginService} from '../../plugins/plugin.service';
+import {NotificationsComponent} from '../../notifications/notifications.component';
 
 @Component({
   selector: 'app-plugins-for-games',
@@ -18,11 +19,12 @@ export class PluginsForGamesComponent implements OnInit {
   installedPlugins: InstalledPlugin[];
   game: any;
   error: Error;
+  notification = new NotificationsComponent();
 
 
-  constructor(private availableService: AvailablePluginsService,
+  constructor(private pluginService: PluginService,
               private installedService: InstalledPluginsService,
-              private router: Router, private gameService: GameService) { }
+              private router: Router, private gameService: GameService){ }
 
   ngOnInit(): void {
 
@@ -30,14 +32,13 @@ export class PluginsForGamesComponent implements OnInit {
     this.game = this.gameService.object;
 
 
-    // if there is no game, return to games-list
+    // if there are no game, return to games-list
     if (this.game?.id === undefined) {
       this.router.navigate(['games']);
     }
 
     // get installed plugins of a game //
     this.gameService.getInstalledPluginsOfGame(this.game?.id).subscribe((plugins) => {
-      console.log(plugins);
       this.installedPlugins = plugins.data;
     },
     (error: Error) => {
@@ -45,13 +46,27 @@ export class PluginsForGamesComponent implements OnInit {
        console.log('Installed plugins of game: ' + this.error.message + ' - ' + this.error.code);
     })
 
-    this.availableService.getAvailablePlugins().subscribe(data => {
+    this.pluginService.getAvailablePlugins().subscribe(data => {
       this.availablePlugins = data.data;
+    },
+    (error: Error) => {
+      this.error = error;
+      console.log('Available plugins: ' + this.error.message + ' - ' + this.error.code);
     });
+  }
 
-   /* this.installedService.getInstalledPluginsPerGame(this.game?.id).subscribe(data => {
-      this.installedPlugins = data;
-    });*/
+  onDeletePlugin(event) {
+    if(event[0] === true) {
+      this.gameService.deleteInstalledPluginFromGame(this.game.id, event[1].plugin_id).subscribe(deletedPlugin => {
+        this.notification.showNotification('Plugin uninstalled correctly from game.', 'success');
+        console.log('deleted');
+        /* TODO load again the installed-plugins list */
+      },
+      (error: Error) => {
+        console.log('Uninstall Plugin from game: ' + error.message + ' - ' + error.code);
+        this.notification.showNotification('Can\'t uninstall plugin from game.', 'danger');
+      })
+    }
   }
 
 

@@ -1,5 +1,13 @@
 <div class="card shadow" *ngIf="error?.message === null">
-    <div class="card-header card-header-info" >
+    <div class="card-header card-header-success" *ngIf="type === 'installed'">
+        <h4 class="card-title">
+            {{plugin?.title}}
+        </h4>
+        <p class="card-category">
+            {{plugin?.description}}
+        </p>
+    </div>
+    <div class="card-header card-header-info" *ngIf="type === 'available'">
         <h4 class="card-title">
             {{plugin?.title}}
         </h4>
@@ -8,78 +16,49 @@
         </p>
     </div>
     <div class="card-body">
-        <div class="col-12">
-            <strong>
-                version:
-                <span class="text-info">
-                    - release of plugin - <!-- TODO add dropdown menu with all available releases -->
-                </span>
-            </strong>
+        <div *ngIf="type === 'installed'">
+            <div class="row text-center">
+                <div class="col-3" style="font-weight: bold">
+                    Version
+                </div>
+                <div class="col-3 text-success" style="font-weight: bold">
+                    v 3.0.2<!-- put here installed release name  -->
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-outline-success">
+                        change version
+                    </button>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-12">
+                    <table class="border border-success w-100">
+                        <tr>
+                            <td class="text-center" style="width: 33%">
+                                <div class="text-info" *ngIf="plugin.enabled" style="font-weight: bold">Enabled</div>
+                                <div class="text-danger" *ngIf="!plugin.enabled" style="font-weight: bold">Disabled</div>
+                            </td>
+                            <td class="text-center" style="width: 33%">
+                                <button (click)="goToPluginConfigurations()"  class="text-white btn btn-success" [disabled]="!plugin.enabled" >
+                                    <mat-icon>settings</mat-icon>Configs
+                                </button>
+                            </td>
+                            <td class="text-center" style="width: 33%">
+                                <div *ngIf="plugin.required" style="font-weight: bold">Required</div>
+                                <div *ngIf="!plugin.required">
+                                    <mat-button-toggle class="border-danger">
+                                        <app-delete-pop-up (click)="rememberPlugin(plugin)" [element] = "plugin" (delete)="onDeletePlugin($event, plugin)"></app-delete-pop-up>
+                                    </mat-button-toggle>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div class="row justify-content-center">
-            <div class="col-12">
-                <table class="w-100">
-                    <tr>
-                        <td class="text-center border border-info">
-                            <span class="text-success" style="font-weight: bold">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <i class="material-icons pt-2">
-                                            download
-                                        </i>
-                                       - plugin install -
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        -add valuation-
-                                    </div>
-                                </div>
-                            </span>
-                           <!-- <span *ngIf="!plugin.is_building" class="text-danger" style="font-weight: bold">
-                                Disabled
-                            </span>-->
-                        </td>
-                        <td class="text-center border border-info">
-                          <!--  <div *ngIf="plugin.gameId !== ''">-->
-                                <mat-button-toggle matTooltip="enter to configurations" (click)="goToPluginConfigurations()"  style="border: 0">
-                                    <i class="material-icons text-info">
-                                        settings
-                                    </i>
-                                    <span class="font-weight-bold text-info">
-                                        Configuration
-                                    </span>
-                                </mat-button-toggle>
-                          <!--  </div>-->
-                            <!--<div *ngIf="plugin.gameId === ''">
-                                <mat-button-toggle matTooltip="Information about this plugin" routerLinkActive = true style="border: 0">
-                                    <i class="material-icons text-info">
-                                        info
-                                    </i>
-                                    <span class="text-info" style="font-weight: bold">
-                                        Info
-                                    </span>
-                                </mat-button-toggle>
-                            </div>-->
-                        </td>
-                        <td class="text-center border border-info">
-                            <!--<span *ngIf="plugin.required" class="text-black">this plugin is required</span>-->
-                          <!--  <span *ngIf="!plugin.required" class="text-black">
-                                <mat-button-toggle  *ngIf="plugin.gameId !== ''" style="border: 0">
-                                    <app-delete-pop-up  [element] = "plugin" (delete)="deletePlugin($event)"></app-delete-pop-up>
-                                </mat-button-toggle>-->
-                                <mat-button-toggle style="border: 0"> <!--*ngIf="plugin.gameId === ''" style="border: 0">-->
-                                    <i class="material-icons text-success">
-                                        download
-                                    </i>
-                                    <span class="text-success" style="font-weight: bold">
-                                       Install
-                                    </span>
-                                </mat-button-toggle>
-                           <!-- </span>-->
-                        </td>
-                    </tr>
-                </table>
+        <div *ngIf="type === 'available'">
+            <div class="row text-center">
             </div>
         </div>
     </div>

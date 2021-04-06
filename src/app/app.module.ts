@@ -24,7 +24,7 @@ import { GamesComponent } from './games/my-games/games.component';
 import { PluginsComponent } from './plugins/my-plugins/plugins.component';
 import { CreatePluginComponent } from './plugins/create-plugin/create-plugin.component';
 import {MatInputModule} from '@angular/material/input';
-import { CreateGameComponent } from './games/create-game/create-game.component';
+import { GameCreateComponent } from './games/game-create/game-create.component';
 import { ButtonTogglesComponent } from './button-toggles/button-toggles.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -54,6 +54,9 @@ import { ErrorHandlingComponent } from './error-handling/error-handling.componen
 import { SpinnerComponent } from './spinner/spinner.component';
 import { LoginComponent } from './auth/login/login/login.component';
 import { ValidationMessagesComponent } from './validations/validation-messages/validation-messages.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { GameViewComponent } from './games/game-view/game-view.component';
+import { GameBuildComponent } from './games/game-build/game-build.component';
 
 
 
@@ -61,34 +64,35 @@ import { ValidationMessagesComponent } from './validations/validation-messages/v
 
 
 @NgModule({
-  imports: [
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    ComponentsModule,
-    RouterModule,
-    AppRoutingModule,
-    MatButtonToggleModule,
-    MaterialFileInputModule,
-    MatIconModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-    }),
-    MatInputModule,
-    MatTooltipModule,
-    MatButtonModule,
-    AdminLayoutModule,
-    MatTabsModule,
-    NgbModule
-  ],
+    imports: [
+        BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        ComponentsModule,
+        RouterModule,
+        AppRoutingModule,
+        MatButtonToggleModule,
+        MaterialFileInputModule,
+        MatIconModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
+        }),
+        MatInputModule,
+        MatTooltipModule,
+        MatButtonModule,
+        AdminLayoutModule,
+        MatTabsModule,
+        NgbModule,
+        MatProgressBarModule
+    ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     GamesComponent,
     PluginsComponent,
     CreatePluginComponent,
-    CreateGameComponent,
+    GameCreateComponent,
     ButtonTogglesComponent,
     EditPluginComponent,
     DetailsCardComponent,
@@ -108,7 +112,9 @@ import { ValidationMessagesComponent } from './validations/validation-messages/v
     ErrorHandlingComponent,
     SpinnerComponent,
     LoginComponent,
-    ValidationMessagesComponent
+    ValidationMessagesComponent,
+    GameViewComponent,
+    GameBuildComponent
 
   ],
   providers: [{
