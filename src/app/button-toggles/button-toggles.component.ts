@@ -34,7 +34,11 @@ export class ButtonTogglesComponent implements OnInit {
   sendDataToGameView(): void {
     this.service.object = this.game;
     this.router.navigate(['/games/view']);
+  }
 
+  sendDataToGameBuild(): void {
+    this.service.object = this.game;
+    this.router.navigate(['/games/build']);
   }
 
 }

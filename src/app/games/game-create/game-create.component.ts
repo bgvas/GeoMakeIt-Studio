@@ -8,10 +8,10 @@ import {NotificationsComponent} from '../../notifications/notifications.componen
 
 @Component({
   selector: 'app-create-game',
-  templateUrl: './create-game.component.html',
-  styleUrls: ['./create-game.component.css']
+  templateUrl: './game-create.component.html',
+  styleUrls: ['./game-create.component.css']
 })
-export class CreateGameComponent implements OnInit {
+export class GameCreateComponent implements OnInit {
 
   createGameForm: FormGroup;
   notification = new NotificationsComponent();
