@@ -1,28 +1,28 @@
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../studio/dashboard.component';
-import { UserProfileComponent } from '../../user-profile/user-profile.component';
+import { UserProfileComponent } from '../../user-management/components/user-profile/user-profile.component';
 import { TableListComponent } from '../../table-list/table-list.component';
 import { TypographyComponent } from '../../typography/typography.component';
-import { IconsComponent } from '../../icons/icons.component';
+import { IconsComponent } from '../../features/components/icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
-import { NotificationsComponent } from '../../notifications/notifications.component';
+import { NotificationsComponent } from '../../features/components/notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
-import {GamesComponent} from '../../games/my-games/games.component';
-import {PluginsComponent} from '../../plugins/my-plugins/plugins.component';
-import {CreatePluginComponent} from '../../plugins/create-plugin/create-plugin.component';
-import {GameCreateComponent} from '../../games/game-create/game-create.component';
-import {EditPluginComponent} from '../../plugins/edit-plugin/edit-plugin.component';
-import {PluginsForGamesComponent} from '../../games/plugins-for-games/plugins-for-games.component'
-import {PluginConfigsComponent} from '../../games/plugins-for-games/plugin-configs/plugin-configs.component';
-import {CanActivateRouteService} from '../../auth/can-activate-route.service';
-import {GameViewComponent} from '../../games/game-view/game-view.component';
-import {GameBuildComponent} from '../../games/game-build/game-build.component';
+import {GamesComponent} from '../../games/components/my-games/games.component';
+import {PluginsComponent} from '../../plugins/components/my-plugins/plugins.component';
+import {CreatePluginComponent} from '../../plugins/components/create-plugin/create-plugin.component';
+import {GameCreateComponent} from '../../games/components/game-create/game-create.component';
+import {EditPluginComponent} from '../../plugins/components/edit-plugin/edit-plugin.component';
+import {PluginsForGamesComponent} from '../../games/components/plugins-for-games/plugins-for-games.component'
+import {PluginConfigsComponent} from '../../games/components/plugins-for-games/plugin-configs/plugin-configs.component';
+import {CanActivateRouteService} from '../../authentication/services/can-activate-route.service';
+import {GameViewComponent} from '../../games/components/game-view/game-view.component';
+import {GameBuildComponent} from '../../games/components/game-build/game-build.component';
 
 export const AdminLayoutRoutes: Routes = [
 
     { path: 'studio',  component: DashboardComponent, canActivate: [CanActivateRouteService]},
-    { path: 'user-profile',   component: UserProfileComponent, canActivate: [CanActivateRouteService]},
+    { path: 'user',   component: UserProfileComponent, canActivate: [CanActivateRouteService]},
     { path: 'games',   component: GamesComponent, canActivate: [CanActivateRouteService]},
     { path: 'games/create', component: GameCreateComponent, canActivate: [CanActivateRouteService]},
     { path: 'games/view', component: GameViewComponent, canActivate: [CanActivateRouteService]},
