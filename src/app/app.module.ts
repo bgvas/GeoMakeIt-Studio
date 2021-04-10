@@ -17,7 +17,6 @@ import {AdminLayoutModule} from './layouts/admin-layout/admin-layout.module';
 import { TabGroupComponent } from './tab-group/tab-group.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import {GlobalHttpInterceptor} from './global-http.interceptor';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ErrorHandlingComponent } from './error-handling/error-handling.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { UserManagementModule } from './user-management/user-management.module';
@@ -38,15 +37,11 @@ import { GameModule } from './games/game.module';
         AppRoutingModule,
         MaterialFileInputModule,
         MatIconModule,
-        AgmCoreModule.forRoot({
-            apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-        }),
         MatInputModule,
         MatTooltipModule,
         MatButtonModule,
         AdminLayoutModule,
         MatTabsModule,
-        NgbModule,
         MatProgressBarModule,
         UserManagementModule,
         AuthenticationModule,

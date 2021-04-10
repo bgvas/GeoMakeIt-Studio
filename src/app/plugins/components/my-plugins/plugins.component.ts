@@ -24,6 +24,7 @@ export class PluginsComponent implements OnInit, OnDestroy {
   error: Error = null;
   deletePlugin: any;
   pluginReleasesMap = new Map<Plugin, PluginRelease[]>();
+  withOutPlugins: boolean;
   private unsubscribe = new Subject<void>();
 
   constructor(private service: PluginService, private router: Router) { }
@@ -56,14 +57,19 @@ export class PluginsComponent implements OnInit, OnDestroy {
   loadListOfPlugins() {
       this.service.getAllPluginsOfUser().pipe(takeUntil(this.unsubscribe)).subscribe(plugins => {
           this.setSpinnerActive = false;
-          for (const plugin of plugins.data) {
-              this.service.getReleasesOfPlugin(plugin.id).pipe(takeUntil(this.unsubscribe)).subscribe(releases => {
-                  this.pluginReleasesMap.set(plugin, releases.data);
-              },
-              (error: Error) => {
-                  console.log('Releases of plugin: ' + error.message + ' - ' + error.code)
-                  this.error = error;
-              })
+          if (plugins.data.length > 0) {
+              for (const plugin of plugins.data) {
+                  this.service.getReleasesOfPlugin(plugin.id).pipe(takeUntil(this.unsubscribe)).subscribe(releases => {
+                        this.pluginReleasesMap.set(plugin, releases.data);
+                  },
+                  (error: Error) => {
+                      console.log('Releases of plugin: ' + error.message + ' - ' + error.code)
+                      this.error = error;
+                  })
+              }
+              this.withOutPlugins = false;
+          } else {
+              this.withOutPlugins = true;
           }
       },
       (error: Error) => {

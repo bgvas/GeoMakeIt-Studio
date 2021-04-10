@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-import { DashboardComponent } from '../../studio/dashboard.component';
+import { DashboardComponent } from '../../features/components/studio/dashboard.component';
 import { UserProfileComponent } from '../../user-management/components/user-profile/user-profile.component';
 import { TableListComponent } from '../../table-list/table-list.component';
 import { TypographyComponent } from '../../typography/typography.component';

@@ -16,6 +16,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { ValidationMessagesComponent } from './components/validations/validation-messages/validation-messages.component';
 import {DeclareFormControlsService} from './services/declareFormControls/declare-form-controls.service';
 import {ValidationsService} from './services/validations/validations.service';
+import { AgmCoreModule } from '@agm/core';
+import { DashboardComponent } from './components/studio/dashboard.component';
+
 
 
 @NgModule({
@@ -29,7 +32,8 @@ import {ValidationsService} from './services/validations/validations.service';
     InputComponent,
     NotificationsComponent,
     TooltipInfoCircleComponent,
-    ValidationMessagesComponent
+    ValidationMessagesComponent,
+    DashboardComponent
   ],
     exports: [
         SpinnerComponent,
@@ -43,7 +47,10 @@ import {ValidationsService} from './services/validations/validations.service';
         MatTooltipModule,
         MatButtonToggleModule,
         ReactiveFormsModule,
-        MatFormFieldModule
+        MatFormFieldModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyBEckmuR4cwjzfgkK_JqnzLGyViz1AdKps'
+        })
     ],
     providers: [
         DeclareFormControlsService,
