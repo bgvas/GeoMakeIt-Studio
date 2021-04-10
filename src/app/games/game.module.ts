@@ -19,6 +19,7 @@ import { DataDesignerComponent } from './components/plugins-for-games/plugin-con
 import { InformationComponent } from './components/plugins-for-games/plugin-configs/information/information.component';
 import { StringsComponent } from './components/plugins-for-games/plugin-configs/strings/strings.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import {MatInputModule} from '@angular/material/input';
 
 
 
@@ -44,7 +45,8 @@ import { MatTabsModule } from '@angular/material/tabs';
         MatButtonToggleModule,
         PluginModule,
         RouterModule,
-        MatTabsModule
+        MatTabsModule,
+        MatInputModule
     ],
   providers: [
       GameService
