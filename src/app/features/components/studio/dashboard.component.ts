@@ -7,19 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  lat = 40.730610;
-  lng = -73.935242;
-  selectedLat: any;
-  selectedLng: any;
-
   constructor() { }
 
   ngOnInit() {
 
   }
 
-  onMapClick(event) {
-    this.selectedLat = event?.coords.lat;
-    this.selectedLng = event?.coords.lng;
-  }
+
 }

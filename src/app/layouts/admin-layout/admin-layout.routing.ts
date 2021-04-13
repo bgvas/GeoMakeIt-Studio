@@ -2,12 +2,12 @@ import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../features/components/studio/dashboard.component';
 import { UserProfileComponent } from '../../user-management/components/user-profile/user-profile.component';
-import { TableListComponent } from '../../table-list/table-list.component';
-import { TypographyComponent } from '../../typography/typography.component';
+import { TableListComponent } from '../../templateTools/table-list/table-list.component';
+import { TypographyComponent } from '../../templateTools/typography/typography.component';
 import { IconsComponent } from '../../features/components/icons/icons.component';
-import { MapsComponent } from '../../maps/maps.component';
+import { MapsComponent } from '../../templateTools/maps/maps.component';
 import { NotificationsComponent } from '../../features/components/notifications/notifications.component';
-import { UpgradeComponent } from '../../upgrade/upgrade.component';
+import { UpgradeComponent } from '../../templateTools/upgrade/upgrade.component';
 import {GamesComponent} from '../../games/components/my-games/games.component';
 import {PluginsComponent} from '../../plugins/components/my-plugins/plugins.component';
 import {CreatePluginComponent} from '../../plugins/components/create-plugin/create-plugin.component';

@@ -20,7 +20,7 @@ export class PluginsComponent implements OnInit, OnDestroy {
 
   notification = new NotificationsComponent();
   delete: any;
-  setSpinnerActive: boolean;
+  showSpinner: boolean;
   error: Error = null;
   deletePlugin: any;
   pluginReleasesMap = new Map<Plugin, PluginRelease[]>();
@@ -30,7 +30,7 @@ export class PluginsComponent implements OnInit, OnDestroy {
   constructor(private service: PluginService, private router: Router) { }
 
   ngOnInit(): void {
-      this.setSpinnerActive = true;
+      this.showSpinner = true;
       this.loadListOfPlugins();
   }
 
@@ -56,7 +56,7 @@ export class PluginsComponent implements OnInit, OnDestroy {
 
   loadListOfPlugins() {
       this.service.getAllPluginsOfUser().pipe(takeUntil(this.unsubscribe)).subscribe(plugins => {
-          this.setSpinnerActive = false;
+          this.showSpinner = false;
           if (plugins.data.length > 0) {
               for (const plugin of plugins.data) {
                   this.service.getReleasesOfPlugin(plugin.id).pipe(takeUntil(this.unsubscribe)).subscribe(releases => {
@@ -74,7 +74,7 @@ export class PluginsComponent implements OnInit, OnDestroy {
       },
       (error: Error) => {
           console.log('List of plugins: ' + error.message + ' - ' + error.code)
-          this.setSpinnerActive = false;
+          this.showSpinner = false;
           this.error = error;
       });
   }

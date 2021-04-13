@@ -30,7 +30,7 @@ export class InputComponent implements OnInit {
 
     this.formName.addControl(this.groupName, new FormGroup({}));
     // add values to FormArray //
-    if (this.type.includes('array')) {
+    if (this.type.includes('array') || this.type.includes('map')) {
         (this.formName.get(this.groupName) as FormGroup).addControl(this.controlName, new FormArray([]));
         this.arrayValues = this.value;
     }
@@ -69,6 +69,10 @@ export class InputComponent implements OnInit {
     }
     (this.formName.get(groupName).get(controlName) as FormArray).push(new FormControl(''));
     this.arrayValues.push('');
+  }
+
+  getCoordinates(event) {
+    console.log(event[0] + ' - ' + event[1]);
   }
 
 

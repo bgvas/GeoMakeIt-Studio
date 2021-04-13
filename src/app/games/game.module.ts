@@ -20,6 +20,10 @@ import { InformationComponent } from './components/plugins-for-games/plugin-conf
 import { StringsComponent } from './components/plugins-for-games/plugin-configs/strings/strings.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import {MatInputModule} from '@angular/material/input';
+import {DataFileService} from './services/data-file.service';
+import {DesignerService} from './services/designer.service';
+import {AvailablePluginsService} from './services/availbable-plugins/available-plugins.service';
+import {InstalledPluginsService} from './services/instaled-plugins-of-a-game/installed-plugins.service';
 
 
 
@@ -49,7 +53,11 @@ import {MatInputModule} from '@angular/material/input';
         MatInputModule
     ],
   providers: [
-      GameService
+      GameService,
+      DataFileService,
+      DesignerService,
+      AvailablePluginsService,
+      InstalledPluginsService
   ]
 })
 export class GameModule { }

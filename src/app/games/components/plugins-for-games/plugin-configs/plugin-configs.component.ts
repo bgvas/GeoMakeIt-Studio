@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GameService} from '../../../services/game.service';
-import {Router} from '@angular/router';
 import {Location} from '@angular/common';
-import {Game} from '../../../models/games/game';
+import {Error} from '../../../../classes/error/error'
+import {takeUntil} from 'rxjs/operators';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-plugin-configs',
@@ -10,23 +11,39 @@ import {Game} from '../../../models/games/game';
   styleUrls: ['./plugin-configs.component.css']
 })
 
-export class PluginConfigsComponent implements OnInit {
+export class PluginConfigsComponent implements OnInit, OnDestroy {
 
   plugin: any;
   game: any;
+  showSpinner: boolean;
+  private unsubscribe = new Subject<void>();
+
   constructor(private service: GameService, private location: Location) { }
 
   ngOnInit(): void {
+    this.showSpinner = true;
       if (this.service.object instanceof Object) {
         this.plugin = this.service.object.plugin;
           console.log('Game: ' + this.service.object.game?.id);
-          this.service.getGameById(this.service.object.game?.id).subscribe(data => {
+          this.service.getGameById(this.service.object.game?.id).pipe(takeUntil(this.unsubscribe)).subscribe(data => {
+            this.showSpinner = false;
             this.game = data;
-          });
+          },
+              (error: Error) => {
+                this.showSpinner = false;
+                console.log('PluginConfigs: ' + error.message + ' - ' + error.code);
+              });
+
       } else {
+        this.showSpinner = false;
         this.plugin = false;
         this.location.back();
       }
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
   gameExist(game): boolean {

@@ -18,6 +18,7 @@ import {DeclareFormControlsService} from './services/declareFormControls/declare
 import {ValidationsService} from './services/validations/validations.service';
 import { AgmCoreModule } from '@agm/core';
 import { DashboardComponent } from './components/studio/dashboard.component';
+import { MapComponent } from './components/map/map.component';
 
 
 
@@ -33,7 +34,8 @@ import { DashboardComponent } from './components/studio/dashboard.component';
     NotificationsComponent,
     TooltipInfoCircleComponent,
     ValidationMessagesComponent,
-    DashboardComponent
+    DashboardComponent,
+    MapComponent
   ],
     exports: [
         SpinnerComponent,

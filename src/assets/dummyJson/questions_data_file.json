@@ -8,6 +8,7 @@
       "Green"
     ],
     "correct_answer": 1,
+    "coordinates": ["38.892548108719396", "22.458088777351076"],
     "image": "@drawable/geoquiz_palette"
   },
 
@@ -16,6 +17,7 @@
     "question_type": "multiple_choice_all",
     "possible_answers": [],
     "correct_answer": "Fine",
+    "coordinates": ["38.892548108719396", "22.458088777351076"],
     "image": "@drawable/geoquiz_palette"
   },
 
@@ -33,6 +35,7 @@
       "Sunday"
     ],
     "correct_answer": 6,
+    "coordinates": ["38.892548108719396", "22.458088777351076"],
     "image": "@drawable/geoquiz_palette"
   }
 }
