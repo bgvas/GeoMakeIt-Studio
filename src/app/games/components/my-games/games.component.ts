@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { NotificationsComponent} from '../../../features/components/notifications/notifications.component';
 import {GameService} from '../../services/game.service';
 import {GameRoot} from '../../models/games/game-root';
 import {Error} from '../../../classes/error/error';
 import { Location } from '@angular/common';
 import {Game} from '../../models/games/game';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-games',
   templateUrl: './games.component.html',
   styleUrls: ['./games.component.css']
 })
-export class GamesComponent implements OnInit {
+export class GamesComponent implements OnInit, OnDestroy {
 
     delete: any;
     afterDelete = new NotificationsComponent();
@@ -20,34 +22,30 @@ export class GamesComponent implements OnInit {
     gameById: Game;
     error: Error;
     showSpinner: boolean;
+    private unsubscribe = new Subject<void>();
 
 
   constructor(private service: GameService, private location: Location) { }
 
   ngOnInit(): void {
       this.showSpinner = true; // display spinner while loading //
-
       this.loadListOfGames();
-
-      /*this.service.getGameById(1).subscribe(data => {
-
-      },
-      error => {
-          this.error = error;
-          this.showSpinner = false;   // hide spinner
-      });*/
   }
-
 
   // save game-object to service, for sharing between components //
   onClick(obj) {
       this.service.object = obj;
   }
 
-  // onClick delete-button, delete game and display notification
+  ngOnDestroy() {
+      this.unsubscribe.next();
+      this.unsubscribe.complete();
+  }
+
+    // onClick delete-button, delete game and display notification
   onDelete(data): void {
       if (data) {
-            this.service.deleteGameOfSpecificUser(this.service.object.id).subscribe(deletedGame => {
+            this.service.deleteGameOfSpecificUser(this.service.object.id).pipe(takeUntil(this.unsubscribe)).subscribe(deletedGame => {
               this.loadListOfGames();
               this.afterDelete.showNotification('Game deleted!', 'success');
             },
@@ -60,7 +58,7 @@ export class GamesComponent implements OnInit {
 
 
   loadListOfGames() {
-        this.service.getGamesOfSpecificUser().subscribe(data => {
+        this.service.getGamesOfSpecificUser().pipe(takeUntil(this.unsubscribe)).subscribe(data => {
             this.listOfGames = data.data;
             this.showSpinner = false;    // hide spinner
         },

@@ -47,7 +47,11 @@
                             </mat-tab>
                         </mat-tab-group>
                     </div>
-                    <div *ngIf="!gameExist(game)" class="card-content table-responsive table-full-width text-center mt-4">
+                    <div class="text-center mt-2" *ngIf="showSpinner">
+                        <app-spinner [visible]="showSpinner" ></app-spinner>
+                        <span class="mt-4" style="font-weight: bold">Loading....</span>
+                    </div>
+                    <div *ngIf="!gameExist(game) && !showSpinner" class="card-content table-responsive table-full-width text-center mt-4">
                         <span class="text-danger" style="font-weight: bold">- no game selected -</span>
                     </div>
                 </div>

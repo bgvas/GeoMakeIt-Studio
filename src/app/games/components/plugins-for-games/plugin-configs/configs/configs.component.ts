@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {DesignerService} from './designer.service';
+import {DesignerService} from '../../../../services/designer.service';
 import {RootDesigner} from '../../../../models/designers/rootDesignerClass/root-designer';
-import {DataFileService} from './data-file.service';
+import {DataFileService} from '../../../../services/data-file.service';
 import {Error} from '../../../../../classes/error/error';
 
 @Component({

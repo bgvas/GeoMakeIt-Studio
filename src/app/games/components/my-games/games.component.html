@@ -39,7 +39,10 @@
                             </tbody>
                         </table>
                     </div>
-                    <app-spinner [visible]="showSpinner"></app-spinner>
+                    <div class="text-center" *ngIf="showSpinner">
+                        <app-spinner [visible]="showSpinner" ></app-spinner>
+                        <span class="mt-2" style="font-weight: bold">Loading....</span>
+                    </div>
                 </div>
             </div>
         </div>

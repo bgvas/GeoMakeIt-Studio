@@ -43,6 +43,9 @@
           "tooltip":"The unique id of a possible answer",
           "placeholder":"0",
           "validations":"required_if:this.question_type,(multiple_choice, multiple_choice_any, multiple_choice_all)"
+        },
+        "coordinates": {
+          "type": "map"
         }
       }
     },

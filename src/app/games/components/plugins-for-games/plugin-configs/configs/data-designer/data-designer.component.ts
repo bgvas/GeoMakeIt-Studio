@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, Input, OnInit, AfterContentChecked} from '@angular/core';
 import {RootDesigner} from '../../../../../models/designers/rootDesignerClass/root-designer';
 import {AbstractControl, Form, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {DesignerService} from '../designer.service';
+import {DesignerService} from '../../../../../services/designer.service';
 import {Location} from '@angular/common';
 import {ValidationsService} from '../../../../../../features/services/validations/validations.service';
 import {DeclareFormControlsService} from '../../../../../../features/services/declareFormControls/declare-form-controls.service';
