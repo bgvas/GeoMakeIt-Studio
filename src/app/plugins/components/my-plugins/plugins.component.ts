@@ -93,4 +93,12 @@ export class PluginsComponent implements OnInit, OnDestroy {
       this.router.navigate(['plugins/edit']);
   }
 
+    backgroundColor(index: number): string {
+        if (index % 2 === 0) {
+            return 'bg-light';
+        } else {
+            return 'bg-white';
+        }
+    }
+
 }

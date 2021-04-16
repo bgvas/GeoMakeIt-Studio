@@ -27,7 +27,7 @@
                                 </span>
                             </tbody>
                             <tbody *ngIf="error === null">
-                                <tr *ngFor = "let plugin of getMapKeys()" class="mat-h3">
+                                <tr *ngFor = "let plugin of getMapKeys();let i = index" class="mat-h3 {{backgroundColor(i)}}">
                                     <td *ngIf="plugin === null" class="text-gray" >- no plugins -</td>
                                     <td>{{plugin?.identifier}}</td>
                                     <td>{{plugin?.title}}</td>

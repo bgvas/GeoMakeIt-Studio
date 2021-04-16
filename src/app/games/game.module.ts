@@ -24,6 +24,9 @@ import {DataFileService} from './services/data-file.service';
 import {DesignerService} from './services/designer.service';
 import {AvailablePluginsService} from './services/availbable-plugins/available-plugins.service';
 import {InstalledPluginsService} from './services/instaled-plugins-of-a-game/installed-plugins.service';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -50,7 +53,10 @@ import {InstalledPluginsService} from './services/instaled-plugins-of-a-game/ins
         PluginModule,
         RouterModule,
         MatTabsModule,
-        MatInputModule
+        MatInputModule,
+        MatIconModule,
+        MatTooltipModule,
+        NgbTooltipModule
     ],
   providers: [
       GameService,
