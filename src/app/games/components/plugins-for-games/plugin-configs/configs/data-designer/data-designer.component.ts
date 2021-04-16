@@ -103,15 +103,14 @@ export class DataDesignerComponent implements OnInit, AfterContentChecked {
 
   // create a new formGroup //
   addGroup(): void {
-    const name = this.getNameForNewFormGroup(this.dataForm.controls);    // create name //
+    const name = this.createNameForNewFormGroup(this.dataForm.controls);    // create name //
     (this.dataFromForm as FormGroup)?.addControl(name, new FormGroup({}));  // display new FormGroup//
     (this.dataForm as FormGroup).addControl(name, new FormGroup({}));      // add new formGroup, to form //
-    this.loadDataFile();
   }
 
 
   // create name for the new formGroup //
-  getNameForNewFormGroup(form): any {
+  createNameForNewFormGroup(form): any {
 
     let name = '';
     let index = '';
