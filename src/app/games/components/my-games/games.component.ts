@@ -23,6 +23,7 @@ export class GamesComponent implements OnInit, OnDestroy {
     error: Error;
     showSpinner: boolean;
     private unsubscribe = new Subject<void>();
+   
 
 
   constructor(private service: GameService, private location: Location) { }
@@ -69,6 +70,16 @@ export class GamesComponent implements OnInit, OnDestroy {
             this.showSpinner = false;    // hide spinner
         })
   }
+  
+  backgroundColor(index: number): string {
+      if (index % 2 === 0) {
+          return 'bg-light';
+      } else {
+          return 'bg-white';
+      }
+  }
+
+
 
 
 }
