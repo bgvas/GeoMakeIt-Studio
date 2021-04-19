@@ -1,0 +1,97 @@
+<div class="container-fluid">
+    <div class="row w-100">
+        <div class="col-6 text-left">
+            <h2 class="text-info">
+                My Projects
+            </h2>
+        </div>
+        <div class="col-6 text-right">
+            <button class="btn btn-info">
+                create new project
+            </button>
+        </div>
+        <div class="col-12">
+            <div class="row">
+                <div class="col-2" *ngFor="let app of gamesList" >
+                    <div class="card mb-3 shadow">
+                        <button class="mat-raised-button" style="border: 0">
+                           <img class="card-img-top bg-dark" src="assets/img/geomakeit_logo.png" width="300" height="200" alt="Logo of project">
+                        </button>
+                        <div class="card-body">
+                            <h5 class="card-title text-info" style="font-weight: bold">
+                               {{app?.title}}
+                            </h5>
+                            <div class="dropend text-info" style="text-align: right">
+                                <a role="button" matTooltip="options" class="dropdown-toggle text-info" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    ...
+                                </a>
+                                <div class="dropdown-menu">
+                                    <div class="row p-2">
+                                        <div class="col-12 text-danger">
+                                            <a role="button" style="background-color: inherit">
+                                                Delete
+                                            </a>
+                                        </div>
+                                        <div class="col-12">
+                                            Info
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="card-text mb-0" >
+                                <small style="font-weight: bold">
+                                    {{app?.description}}
+                                </small>
+                            </p>
+                            <p class="card-text mb-0">
+                                <small class="text-muted">
+                                    <span style="font-weight: bold">Created at:</span> {{app?.updated_at}}
+                                </small>
+                            </p>
+                            <p class="card-text mb-0">
+                                <small class="text-muted">
+                                    <span style="font-weight: bold">Last update at:</span> {{app?.updated_at}}
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="card shadow">
+                        <button class="mat-raised-button" style="border: 0">
+                            <div class="card-body border border-info m-2">
+                                <h5 class="card-text text-info" style="font-weight: bold">
+                                    Create new project
+                                </h5>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 text-left">
+            <h2 class="text-info" >
+                Popular Games
+            </h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 text-left">
+            no games found
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 text-left">
+            <h2 class="text-info">
+                Popular Apps
+            </h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 text-left">
+            no apps found
+        </div>
+    </div>
+</div>

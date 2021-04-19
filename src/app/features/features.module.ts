@@ -17,8 +17,13 @@ import { ValidationMessagesComponent } from './components/validations/validation
 import {DeclareFormControlsService} from './services/declareFormControls/declare-form-controls.service';
 import {ValidationsService} from './services/validations/validations.service';
 import { AgmCoreModule } from '@agm/core';
-import { DashboardComponent } from './components/studio/dashboard.component';
+import { HomeComponent } from './components/home-page/home.component';
 import { MapComponent } from './components/map/map.component';
+import { HeaderBarComponent } from './components/header-bar/header-bar.component';
+import { FooterBarComponent } from './components/footer-bar/footer-bar.component';
+import { ProjectSideBarComponent } from './components/project-side-bar/project-side-bar.component';
+import {MatIconModule} from '@angular/material/icon';
+import {NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -34,15 +39,20 @@ import { MapComponent } from './components/map/map.component';
     NotificationsComponent,
     TooltipInfoCircleComponent,
     ValidationMessagesComponent,
-    DashboardComponent,
-    MapComponent
+    HomeComponent,
+    MapComponent,
+    HeaderBarComponent,
+    FooterBarComponent,
+    ProjectSideBarComponent
   ],
     exports: [
         SpinnerComponent,
         DeletePopUpComponent,
         ButtonTogglesComponent,
         InputComponent,
-        TooltipInfoCircleComponent
+        TooltipInfoCircleComponent,
+        HeaderBarComponent,
+        FooterBarComponent
     ],
     imports: [
         CommonModule,
@@ -52,7 +62,9 @@ import { MapComponent } from './components/map/map.component';
         MatFormFieldModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyBEckmuR4cwjzfgkK_JqnzLGyViz1AdKps'
-        })
+        }),
+        MatIconModule,
+        NgbTooltipModule
     ],
     providers: [
         DeclareFormControlsService,

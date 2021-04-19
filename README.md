@@ -117,8 +117,8 @@ material-dashboard-angular
 │   │   ├── dashboard
 │   │   │   ├── dashboard.component.css
 │   │   │   ├── dashboard.component.html
-│   │   │   ├── dashboard.component.spec.ts
-│   │   │   └── dashboard.component.ts
+│   │   │   ├── home.component.spec.ts
+│   │   │   └── home.component.ts
 │   │   ├── icons
 │   │   │   ├── icons.component.css
 │   │   │   ├── icons.component.html

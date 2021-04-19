@@ -1,5 +1,4 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {GamesComponent} from '../../../games/components/my-games/games.component';
 import {GameService} from '../../../games/services/game.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -7,11 +6,11 @@ import {Game} from '../../../games/models/games/game';
 import {Error} from '../../../classes/error/error';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy {
 
   gamesList: Game[];
   private unsubscribe = new Subject<void>();

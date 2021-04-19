@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(){
     if(this.service.login(this.loginForm.value)){
-      this.router.navigate(['studio']);
+      this.router.navigate(['home']);
     }
   }
 
