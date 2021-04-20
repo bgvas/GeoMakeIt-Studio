@@ -52,7 +52,8 @@ import {NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
         InputComponent,
         TooltipInfoCircleComponent,
         HeaderBarComponent,
-        FooterBarComponent
+        FooterBarComponent,
+        NotificationsComponent
     ],
     imports: [
         CommonModule,
