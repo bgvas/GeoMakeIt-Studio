@@ -13,7 +13,7 @@ Material Dashboard comes with 5 color filter choices for both the sidebar and th
 Material Dashboard uses a framework built by our friend [Federico - Bootstrap Material Design](http://fezvrasta.github.io/bootstrap-material-design/), who did an amazing job creating the backbone for the material effects, animations, ripples and transitions. Big thanks to his team for the effort and forward thinking they put into it.
 
 Special thanks go to:
-[Robert McIntosh](https://github.com/mouse0270/bootstrap-notify) for the afterDelete system.
+[Robert McIntosh](https://github.com/mouse0270/bootstrap-notify) for the notification system.
 [Chartist](https://gionkunz.github.io/chartist-js/) for the wonderful charts.
 We are very excited to share this dashboard with you and we look forward to hearing your feedback!
 
