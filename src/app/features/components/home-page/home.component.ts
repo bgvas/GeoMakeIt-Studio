@@ -6,6 +6,7 @@ import {Game} from '../../../games/models/games/game';
 import {Error} from '../../../classes/error/error';
 import {FeaturesService} from '../../services/features.service';
 import {NotificationsComponent} from '../notifications/notifications.component';
+import {GameCreateComponent} from '../../../games/components/game-create/game-create.component';
 
 @Component({
   selector: 'app-home',
@@ -29,15 +30,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   loadListOfProjects() {
-    this.service.getGamesOfSpecificUser().pipe(takeUntil(this.unsubscribe)).subscribe(data => {
-          this.projectList = data.data;
-          this.displaySpinner = false;    // hide spinner
-        },
-        error => {
-          console.log('List of Projects: ' + error.code + ' - ' + error.message);
-          this.error = error;
-          this.displaySpinner = false;    // hide spinner
-        })
+      this.service.getGamesOfSpecificUser().pipe(takeUntil(this.unsubscribe)).subscribe(data => {
+            this.projectList = data.data;
+            this.displaySpinner = false;    // hide spinner
+          },
+          error => {
+            console.log('List of Projects: ' + error.code + ' - ' + error.message);
+            this.error = error;
+            this.displaySpinner = false;    // hide spinner
+          }
+      )
   }
 
   ngOnDestroy() {
@@ -45,23 +47,17 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.unsubscribe.complete();
   }
 
-  onDelete(project) {
-    console.log(project);
-    if (project) {
-      this.service.deleteGameOfSpecificUser(this.service.object.id).pipe(takeUntil(this.unsubscribe)).subscribe(projectDeleted => {
-          this.loadListOfProjects();
-          this.notification.showNotification('Project deleted!', 'success');
-        },
-        error => {
-          console.log('Deleting project: ' + error.code + ' - ' + error.message);
-          this.notification.showNotification('Can\'t delete project. Something went wrong!', 'danger');
-        })
+  onCreate(event) {
+     this.loadListOfProjects();
+  }
+
+  onDelete(event) {
+    if(event){
+        this.loadListOfProjects();
     }
   }
 
-  projectToDelete(app) {
-    this.featureService.project = app;
-    this.deleteProject = this.featureService.project;
-  }
+
+
 
 }

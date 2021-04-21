@@ -31,19 +31,19 @@ import {NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
-  declarations: [
-      GameCreateComponent,
-      GameBuildComponent,
-      GameViewComponent,
-      GamesComponent,
-      PluginsForGamesComponent,
-      PluginConfigsComponent,
-      ConfigsComponent,
-      DesignerComponent,
-      DataDesignerComponent,
-      InformationComponent,
-      StringsComponent
-  ],
+    declarations: [
+        GameCreateComponent,
+        GameBuildComponent,
+        GameViewComponent,
+        GamesComponent,
+        PluginsForGamesComponent,
+        PluginConfigsComponent,
+        ConfigsComponent,
+        DesignerComponent,
+        DataDesignerComponent,
+        InformationComponent,
+        StringsComponent
+    ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
@@ -58,12 +58,15 @@ import {NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
         MatTooltipModule,
         NgbTooltipModule
     ],
-  providers: [
-      GameService,
-      DataFileService,
-      DesignerService,
-      AvailablePluginsService,
-      InstalledPluginsService
-  ]
+    exports: [
+        GameCreateComponent
+    ],
+    providers: [
+        GameService,
+        DataFileService,
+        DesignerService,
+        AvailablePluginsService,
+        InstalledPluginsService
+    ]
 })
 export class GameModule { }

@@ -24,6 +24,15 @@ import { FooterBarComponent } from './components/footer-bar/footer-bar.component
 import { ProjectSideBarComponent } from './components/project-side-bar/project-side-bar.component';
 import {MatIconModule} from '@angular/material/icon';
 import {NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {FeaturesService} from './services/features.service';
+import {GameModule} from '../games/game.module';
+import { CreateProjectComponent } from './components/create-project/create-project.component';
+import { ImageAsCheckBoxComponent } from './components/image-as-check-box/image-as-check-box.component';
+import { ProjectCardComponent } from './components/project-card/project-card.component';
+
 
 
 
@@ -43,7 +52,10 @@ import {NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
     MapComponent,
     HeaderBarComponent,
     FooterBarComponent,
-    ProjectSideBarComponent
+    ProjectSideBarComponent,
+    CreateProjectComponent,
+    ImageAsCheckBoxComponent,
+    ProjectCardComponent
   ],
     exports: [
         SpinnerComponent,
@@ -65,11 +77,15 @@ import {NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
             apiKey: 'AIzaSyBEckmuR4cwjzfgkK_JqnzLGyViz1AdKps'
         }),
         MatIconModule,
-        NgbTooltipModule
+        NgbTooltipModule,
+        MatSnackBarModule,
+        MatButtonModule,
+        MatInputModule
     ],
     providers: [
         DeclareFormControlsService,
-        ValidationsService
+        ValidationsService,
+        FeaturesService
     ]
 })
 export class FeaturesModule { }

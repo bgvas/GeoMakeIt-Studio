@@ -6,9 +6,7 @@
             </h2>
         </div>
         <div class="col-6 text-right">
-            <button class="btn btn-info">
-                create new project
-            </button>
+            <app-create-project (project)="onCreate($event)"></app-create-project>
         </div>
         <div class="col-12">
             <div class="row">
@@ -17,65 +15,16 @@
                     <span class="mt-2" style="font-weight: bold">Loading....</span>
                 </div>
                 <div class="col-2" *ngFor="let app of projectList" >
-                    <div class="card mb-3 shadow">
-                        <button class="mat-raised-button" style="border: 0">
-                           <img class="card-img-top bg-dark" src="assets/img/geomakeit_logo.png" width="300" height="200" alt="Logo of project">
-                        </button>
-                        <div class="card-body">
-                            <h5 class="card-title text-info" style="font-weight: bold">
-                               {{app?.title}}
-                            </h5>
-                            <div class="dropend text-info" style="text-align: right">
-                                <a role="button" matTooltip="options" matTooltipClass="h6" class="dropdown-toggle text-info" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    ...
-                                </a>
-                                <div class="dropdown-menu">
-                                   <table class="w-100">
-                                       <tr>
-                                           <td class="text-danger text-center">
-                                              <app-delete-pop-up (click)="projectToDelete(app)" [element] = "deleteProject" (delete)="onDelete($event)"></app-delete-pop-up>
-                                           </td>
-                                           <td class="text-info text-center" matTooltip="Info" matTooltipClass="h6">
-                                               <a role="button" style="background-color: inherit">
-                                                   <mat-icon>info</mat-icon>
-                                               </a>
-                                           </td>
-                                       </tr>
-                                   </table>
-                                </div>
-                            </div>
-                            <p class="card-text mb-0" >
-                                <small style="font-weight: bold">
-                                    {{app?.description}}
-                                </small>
-                            </p>
-                            <p class="card-text mb-0">
-                                <small class="text-muted text-gray">
-                                    <span style="font-weight: bold">Created at:</span> {{app?.updated_at}}
-                                </small>
-                            </p>
-                            <p class="card-text mb-0">
-                                <small class="text-muted">
-                                    <span style="font-weight: bold">Last update at:</span> {{app?.updated_at}}
-                                </small>
-                            </p>
-                        </div>
-                    </div>
+                    <app-project-card [project] = "app" (deleted)="onDelete($event)" [matTooltip]="'Click to edit'" matTooltipClass="h6"></app-project-card>
                 </div>
-                <div *ngIf="!displaySpinner && projectList.length === 0">
+                <div *ngIf="!displaySpinner && projectList?.length === 0">
                     <div class="col-12 text-left">
                         You don't have projects
                     </div>
                 </div>
-                <div class="col-2">
-                    <div class="card shadow">
-                        <button class="mat-raised-button" style="border: 0">
-                            <div class="card-body border border-info m-2">
-                                <h5 class="card-text text-info" style="font-weight: bold">
-                                    Create new project
-                                </h5>
-                            </div>
-                        </button>
+                <div *ngIf="!displaySpinner && error?.message !== null">
+                    <div class="col-12 text-left text-danger">
+                        {{error?.message}}
                     </div>
                 </div>
             </div>

@@ -1,0 +1,28 @@
+<div class="card mb-3 shadow">
+    <button class="mat-raised-button" style="border: 0">
+        <img class="bg-dark mt-2 mb-2" src="assets/img/geomakeit_logo.png" width="260" height="200" alt="Logo of project">
+    </button>
+    <div class="card-body">
+        <h5 class="card-title text-info" style="font-weight: bold">
+            {{project?.title}}
+        </h5>
+        <div class="text-right">
+            <app-delete-pop-up (click)="projectToDelete(project)" [element] = "project" (delete)="onDelete($event)"></app-delete-pop-up>
+        </div>
+        <p class="card-text mb-0" >
+            <small style="font-weight: bold">
+                {{project?.description}}
+            </small>
+        </p>
+        <p class="card-text mb-0">
+            <small class="text-muted text-gray">
+                <span style="font-weight: bold">Created at:</span> {{convertToReadableDate(project?.created_at)}}
+            </small>
+        </p>
+        <p class="card-text mb-0">
+            <small class="text-muted text-gray">
+                <span style="font-weight: bold">Last update at:</span> {{convertToReadableDate(project?.updated_at)}}
+            </small>
+        </p>
+    </div>
+</div>
