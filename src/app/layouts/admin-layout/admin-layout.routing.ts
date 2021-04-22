@@ -11,12 +11,14 @@ import {PluginConfigsComponent} from '../../games/components/plugins-for-games/p
 import {CanActivateRouteService} from '../../authentication/services/can-activate-route.service';
 import {GameViewComponent} from '../../games/components/game-view/game-view.component';
 import {GameBuildComponent} from '../../games/components/game-build/game-build.component';
+import {GameSetupComponent} from '../../games/components/game-setup/game-setup.component';
 
 export const AdminLayoutRoutes: Routes = [
 
     { path: 'home',  component: HomeComponent, canActivate: [CanActivateRouteService]},
     { path: 'user',   component: UserProfileComponent, canActivate: [CanActivateRouteService]},
     { path: 'games',   component: GamesComponent, canActivate: [CanActivateRouteService]},
+    { path: 'games/setup', component: GameSetupComponent, canActivate: [CanActivateRouteService]},
     { path: 'games/create', component: GameCreateComponent, canActivate: [CanActivateRouteService]},
     { path: 'games/view', component: GameViewComponent, canActivate: [CanActivateRouteService]},
     { path: 'games/build', component: GameBuildComponent, canActivate: [CanActivateRouteService]},

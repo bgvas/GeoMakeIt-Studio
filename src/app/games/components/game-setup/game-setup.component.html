@@ -1,0 +1,31 @@
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-2 bg-light pr-0">
+            <div class="row shadow border mb-2">
+                <div class="col-12 pl-0 text-info" style="font-weight: bold; text-align: center">
+                    <h3 >Lamia's Battle<!--{{project?.title}}--></h3>
+                </div>
+            </div>
+            <div class="row mt-2" ngbTooltip="Click to handle map points with specific actions">
+                <div class="col-12 border pl-0" style="font-weight: bold; text-align: center">
+                    <h4 class="p-2">Points of action</h4>
+                </div>
+            </div>
+            <div class="row" ngbTooltip="Click to handle settings of project">
+                <div class="col-12 border pl-0" style="font-weight: bold; text-align: center">
+                    <h4 class="p-2">Settings</h4>
+                </div>
+            </div>
+            <div class="row" ngbTooltip="Information of project">
+                <div class="col-12 border pl-0" style="font-weight: bold; text-align: center">
+                    <h4 class="p-2">Info</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-10 pl-0 pr-0">
+            <app-map [lat]="38.892548108719396" [lng]="22.458088777351076" ></app-map>
+        </div>
+    </div>
+</div>
+
+

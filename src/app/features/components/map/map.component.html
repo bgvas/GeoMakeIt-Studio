@@ -1,3 +1,6 @@
-    <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="onMapClick($event)" >
+
+    <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="onMapClick($event)" style="width: auto">
         <agm-marker [latitude]="selectedLat" [longitude]="selectedLng"></agm-marker>
     </agm-map>
+
+

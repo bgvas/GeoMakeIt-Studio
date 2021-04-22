@@ -15,7 +15,7 @@
                     <span class="mt-2" style="font-weight: bold">Loading....</span>
                 </div>
                 <div class="col-2" *ngFor="let app of projectList" >
-                    <app-project-card [project] = "app" (deleted)="onDelete($event)" [matTooltip]="'Click to edit'" matTooltipClass="h6"></app-project-card>
+                    <app-project-card [project] = "app" (deleted)="onDelete($event)" [tooltip]="'Click to edit project'"></app-project-card>
                 </div>
                 <div *ngIf="!displaySpinner && projectList?.length === 0">
                     <div class="col-12 text-left">

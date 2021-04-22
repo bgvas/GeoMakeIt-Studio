@@ -27,6 +27,7 @@ import {InstalledPluginsService} from './services/instaled-plugins-of-a-game/ins
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
+import { GameSetupComponent } from './components/game-setup/game-setup.component';
 
 
 
@@ -42,7 +43,8 @@ import {NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
         DesignerComponent,
         DataDesignerComponent,
         InformationComponent,
-        StringsComponent
+        StringsComponent,
+        GameSetupComponent
     ],
     imports: [
         CommonModule,

@@ -65,7 +65,8 @@ import { ProjectCardComponent } from './components/project-card/project-card.com
         TooltipInfoCircleComponent,
         HeaderBarComponent,
         FooterBarComponent,
-        NotificationsComponent
+        NotificationsComponent,
+        MapComponent
     ],
     imports: [
         CommonModule,

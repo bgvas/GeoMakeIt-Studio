@@ -5,6 +5,7 @@ import {NotificationsComponent} from '../notifications/notifications.component';
 import {Subject} from 'rxjs';
 import {FeaturesService} from '../../services/features.service';
 import {formatDate} from '@angular/common';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-project-card',
@@ -14,13 +15,14 @@ import {formatDate} from '@angular/common';
 export class ProjectCardComponent implements OnInit, OnDestroy {
 
   @Input() project: any;
+  @Input() tooltip: any;
   @Output() deleted = new EventEmitter();
   deleteProject: any;
   notification = new NotificationsComponent();
   private unsubscribe = new Subject<void>();
 
 
-  constructor(private service: GameService, private featureService: FeaturesService) { }
+  constructor(private service: GameService, private featureService: FeaturesService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -53,5 +55,10 @@ export class ProjectCardComponent implements OnInit, OnDestroy {
       const newDate =  new Date(date);
       return formatDate(newDate, 'dd/MM/yyyy', 'en-US');
     }
+  }
+
+  onClick(project) {
+    this.service.object = project;
+    this.router.navigate(['games/setup']);
   }
 }
