@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   loadListOfProjects() {
-      this.service.getGamesOfSpecificUser().pipe(takeUntil(this.unsubscribe)).subscribe(data => {
+      this.service.getGamesOfSpecificUser().subscribe(data => {
             this.projectList = data.data;
             this.displaySpinner = false;    // hide spinner
           },

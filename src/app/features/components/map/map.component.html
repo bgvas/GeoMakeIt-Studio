@@ -1,6 +1,35 @@
 
-    <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="onMapClick($event)" style="width: auto">
-        <agm-marker [latitude]="selectedLat" [longitude]="selectedLng"></agm-marker>
+    <agm-map
+            [latitude]="38.892548108719396"
+            [longitude]="22.458088777351076"
+            [disableDefaultUI]="false"
+            [zoomControl]="false"
+            (mapClick)="onMapClick($event)">
+
+        <agm-marker
+                *ngFor="let m of points; let i = index"
+                (markerClick)="clickedMarker(m.name, i)"
+                [latitude]="m.lat"
+                [longitude]="m.lng"
+                [label]="m.name"
+                [markerDraggable]="true">
+
+            <agm-info-window>
+                <strong>
+                    {{i + 1}} - {{m.name}}
+                    <button type="button" style="background-color: inherit; border: 0" (click)="onDelete(i)" >
+                        <mat-icon class="text-danger" >delete</mat-icon>
+                    </button>
+                </strong>
+            </agm-info-window>
+
+        </agm-marker>
+
+       <!-- <agm-circle [latitude]="lat + 0.3" [longitude]="lng"
+                    [radius]="5000"
+                    [fillColor]="'red'"
+                    [circleDraggable]="true"
+                    [editable]="true">
+        </agm-circle>-->
+
     </agm-map>
-
-

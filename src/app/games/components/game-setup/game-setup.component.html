@@ -1,29 +1,89 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-2 bg-light pr-0">
-            <div class="row shadow border mb-2">
-                <div class="col-12 pl-0 text-info" style="font-weight: bold; text-align: center">
-                    <h3 >Lamia's Battle<!--{{project?.title}}--></h3>
+            <div class="row shadow mb-1">
+                <div class="col-12 pl-0 text-info mat-h1 pt-2" style="font-weight: bold; text-align: center">
+                    Lamia's Battle<!--{{project?.title}}-->
                 </div>
             </div>
-            <div class="row mt-2" ngbTooltip="Click to handle map points with specific actions">
-                <div class="col-12 border pl-0" style="font-weight: bold; text-align: center">
-                    <h4 class="p-2">Points of action</h4>
+            <div class="row" ngbTooltip="Click to handle map-points with specific actions">
+                <div class="col-12 pl-0" style="font-weight: bold; text-align: center">
+                    <button type="button" class="btn w-100"
+                            data-toggle="collapse"
+                            data-target="#points"
+                            aria-expanded="false"
+                            aria-controls="points">
+                            <span class="mat-h5">
+                                <img src="assets/img/location-icon.png" width="30">Points of action
+                            </span>
+                    </button>
+                    <div id="points" class="collapse">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row mb-1">
+                                    <div class="col-4">
+                                        Point
+                                    </div>
+                                    <div class="col-8">
+                                        Title of point
+                                    </div>
+                                </div>
+                                <div *ngFor="let point of pointsArray; let i = index">
+                                    <button type="button" class="w-100 mb-1">
+                                        <div class="row mat-h4 text-primary" >
+                                            <div class="col-4">
+                                                {{i + 1}}
+                                            </div>
+                                            <div class="col-8">
+                                                {{point.name}}
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                                <!--<table class="w-100">
+                                    <tr class="border-bottom">
+                                        <td>
+                                            point
+                                        </td>
+                                        <td>
+                                            title of point
+                                        </td>
+                                    </tr>
+                                    <tr class="text-primary mat-h3" *ngFor="let point of pointsArray; let x = index">
+                                        <td>
+                                            {{x + 1}}
+                                        </td>
+                                        <td>
+                                            {{point.name}}
+                                        </td>
+                                    </tr>
+                                </table>-->
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row" ngbTooltip="Click to handle settings of project">
-                <div class="col-12 border pl-0" style="font-weight: bold; text-align: center">
-                    <h4 class="p-2">Settings</h4>
+            <div class="row" ngbTooltip="Click to handle settings of this project">
+                <div class="col-12 pl-0" style="font-weight: bold; text-align: center">
+                    <button class="btn  w-100" >
+                            <span class="mat-h5">
+                                <img src="assets/img/gear-icon.svg" width="30" class="mr-1">Settings
+                            </span>
+                    </button>
                 </div>
             </div>
-            <div class="row" ngbTooltip="Information of project">
-                <div class="col-12 border pl-0" style="font-weight: bold; text-align: center">
-                    <h4 class="p-2">Info</h4>
+            <div class="row" ngbTooltip="Click to display information for this project">
+                <div class="col-12 pl-0" style="font-weight: bold; text-align: center">
+                    <button class="btn  w-100" >
+                            <span class="mat-h5">
+                                <img src="assets/img/info-icon.png" width="30" class="mr-1">Info
+                            </span>
+                    </button>
                 </div>
             </div>
         </div>
         <div class="col-10 pl-0 pr-0">
-            <app-map [lat]="38.892548108719396" [lng]="22.458088777351076" ></app-map>
+            <app-map [points] = "pointsArray" (coordinates)="addPoint($event)"></app-map>
         </div>
     </div>
 </div>
