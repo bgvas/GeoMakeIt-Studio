@@ -23,13 +23,11 @@
                         </div>-->
                     </div>
                     <div class="col-6 mb-2 text-right">
-                        <button style="border: 0; background-color: inherit">
-                            <span class="text-white h3">
-                                Logo
-                            </span>
-                            <img ngbTooltip="click to set logo for your project" src="assets/img/battle-quiz.jpg" class="mat-raised-button" width="150" (click)="selectFile.click()">
-                            <input type="file" (change) = "getImage($event)" style="display: none" #selectFile>
-                        </button>
+                            <input type="file" style="display: none" (change)="onFileChange($event)" #fileSelect>
+                            <button (click) = "fileSelect.click()">
+                                <img src="{{logo}}"  alt="logo pic" width="100">
+                            </button>
+                            Logo
                         <!-- <div class="text-danger mat-h5" *ngIf="pointForm.get('name').invalid && pointForm.get('name').touched">
                              Title can't be null
                          </div>-->

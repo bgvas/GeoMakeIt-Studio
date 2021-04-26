@@ -13,19 +13,26 @@ export class GameSettingsComponent implements OnInit {
   @Input() project: Game;
 
   availablePlugins: Plugin[];
-  imageAddress: File;
+  logo: any;
 
   constructor(private pluginService: PluginService) { }
 
   ngOnInit(): void {
-
+    this.logo = '/assets/img/logo-icon.png';
     this.pluginService.getAvailablePlugins().subscribe(plugins => {
       this.availablePlugins = plugins.data;
     })
   }
 
-  getImage(event) {
-    console.log(event.target.files[0]);
+  // if a logo selected, display it //
+  onFileChange(event) {
+    if ( event.target.files.length > 0) {
+      const reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = (_event) => {
+        this.logo = reader.result;
+      }
+    }
   }
 
 }
