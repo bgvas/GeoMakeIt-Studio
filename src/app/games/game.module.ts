@@ -28,6 +28,9 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 import { GameSetupComponent } from './components/game-setup/game-setup.component';
+import { PointSetupComponent } from './components/point-setup/point-setup.component';
+import { GameSettingsComponent } from './components/game-settings/game-settings.component';
+import { GameInfoComponent } from './components/game-info/game-info.component';
 
 
 
@@ -44,7 +47,10 @@ import { GameSetupComponent } from './components/game-setup/game-setup.component
         DataDesignerComponent,
         InformationComponent,
         StringsComponent,
-        GameSetupComponent
+        GameSetupComponent,
+        PointSetupComponent,
+        GameSettingsComponent,
+        GameInfoComponent
     ],
     imports: [
         CommonModule,

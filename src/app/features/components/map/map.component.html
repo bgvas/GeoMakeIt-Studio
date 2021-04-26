@@ -12,7 +12,8 @@
                 [latitude]="m.lat"
                 [longitude]="m.lng"
                 [label]="m.name"
-                [markerDraggable]="true">
+                [markerDraggable]="true"
+                (dragEnd)="onChangeLocation($event, i)">
 
             <agm-info-window>
                 <strong>

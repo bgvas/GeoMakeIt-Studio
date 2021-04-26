@@ -14,6 +14,7 @@ export class MapComponent implements OnInit {
 
   @Input() points: Point[];
   @Output() coordinates = new EventEmitter<any>();
+  @Output() ChangeLocation = new EventEmitter<any>();
 
   constructor() { }
 
@@ -34,6 +35,11 @@ export class MapComponent implements OnInit {
 
   onDelete(index: number) {
     this.points.splice(index, 1);
+  }
+
+  onChangeLocation(event, index) {
+    this.points[index].lat = event?.coords.lat;
+    this.points[index].lng = event?.coords.lng;
   }
 
 

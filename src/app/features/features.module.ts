@@ -36,6 +36,7 @@ import { ProjectCardComponent } from './components/project-card/project-card.com
 
 
 
+
 @NgModule({
   declarations: [
     SpinnerComponent,

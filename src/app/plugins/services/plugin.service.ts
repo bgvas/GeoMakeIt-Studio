@@ -41,7 +41,8 @@ export class PluginService {
   }
 
   getAvailablePlugins(): Observable<any> {
-    return this.http.get<any>(this.path);
+    //return this.http.get<any>(this.path);
+    return this.http.get<any>('assets/dummyJson/availablePlugins.json')
   }
 
   getAllPluginsOfUser(): Observable<RootPlugins> {
