@@ -41,13 +41,13 @@
     },
     {
       "id": 6,
-      "identifier": "my_fourth_plugin",
-      "title": "My Fourth Plugin",
+      "identifier": "geomakeit_api",
+      "title": "GeoMakeIt Api",
       "slogan": null,
-      "description": "This is my fourth plugin",
+      "description": "This is main GeoMakeIt Api",
       "status": "WIP",
       "user_id": 1,
-      "is_required": false,
+      "is_required": true,
       "created_at": "2021-02-24T09:45:05.000000Z",
       "updated_at": "2021-02-24T09:45:05.000000Z",
       "deleted_at": null

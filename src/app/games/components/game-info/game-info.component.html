@@ -1,0 +1,88 @@
+<!-- Button trigger modal -->
+<button class="btn  w-100" data-toggle="modal" data-target="#projectInfo">
+    <span class="mat-h5">
+        <img src="assets/img/info-icon.png" width="30" class="mr-1">Info
+    </span>
+</button>
+
+<!-- Modal -->
+<div class="modal fade " id="projectInfo" tabindex="-1" role="dialog" aria-labelledby="info" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header m-2 bg-secondary border border-dark">
+                <h3 class="modal-title text-white" id="info" style="font-weight: bold">Project's Info</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body m-2 border bg-secondary border border-dark text-left">
+                <div class="row">
+                    <div class="col-3">
+                        <img src="assets/img/my-new-game.jpg" width="200" class="border border-primary">
+                    </div>
+                    <div class="col-9">
+                        <div class="text-center">
+                            <span class="text-primary p-2 h1" style="text-decoration: underline">
+                                {{project?.title}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body m-2 border bg-secondary border border-dark text-left">
+                <p>
+                    <span class="text-white">
+                        Description:
+                    </span>
+                    <span class="text-primary" style="font-weight: bold">
+                        {{project?.description}}
+                    </span>
+                </p>
+            </div>
+            <div class="modal-body m-2 border bg-secondary border border-dark text-left">
+                <p>
+                    <span class="text-white">
+                        Type:
+                    </span>
+                    <span class="text-primary" style="font-weight: bold">
+                        {{project?.type}}
+                    </span>
+                </p>
+            </div>
+            <div class="modal-body m-2 border bg-secondary border border-dark text-left">
+                <p>
+                    <span class="text-white">
+                        Version:
+                    </span>
+                    <span class="text-primary" style="font-weight: bold">
+                        {{project?.release}}
+                    </span>
+                </p>
+            </div>
+            <div class="modal-body m-2 border bg-secondary border border-dark text-left">
+                <p>
+                     <span class="text-white">
+                        Author:
+                    </span>
+                    <span class="text-primary" style="font-weight: bold">
+                        {{project?.author}}
+                    </span>
+                </p>
+            </div>
+            <div class="modal-body m-2 border bg-secondary border border-dark text-left">
+                <p>
+                     <span class="text-white">
+                        Created at:
+                    </span>
+                    <span class="text-primary" style="font-weight: bold">
+                        {{convertToReadableDate(project?.createdAt)}}
+                    </span>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="reset" class="btn btn-outline-primary text-left" data-dismiss="modal" >Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+

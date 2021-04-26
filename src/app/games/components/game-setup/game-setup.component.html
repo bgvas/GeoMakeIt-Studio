@@ -1,0 +1,63 @@
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-2 bg-light pr-0">
+            <div class="row shadow mb-1">
+                <div class="col-12 pl-0 text-info mat-h1 pt-2" style="font-weight: bold; text-align: center">
+                    {{project?.title}}
+                </div>
+            </div>
+            <div class="row" ngbTooltip="Click to handle map-points with specific actions">
+                <div class="col-12 pl-0" style="font-weight: bold; text-align: center">
+                    <button type="button" class="btn w-100"
+                            data-toggle="collapse"
+                            data-target="#points"
+                            aria-expanded="false"
+                            aria-controls="points">
+                            <span class="mat-h5">
+                                <img src="assets/img/location-icon.png" width="30">
+                                Points of action
+                            </span>
+                    </button>
+                    <div id="points" class="collapse m-1 shadow border bg-white">
+                        <table class="w-100 ml-1">
+                            <tr>
+                                <td style="width: 95%">
+                                    <table class="w-100" style="font-weight: bold">
+                                        <tr>
+                                            <td class="pl-2" style="width: 10%">Point</td>
+                                            <td style="width: 90%">Title</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td style="width: 5%">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 95%">
+                                    <app-point-setup [points] = "pointsArray" (pointForDelete)="onDelete($event)" (returnedPoint) = "updateArrayOfPoints($event)"></app-point-setup>
+                                </td>
+                                <td style="width: 5%">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ngbTooltip="Click to handle settings of this project">
+                <div class="col-12 pl-0" style="font-weight: bold; text-align: center">
+                    <app-game-settings [project] = "project"></app-game-settings>
+                </div>
+            </div>
+            <div class="row" ngbTooltip="Click to display information for this project">
+                <div class="col-12 pl-0" style="font-weight: bold; text-align: center">
+                    <app-game-info></app-game-info>
+                </div>
+            </div>
+        </div>
+        <div class="col-10 pl-0 pr-0">
+            <app-map [points] = "pointsArray" (coordinates)="addPoint($event)"></app-map>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,57 @@
+<div class="container-fluid">
+    <div class="row w-100">
+        <div class="col-6 text-left">
+            <h2 class="text-info">
+                My Projects
+            </h2>
+        </div>
+        <div class="col-6 text-right">
+            <app-create-project (project)="onCreate($event)"></app-create-project>
+        </div>
+        <div class="col-12">
+            <div class="row">
+                <div class="text-center" *ngIf="displaySpinner">
+                    <app-spinner [visible]="displaySpinner" ></app-spinner>
+                    <span class="mt-2" style="font-weight: bold">Loading....</span>
+                </div>
+                <div class="col-2" *ngFor="let app of projectList" >
+                    <app-project-card [project] = "app" (deleted)="onDelete($event)" [tooltip]="'Click to edit project'"></app-project-card>
+                </div>
+                <div *ngIf="!displaySpinner && projectList?.length === 0">
+                    <div class="col-12 text-left">
+                        You don't have projects
+                    </div>
+                </div>
+                <div *ngIf="!displaySpinner && error?.message !== null">
+                    <div class="col-12 text-left text-danger">
+                        {{error?.message}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 text-left">
+            <h2 class="text-info" >
+                Popular Games
+            </h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 text-left">
+            no games found
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 text-left">
+            <h2 class="text-info">
+                Popular Apps
+            </h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 text-left">
+            no apps found
+        </div>
+    </div>
+</div>

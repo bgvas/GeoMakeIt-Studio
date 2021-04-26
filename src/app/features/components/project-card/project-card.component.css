@@ -1,0 +1,6 @@
+label img {
+    height: 50px;
+    width: 50px;
+    transition-duration: 0.2s;
+    transform-origin: 50% 50%;
+}

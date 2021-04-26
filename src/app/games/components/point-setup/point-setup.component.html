@@ -1,0 +1,160 @@
+<!-- Button trigger modal -->
+<table class="w-100">
+    <tr *ngFor="let point of points; let i = index">
+        <td style="width: 95%">
+            <button type="button" class="w-100 mat-button-toggle" data-toggle="modal" (click) = "onSelect(point, i)" data-target="#pointSetup">
+                <table class="w-100">
+                    <tr >
+                        <td class="text-primary " style="width: 10%">{{i + 1 }}</td>
+                        <td class="text-primary" style="width: 90%">{{point?.name}}</td>
+                    </tr>
+                </table>
+            </button>
+        <td>
+        <td style="width: 5%">
+            <button class="text-danger" style="background-color: inherit; border: 0" (click)="onDelete(i)">
+                <mat-icon>
+                    delete
+                </mat-icon>
+            </button>
+        </td>
+    </tr>
+</table>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="pointSetup" tabindex="-1" role="dialog" aria-labelledby="newAction" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content ">
+            <div class="modal-header m-2 bg-secondary border border-dark">
+                <h3 class="modal-title text-white" id="newAction" style="font-weight: bold">Setup point of action</h3>
+            </div>
+            <div class="modal-body m-2 border bg-secondary border-dark">
+                <form [formGroup]="pointForm">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="modal-body m-2 border border-dark">
+                                <img src="assets/img/geomakeit_logo.png" width="150" alt="Image for action">
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="modal-body  bg-light border border-dark">
+                                <mat-form-field>
+                                    <input type="text" class="text-primary" matInput placeholder="Title of action"  formControlName  = "name" value="{{selectedPoint?.name}}">
+                                </mat-form-field>
+                                <div class="text-danger mat-h5" *ngIf="pointForm.get('name').invalid && pointForm.get('name').touched">
+                                        Title can't be null
+                                </div>
+                            </div>
+                            <div class="modal-body bg-light border border-dark">
+                                 <mat-form-field>
+                                     <input type="text" class="text-primary" matInput placeholder="Description" formControlName="description" value="{{selectedPoint?.description}}">
+                                 </mat-form-field>
+                                 <!--<div class="text-danger" *ngIf="createProjectForm.get('description').invalid && createProjectForm.get('description').touched">
+                                     <mat-error>
+                                         Description can't be null
+                                     </mat-error>
+                                 </div>-->
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-left ml-2 text-white">
+                        Coordinates
+                    </p>
+                    <div class="row text-white ml-2">
+                        Latitude
+                        <div class="col-3">
+                            <div class="modal-body mat-h5 pt-1 text-primary bg-light border border-dark">
+                                <textarea class="text-primary" matInput [disabled]= true style="overflow: hidden; resize: none">
+                                    {{selectedPoint?.lat}}
+                                </textarea>
+                            </div>
+                        </div>
+                        Longitude
+                        <div class="col-3">
+                            <div class="modal-body mat-h5 pt-1 text-primary bg-light border border-dark">
+                                <textarea class="text-primary" matInput [disabled]= true style="overflow: hidden; resize: none">
+                                    {{selectedPoint?.lng}}
+                                </textarea>
+                            </div>
+                        </div>
+                        Radius
+                        <div class="col-3">
+                            <div class="modal-body  mat-h5 pt-1 text-primary bg-light border border-dark">
+                                <textarea class="text-primary" matInput [disabled]= true style="overflow: hidden; resize: none">
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="modal-body pt-1">
+                                <button type="button" class="btn btn-outline-light w-100"
+                                        data-toggle="collapse"
+                                        data-target="#typeOfAction"
+                                        aria-expanded="false"
+                                        aria-controls="typeOfAction">
+                                        <span class="mat-h5">
+                                                Type of action
+                                        </span>
+                                </button>
+                                <div id="typeOfAction" class="collapse m-1 shadow border bg-white">
+                                    Actions
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="modal-body pt-1">
+                                <button type="button" class="btn btn-outline-light w-100"
+                                        data-toggle="collapse"
+                                        data-target="#dataForAction"
+                                        aria-expanded="false"
+                                        aria-controls="dataForAction">
+                            <span class="mat-h5">
+                                    Data for action
+                            </span>
+                                </button>
+                                <div id="dataForAction" class="collapse m-1 shadow border bg-white">
+                                    Data
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="modal-body pt-1">
+                                <button type="button" class="btn btn-outline-light w-100"
+                                        data-toggle="collapse"
+                                        data-target="#settingsOfAction"
+                                        aria-expanded="false"
+                                        aria-controls="settingsOfAction">
+                            <span class="mat-h5">
+                                    Settings
+                            </span>
+                                </button>
+                                <div id="settingsOfAction" class="collapse m-1 shadow border bg-white">
+                                    Settings
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-info text-left" (click)="onSubmit()" [disabled]="pointForm.invalid" data-dismiss="modal">
+                                Save
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <button type="reset" class="btn btn-warning text-right" data-dismiss="modal">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -17,8 +17,23 @@ import { ValidationMessagesComponent } from './components/validations/validation
 import {DeclareFormControlsService} from './services/declareFormControls/declare-form-controls.service';
 import {ValidationsService} from './services/validations/validations.service';
 import { AgmCoreModule } from '@agm/core';
-import { DashboardComponent } from './components/studio/dashboard.component';
+import { HomeComponent } from './components/home-page/home.component';
 import { MapComponent } from './components/map/map.component';
+import { HeaderBarComponent } from './components/header-bar/header-bar.component';
+import { FooterBarComponent } from './components/footer-bar/footer-bar.component';
+import { ProjectSideBarComponent } from './components/project-side-bar/project-side-bar.component';
+import {MatIconModule} from '@angular/material/icon';
+import {NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {FeaturesService} from './services/features.service';
+import {GameModule} from '../games/game.module';
+import { CreateProjectComponent } from './components/create-project/create-project.component';
+import { ImageAsCheckBoxComponent } from './components/image-as-check-box/image-as-check-box.component';
+import { ProjectCardComponent } from './components/project-card/project-card.component';
+
+
 
 
 
@@ -34,15 +49,25 @@ import { MapComponent } from './components/map/map.component';
     NotificationsComponent,
     TooltipInfoCircleComponent,
     ValidationMessagesComponent,
-    DashboardComponent,
-    MapComponent
+    HomeComponent,
+    MapComponent,
+    HeaderBarComponent,
+    FooterBarComponent,
+    ProjectSideBarComponent,
+    CreateProjectComponent,
+    ImageAsCheckBoxComponent,
+    ProjectCardComponent
   ],
     exports: [
         SpinnerComponent,
         DeletePopUpComponent,
         ButtonTogglesComponent,
         InputComponent,
-        TooltipInfoCircleComponent
+        TooltipInfoCircleComponent,
+        HeaderBarComponent,
+        FooterBarComponent,
+        NotificationsComponent,
+        MapComponent
     ],
     imports: [
         CommonModule,
@@ -52,11 +77,17 @@ import { MapComponent } from './components/map/map.component';
         MatFormFieldModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyBEckmuR4cwjzfgkK_JqnzLGyViz1AdKps'
-        })
+        }),
+        MatIconModule,
+        NgbTooltipModule,
+        MatSnackBarModule,
+        MatButtonModule,
+        MatInputModule
     ],
     providers: [
         DeclareFormControlsService,
-        ValidationsService
+        ValidationsService,
+        FeaturesService
     ]
 })
 export class FeaturesModule { }

@@ -10,7 +10,7 @@ import {LoginComponent} from './authentication/components/login/login.component'
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'studio',
+    redirectTo: 'home',
     pathMatch: 'full',
   }, {
     path: '',

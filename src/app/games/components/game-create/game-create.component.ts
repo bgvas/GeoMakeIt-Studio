@@ -3,8 +3,9 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/form
 import {Location} from '@angular/common';
 import {GameService} from '../../services/game.service';
 import {Game} from '../../models/games/game';
-import {Error} from '../../../classes/error/error';
 import {NotificationsComponent} from '../../../features/components/notifications/notifications.component';
+import {Error} from '../../../classes/error/error';
+
 
 @Component({
   selector: 'app-create-game',
@@ -59,5 +60,5 @@ export class GameCreateComponent implements OnInit {
           this.location.back();
     })}
 
-    i
+
 }

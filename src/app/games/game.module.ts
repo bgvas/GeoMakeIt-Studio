@@ -27,23 +27,31 @@ import {InstalledPluginsService} from './services/instaled-plugins-of-a-game/ins
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
+import { GameSetupComponent } from './components/game-setup/game-setup.component';
+import { PointSetupComponent } from './components/point-setup/point-setup.component';
+import { GameSettingsComponent } from './components/game-settings/game-settings.component';
+import { GameInfoComponent } from './components/game-info/game-info.component';
 
 
 
 @NgModule({
-  declarations: [
-      GameCreateComponent,
-      GameBuildComponent,
-      GameViewComponent,
-      GamesComponent,
-      PluginsForGamesComponent,
-      PluginConfigsComponent,
-      ConfigsComponent,
-      DesignerComponent,
-      DataDesignerComponent,
-      InformationComponent,
-      StringsComponent
-  ],
+    declarations: [
+        GameCreateComponent,
+        GameBuildComponent,
+        GameViewComponent,
+        GamesComponent,
+        PluginsForGamesComponent,
+        PluginConfigsComponent,
+        ConfigsComponent,
+        DesignerComponent,
+        DataDesignerComponent,
+        InformationComponent,
+        StringsComponent,
+        GameSetupComponent,
+        PointSetupComponent,
+        GameSettingsComponent,
+        GameInfoComponent
+    ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
@@ -58,12 +66,15 @@ import {NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
         MatTooltipModule,
         NgbTooltipModule
     ],
-  providers: [
-      GameService,
-      DataFileService,
-      DesignerService,
-      AvailablePluginsService,
-      InstalledPluginsService
-  ]
+    exports: [
+        GameCreateComponent
+    ],
+    providers: [
+        GameService,
+        DataFileService,
+        DesignerService,
+        AvailablePluginsService,
+        InstalledPluginsService
+    ]
 })
 export class GameModule { }

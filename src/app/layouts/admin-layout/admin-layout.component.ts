@@ -5,7 +5,7 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import PerfectScrollbar from 'perfect-scrollbar';
-import * as $ from "jquery";
+/*import * as $ from "jquery";*/
 
 @Component({
   selector: 'app-admin-layout',
@@ -20,7 +20,7 @@ export class AdminLayoutComponent implements OnInit {
   constructor( public location: Location, private router: Router) {}
 
   ngOnInit() {
-      const isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
+ /*     const isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
       if (isWindows && !document.getElementsByTagName('body')[0].classList.contains('sidebar-mini')) {
           // if we are on windows OS we activate the perfectScrollbar function
@@ -57,9 +57,9 @@ export class AdminLayoutComponent implements OnInit {
       }
 
       const window_width = $(window).width();
-      let $sidebar = $('.sidebar');
+  /!*  /!*  let $sidebar = $('.sidebar');
       let $sidebar_responsive = $('body > .navbar-collapse');
-      let $sidebar_img_container = $sidebar.find('.sidebar-background');
+      let $sidebar_img_container = $sidebar.find('.sidebar-background');*!/
 
 
       if(window_width > 767){
@@ -154,6 +154,8 @@ export class AdminLayoutComponent implements OnInit {
           bool = true;
       }
       return bool;
+
+   *!/*/
   }
 
 }

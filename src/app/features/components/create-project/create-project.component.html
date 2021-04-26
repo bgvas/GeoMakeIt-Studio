@@ -1,0 +1,80 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#newProject">
+   Create a new Project
+</button>
+
+<!-- Modal -->
+<div class="modal fade " id="newProject" tabindex="-1" role="dialog" aria-labelledby="createNewProject" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header m-2 bg-secondary border border-dark">
+                <h3 class="modal-title text-white" id="createNewProject" style="font-weight: bold">New Project</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form [formGroup]="createProjectForm">
+                <div class="modal-body m-2 border bg-light border border-dark">
+                   <mat-form-field>
+                        <input type="text" class="text-primary" matInput placeholder="Title" formControlName="title">
+                   </mat-form-field>
+                    <div class="text-danger" *ngIf="createProjectForm.get('title').invalid && createProjectForm.get('title').touched">
+                        <mat-error>
+                            Title can't be null
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="modal-body m-2 border bg-light border border-dark">
+                    <mat-form-field>
+                        <input type="text" class="text-primary" matInput placeholder="Description" formControlName="description">
+                    </mat-form-field>
+                    <div class="text-danger" *ngIf="createProjectForm.get('description').invalid && createProjectForm.get('description').touched">
+                        <mat-error>
+                            Description can't be null
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="modal-body m-2 border bg-light border border-dark">
+                   <div class="row mb-2">
+                       <div class="col-12 text-left mb-1 text-primary" style="font-weight: bold">
+                           Category
+                       </div>
+                       <div class="col-3 text-left text-dark">
+                           Game
+                           <input  type="radio" name="category">
+                       </div>
+                       <div class="col-3 text-left text-dark">
+                           Application
+                           <input  type="radio" name="category">
+                       </div>
+                   </div>
+                    <div class="row mb-2">
+                        <div class="col-12 text-left mb-1 text-primary" style="font-weight: bold">
+                            Design Type
+                        </div>
+                        <div class="col-3 text-left text-dark">
+                            From scratch
+                            <input  type="radio" name="design" (click)="onChange('scratch')" value="scratch">
+                        </div>
+                        <div class="col-3 text-left text-dark">
+                            Use Template
+                            <input  type="radio" name="design" (click)="onChange('template')" value="template">
+                        </div>
+                    </div>
+                    <div class="row justify-content-center text-center mb-2" *ngIf="designRadio === 'template'">
+                        <app-image-as-check-box (template)="selectedTemplate($event)"></app-image-as-check-box>
+                    </div>
+                </div>
+                <div class="text-danger" *ngIf="createProjectForm.invalid && createProjectForm.touched">
+                    <mat-error>
+                        Your form is not valid. Please check!
+                    </mat-error>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-outline-primary" data-dismiss="modal" (click)="onCancel()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="createProjectForm.invalid" (click)="onSubmit()" data-dismiss="modal">Save Project</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
