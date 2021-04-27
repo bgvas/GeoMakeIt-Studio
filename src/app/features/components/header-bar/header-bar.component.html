@@ -1,4 +1,3 @@
-
     <nav class="navbar navbar-dark bg-dark mb-0 mr-0">
         <div class="row w-100">
             <div class="col-9">
@@ -10,10 +9,24 @@
                         <a role="button" style="background-color: inherit" (click)="onHomeClick()">Home</a>
                     </div>
                     <div class="col-4">
-                        <a role="button" style="background-color: inherit" (click)="onHelpClick()">Help</a>
+                        <div ngbDropdown >
+                            <a role="button" class="text-white" style="background-color: inherit" id="helpDropdown" ngbDropdownToggle>Help</a>
+                            <!--<button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button>-->
+                            <div ngbDropdownMenu aria-labelledby="helpDropdown">
+                                <button ngbDropdownItem>HowTo</button>
+                                <button ngbDropdownItem>About GeoMakeIt Studio</button>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-4">
-                        <a role="button" style="background-color: inherit" (click)="onUserClick()">User</a>
+                        <div ngbDropdown >
+                            <a role="button" class="text-white" style="background-color: inherit" id="userDropdown" ngbDropdownToggle>User</a>
+                            <!--<button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button>-->
+                            <div ngbDropdownMenu aria-labelledby="userDropdown">
+                                <button ngbDropdownItem>Profile</button>
+                                <button ngbDropdownItem>Logout</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

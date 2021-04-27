@@ -23,14 +23,14 @@
                         </div>-->
                     </div>
                     <div class="col-6 mb-2 text-right">
-                            <input type="file" style="display: none" (change)="onFileChange($event)" #fileSelect>
+                            <input type="file" style="display: none" (change)="onFileChange($event)" #fileSelect [accept]="'.jpj'">
                             <button (click) = "fileSelect.click()">
                                 <img src="{{logo}}"  alt="logo pic" width="100">
+                                <p class="text-danger" *ngIf="error?.message !== null">
+                                    Can't load image
+                                </p>
                             </button>
                             Logo
-                        <!-- <div class="text-danger mat-h5" *ngIf="pointForm.get('name').invalid && pointForm.get('name').touched">
-                             Title can't be null
-                         </div>-->
                     </div>
                 </div>
                 <div class="row">
