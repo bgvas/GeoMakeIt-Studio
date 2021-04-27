@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-2 bg-light pr-0">
+        <div class="col-2 bg-light pr-0 border">
             <div class="row shadow mb-1">
                 <div class="col-12 pl-0 text-info mat-h1 pt-2" style="font-weight: bold; text-align: center">
                     {{project?.title}}
@@ -14,7 +14,7 @@
                             aria-expanded="false"
                             aria-controls="points">
                             <span class="mat-h5">
-                                <img src="assets/img/location-icon.png" width="30">
+                                <mat-icon class="material-icons-outlined">place</mat-icon>
                                 Points of action
                             </span>
                     </button>
@@ -51,6 +51,16 @@
             <div class="row" ngbTooltip="Click to display information for this project">
                 <div class="col-12 pl-0" style="font-weight: bold; text-align: center">
                     <app-game-info></app-game-info>
+                </div>
+            </div>
+            <div class="row w-100 mb-2" style="position: absolute; bottom: 0">
+                <div class="col-12 text-center">
+                    <button class="mat-raised-button mat-primary" style="width: 100%">
+                       <mat-icon class="material-icons-outlined">
+                            app_settings_alt
+                       </mat-icon>
+                        Build
+                    </button>
                 </div>
             </div>
         </div>
