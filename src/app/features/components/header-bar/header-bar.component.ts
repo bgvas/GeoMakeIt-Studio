@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
+import * as EventEmitter from 'events';
 
 @Component({
   selector: 'app-header-bar',
@@ -7,6 +8,8 @@ import {Router} from '@angular/router';
   styleUrls: ['./header-bar.component.css']
 })
 export class HeaderBarComponent implements OnInit {
+
+  open: any;
 
   constructor(private router: Router) { }
 
@@ -19,11 +22,16 @@ export class HeaderBarComponent implements OnInit {
   }
 
   onHelpClick() {
-    this.router.navigate(['']);
+
   }
 
   onUserClick() {
     this.router.navigate(['']);
+  }
+
+  onLogout() {
+    localStorage.clear();
+    this.router.navigate(['login']);
   }
 
 

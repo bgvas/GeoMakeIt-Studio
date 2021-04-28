@@ -1,8 +1,19 @@
 <!-- Button trigger modal -->
 <button class="btn  w-100" data-toggle="modal" data-target="#projectInfo">
-    <span class="mat-h5">
-        <img src="assets/img/info-icon.png" width="30" class="mr-1">Info
-    </span>
+    <div class="row">
+        <div class="col-5 text-right pr-0">
+            <span class="mat-h5">
+                <mat-icon class="material-icons-outlined">
+                    info
+                </mat-icon>
+            </span>
+        </div>
+        <div class="col-7 text-left">
+            <span class="mat-h5">
+                Info
+            </span>
+        </div>
+    </div>
 </button>
 
 <!-- Modal -->
@@ -18,66 +29,31 @@
             <div class="modal-body m-2 border bg-secondary border border-dark text-left">
                 <div class="row">
                     <div class="col-3">
-                        <img src="assets/img/my-new-game.jpg" width="200" class="border border-primary">
+                        <img src="assets/img/bg-image.jpg" width="100" class="mr-1">
                     </div>
-                    <div class="col-9">
-                        <div class="text-center">
-                            <span class="text-primary p-2 h1" style="text-decoration: underline">
-                                {{project?.title}}
-                            </span>
-                        </div>
+                    <div class="col-9 modal-title text-primary h1 text-center" style="font-weight: bold">
+                        {{project?.title}}
                     </div>
                 </div>
             </div>
             <div class="modal-body m-2 border bg-secondary border border-dark text-left">
-                <p>
-                    <span class="text-white">
-                        Description:
-                    </span>
-                    <span class="text-primary" style="font-weight: bold">
-                        {{project?.description}}
-                    </span>
-                </p>
-            </div>
-            <div class="modal-body m-2 border bg-secondary border border-dark text-left">
-                <p>
-                    <span class="text-white">
-                        Type:
-                    </span>
-                    <span class="text-primary" style="font-weight: bold">
-                        {{project?.type}}
-                    </span>
-                </p>
-            </div>
-            <div class="modal-body m-2 border bg-secondary border border-dark text-left">
-                <p>
-                    <span class="text-white">
-                        Version:
-                    </span>
-                    <span class="text-primary" style="font-weight: bold">
-                        {{project?.release}}
-                    </span>
-                </p>
-            </div>
-            <div class="modal-body m-2 border bg-secondary border border-dark text-left">
-                <p>
-                     <span class="text-white">
-                        Author:
-                    </span>
-                    <span class="text-primary" style="font-weight: bold">
-                        {{project?.author}}
-                    </span>
-                </p>
-            </div>
-            <div class="modal-body m-2 border bg-secondary border border-dark text-left">
-                <p>
-                     <span class="text-white">
-                        Created at:
-                    </span>
-                    <span class="text-primary" style="font-weight: bold">
-                        {{convertToReadableDate(project?.createdAt)}}
-                    </span>
-                </p>
+                <table class="w-100">
+                    <tr>
+                        <td class="text-white">Description</td><td class="text-dark">{{project?.description}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-white">Type of project</td><td class="text-dark">{{project?.type}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-white">Author</td><td class="text-dark">{{project?.author}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-white">Created at</td><td class="text-dark">{{convertToReadableDate(project?.createdAt)}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-white">Version</td><td class="text-dark">{{project?.release}}</td>
+                    </tr>
+                </table>
             </div>
             <div class="modal-footer">
                 <button type="reset" class="btn btn-outline-primary text-left" data-dismiss="modal" >Close</button>

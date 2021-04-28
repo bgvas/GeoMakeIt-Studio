@@ -11,18 +11,22 @@ import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
-  declarations: [
-    UserComponent,
-    UserProfileComponent
-  ],
-  imports: [
-    CommonModule,
-    UserManagementRoutingModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatButtonModule
-  ],
-  providers: [UserService]
+    declarations: [
+        UserComponent,
+        UserProfileComponent
+    ],
+    imports: [
+        CommonModule,
+        UserManagementRoutingModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatButtonModule
+    ],
+    exports: [
+        UserProfileComponent,
+        UserComponent
+    ],
+    providers: [UserService]
 })
 export class UserManagementModule { }

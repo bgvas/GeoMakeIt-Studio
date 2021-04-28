@@ -1,8 +1,18 @@
 <button type="button"  class="w-100 btn" data-toggle="modal" data-target="#projectSettings">
-   <span class="mat-h5">
-        <img src="assets/img/gear-icon.svg" width="30" class="mr-1">
-        Settings
-   </span>
+    <div class="row">
+        <div class="col-5 text-right pr-0">
+           <span class="mat-h5">
+                <mat-icon class="material-icons-outlined">
+                    settings
+                </mat-icon>
+           </span>
+        </div>
+        <div class="col-7 text-left">
+           <span>
+                Settings
+           </span>
+        </div>
+    </div>
 </button>
 
 <!-- Modal -->
@@ -23,14 +33,14 @@
                         </div>-->
                     </div>
                     <div class="col-6 mb-2 text-right">
-                            <input type="file" style="display: none" (change)="onFileChange($event)" #fileSelect>
+                            <input type="file" style="display: none" (change)="onFileChange($event)" #fileSelect [accept]="'.jpg'">
                             <button (click) = "fileSelect.click()">
                                 <img src="{{logo}}"  alt="logo pic" width="100">
+                                <p class="text-danger" *ngIf="error?.message !== null">
+                                    Can't load image
+                                </p>
                             </button>
                             Logo
-                        <!-- <div class="text-danger mat-h5" *ngIf="pointForm.get('name').invalid && pointForm.get('name').touched">
-                             Title can't be null
-                         </div>-->
                     </div>
                 </div>
                 <div class="row">
