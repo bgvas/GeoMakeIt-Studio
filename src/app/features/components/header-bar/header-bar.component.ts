@@ -29,6 +29,11 @@ export class HeaderBarComponent implements OnInit {
     this.router.navigate(['']);
   }
 
+  onLogout() {
+    localStorage.clear();
+    this.router.navigate(['login']);
+  }
+
 
 
 

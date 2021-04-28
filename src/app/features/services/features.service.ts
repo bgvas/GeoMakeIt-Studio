@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import {Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +9,7 @@ export class FeaturesService {
 
   aProject: any;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   set project(proj) {
     this.aProject = proj;
@@ -15,5 +17,9 @@ export class FeaturesService {
 
   get project(): any {
     return this.aProject;
+  }
+
+  getHelpFile(): Observable<any> {
+    return this.http.get('assets/txt-files/how-to.txt', { responseType: 'text' as 'json'});
   }
 }

@@ -23,7 +23,7 @@ import { HeaderBarComponent } from './components/header-bar/header-bar.component
 import { FooterBarComponent } from './components/footer-bar/footer-bar.component';
 import { ProjectSideBarComponent } from './components/project-side-bar/project-side-bar.component';
 import {MatIconModule} from '@angular/material/icon';
-import {NgbDropdownModule, NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule, NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
@@ -33,6 +33,8 @@ import { CreateProjectComponent } from './components/create-project/create-proje
 import { ImageAsCheckBoxComponent } from './components/image-as-check-box/image-as-check-box.component';
 import { ProjectCardComponent } from './components/project-card/project-card.component';
 import { GeomakeitHelpComponent } from './components/geomakeit-help/geomakeit-help.component';
+import {MatSelectModule} from '@angular/material/select';
+import {UserManagementModule} from '../user-management/user-management.module';
 
 
 
@@ -85,7 +87,9 @@ import { GeomakeitHelpComponent } from './components/geomakeit-help/geomakeit-he
         MatSnackBarModule,
         MatButtonModule,
         MatInputModule,
-        NgbDropdownModule
+        NgbModule,
+        MatSelectModule,
+        UserManagementModule
     ],
     providers: [
         DeclareFormControlsService,
