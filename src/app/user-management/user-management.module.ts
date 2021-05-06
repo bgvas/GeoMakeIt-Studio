@@ -8,12 +8,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import { RegistrationComponent } from './components/registration/registration.component';
+import {RouterModule} from '@angular/router';
 
 
 @NgModule({
     declarations: [
         UserComponent,
-        UserProfileComponent
+        UserProfileComponent,
+        RegistrationComponent
     ],
     imports: [
         CommonModule,
@@ -21,7 +24,8 @@ import {MatButtonModule} from '@angular/material/button';
         MatFormFieldModule,
         ReactiveFormsModule,
         MatInputModule,
-        MatButtonModule
+        MatButtonModule,
+        RouterModule
     ],
     exports: [
         UserProfileComponent,

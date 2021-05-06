@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import {Error404Component} from './features/components/error404/error404.component';
 import {LoginComponent} from './authentication/components/login/login.component';
+import {RegistrationComponent} from './user-management/components/registration/registration.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'registration',
+    component: RegistrationComponent
   }
 ];
 

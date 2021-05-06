@@ -54,6 +54,12 @@ export class PointSetupComponent implements OnInit {
     this.returnedPoint.emit(point);
   }
 
+  background(i: number) {
+    if (i % 2 === 0) {
+      return 'bg-light'
+    }
+  }
+
 
 
 }
