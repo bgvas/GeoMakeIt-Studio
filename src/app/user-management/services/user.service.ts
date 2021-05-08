@@ -8,6 +8,7 @@ import {Observable} from 'rxjs';
 })
 export class UserService {
 
+  _element: any;
 
 
   constructor(private http: HttpClient) { }
@@ -21,4 +22,15 @@ export class UserService {
     const path = './assets/dummyJson/userProfile.json';
     return this.http.put(path, userProfileToUpdate);
   }*/
+
+  set element(element: any) {
+    this._element = element;
+  }
+
+  get element() {
+    return this._element;
+  }
 }
+
+
+

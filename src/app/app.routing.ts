@@ -7,6 +7,8 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import {Error404Component} from './features/components/error404/error404.component';
 import {LoginComponent} from './authentication/components/login/login.component';
 import {RegistrationComponent} from './user-management/components/registration/registration.component';
+import {ConfirmNewAccountComponent} from './user-management/components/confirm-new-account/confirm-new-account.component';
+import {ForgotPasswordComponent} from './user-management/components/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   {
@@ -36,6 +38,14 @@ const routes: Routes = [
   {
     path: 'registration',
     component: RegistrationComponent
+  },
+  {
+    path: 'confirm',
+    component: ConfirmNewAccountComponent
+  },
+  {
+    path: 'forgotPassword',
+    component: ForgotPasswordComponent
   }
 ];
 
