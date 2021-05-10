@@ -2,13 +2,13 @@
     <div class="row justify-content-center">
         <div class="col-2 bg-light pr-0 border">
             <div class="row shadow mb-1">
-                <div class="col-12 pl-0 text-info mat-h1 pt-2" style="font-weight: bold; text-align: center">
+                <div class="col-12 pl-0 text-dark mat-h1 pt-2" style="font-weight: bold; text-align: center">
                     {{project?.title}}
                 </div>
             </div>
-            <div class="row" ngbTooltip="Click to handle map-points with specific actions">
+            <div class="row" matTooltip="Click to handle map-points with specific actions" matTooltipClass="h5">
                 <div class="col-12 pl-0" style="font-weight: bold; text-align: center">
-                    <button type="button" class="btn w-100"
+                    <button class="btn w-100 bg-dark"
                             data-toggle="collapse"
                             data-target="#points"
                             aria-expanded="false"
@@ -32,10 +32,10 @@
                         <table class="w-100 ml-1">
                             <tr>
                                 <td style="width: 95%">
-                                    <table class="w-100" style="font-weight: bold">
+                                    <table class="w-100 text-left" style="font-weight: bold">
                                         <tr>
-                                            <td class="pl-2" style="width: 10%">Point</td>
-                                            <td style="width: 90%">Title</td>
+                                            <td style="width: 30%" class="pl-2">Point</td>
+                                            <td style="width: 70%" class="pl-3">Title</td>
                                         </tr>
                                     </table>
                                 </td>
@@ -53,17 +53,26 @@
                     </div>
                 </div>
             </div>
-            <div class="row" ngbTooltip="Click to handle settings of this project">
+            <div class="row" matTooltip="Click to handle settings of this project" matTooltipClass="h5">
                 <div class="col-12 pl-0" style="font-weight: bold; text-align: center">
                     <app-game-settings [project] = "project"></app-game-settings>
                 </div>
             </div>
-            <div class="row" ngbTooltip="Click to display information for this project">
+            <div class="row" matTooltip="Click to display information for this project" matTooltipClass="h5">
                 <div class="col-12 pl-0" style="font-weight: bold; text-align: center">
                     <app-game-info></app-game-info>
                 </div>
             </div>
-            <div class="row w-100 mb-2" style="position: absolute; bottom: 0">
+            <div class="row w-100 mt-5" style="position: absolute;bottom: 250px;">
+                <div class="col-12 text-center">
+                    <img src="assets/img/wizard-image.png" width="60" alt="Image for action">
+                </div>
+                <div class="col-12 h5 text-dark font-weight-bold text-center">
+                        Step by Step
+                </div>
+
+            </div>
+            <div class="row w-100 mb-2" style="position: absolute;bottom: 5px">
                 <div class="col-12 text-center">
                     <button class="mat-raised-button mat-primary" style="width: 100%">
                        <mat-icon class="material-icons-outlined">

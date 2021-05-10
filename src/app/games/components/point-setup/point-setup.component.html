@@ -1,18 +1,18 @@
 <!-- Button trigger modal -->
 <table class="w-100">
-    <tr *ngFor="let point of points; let i = index">
+    <tr *ngFor="let point of points; let i = index" class="{{background(i)}}">
         <td style="width: 95%">
-            <button type="button" class="w-100 mat-button-toggle" data-toggle="modal" (click) = "onSelect(point, i)" data-target="#pointSetup">
+            <button class="w-100" data-toggle="modal" (click) = "onSelect(point, i)" data-target="#pointSetup" style="border: 0; background-color: inherit">
                 <table class="w-100">
                     <tr >
-                        <td class="text-primary " style="width: 10%">{{i + 1 }}</td>
-                        <td class="text-primary" style="width: 90%">{{point?.name}}</td>
+                        <td class="text-secondary" style="width: 10%">{{i + 1 }}</td>
+                        <td class="text-secondary" style="width: 90%">{{point?.name}}</td>
                     </tr>
                 </table>
             </button>
         <td>
         <td style="width: 5%">
-            <button class="text-danger" style="background-color: inherit; border: 0" (click)="onDelete(i)">
+            <button class="text-secondary" style="background-color: inherit; border: 0" (click)="onDelete(i)">
                 <mat-icon>
                     delete
                 </mat-icon>

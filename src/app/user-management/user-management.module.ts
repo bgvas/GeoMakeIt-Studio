@@ -8,12 +8,20 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import { RegistrationComponent } from './components/registration/registration.component';
+import {RouterModule} from '@angular/router';
+import { ConfirmNewAccountComponent } from './components/confirm-new-account/confirm-new-account.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+
 
 
 @NgModule({
     declarations: [
         UserComponent,
-        UserProfileComponent
+        UserProfileComponent,
+        RegistrationComponent,
+        ConfirmNewAccountComponent,
+        ForgotPasswordComponent
     ],
     imports: [
         CommonModule,
@@ -21,12 +29,15 @@ import {MatButtonModule} from '@angular/material/button';
         MatFormFieldModule,
         ReactiveFormsModule,
         MatInputModule,
-        MatButtonModule
+        MatButtonModule,
+        RouterModule
     ],
     exports: [
         UserProfileComponent,
         UserComponent
     ],
-    providers: [UserService]
+    providers: [
+        UserService
+    ]
 })
 export class UserManagementModule { }

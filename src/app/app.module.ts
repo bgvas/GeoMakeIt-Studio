@@ -23,6 +23,7 @@ import { AuthenticationModule} from './authentication/authentication.module';
 import { PluginModule } from './plugins/plugin.module';
 import { FeaturesModule} from './features/features.module';
 import { GameModule } from './games/game.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { GameModule } from './games/game.module';
         AuthenticationModule,
         PluginModule,
         FeaturesModule,
-        GameModule
+        GameModule,
+        NgbModule
     ],
     declarations: [
         AppComponent,

@@ -1,0 +1,103 @@
+<div class="container-fluid mt-2">
+    <div class="row pt-3 justify-content-center">
+        <div class="col-4 text-center">
+            <div class="row">
+                <div class="col-12 border border-dark text-white bg-dark p-2">
+                    <span class="h3" style="font-weight: bold">Create a new account</span>
+                </div>
+                <div class="col-12 border border-dark pt-3 bg-white shadow">
+                     <form [formGroup]="registrationForm">
+                            <div class="row justify-content-center mb-3">
+                                <div class="col-10">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>* First name</mat-label>
+                                        <input matInput type="text" formControlName="fName">
+                                        <mat-error class="font-weight-bold" *ngIf="registrationForm.get('fName').invalid && registrationForm.get('fName').touched">
+                                            First name is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-10">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>* Last name</mat-label>
+                                        <input matInput type="text" formControlName="lName">
+                                        <mat-error class="font-weight-bold" *ngIf="registrationForm.get('lName').invalid && registrationForm.get('lName').touched">
+                                            Last name is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-10">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>* Username</mat-label>
+                                        <input matInput type="text" formControlName="username">
+                                        <mat-error class="font-weight-bold" *ngIf="registrationForm.get('username').invalid && registrationForm.get('username').touched">
+                                            Username is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-10">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>* Email</mat-label>
+                                        <input matInput type="email" formControlName="email">
+                                        <mat-error class="font-weight-bold" *ngIf="registrationForm.get('email').getError('required') && registrationForm.get('email').touched">
+                                            Email is required
+                                        </mat-error>
+                                        <mat-error class="font-weight-bold" *ngIf="registrationForm.get('email').getError('email')">
+                                            This email is not acceptable
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-10" >
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>* Password</mat-label>
+                                                <input matInput type="password" formControlName="password">
+                                                <mat-error class="font-weight-bold" *ngIf="registrationForm.get('password').hasError('required') && registrationForm.get('password').touched">
+                                                    Password is required
+                                                </mat-error>
+                                                <mat-error class="font-weight-bold" *ngIf="registrationForm.get('password').hasError('pattern') && registrationForm.get('password').touched">
+                                                    Minimum 8 characters, at least one letter and one number
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-12">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>* Confirm password</mat-label>
+                                                <input matInput type="password" formControlName="confirm">
+                                                <mat-error class="font-weight-bold" *ngIf="registrationForm.get('confirm').hasError('match') && registrationForm.get('password').touched">
+                                                    Passwords do not match!
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-10 mb-2">
+                                    <input  type="checkbox" (change)="onChange($event)" >
+                                    I accept the
+                                    <a href = "" class="text-info">terms of use</a>
+                                    &
+                                    <a href = "" class="text-info">privacy policy</a>
+                                    <mat-error class="mat-h5 font-weight-bold" *ngIf="!terms">
+                                        Please accept to continue
+                                    </mat-error>
+                                </div>
+                                <div class="col-10">
+                                    <button type = "submit" class="btn btn-success w-100" style="font-weight: bold" [disabled] = "registrationForm.invalid || !terms" (click) = "onSubmit()">
+                                        Register Now
+                                    </button>
+                                    <mat-error *ngIf="registrationForm.invalid && registrationForm.touched" class="font-weight-bold mat-h5">
+                                        Form is not valid. Please check all fields
+                                    </mat-error>
+                                </div>
+                            </div>
+                     </form>
+                </div>
+            </div>
+            <div class="mt-3" style="font-weight: bold">
+                Already have an account?
+                <a routerLinkActive="active" routerLink="/login" class="text-info" style="text-decoration: underline">Login</a>
+            </div>
+        </div>
+    </div>
+</div>

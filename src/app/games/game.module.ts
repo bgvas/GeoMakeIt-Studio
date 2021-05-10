@@ -31,6 +31,7 @@ import { GameSetupComponent } from './components/game-setup/game-setup.component
 import { PointSetupComponent } from './components/point-setup/point-setup.component';
 import { GameSettingsComponent } from './components/game-settings/game-settings.component';
 import { GameInfoComponent } from './components/game-info/game-info.component';
+import {MatSelectModule} from '@angular/material/select';
 
 
 
@@ -65,7 +66,8 @@ import { GameInfoComponent } from './components/game-info/game-info.component';
         MatIconModule,
         MatTooltipModule,
         NgbTooltipModule,
-        NgbModule
+        NgbModule,
+        MatSelectModule
     ],
     exports: [
         GameCreateComponent

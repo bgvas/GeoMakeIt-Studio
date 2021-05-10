@@ -5,6 +5,7 @@ import {Plugin} from '../../../plugins/models/plugin';
 import {Error} from '../../../classes/error/error';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-game-settings',
@@ -16,20 +17,24 @@ export class GameSettingsComponent implements OnInit, OnDestroy {
   @Input() project: Game;
   availablePlugins: Plugin[];
   logo: any;
+  pluginForm: FormGroup;
   unsubscribe = new Subject<void>();
   error: Error;
+  selectedPlugins = new Array<Plugin>();
 
-  constructor(private pluginService: PluginService) { }
+  constructor(private pluginService: PluginService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.logo = '/assets/img/logo-icon.png';
     this.pluginService.getAvailablePlugins().pipe(takeUntil(this.unsubscribe)).subscribe(plugins => {
       this.availablePlugins = plugins.data;
     },
-        (e: Error) => {
+    (e: Error) => {
             this.error = e;
             console.log('Game settings(Available plugins): ' + e.message + ' - ' + e.code);
-        })
+    })
+
+    this.initializeForm();
   }
 
   ngOnDestroy() {
@@ -48,4 +53,35 @@ export class GameSettingsComponent implements OnInit, OnDestroy {
     }
   }
 
+  get pluginsToUse() {
+    return this.pluginForm.get('pluginsToUse') as FormArray;
+  }
+
+  set pluginsToUse(plugin: any)  {
+    (this.pluginForm.get('pluginsToUse') as FormArray).push(plugin);
+  }
+
+
+  onCheck(event, plugin) {
+
+    if (event.target.checked) {
+     this.selectedPlugins.push(plugin);
+    }
+    if (!event.target.checked) {
+      this.selectedPlugins.splice(this.selectedPlugins.indexOf(plugin), 1);
+    }
+    console.log(this.selectedPlugins);
+  }
+
+  initializeForm() {
+    this.pluginForm = this.fb.group({
+      pluginsToUse: this.fb.array([
+          this.fb.control('')
+      ])
+    })
+  }
+
+  onSubmit() {
+    console.log(this.pluginForm.value);
+  }
 }
