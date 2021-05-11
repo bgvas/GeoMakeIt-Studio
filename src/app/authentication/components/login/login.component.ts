@@ -11,6 +11,7 @@ import {Router} from '@angular/router';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
+  errorLogin: boolean;
 
   constructor(private fb: FormBuilder, private service: AuthService, private router: Router) { }
 
@@ -28,6 +29,8 @@ export class LoginComponent implements OnInit {
   onSubmit(){
     if(this.service.login(this.loginForm.value)){
       this.router.navigate(['home']);
+    } else {
+      this.errorLogin = true;
     }
   }
 

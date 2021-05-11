@@ -33,6 +33,9 @@
                                     <mat-error *ngIf="loginForm.get('password').touched && loginForm.get('password').invalid">Password is required</mat-error>
                                 </div>
                             </div>
+                            <div *ngIf="errorLogin" class="text-danger font-weight-bold">
+                                Error username or password. Try again
+                            </div>
                             <div class="row">
                                 <div class="col-12">
                                     <button type="submit" class="btn btn-info" style="width: 40%" (click)="onSubmit()" [disabled]="loginForm.invalid">

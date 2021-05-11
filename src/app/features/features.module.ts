@@ -35,6 +35,7 @@ import { ProjectCardComponent } from './components/project-card/project-card.com
 import { GeomakeitHelpComponent } from './components/geomakeit-help/geomakeit-help.component';
 import {MatSelectModule} from '@angular/material/select';
 import {UserManagementModule} from '../user-management/user-management.module';
+import { StepByStepComponent } from './components/step-by-step/step-by-step.component';
 
 
 
@@ -60,7 +61,8 @@ import {UserManagementModule} from '../user-management/user-management.module';
     CreateProjectComponent,
     ImageAsCheckBoxComponent,
     ProjectCardComponent,
-    GeomakeitHelpComponent
+    GeomakeitHelpComponent,
+    StepByStepComponent
   ],
     exports: [
         SpinnerComponent,
