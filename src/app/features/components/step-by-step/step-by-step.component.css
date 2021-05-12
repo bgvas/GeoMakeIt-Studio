@@ -1,0 +1,3 @@
+div.my-modal > div.modal-dialog {
+    width: 600px !important;
+}

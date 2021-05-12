@@ -13,7 +13,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { TooltipInfoCircleComponent} from './components/tooltip-info-circle/tooltip-info-circle.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { ValidationMessagesComponent } from './components/validations/validation-messages/validation-messages.component';
+import { ValidationMessagesComponent } from './components/validation-messages/validation-messages.component';
 import {DeclareFormControlsService} from './services/declareFormControls/declare-form-controls.service';
 import {ValidationsService} from './services/validations/validations.service';
 import { AgmCoreModule } from '@agm/core';

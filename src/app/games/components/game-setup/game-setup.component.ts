@@ -64,6 +64,10 @@ export class GameSetupComponent implements OnInit {
       this.router.navigate(['home']);
   }
 
+  onClickOpen() {
+    this.router.navigate(['wizard'])
+  }
+
 
 
 

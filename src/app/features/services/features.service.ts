@@ -22,4 +22,8 @@ export class FeaturesService {
   getHelpFile(): Observable<any> {
     return this.http.get('assets/txt-files/how-to.txt', { responseType: 'text' as 'json'});
   }
+
+  getStepByStepImages(): Observable<any> {
+    return this.http.get('assets/dummyJson/stepByStep-images.json');
+  }
 }

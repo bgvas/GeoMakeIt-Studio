@@ -9,6 +9,7 @@ import {LoginComponent} from './authentication/components/login/login.component'
 import {RegistrationComponent} from './user-management/components/registration/registration.component';
 import {ConfirmNewAccountComponent} from './user-management/components/confirm-new-account/confirm-new-account.component';
 import {ForgotPasswordComponent} from './user-management/components/forgot-password/forgot-password.component';
+import {StepByStepComponent} from './features/components/step-by-step/step-by-step.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
   {
     path: 'forgotPassword',
     component: ForgotPasswordComponent
+  },
+  {
+    path: 'wizard',
+    component: StepByStepComponent
   }
 ];
 
