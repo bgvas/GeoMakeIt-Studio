@@ -5,15 +5,15 @@
             <button class="w-100" data-toggle="modal" (click) = "onSelect(point, i)" data-target="#pointSetup" style="border: 0; background-color: inherit">
                 <table class="w-100">
                     <tr >
-                        <td class="text-secondary" style="width: 10%">{{i + 1 }}</td>
-                        <td class="text-secondary" style="width: 90%">{{point?.name}}</td>
+                        <td class="mat-h5" style="width: 10%">{{i + 1 }}</td>
+                        <td class="mat-h5" style="width: 90%">{{point?.name}}</td>
                     </tr>
                 </table>
             </button>
         <td>
         <td style="width: 5%">
-            <button class="text-secondary" style="background-color: inherit; border: 0" (click)="onDelete(i)">
-                <mat-icon>
+            <button  style="background-color: inherit; border: 0" (click)="onDelete(i)">
+                <mat-icon class="h5">
                     delete
                 </mat-icon>
             </button>
@@ -131,9 +131,9 @@
                                         data-target="#settingsOfAction"
                                         aria-expanded="false"
                                         aria-controls="settingsOfAction">
-                            <span class="mat-h5">
-                                    Settings
-                            </span>
+                                    <span class="mat-h5">
+                                            Settings
+                                    </span>
                                 </button>
                                 <div id="settingsOfAction" class="collapse m-1 shadow border bg-white">
                                     Settings

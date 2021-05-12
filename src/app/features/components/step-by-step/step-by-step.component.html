@@ -1,0 +1,43 @@
+<div class="row w-100">
+    <div class="col-12 position-absolute fixed-top text-center text-info " style="text-shadow: 2px 2px black;">
+        <div class="row">
+            <div class="col-11">
+                <h1 class="font-weight-bold">
+                    Step by step wizard
+                </h1>
+                <p>
+                    (follow this guide, to config your project)
+                </p>
+            </div>
+            <div class="col-1">
+                <button class="btn btn-success border border-dark" (click)="onReturn()">
+                    Return
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="row">
+            <div class="col-12">
+                <img src="assets/img/StepByStep/step-{{numOfImage | number}}-0.jpg">
+            </div>
+            <div class="col-12 position-absolute fixed-bottom">
+                <div class="row">
+                    <div class="col-6">
+                        <button class="btn btn-info  border border-dark text-lowercase" (click)="onPreviousClick()" [disabled]="firstStep">
+                            <mat-icon>navigate_before</mat-icon>
+                             previous step
+                        </button>
+                    </div>
+                    <div class="col-6 text-right">
+                        <button class="btn btn-info border border-dark text-lowercase" (click)="onNextClick()" [disabled]="lastStep">
+                            next step
+                            <mat-icon>chevron_right</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

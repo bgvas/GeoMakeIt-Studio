@@ -23,7 +23,7 @@ export class GameSetupComponent implements OnInit {
      this.redirectProjectIfUndefined();
     }
 
-    const aPoint = new Point();
+    /*const aPoint = new Point();
     aPoint.lat = 38.892548108719396;
     aPoint.lng = 22.458088777351076;
     aPoint.description = 'Start Point';
@@ -34,7 +34,7 @@ export class GameSetupComponent implements OnInit {
     bPoint.lng = 22.458088777351076;
     bPoint.name = 'End Point';
     bPoint.description = 'End Point';
-    this.addPoint(bPoint);
+    this.addPoint(bPoint);*/
   }
 
   addPoint(point) {
@@ -62,6 +62,10 @@ export class GameSetupComponent implements OnInit {
 
   redirectProjectIfUndefined() {
       this.router.navigate(['home']);
+  }
+
+  onClickOpen() {
+    this.router.navigate(['wizard'])
   }
 
 

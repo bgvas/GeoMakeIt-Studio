@@ -20,6 +20,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'user',   component: UserProfileComponent, canActivate: [CanActivateRouteService]},
     { path: 'registration',   redirectTo: '/registration'},
     { path: 'confirm',   redirectTo: '/confirm'},
+    { path: 'wizard',   redirectTo: '/wizard'},
     { path: 'forgotPassword',   redirectTo: '/forgotPassword'},
     { path: 'games',   component: GamesComponent, canActivate: [CanActivateRouteService]},
     { path: 'games/setup', component: GameSetupComponent, canActivate: [CanActivateRouteService]},
