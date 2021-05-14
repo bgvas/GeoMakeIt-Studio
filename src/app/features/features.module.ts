@@ -28,14 +28,17 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {FeaturesService} from './services/features.service';
-import {GameModule} from '../games/game.module';
 import { CreateProjectComponent } from './components/create-project/create-project.component';
 import { ImageAsCheckBoxComponent } from './components/image-as-check-box/image-as-check-box.component';
 import { ProjectCardComponent } from './components/project-card/project-card.component';
-import { GeomakeitHelpComponent } from './components/geomakeit-help/geomakeit-help.component';
+import { GeomakeitHelpComponent } from './components/help/geomakeit-help/geomakeit-help.component';
 import {MatSelectModule} from '@angular/material/select';
 import {UserManagementModule} from '../user-management/user-management.module';
-import { StepByStepComponent } from './components/step-by-step/step-by-step.component';
+import { StepByStepComponent } from './components/help/step-by-step/step-by-step.component';
+import {RouterModule} from '@angular/router';
+
+
+
 
 
 
@@ -91,7 +94,8 @@ import { StepByStepComponent } from './components/step-by-step/step-by-step.comp
         MatInputModule,
         NgbModule,
         MatSelectModule,
-        UserManagementModule
+        UserManagementModule,
+        RouterModule
     ],
     providers: [
         DeclareFormControlsService,

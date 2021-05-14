@@ -12,6 +12,7 @@ import {CanActivateRouteService} from '../../authentication/services/can-activat
 import {GameViewComponent} from '../../games/components/game-view/game-view.component';
 import {GameBuildComponent} from '../../games/components/game-build/game-build.component';
 import {GameSetupComponent} from '../../games/components/game-setup/game-setup.component';
+import {StepperWizardComponent} from '../../games/components/stepper-wizard/stepper-wizard.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -20,7 +21,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'user',   component: UserProfileComponent, canActivate: [CanActivateRouteService]},
     { path: 'registration',   redirectTo: '/registration'},
     { path: 'confirm',   redirectTo: '/confirm'},
-    { path: 'wizard',   redirectTo: '/wizard'},
+    { path: 'guide',   redirectTo: '/guide'},
+    { path: 'stepper',   component: StepperWizardComponent, canActivate: [CanActivateRouteService]},
     { path: 'forgotPassword',   redirectTo: '/forgotPassword'},
     { path: 'games',   component: GamesComponent, canActivate: [CanActivateRouteService]},
     { path: 'games/setup', component: GameSetupComponent, canActivate: [CanActivateRouteService]},

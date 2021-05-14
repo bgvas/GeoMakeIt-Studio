@@ -13,7 +13,10 @@
                             <a role="button" class="text-white" style="background-color: inherit" id="helpDropdown" ngbDropdownToggle>Help</a>
                             <div ngbDropdownMenu aria-labelledby="helpDropdown">
                                 <button ngbDropdownItem data-toggle="modal" data-target="#helpTag">
-                                   How-To
+                                   Help info
+                                </button>
+                                <button ngbDropdownItem routerLinkActive="active" routerLink="/guide">
+                                    Step by Step guide
                                 </button>
                                 <button ngbDropdownItem>
                                     About GeoMakeIt Studio
@@ -41,3 +44,4 @@
 
     <app-geomakeit-help></app-geomakeit-help>
     <app-user-profile></app-user-profile>
+

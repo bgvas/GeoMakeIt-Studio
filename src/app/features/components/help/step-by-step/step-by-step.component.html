@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-11">
                 <h1 class="font-weight-bold">
-                    Step by step wizard
+                    Step by step guide
                 </h1>
                 <p>
                     (follow this guide, to config your project)
@@ -24,13 +24,13 @@
             <div class="col-12 position-absolute fixed-bottom">
                 <div class="row">
                     <div class="col-6">
-                        <button class="btn btn-info  border border-dark text-lowercase" (click)="onPreviousClick()" [disabled]="firstStep">
+                        <button class="btn btn-info  border border-dark text-lowercase" (click)="onPreviousClick()" *ngIf="!firstStep">
                             <mat-icon>navigate_before</mat-icon>
                              previous step
                         </button>
                     </div>
                     <div class="col-6 text-right">
-                        <button class="btn btn-info border border-dark text-lowercase" (click)="onNextClick()" [disabled]="lastStep">
+                        <button class="btn btn-info border border-dark text-lowercase" (click)="onNextClick()" *ngIf="!lastStep">
                             next step
                             <mat-icon>chevron_right</mat-icon>
                         </button>

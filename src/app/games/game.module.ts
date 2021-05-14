@@ -29,10 +29,13 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {NgbModule, NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 import { GameSetupComponent } from './components/game-setup/game-setup.component';
 import { PointSetupComponent } from './components/point-setup/point-setup.component';
-import { GameSettingsComponent } from './components/game-settings/game-settings.component';
+import { GameSettingsModalComponent } from './components/game-settings-modal/game-settings-modal.component';
 import { GameInfoComponent } from './components/game-info/game-info.component';
 import {MatSelectModule} from '@angular/material/select';
-
+import {MatStepperModule} from '@angular/material/stepper';
+import {StepperWizardComponent} from './components/stepper-wizard/stepper-wizard.component';
+import {MatButtonModule} from '@angular/material/button';
+import { GameSettingsComponent } from './components/game-settings/game-settings.component';
 
 
 @NgModule({
@@ -50,8 +53,10 @@ import {MatSelectModule} from '@angular/material/select';
         StringsComponent,
         GameSetupComponent,
         PointSetupComponent,
-        GameSettingsComponent,
-        GameInfoComponent
+        GameSettingsModalComponent,
+        GameInfoComponent,
+        StepperWizardComponent,
+        GameSettingsComponent
     ],
     imports: [
         CommonModule,
@@ -67,10 +72,13 @@ import {MatSelectModule} from '@angular/material/select';
         MatTooltipModule,
         NgbTooltipModule,
         NgbModule,
-        MatSelectModule
+        MatSelectModule,
+        MatStepperModule,
+        MatButtonModule
     ],
     exports: [
-        GameCreateComponent
+        GameCreateComponent,
+        GameSettingsModalComponent
     ],
     providers: [
         GameService,

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {FeaturesService} from '../../services/features.service';
+import {FeaturesService} from '../../../services/features.service';
 import {getSortHeaderNotContainedWithinSortError} from '@angular/material/sort/sort-errors';
 
 @Component({
@@ -10,8 +10,8 @@ import {getSortHeaderNotContainedWithinSortError} from '@angular/material/sort/s
 })
 export class StepByStepComponent implements OnInit {
 
-  images: any;
   numOfImage = 1;
+  images: any;
   firstStep = true;
   lastStep: boolean;
   constructor(private router: Router, private featuresService: FeaturesService) { }
@@ -20,32 +20,27 @@ export class StepByStepComponent implements OnInit {
     this.featuresService.getStepByStepImages().subscribe(image => {
       this.images = image.images;
     })
-    console.log(this.numOfImage);
   }
 
   onPreviousClick() {
-    if (this.numOfImage <= 1) {
+    if (this.numOfImage === 1) {
       this.firstStep = true;
-      this.lastStep = false;
-      this.numOfImage = 1;
     } else {
       this.firstStep = false;
-      this.lastStep = false;
       this.numOfImage = this.numOfImage - 1 ;
     }
+    this.lastStep = false;
   }
 
   onNextClick() {
     const values = this.images.length;
-    if (this.numOfImage === values - 1 ) {
-      this.firstStep = false;
+    if (this.numOfImage === values) {
       this.lastStep = true;
-      this.numOfImage = values - 1 ;
     } else {
-      this.firstStep = false;
       this.lastStep = false;
       this.numOfImage = this.numOfImage + 1;
     }
+    this.firstStep = false;
   }
 
   onReturn() {
