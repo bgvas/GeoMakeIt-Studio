@@ -7,12 +7,13 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 
+
 @Component({
   selector: 'app-game-settings',
   templateUrl: './game-settings.component.html',
   styleUrls: ['./game-settings.component.css']
 })
-export class GameSettingsComponent implements OnInit, OnDestroy {
+export class GameSettingsComponent implements OnInit, OnDestroy  {
 
   @Input() project: Game;
   availablePlugins: Plugin[];
@@ -25,15 +26,16 @@ export class GameSettingsComponent implements OnInit, OnDestroy {
   constructor(private pluginService: PluginService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
+
+
     this.logo = '/assets/img/logo-icon.png';
     this.pluginService.getAvailablePlugins().pipe(takeUntil(this.unsubscribe)).subscribe(plugins => {
-      this.availablePlugins = plugins.data;
-    },
-    (e: Error) => {
-            this.error = e;
-            console.log('Game settings(Available plugins): ' + e.message + ' - ' + e.code);
-    })
-
+          this.availablePlugins = plugins.data;
+        },
+        (e: Error) => {
+          this.error = e;
+          console.log('Game settings(Available plugins): ' + e.message + ' - ' + e.code);
+        })
     this.initializeForm();
   }
 
@@ -65,7 +67,8 @@ export class GameSettingsComponent implements OnInit, OnDestroy {
   onCheck(event, plugin) {
 
     if (event.target.checked) {
-     this.selectedPlugins.push(plugin);
+      this.selectedPlugins.push(plugin);
+      this.pluginsToUse.push(plugin.title);
     }
     if (!event.target.checked) {
       this.selectedPlugins.splice(this.selectedPlugins.indexOf(plugin), 1);
@@ -75,13 +78,25 @@ export class GameSettingsComponent implements OnInit, OnDestroy {
 
   initializeForm() {
     this.pluginForm = this.fb.group({
+      title: this.fb.control(''),
+      description: this.fb.control(''),
       pluginsToUse: this.fb.array([
-          this.fb.control('')
+        this.fb.control('')
       ])
     })
+    this.setValuesToForm();
   }
+
+  setValuesToForm() {
+    this.pluginForm.get('title').setValue(this.project.title);
+    this.pluginForm.get('description').setValue(this.project.description);
+  }
+
+
+
 
   onSubmit() {
     console.log(this.pluginForm.value);
   }
+
 }

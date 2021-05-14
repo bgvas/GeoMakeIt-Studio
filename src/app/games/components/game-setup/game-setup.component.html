@@ -55,7 +55,23 @@
             </div>
             <div class="row" matTooltip="Click to handle settings of this project" matTooltipClass="h5">
                 <div class="col-12 pl-0" style="font-weight: bold; text-align: center">
-                    <app-game-settings [project] = "project"></app-game-settings>
+                    <button  class="w-100 btn bg-dark" data-toggle="modal" data-target="#projectSettings">
+                        <div class="row">
+                            <div class="col-5 text-right pr-0">
+                                <span class="mat-h5">
+                                    <mat-icon class="material-icons-outlined">
+                                        settings
+                                    </mat-icon>
+                                </span>
+                            </div>
+                            <div class="col-7 text-left">
+                                <span>
+                                    Settings
+                                </span>
+                            </div>
+                        </div>
+                    </button>
+                    <app-game-settings-modal [project]="project"></app-game-settings-modal>
                 </div>
             </div>
             <div class="row" matTooltip="Click to display information for this project" matTooltipClass="h5">

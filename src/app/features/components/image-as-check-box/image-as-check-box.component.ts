@@ -17,7 +17,7 @@ export class ImageAsCheckBoxComponent implements OnInit {
 
   }
 
-  onSelect(template){
+  onSelect(template) {
     this.template.emit(template);
   }
 

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FeaturesService} from '../../services/features.service';
-import {Error} from '../../../classes/error/error';
+import {FeaturesService} from '../../../services/features.service';
+import {Error} from '../../../../classes/error/error';
 
 @Component({
   selector: 'app-geomakeit-help',

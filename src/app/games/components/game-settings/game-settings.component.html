@@ -1,143 +1,114 @@
-<button  class="w-100 btn bg-dark" data-toggle="modal" data-target="#projectSettings">
+<form [formGroup]="pluginForm">
     <div class="row">
-        <div class="col-5 text-right pr-0">
-           <span class="mat-h5">
-                <mat-icon class="material-icons-outlined">
-                    settings
-                </mat-icon>
-           </span>
+        <div class="col-6 mb-2">
+            <mat-form-field class="bg-white p-2">
+                <input type="text" class="text-primary" matInput placeholder="Title of project" formControlName="title"  value="{{project?.title}}">
+            </mat-form-field>
+            <!-- <div class="text-danger mat-h5" *ngIf="pointForm.get('name').invalid && pointForm.get('name').touched">
+                 Title can't be null
+             </div>-->
         </div>
-        <div class="col-7 text-left">
-           <span>
-                Settings
-           </span>
+        <div class="col-6 mb-2 text-right">
+            <input type="file" style="display: none" (change)="onFileChange($event)" #fileSelect [accept]="'.jpg'">
+            <button (click) = "fileSelect.click()">
+                <img src="{{logo}}"  alt="logo pic" width="100">
+                <p class="text-danger" *ngIf="error?.message !== null">
+                    Can't load image
+                </p>
+            </button>
+            Logo
         </div>
     </div>
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="projectSettings" tabindex="-1" role="dialog" aria-labelledby="settings" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <form [formGroup]="pluginForm">
-            <div class="modal-content ">
-                <div class="modal-header m-2 bg-secondary border border-dark">
-                    <h3 class="modal-title text-white" id="settings" style="font-weight: bold">Settings</h3>
-                </div>
-                <div class="modal-body bg-secondary m-2 border border-dark">
-                    <div class="row">
-                        <div class="col-6 mb-2">
-                            <mat-form-field class="bg-white p-2">
-                                <input type="text" class="text-primary" matInput placeholder="Title of project"   value="{{project?.title}}">
-                            </mat-form-field>
-                           <!-- <div class="text-danger mat-h5" *ngIf="pointForm.get('name').invalid && pointForm.get('name').touched">
-                                Title can't be null
-                            </div>-->
-                        </div>
-                        <div class="col-6 mb-2 text-right">
-                                <input type="file" style="display: none" (change)="onFileChange($event)" #fileSelect [accept]="'.jpg'">
-                                <button (click) = "fileSelect.click()">
-                                    <img src="{{logo}}"  alt="logo pic" width="100">
-                                    <p class="text-danger" *ngIf="error?.message !== null">
-                                        Can't load image
-                                    </p>
-                                </button>
-                                Logo
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <mat-form-field class="bg-white p-2">
-                                <input type="text" class="text-primary" matInput placeholder="Description of project"   value="{{project?.description}}">
-                            </mat-form-field>
-                            <!-- <div class="text-danger mat-h5" *ngIf="pointForm.get('name').invalid && pointForm.get('name').touched">
-                                 Title can't be null
-                             </div>-->
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <button type="button" class="btn btn-outline-light w-100"
-                                    data-toggle="collapse"
-                                    data-target="#addActions"
-                                    aria-expanded="false"
-                                    aria-controls="addActions">
-                                    <span class="mat-h5">
-                                            Add Actions to project
-                                    </span>
-                            </button>
-                            <div id="addActions" class="collapse m-1 shadow border bg-white" style="overflow-y: auto" >
-                                <table class="w-100">
-                                    <tr class="border-bottom">
-                                        <td> Index </td><td> Title </td><td> Usage </td><td>Use it</td>
-                                    </tr>
-                                    <tr *ngFor="let plugin of availablePlugins; let i = index" class="text-primary mat-h4">
-                                        <td>{{i+1}}</td><td>{{ plugin.title }}</td>
-                                        <td *ngIf="plugin.is_required">
-                                            required
-                                        </td>
-                                        <td *ngIf="!plugin.is_required">
-                                            optional
-                                        </td>
-                                        <td>
-                                            <input type="checkbox" name="usePlugin" (change)="onCheck($event, plugin)" [defaultChecked]="plugin?.is_required" [disabled]="plugin?.is_required">
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <button type="button" class="btn btn-outline-light w-100"
-                                    data-toggle="collapse"
-                                    data-target="#selectedActions"
-                                    aria-expanded="true"
-                                    aria-controls="addActions">
-                                    <span class="mat-h5">
-                                            Selected Actions
-                                    </span>
-                            </button>
-                            <div id="selectedActions" class="collapse m-1 shadow border bg-white" style="overflow-y: auto" formArrayName="pluginsToUse">
-                                <table class="w-100">
-                                    <tr class="border-bottom">
-                                        <td style="width: 10%">Index</td><td style="width: 50%">Title</td><td style="width: 20%">Version</td><td style="width: 20%">Details</td>
-                                    </tr>
-                                    <tr *ngFor="let plugin of selectedPlugins; let i = index" class="text-primary mat-h4">
-                                        <td style="width: 10%">
-                                            {{i+1}}
-                                        </td>
-                                        <td style="width: 50%">
-                                            {{ plugin.title }}
-                                        </td>
-                                        <td style="width: 20%">
-                                            <select class="form-select" style="text-align-last: center; align-self: center">
-                                                <option value="1.0.0">1.0.0</option>
-                                                <option value="2.0.0">2.0.0</option>
-                                            </select>
-                                        </td>
-                                        <td style="width: 20%">
-                                            <a role="button" class="mat-h5 font-weight-bold text-info">info</a>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col-6">
-                        <button type="submit" class="btn btn-info text-left" data-dismiss="modal" (click)="onSubmit()">
-                            Save Settings
-                        </button>
-                    </div>
-                    <div class="col-6">
-                        <button type="reset" class="btn btn-warning text-right" data-dismiss="modal">
-                            Cancel
-                        </button>
-                    </div>
-                </div>
+    <div class="row">
+        <div class="col-12">
+            <mat-form-field class="bg-white p-2">
+                <input type="text" class="text-primary" matInput placeholder="Description of project" formControlName="description"  value="{{project?.description}}">
+            </mat-form-field>
+            <!-- <div class="text-danger mat-h5" *ngIf="pointForm.get('name').invalid && pointForm.get('name').touched">
+                 Title can't be null
+             </div>-->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <button type="button" class="btn btn-outline-light w-100"
+                    data-toggle="collapse"
+                    data-target="#addActions"
+                    aria-expanded="false"
+                    aria-controls="addActions">
+                            <span class="mat-h5">
+                                    Add Actions to project
+                            </span>
+            </button>
+            <div id="addActions" class="collapse m-1 shadow border bg-white" style="overflow-y: auto" >
+                <table class="w-100">
+                    <tr class="border-bottom">
+                        <td> Index </td><td> Title </td><td> Usage </td><td>Use it</td>
+                    </tr>
+                    <tr *ngFor="let plugin of availablePlugins; let i = index" class="text-primary mat-h4">
+                        <td>{{i+1}}</td><td>{{ plugin.title }}</td>
+                        <td *ngIf="plugin.is_required">
+                            required
+                        </td>
+                        <td *ngIf="!plugin.is_required">
+                            optional
+                        </td>
+                        <td>
+                            <input type="checkbox" name="usePlugin" (change)="onCheck($event, plugin)" [defaultChecked]="plugin?.is_required" [disabled]="plugin?.is_required">
+                        </td>
+                    </tr>
+                </table>
             </div>
-        </form>
+        </div>
     </div>
-</div>
-
+    <div class="row">
+        <div class="col-12">
+            <button type="button" class="btn btn-outline-light w-100"
+                    data-toggle="collapse"
+                    data-target="#selectedActions"
+                    aria-expanded="true"
+                    aria-controls="addActions">
+                            <span class="mat-h5">
+                                    Selected Actions
+                            </span>
+            </button>
+            <div id="selectedActions" class="collapse m-2 shadow border bg-white" style="overflow-y: auto" formArrayName="pluginsToUse">
+                <table class="w-100">
+                    <tr class="border-bottom">
+                        <td style="width: 10%">Index</td><td style="width: 50%">Title</td><td style="width: 20%">Version</td><td style="width: 20%">Details</td>
+                    </tr>
+                    <tr *ngFor="let plugin of selectedPlugins; let i = index" class="text-primary mat-h4">
+                        <td style="width: 10%">
+                            {{i+1}}
+                        </td>
+                        <td style="width: 50%" >
+                            {{plugin?.title}}
+                            <input type="hidden" [formControlName]="i" value="{{plugin}}">
+                        </td>
+                        <td style="width: 20%">
+                            <select class="form-select" style="text-align-last: center; align-self: center">
+                                <option value="1.0.0">1.0.0</option>
+                                <option value="2.0.0">2.0.0</option>
+                            </select>
+                        </td>
+                        <td style="width: 20%">
+                            <a role="button" class="mat-h5 font-weight-bold text-info">info</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-6 text-left">
+            <button type="submit" class="btn btn-info" data-dismiss="modal" (click)="onSubmit()">
+                Save Settings
+            </button>
+        </div>
+        <div class="col-6 text-right">
+            <button type="button" class="btn btn-warning" data-dismiss="modal">
+                Cancel
+            </button>
+        </div>
+    </div>
+</form>
