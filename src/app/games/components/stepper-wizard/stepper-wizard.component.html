@@ -1,30 +1,87 @@
 <mat-horizontal-stepper linear #stepper>
-    <mat-step  [editable]="isEditable">
+    <mat-step  [editable]="true">
         <ng-template matStepLabel>Setup your project</ng-template>
         <h1>Settings</h1>
-            <app-game-settings [project]="project"></app-game-settings>
-            <div>
-                <button class="btn" mat-button matStepperNext>Next</button>
+            <app-game-settings [project]="project" [isModal] = "false" [submitFromStepper]="sendSubmit.asObservable()"></app-game-settings>
+            <div class="text-right">
+                <button class="btn shadow border border-success" mat-button matStepperNext (click) = "onSubmit()">Next</button>
             </div>
     </mat-step>
-    <mat-step  [editable]="isEditable">
-            <ng-template matStepLabel>Fill out your address</ng-template>
-            <mat-form-field>
-                <mat-label>Address</mat-label>
-                <input matInput  placeholder="Ex. 1 Main St, New York, NY"
-                       required>
-            </mat-form-field>
-            <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
+    <mat-step  [editable]="true">
+        <ng-template matStepLabel>Select location on map</ng-template>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12" style="height: 700px">
+                    <span class="font-weight-bold">
+                        Click on map to select locations for your actions
+                    </span>
+                    <app-map [points] = "pointsArray" (coordinates)="addPoint($event)" ></app-map>
+                    <div class="col-12" style="position: absolute; bottom: 50%">
+                        <div class="row w-100">
+                            <div class="col-6 text-left">
+                                <button class="btn shadow border border-success" mat-button matStepperPrevious>Back</button>
+                            </div>
+                            <div class="col-6 text-right">
+                                <button class="btn shadow border border-success" mat-button matStepperNext>Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+    </mat-step>
+    <mat-step  [editable]="true">
+        <ng-template matStepLabel>Add action in location-point</ng-template>
+        <p class="font-weight-bold text-center">
+            Click on every point, to setup actions
+        </p>
+        <div class="row justify-content-center">
+            <div class="col-3 text-left">
+                <button class="btn shadow border border-success" mat-button matStepperPrevious>Back</button>
+            </div>
+            <div class="col-6">
+                <table class="w-100 shadow">
+                    <tr>
+                        <td>
+                            <table class="w-100 bg-dark text-white" style="font-weight: bold">
+                                <tr>
+                                    <td style="width: 10%" class="pl-2 text-center">Point</td>
+                                    <td style="width: 90%" class="pl-3 text-center">Title</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <app-point-setup [points] = "pointsArray" (pointForDelete)="onDelete($event)" (returnedPoint) = "updateArrayOfPoints($event)"></app-point-setup>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-3 text-right">
+                <button class="btn shadow border border-success" mat-button matStepperNext>Next</button>
+            </div>
+        </div>
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Done</ng-template>
-        <p>You are now done.</p>
-        <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button (click)="stepper.reset()">Reset</button>
+        <div class="row">
+            <div class="col-2 text-right">
+                <button mat-button matStepperPrevious class="btn shadow border border-success">Back</button>
+            </div>
+            <div class="col-8 text-center font-weight-bold">
+                <p>You are now done. Click on Build button to check and build your project</p>
+                    <button class="mat-raised-button mat-primary" style="width: 50%">
+                        <mat-icon class="material-icons-outlined">
+                            app_settings_alt
+                        </mat-icon>
+                        Build
+                    </button>
+            </div>
+            <div class="col-2 text-left">
+                <button mat-button class="btn shadow border border-success" (click)="stepper.reset()">Reset</button>
+            </div>
         </div>
+
     </mat-step>
 </mat-horizontal-stepper>

@@ -65,7 +65,6 @@ export class GameSetupComponent implements OnInit {
   }
 
   onClickOpen() {
-    console.log(this.project);
     this.service.object = this.project;
     this.router.navigate(['stepper'])
   }
