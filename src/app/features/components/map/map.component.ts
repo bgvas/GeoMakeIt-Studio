@@ -11,6 +11,7 @@ export class MapComponent implements OnInit {
   selectedLat: any;
   selectedLng: any;
   arrayOfCoordinates = new Array<Point>();
+  marker = 'assets/img/note2.png'
 
   @Input() points: Point[];
   @Output() coordinates = new EventEmitter<any>();
@@ -25,8 +26,9 @@ export class MapComponent implements OnInit {
     const newPoint = new Point();
     newPoint.lat = event?.coords.lat;
     newPoint.lng = event?.coords.lng;
-    newPoint.name = 'null';
+    newPoint.name = 'point';
     this.points.push(newPoint);
+
   }
 
   clickedMarker(label: string, index: number) {
@@ -41,6 +43,12 @@ export class MapComponent implements OnInit {
     this.points[index].lat = event?.coords.lat;
     this.points[index].lng = event?.coords.lng;
   }
+
+  onRadiusChange(event, index) {
+    console.log(event)
+  }
+
+
 
 
 }

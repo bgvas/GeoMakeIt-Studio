@@ -6,7 +6,6 @@ import {Game} from '../../../games/models/games/game';
 import {Error} from '../../../classes/error/error';
 import {FeaturesService} from '../../services/features.service';
 import {NotificationsComponent} from '../notifications/notifications.component';
-import {GameCreateComponent} from '../../../games/components/game-create/game-create.component';
 
 @Component({
   selector: 'app-home',

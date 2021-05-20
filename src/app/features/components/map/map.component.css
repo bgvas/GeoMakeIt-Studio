@@ -1,3 +1,15 @@
 agm-map {
     height: 800px;
 }
+
+.gm-style-iw {
+    padding: 0;
+    background-color: #AAAAAA;
+    text-align: center;
+    color: white;
+}
+
+
+.gm-style-iw-d {
+    overflow: hidden;
+}

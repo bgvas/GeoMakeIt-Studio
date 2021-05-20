@@ -6,6 +6,9 @@ import {environment} from '../../../environments/environment';
 import {Game} from '../models/games/game';
 import {RootInstalledPlugins} from '../../plugins/models/installed_plugins/root-installed-plugins';
 import {Plugin} from '../../plugins/models/plugin';
+import {SelectedPlugin} from '../../plugins/models/selectedPlugin/selected-plugin';
+import {InstallPlugins} from '../models/installPlugins/install-plugins';
+import {projectElements} from '../models/projectElements/project-elements';
 
 
 @Injectable({
@@ -33,9 +36,19 @@ export class GameService {
     return this.http.post<Game>(this.path, game);
   }
 
+  // Update project title and description
+  putProject(projectId, project: projectElements): Observable<any> {
+    return this.http.put(this.path + '/' + projectId, project);
+  }
+
   // Delete-HTTP request //
   deleteGameOfSpecificUser(gameId: number): Observable<any> {
     return this.http.delete(this.path + '/' + gameId);
+  }
+
+  // Install plugin to project //
+  postPluginToProject(projectId: number, plugin: InstallPlugins): Observable<InstallPlugins> {
+    return this.http.post<InstallPlugins>(this.path + '/' + projectId + '/plugins', plugin);
   }
 
   deleteInstalledPluginFromGame(gameId: number, pluginId: number): Observable<any> {
@@ -56,7 +69,7 @@ export class GameService {
     return this._object;
   }
 
-  // save values to this general-use object //
+  // set values to this general-use object //
   set object(data) {
     this._object = data;
   }
