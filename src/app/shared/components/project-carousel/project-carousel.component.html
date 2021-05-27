@@ -1,0 +1,11 @@
+
+    <owl-carousel-o [options]="customOptions">
+        <ng-container *ngFor="let project of projectList">
+            <ng-template carouselSlide >
+                <div class="slide pr-3">
+                    <app-project-card [project] = "project" [tooltip]="'Edit project'" (deleted)="onDelete($event)"></app-project-card>
+                </div>
+            </ng-template>
+        </ng-container>
+    </owl-carousel-o>
+

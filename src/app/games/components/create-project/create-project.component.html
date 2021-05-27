@@ -1,13 +1,9 @@
-<!-- Button trigger modal -->
-<!--<button type="button" class="btn btn-info" data-toggle="modal" data-target="#newProject">
-   Create a new Project
-</button>-->
 
 <!-- Modal -->
 <div class="modal fade " id="newProject" tabindex="-1" role="dialog" aria-labelledby="createNewProject" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header m-2 bg-secondary border border-dark">
+            <div class="modal-header m-2 bg-dark border border-dark">
                 <h3 class="modal-title text-white" id="createNewProject" style="font-weight: bold">New Project</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -16,27 +12,27 @@
             <form [formGroup]="createProjectForm">
                 <div class="modal-body m-2 border bg-light border border-dark">
                    <mat-form-field>
-                        <input type="text" class="text-primary" matInput placeholder="Title" formControlName="title">
+                        <input type="text" class="text-dark" matInput placeholder="Title" formControlName="title">
                    </mat-form-field>
                     <div class="text-danger" *ngIf="createProjectForm.get('title').invalid && createProjectForm.get('title').touched">
-                        <mat-error>
-                            Title can't be null
+                        <mat-error class="mat-h5">
+                            Title can't be empty
                         </mat-error>
                     </div>
                 </div>
                 <div class="modal-body m-2 border bg-light border border-dark">
                     <mat-form-field>
-                        <input type="text" class="text-primary" matInput placeholder="Description" formControlName="description">
+                        <input type="text" class="text-dark" matInput placeholder="Description" formControlName="description">
                     </mat-form-field>
                     <div class="text-danger" *ngIf="createProjectForm.get('description').invalid && createProjectForm.get('description').touched">
-                        <mat-error>
-                            Description can't be null
+                        <mat-error class="mat-h5">
+                            Description can't be empty
                         </mat-error>
                     </div>
                 </div>
                 <div class="modal-body m-2 border bg-light border border-dark">
                    <div class="row mb-2">
-                       <div class="col-12 text-left mb-1 text-primary" style="font-weight: bold">
+                       <div class="col-12 text-left mb-1 text-dark" style="font-weight: bold">
                            Category
                        </div>
                        <div class="col-3 text-left text-dark">
@@ -49,7 +45,7 @@
                        </div>
                    </div>
                     <div class="row mb-2">
-                        <div class="col-12 text-left mb-1 text-primary" style="font-weight: bold">
+                        <div class="col-12 text-left mb-1 text-dark" style="font-weight: bold">
                             Design Type
                         </div>
                         <div class="col-3 text-left text-dark">
@@ -71,8 +67,8 @@
                     </mat-error>
                 </div>
                 <div class="modal-footer">
-                    <button type="reset" class="btn btn-outline-primary" data-dismiss="modal" (click)="onCancel()">Cancel</button>
-                    <button type="submit" class="btn btn-primary" [disabled]="createProjectForm.invalid" (click)="onSubmit()" data-dismiss="modal">Save Project</button>
+                    <button type="reset" class="btn btn-outline-secondary" data-dismiss="modal" (click)="onCancel()">Cancel</button>
+                    <button type="submit" class="btn btn-dark" [disabled]="createProjectForm.invalid" (click)="onSubmit()" data-dismiss="modal">Save Project</button>
                 </div>
             </form>
         </div>

@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from '../../features/components/home-page/home.component';
+import { HomeComponent } from '../../shared/components/home-page/home.component';
 import { UserProfileComponent } from '../../user-management/components/user-profile/user-profile.component';
 import {GamesComponent} from '../../games/components/my-games/games.component';
 import {PluginsComponent} from '../../plugins/components/my-plugins/plugins.component';

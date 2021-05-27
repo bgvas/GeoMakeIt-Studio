@@ -4,35 +4,40 @@
             <div *ngIf="validator.key === 'Required' && validator.value === true">
                 <div *ngIf="formName.get(groupName).get(controlName).value === '' ||
                         isEmpty(formName.get(groupName).get(controlName)) ||
-                        formName.get(groupName).get(controlName).value === null">
+                        formName.get(groupName).get(controlName).value === null &&
+                            formName.get(groupName).get(controlName).touched">
                     <mat-error>
                             Value is Required
                     </mat-error>
                 </div>
             </div>
             <div *ngIf="validator.key === 'Max'">
-               <div *ngIf="formName.get(groupName).get(controlName).value > validator.value">
+               <div *ngIf="formName.get(groupName).get(controlName).value > validator.value &&
+                            formName.get(groupName).get(controlName).touched">
                    <mat-error>
                        Value can't be greater than {{validator.value}}
                    </mat-error>
                </div>
            </div>
            <div *ngIf="validator.key === 'Min'">
-               <div *ngIf="formName.get(groupName).get(controlName).value < validator.value">
+               <div *ngIf="formName.get(groupName).get(controlName).value < validator.value &&
+                            formName.get(groupName).get(controlName).touched">
                    <mat-error>
                        Value can't be lower than {{validator.value}}
                    </mat-error>
                </div>
            </div>
            <div *ngIf="validator.key === 'Regular Expression'">
-               <div *ngIf="formName.get(groupName).get(controlName).errors">
+               <div *ngIf="formName.get(groupName).get(controlName).errors &&
+                            formName.get(groupName).get(controlName).touched">
                    <mat-error>
                        Not a valid input
                    </mat-error>
                </div>
            </div>
            <div *ngIf="validator.key === 'Email'">
-               <div *ngIf="formName.get(groupName).get(controlName).errors">
+               <div *ngIf="formName.get(groupName).get(controlName).errors &&
+                            formName.get(groupName).get(controlName).touched">
                    <mat-error>
                        Not a valid Email address
                    </mat-error>

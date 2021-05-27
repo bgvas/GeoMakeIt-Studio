@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing';
-import { ComponentsModule } from './components/components.module';
+import { ComponentsModule } from './templateTools/components/components.module';
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import {MatInputModule} from '@angular/material/input';
@@ -21,7 +21,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { UserManagementModule } from './user-management/user-management.module';
 import { AuthenticationModule} from './authentication/authentication.module';
 import { PluginModule } from './plugins/plugin.module';
-import { FeaturesModule} from './features/features.module';
+import { SharedModule} from './shared/shared.module';
 import { GameModule } from './games/game.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -46,7 +46,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         UserManagementModule,
         AuthenticationModule,
         PluginModule,
-        FeaturesModule,
+        SharedModule,
         GameModule,
         NgbModule
     ],

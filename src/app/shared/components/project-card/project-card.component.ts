@@ -58,7 +58,7 @@ export class ProjectCardComponent implements OnInit, OnDestroy {
   }
 
   onClick(project) {
-    this.service.object = project;
+    localStorage.setItem('project', JSON.stringify(this.project));
     this.router.navigate(['games/setup']);
   }
 }

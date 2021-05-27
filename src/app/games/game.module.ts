@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { GameViewComponent } from './components/game-view/game-view.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { GameBuildComponent } from './components/game-build/game-build.component';
-import { FeaturesModule} from '../features/features.module';
+import { SharedModule} from '../shared/shared.module';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { PluginModule } from '../plugins/plugin.module';
 import { GamesComponent } from './components/my-games/games.component';
@@ -36,6 +36,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {StepperWizardComponent} from './components/stepper-wizard/stepper-wizard.component';
 import {MatButtonModule} from '@angular/material/button';
 import { GameSettingsComponent } from './components/game-settings/game-settings.component';
+import { GameMainConfigurationModalComponent } from './components/game-main-configuration-modal/game-main-configuration-modal.component';
 
 
 @NgModule({
@@ -56,13 +57,14 @@ import { GameSettingsComponent } from './components/game-settings/game-settings.
         GameSettingsModalComponent,
         GameInfoComponent,
         StepperWizardComponent,
-        GameSettingsComponent
+        GameSettingsComponent,
+        GameMainConfigurationModalComponent
     ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
         MatFormFieldModule,
-        FeaturesModule,
+        SharedModule,
         MatButtonToggleModule,
         PluginModule,
         RouterModule,

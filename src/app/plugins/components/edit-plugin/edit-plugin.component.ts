@@ -5,7 +5,7 @@ import {PluginService} from '../../services/plugin.service';
 import {Plugin} from '../../models/plugin';
 import {PluginRelease} from '../../models/available_plugins/plugin-release';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {NotificationsComponent} from '../../../features/components/notifications/notifications.component';
+import {NotificationsComponent} from '../../../shared/components/notifications/notifications.component';
 import {Error} from '../../../classes/error/error';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';

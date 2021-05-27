@@ -26,7 +26,7 @@ export class MapComponent implements OnInit {
     const newPoint = new Point();
     newPoint.lat = event?.coords.lat;
     newPoint.lng = event?.coords.lng;
-    newPoint.name = 'point';
+    newPoint.name = 'point-' + (this.points.length + 1);
     this.points.push(newPoint);
 
   }

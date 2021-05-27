@@ -6,7 +6,7 @@ import {Plugin} from '../../../plugins/models/plugin';
 import {Error} from '../../../classes/error/error';
 import {InstalledPlugin} from '../../../plugins/models/installed_plugins/installed-plugin';
 import {PluginService} from '../../../plugins/services/plugin.service';
-import {NotificationsComponent} from '../../../features/components/notifications/notifications.component';
+import {NotificationsComponent} from '../../../shared/components/notifications/notifications.component';
 
 @Component({
   selector: 'app-plugins-for-games',

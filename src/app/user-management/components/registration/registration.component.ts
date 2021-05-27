@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {passwordMatchValidator} from '../../../features/custom-validators/passwordsMatchValidator';
+import {passwordMatchValidator} from '../../../shared/custom-validators/passwordsMatchValidator';
 import {NewAccount} from '../../models/new-account';
 import {Router} from '@angular/router';
 import {UserService} from '../../services/user.service';

@@ -25,78 +25,71 @@
 
 <!-- Modal -->
 <div class="modal fade" id="pointSetup" tabindex="-1" role="dialog" aria-labelledby="newAction" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content ">
             <div class="modal-header m-2 bg-secondary border border-dark">
                 <h3 class="modal-title text-white" id="newAction" style="font-weight: bold">Setup point of action</h3>
             </div>
-            <div class="modal-body m-2 border bg-secondary border-dark">
+            <div class="modal-body m-2 border  border-dark">
                 <form [formGroup]="pointForm">
                     <div class="row">
                         <div class="col-4">
-                            <div class="modal-body m-2 border border-dark">
+                            <div class="modal-body m-2 bg-secondary">
                                 <img src="assets/img/geomakeit_logo.png" width="150" alt="Image for action">
                             </div>
                         </div>
                         <div class="col-8">
-                            <div class="modal-body  bg-light border border-dark">
-                                <mat-form-field>
-                                    <input type="text" class="text-primary" matInput placeholder="Title of action"  formControlName  = "name" value="{{selectedPoint?.name}}">
-                                </mat-form-field>
-                                <div class="text-danger mat-h5" *ngIf="pointForm.get('name').invalid && pointForm.get('name').touched">
-                                        Title can't be null
+                                <div class="modal-body border border-dark bg-light ">
+                                    <mat-form-field>
+                                        <input type="text" class="text-dark" matInput placeholder="Title of action"  formControlName  = "name" value="{{selectedPoint?.name}}">
+                                    </mat-form-field>
+                                    <div class="text-danger mat-h5" *ngIf="pointForm.get('name').invalid && pointForm.get('name').touched">
+                                            Title can't be empty
+                                    </div>
+                                     <mat-form-field>
+                                         <input type="text" class="text-dark" matInput placeholder="Description" formControlName="description" value="{{selectedPoint?.description}}">
+                                     </mat-form-field>
+                                     <!--<div class="text-danger" *ngIf="createProjectForm.get('description').invalid && createProjectForm.get('description').touched">
+                                         <mat-error>
+                                             Description can't be null
+                                         </mat-error>
+                                     </div>-->
                                 </div>
-                            </div>
-                            <div class="modal-body bg-light border border-dark">
-                                 <mat-form-field>
-                                     <input type="text" class="text-primary" matInput placeholder="Description" formControlName="description" value="{{selectedPoint?.description}}">
-                                 </mat-form-field>
-                                 <!--<div class="text-danger" *ngIf="createProjectForm.get('description').invalid && createProjectForm.get('description').touched">
-                                     <mat-error>
-                                         Description can't be null
-                                     </mat-error>
-                                 </div>-->
-                            </div>
                         </div>
                     </div>
-                    <p class="text-left ml-2 text-white">
+                    <p class="text-left ml-2 text-dark">
                         Coordinates
                     </p>
-                    <div class="row text-white ml-2">
+                    <div class="row text-dark ml-2">
                         Latitude
                         <div class="col-3">
-                            <div class="modal-body mat-h5 pt-1 text-primary bg-light border border-dark">
-                                <textarea class="text-primary" matInput [disabled]= true style="overflow: hidden; resize: none">
+                            <div class="modal-body mat-h5 pt-1 bg-light border border-dark">
                                     {{selectedPoint?.lat}}
-                                </textarea>
                             </div>
                         </div>
                         Longitude
                         <div class="col-3">
-                            <div class="modal-body mat-h5 pt-1 text-primary bg-light border border-dark">
-                                <textarea class="text-primary" matInput [disabled]= true style="overflow: hidden; resize: none">
+                            <div class="modal-body mat-h5 pt-1 bg-light border border-dark">
                                     {{selectedPoint?.lng}}
-                                </textarea>
                             </div>
                         </div>
                         Radius
                         <div class="col-3">
-                            <div class="modal-body  mat-h5 pt-1 text-primary bg-light border border-dark">
-                                <textarea class="text-primary" matInput [disabled]= true style="overflow: hidden; resize: none">
-                                </textarea>
+                            <div class="modal-body  mat-h5 pt-1 bg-light border border-dark">
+                                100m
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <div class="modal-body pt-1">
-                                <button type="button" class="btn btn-outline-light w-100"
+                                <button type="button" class="btn bg-secondary w-100"
                                         data-toggle="collapse"
                                         data-target="#typeOfAction"
                                         aria-expanded="false"
                                         aria-controls="typeOfAction">
-                                        <span class="mat-h5">
-                                                Type of action
+                                        <span class="mat-h5 text-lowercase">
+                                                Add action to this location
                                         </span>
                                 </button>
                                 <div id="typeOfAction" class="collapse m-1 shadow border bg-white">
@@ -108,13 +101,13 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="modal-body pt-1">
-                                <button type="button" class="btn btn-outline-light w-100"
+                                <button type="button" class="btn bg-secondary w-100"
                                         data-toggle="collapse"
                                         data-target="#dataForAction"
                                         aria-expanded="false"
                                         aria-controls="dataForAction">
-                            <span class="mat-h5">
-                                    Data for action
+                            <span class="mat-h5 text-lowercase">
+                                    Settings for this point
                             </span>
                                 </button>
                                 <div id="dataForAction" class="collapse m-1 shadow border bg-white">
@@ -123,7 +116,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                   <!-- <div class="row">
                         <div class="col-12">
                             <div class="modal-body pt-1">
                                 <button type="button" class="btn btn-outline-light w-100"
@@ -132,15 +125,17 @@
                                         aria-expanded="false"
                                         aria-controls="settingsOfAction">
                                     <span class="mat-h5">
-                                            Settings
+                                            Global Settings
                                     </span>
                                 </button>
                                 <div id="settingsOfAction" class="collapse m-1 shadow border bg-white">
-                                    Settings
+                                   <div class="text-center" style="height: 400px; overflow: auto; font-weight: bold">
+                                        <app-designer></app-designer>
+                                   </div>&lt;!&ndash;// General plugin's Settings //&ndash;&gt;
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="row">
                         <div class="col-6 text-left">
                             <button type="submit" class="btn btn-info" (click)="onSubmit()" [disabled]="pointForm.invalid" data-dismiss="modal">

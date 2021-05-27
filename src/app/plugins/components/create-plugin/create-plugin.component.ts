@@ -3,7 +3,7 @@ import {Location} from '@angular/common';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {PluginService} from '../../services/plugin.service';
 import {Plugin} from '../../models/plugin';
-import {NotificationsComponent} from '../../../features/components/notifications/notifications.component';
+import {NotificationsComponent} from '../../../shared/components/notifications/notifications.component';
 import {Error} from '../../../classes/error/error';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';

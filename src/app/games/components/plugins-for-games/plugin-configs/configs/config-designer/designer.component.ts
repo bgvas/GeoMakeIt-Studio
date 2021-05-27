@@ -2,8 +2,10 @@ import {Component, OnInit, Input, ChangeDetectorRef, AfterContentChecked} from '
 import {RootDesigner} from '../../../../../models/designers/rootDesignerClass/root-designer';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {Location} from '@angular/common';
-import {ValidationsService} from '../../../../../../features/services/validations/validations.service';
-import {DeclareFormControlsService} from '../../../../../../features/services/declareFormControls/declare-form-controls.service';
+import {ValidationsService} from '../../../../../../shared/services/validations/validations.service';
+import {DeclareFormControlsService} from '../../../../../../shared/services/declareFormControls/declare-form-controls.service';
+import {DesignerService} from '../../../../../services/designer.service';
+import {DataFileService} from '../../../../../services/data-file.service';
 
 @Component({
   selector: 'app-designer',
@@ -26,15 +28,17 @@ export class DesignerComponent implements OnInit, AfterContentChecked {
               private location: Location,
               private validationService: ValidationsService,
               private changeDetector: ChangeDetectorRef,
-              private declareService: DeclareFormControlsService) {}
+              private declareService: DeclareFormControlsService,
+              private designerService: DesignerService,
+              private dataService: DataFileService) {}
 
 
   ngOnInit(): void {
-     this.designerFile.subscribe(data => {
+     this.designerService.getConfigDesigner().subscribe(data => {
          this.designer = data;
      });
 
-     this.dataFile.subscribe(data => {
+     this.dataService.getDataDefaultJsonFile().subscribe(data => {
         this.data = data;
 
          // form creation //

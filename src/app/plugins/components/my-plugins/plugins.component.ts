@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {NotificationsComponent} from '../../../features/components/notifications/notifications.component';
+import {NotificationsComponent} from '../../../shared/components/notifications/notifications.component';
 import {Plugin} from '../../models/plugin';
 import {PluginService} from '../../services/plugin.service';
 import {Error} from '../../../classes/error/error';

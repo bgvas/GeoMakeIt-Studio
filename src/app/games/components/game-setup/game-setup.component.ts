@@ -17,11 +17,13 @@ export class GameSetupComponent implements OnInit {
   constructor(private service: GameService, private router: Router) { }
 
   ngOnInit(): void {
-    this.project = this.service.object;
-
-    if(typeof(this.project) === 'undefined') {
+    this.project = JSON.parse(localStorage.getItem('project'));
+    console.log(this.project);
+   /* if (typeof(this.project) === 'undefined') {
      this.redirectProjectIfUndefined();
-    }
+    }*/
+
+
 
     /*const aPoint = new Point();
     aPoint.lat = 38.892548108719396;

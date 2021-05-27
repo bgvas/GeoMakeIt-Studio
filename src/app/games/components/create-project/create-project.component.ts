@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit, EventEmitter, Output} from '@angular/core';
-import {GameService} from '../../../games/services/game.service';
+import {GameService} from '../../services/game.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {NotificationsComponent} from '../notifications/notifications.component';
-import {Game} from '../../../games/models/games/game';
+import {NotificationsComponent} from '../../../shared/components/notifications/notifications.component';
+import {Game} from '../../models/games/game';
 import {Error} from '../../../classes/error/error';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
