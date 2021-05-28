@@ -24,6 +24,7 @@ export class StepperWizardComponent implements OnInit {
       this.router.navigate(['home']);
     }
     this.project = this.projectService.object;
+    console.log(this.project);
   }
 
   onSubmit() {
@@ -47,6 +48,14 @@ export class StepperWizardComponent implements OnInit {
 
   onDelete(index: number) {
     this.pointsArray.splice(index, 1);
+  }
+
+  onCancel() {
+    this.router.navigate(['games/setup']);
+
+    /*localStorage.setItem('project', JSON.stringify(this.project));
+    const obj = localStorage.getItem('project');
+    console.log(JSON.parse(obj));*/
   }
 
 }

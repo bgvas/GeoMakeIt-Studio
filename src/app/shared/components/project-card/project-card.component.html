@@ -1,0 +1,37 @@
+<div class="card mb-3 border border-secondary" >
+
+          <!--  <button  style="border: 0" (click)="onClick(project)" matTooltip="{{tooltip}}" matTooltipClass="h5" class="w-100">-->
+                <img src="assets/img/mapīmage.jpg"  width="100%" alt="Logo of project" class="rounded-top">
+          <!--  </button>-->
+
+    <div class="card-body">
+        <h5 class="card-title text-dark" style="font-weight: bold">
+            {{project?.title}}
+        </h5>
+        <div class="row">
+                <div class="col-10 text-right">
+                    <a matTooltip="Edit project" role="button" class="text-dark" matTooltipClass="h5" style="background-color: inherit" (click)="onClick(project)">
+                        <mat-icon>edit</mat-icon>
+                    </a>
+                </div>
+                <div class="text-right col-2">
+                    <app-delete-pop-up (click)="projectToDelete(project)" [element] = "project" (delete)="onDelete($event)"></app-delete-pop-up>
+                </div>
+        </div>
+        <p class="card-text mb-0" >
+            <small style="font-weight: bold">
+                {{project?.description}}
+            </small>
+        </p>
+        <p class="card-text mb-0">
+            <small class="text-muted text-gray">
+                <span style="font-weight: bold">Created at:</span> {{convertToReadableDate(project?.created_at)}}
+            </small>
+        </p>
+        <p class="card-text mb-0">
+            <small class="text-muted text-gray">
+                <span style="font-weight: bold">Last update at:</span> {{convertToReadableDate(project?.updated_at)}}
+            </small>
+        </p>
+    </div>
+</div>

@@ -6,7 +6,7 @@
                     {{project?.title}}
                 </div>
             </div>
-            <div class="row" matTooltip="Click to handle map-points with specific actions" matTooltipClass="h5">
+            <div class="row" matTooltip="Click to handle location-points with specific actions" matTooltipClass="h5">
                 <div class="col-12 pl-0" style="font-weight: bold; text-align: center">
                     <button class="btn w-100 bg-dark"
                             data-toggle="collapse"
@@ -14,17 +14,15 @@
                             aria-expanded="false"
                             aria-controls="points">
                             <div class="row">
-                                <div class="col-5 text-right pr-0">
+                                <div class="col-3 text-right pr-0">
                                     <span class="mat-h5">
                                         <mat-icon class="material-icons-outlined">
                                             place
                                         </mat-icon>
                                     </span>
                                 </div>
-                                <div class="col-7 text-left">
-                                    <span class="mat-h5">
+                                <div class="col-9 text-left mat-h5 text-lowercase">
                                         Points of action
-                                    </span>
                                 </div>
                             </div>
                     </button>
@@ -32,7 +30,7 @@
                         <table class="w-100">
                             <tr>
                                 <td>
-                                    <table class="w-100 text-left" style="font-weight: bold">
+                                    <table class="w-100 text-left bg-secondary text-white" style="font-weight: bold">
                                         <tr>
                                             <td style="width: 20%" class="pl-2">Point</td>
                                             <td style="width: 80%" class="pl-3 text-center">Title</td>
@@ -42,7 +40,10 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <app-point-setup [points] = "pointsArray" (pointForDelete)="onDelete($event)" (returnedPoint) = "updateArrayOfPoints($event)"></app-point-setup>
+                                    <app-point-setup [points] = "pointsArray"
+                                                     (pointForDelete)="onDelete($event)"
+                                                     (returnedPoint) = "updateArrayOfPoints($event)">
+                                    </app-point-setup>
                                 </td>
                             </tr>
                         </table>
@@ -53,21 +54,38 @@
                 <div class="col-12 pl-0" style="font-weight: bold; text-align: center">
                     <button  class="w-100 btn bg-dark" data-toggle="modal" data-target="#projectSettings">
                         <div class="row">
-                            <div class="col-5 text-right pr-0">
+                            <div class="col-3 text-right pr-0">
                                 <span class="mat-h5">
                                     <mat-icon class="material-icons-outlined">
                                         settings
                                     </mat-icon>
                                 </span>
                             </div>
-                            <div class="col-7 text-left">
-                                <span>
-                                    Settings
-                                </span>
+                            <div class="col-9 text-left mat-h5 text-lowercase">
+                                    Basic Settings
                             </div>
                         </div>
                     </button>
                     <app-game-settings-modal [project]="project"></app-game-settings-modal>
+                </div>
+            </div>
+            <div class="row" matTooltip="Click to handle settings of this project" matTooltipClass="h5">
+                <div class="col-12 pl-0" style="font-weight: bold; text-align: center">
+                    <button  class="w-100 btn bg-dark" data-toggle="modal" data-target="#game-main-config">
+                        <div class="row">
+                            <div class="col-3 text-right pr-0">
+                                <span class="mat-h5">
+                                    <mat-icon class="material-icons-outlined">
+                                        build
+                                    </mat-icon>
+                                </span>
+                            </div>
+                            <div class="col-9 text-left mat-h5 text-lowercase">
+                                    Main Configuration
+                            </div>
+                        </div>
+                    </button>
+                    <app-game-main-configuration-modal></app-game-main-configuration-modal>
                 </div>
             </div>
             <div class="row" matTooltip="Click to display information for this project" matTooltipClass="h5">
@@ -85,13 +103,14 @@
                     </button>
                 </div>
             </div>
-            <div class="row w-100 mt-5" style="position: sticky">
+            <div class="row w-100 mt-3" style="position: sticky">
                 <button class="ml-2 mat-raised-button" (click)="onClickOpen()">
                     <div class="col-12 text-center">
                         <img src="assets/img/wizard-image.png" width="60" alt="Image for action">
                     </div>
                     <div class="col-12 h5 text-info font-weight-bold text-center">
                         Step by Step
+                        <p class="text-secondary h6 text-lowercase">Create a project with our help</p>
                     </div>
                 </button>
             </div>

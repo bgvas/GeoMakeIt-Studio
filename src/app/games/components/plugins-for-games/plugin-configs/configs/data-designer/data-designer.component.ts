@@ -3,8 +3,8 @@ import {RootDesigner} from '../../../../../models/designers/rootDesignerClass/ro
 import {AbstractControl, Form, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DesignerService} from '../../../../../services/designer.service';
 import {Location} from '@angular/common';
-import {ValidationsService} from '../../../../../../features/services/validations/validations.service';
-import {DeclareFormControlsService} from '../../../../../../features/services/declareFormControls/declare-form-controls.service';
+import {ValidationsService} from '../../../../../../shared/services/validations/validations.service';
+import {DeclareFormControlsService} from '../../../../../../shared/services/declareFormControls/declare-form-controls.service';
 
 @Component({
   selector: 'app-data-designer',

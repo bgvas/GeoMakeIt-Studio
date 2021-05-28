@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { NotificationsComponent} from '../../../features/components/notifications/notifications.component';
+import { NotificationsComponent} from '../../../shared/components/notifications/notifications.component';
 import {GameService} from '../../services/game.service';
 import {GameRoot} from '../../models/games/game-root';
 import {Error} from '../../../classes/error/error';

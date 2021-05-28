@@ -11,7 +11,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {RouterModule} from '@angular/router';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {FeaturesModule} from '../features/features.module';
+import {SharedModule} from '../shared/shared.module';
 import {MatInputModule} from '@angular/material/input';
 import {PluginService} from './services/plugin.service';
 
@@ -34,7 +34,7 @@ import {PluginService} from './services/plugin.service';
         MatProgressBarModule,
         RouterModule,
         MatButtonToggleModule,
-        FeaturesModule,
+        SharedModule,
         MatInputModule
     ],
     exports: [

@@ -3,7 +3,7 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/form
 import {Location} from '@angular/common';
 import {GameService} from '../../services/game.service';
 import {Game} from '../../models/games/game';
-import {NotificationsComponent} from '../../../features/components/notifications/notifications.component';
+import {NotificationsComponent} from '../../../shared/components/notifications/notifications.component';
 import {Error} from '../../../classes/error/error';
 
 
