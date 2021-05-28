@@ -1,4 +1,4 @@
-input[type="radio"][id="\{\{title\}\}"] {
+input[type="radio"]{
     display: none;
 }
 
