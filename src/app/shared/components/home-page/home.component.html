@@ -19,28 +19,16 @@
                 <div>
                     <div class="row w-100 align-items-center">
                         <div class="col-12">
+                            <button  mat-fab color="primary" class="h1 mr-3" style="font-weight: bold" matTooltip="create new project" matTooltipClass="h5" data-toggle="modal" data-target="#newProject">
+                                +
+                            </button>
                             <div class="wrapper">
                                 <div class="item" *ngFor="let project of projectList">
                                     <app-project-card [project] = "project" [tooltip]="'Edit project'" (deleted)="onDelete($event)"></app-project-card>
                                 </div>
                             </div>
-                            <button  mat-fab color="primary" class="h1" style="font-weight: bold" matTooltip="create new project" matTooltipClass="h5" data-toggle="modal" data-target="#newProject">
-                                +
-                            </button>
                         </div>
                     </div>
-
-                       <!-- <table style="width: 100%">
-                            <tr>
-                                <td>
-
-                                </td>
-                                <td class="pr-3" *ngFor="let project of projectList" >
-                                    <app-project-card [project] = "project" [tooltip]="'Edit project'" (deleted)="onDelete($event)"></app-project-card>
-                                </td>
-                            </tr>
-                        </table>-->
-
                 </div>
                 <div *ngIf="!displaySpinner && projectList?.length === 0">
                     <div class="col-12 text-left text-secondary mat-h5">

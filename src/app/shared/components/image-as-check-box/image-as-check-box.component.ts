@@ -1,6 +1,4 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
-
-
+import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 
 @Component({
   selector: 'app-image-as-check-box',
@@ -10,11 +8,12 @@ import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 export class ImageAsCheckBoxComponent implements OnInit {
 
   @Output() template = new EventEmitter();
+  @Input() title: any;
+  @Input() imageUrl: any;
 
   constructor() { }
 
   ngOnInit(): void {
-
   }
 
   onSelect(template) {

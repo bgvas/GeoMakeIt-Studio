@@ -1,8 +1,4 @@
-input[type="radio"][id="treasureHunting"] {
-    display: none;
-}
-
-input[type="radio"][id="battle"] {
+input[type="radio"][id="\{\{title\}\}"] {
     display: none;
 }
 

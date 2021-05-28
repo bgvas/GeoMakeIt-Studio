@@ -32,13 +32,13 @@ import { CreateProjectComponent } from '../games/components/create-project/creat
 import { ImageAsCheckBoxComponent } from './components/image-as-check-box/image-as-check-box.component';
 import { ProjectCardComponent } from './components/project-card/project-card.component';
 import { GeomakeitHelpComponent } from './components/help/geomakeit-help/geomakeit-help.component';
-import {MatSelectModule} from '@angular/material/select';
-import {UserManagementModule} from '../user-management/user-management.module';
+import { MatSelectModule} from '@angular/material/select';
+import { UserManagementModule} from '../user-management/user-management.module';
 import { StepByStepComponent } from './components/help/step-by-step/step-by-step.component';
-import {RouterModule} from '@angular/router';
-import { ProjectCarouselComponent } from './components/project-carousel/project-carousel.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CarouselModule } from 'ngx-owl-carousel-o';
+import { RouterModule} from '@angular/router';
+
+
+
 
 
 
@@ -66,8 +66,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     ImageAsCheckBoxComponent,
     ProjectCardComponent,
     GeomakeitHelpComponent,
-    StepByStepComponent,
-    ProjectCarouselComponent
+    StepByStepComponent
   ],
     exports: [
         SpinnerComponent,
@@ -97,9 +96,8 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
         NgbModule,
         MatSelectModule,
         UserManagementModule,
-        RouterModule,
-        BrowserAnimationsModule,
-        CarouselModule
+        RouterModule
+
     ],
     providers: [
         DeclareFormControlsService,

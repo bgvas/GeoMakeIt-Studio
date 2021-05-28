@@ -14,11 +14,11 @@ export class NotificationsComponent implements OnInit {
       const type = ['', 'info', 'success', 'warning', 'danger'];
 
 
-      $.notify({
+      $.notify(
+          {
           icon: 'notifications',
-          message: message
-
-      }, {
+          message: message},
+          {
           type: notificationType,
           timer: 500,   // display notification, for 500ms
           placement: {

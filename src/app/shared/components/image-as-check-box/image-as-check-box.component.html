@@ -1,17 +1,5 @@
-       <div class="row">
-            <div class="col-6">
-                <input type="radio" id="treasureHunting" name="template" (click)="onSelect('treasure')"/>
-                <label for="treasureHunting">
-                    <img src="assets/img/treasure-hunting.jpg"style="border: 0"/>
-                    Treasure hunting
-                </label>
-           </div>
-           <div class="col-6">
-               <input type="radio" id="battle" name="template" (click)="onSelect('battle')"/>
-               <label for="battle">
-                   <img src="assets/img/battle-quiz.jpg" style="border: 0"/>
-                   Battle quiz
-               </label>
-           </div>
-       </div>
-
+<input type="radio" id="{{title}}" name="template" (click)="onSelect(title)"/>
+<label for="{{title}}">
+    <img src="{{imageUrl}}"style="border: 0"/>
+    {{title}}
+</label>

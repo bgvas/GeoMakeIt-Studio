@@ -69,6 +69,8 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   }
 
   selectedTemplate(template) {
+      console.log('Create Project');
+      console.log(template);
   }
 
   onCancel() {
