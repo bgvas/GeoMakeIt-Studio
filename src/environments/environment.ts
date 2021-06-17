@@ -4,6 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false,
-    apiUrl: 'https://api.geomakeit.com/v1/'
+  'production': false,
+  'apiUrl': 'https://api.geomakeit.com/v1/',
+  'token': '1|XxqPWqgRFk9yj9B7KKmwRBOFziaeiaKsHYb235HA'
 };

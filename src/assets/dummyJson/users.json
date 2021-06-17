@@ -1,0 +1,46 @@
+{
+  "data":
+    [
+      {
+        "id": 1,
+        "name": "admin",
+        "username": "admin",
+        "email": "admin@home.com",
+        "password": "1111",
+        "role": "super_admin"
+      },
+      {
+        "id": 2,
+        "name": "George Georgiou",
+        "username": "georgeDev",
+        "email": "plugin_dev@home.com",
+        "password": "1111",
+        "role": "plugin_developer"
+      },
+      {
+        "id": 3,
+        "name": "Nikos Nikolaou",
+        "username": "nickAuthor",
+        "email": "game_auth@home.com",
+        "password": "1111",
+        "role": "game_author"
+      },
+      {
+        "id": 2,
+        "name": "Petros Petrou",
+        "username": "developer",
+        "email": "plugin_dev@home.com",
+        "password": "1111",
+        "role": "plugin_developer"
+      },
+      {
+        "id": 3,
+        "name": "Tasos Anastasiou",
+        "username": "author",
+        "email": "game_auth@home.com",
+        "password": "1111",
+        "role": "game_author"
+      }
+    ]
+
+}

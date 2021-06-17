@@ -11,6 +11,8 @@ import {ConfirmNewAccountComponent} from './user-management/components/confirm-n
 import {ForgotPasswordComponent} from './user-management/components/forgot-password/forgot-password.component';
 import {StepByStepComponent} from './shared/components/help/step-by-step/step-by-step.component';
 import {StepperWizardComponent} from './games/components/stepper-wizard/stepper-wizard.component';
+import {AdminHomeComponent} from './admin/components/home/adminHome.component';
+import {AdminComponent} from './admin/admin.component';
 
 const routes: Routes = [
   {
@@ -23,6 +25,13 @@ const routes: Routes = [
     children: [{
       path: '',
       loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
+    }]
+  }, {
+    path: 'admin',
+    component: AdminComponent,
+    children: [{
+      path: '',
+      loadChildren: './admin/admin.module#AdminModule'
     }]
   },
   {

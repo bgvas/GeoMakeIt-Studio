@@ -1,47 +1,46 @@
-    <nav class="navbar navbar-dark bg-dark mb-0 mr-0">
-        <div class="row w-100">
-            <div class="col-9">
-                <img src="assets/img/geomakeit_logo.png" width="200" alt="GeoMakeIt">
-            </div>
-            <div class="col-3 text-white justify-content-center align-items-center" style="display: flex">
-                <div class="row">
-                    <div class="col-4">
-                        <a role="button" style="background-color: inherit" (click)="onHomeClick()">Home</a>
-                    </div>
-                    <div class="col-4">
-                        <div ngbDropdown >
-                            <a role="button" class="text-white" style="background-color: inherit" id="helpDropdown" ngbDropdownToggle>Help</a>
-                            <div ngbDropdownMenu aria-labelledby="helpDropdown">
-                                <button ngbDropdownItem data-toggle="modal" data-target="#helpTag">
-                                   Help info
-                                </button>
-                                <button ngbDropdownItem routerLinkActive="active" routerLink="/guide">
-                                    Step by Step guide
-                                </button>
-                                <button ngbDropdownItem>
-                                    About GeoMakeIt Studio
-                                </button>
-                            </div>
+<nav class="navbar navbar-dark bg-dark mb-0 mr-0">
+    <div class="row w-100">
+        <div class="col-9">
+            <img src="assets/img/geomakeit_logo.png" width="200" alt="GeoMakeIt">
+        </div>
+        <div class="col-3 text-white justify-content-center align-items-center" style="display: flex">
+            <div class="row">
+                <div class="col-4">
+                    <a role="button" style="background-color: inherit" (click)="onHomeClick()">Home</a>
+                </div>
+                <div class="col-4">
+                    <div ngbDropdown >
+                        <a role="button" class="text-white" style="background-color: inherit" id="helpDropdown" ngbDropdownToggle>Help</a>
+                        <div ngbDropdownMenu aria-labelledby="helpDropdown">
+                            <button ngbDropdownItem data-toggle="modal" data-target="#helpTag">
+                               Help info
+                            </button>
+                            <button ngbDropdownItem routerLinkActive="active" routerLink="/guide">
+                                Step by Step guide
+                            </button>
+                            <button ngbDropdownItem>
+                                About GeoMakeIt Studio
+                            </button>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div ngbDropdown >
-                            <a role="button" class="text-white" style="background-color: inherit" id="userDropdown" ngbDropdownToggle>User</a>
-                            <div ngbDropdownMenu aria-labelledby="userDropdown">
-                                <button ngbDropdownItem data-toggle="modal" data-target="#userProfile">
-                                   Profile
-                                </button>
-                                <button ngbDropdownItem (click) = "onLogout()">
-                                    Logout
-                                </button>
-                            </div>
+                </div>
+                <div class="col-4">
+                    <div ngbDropdown >
+                        <a role="button" class="text-white" style="background-color: inherit" id="userDropdown" ngbDropdownToggle>User</a>
+                        <div ngbDropdownMenu aria-labelledby="userDropdown">
+                            <button ngbDropdownItem data-toggle="modal" data-target="#userProfile">
+                               Profile
+                            </button>
+                            <button ngbDropdownItem (click) = "onLogout()">
+                                Logout
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </nav>
-
-    <app-geomakeit-help></app-geomakeit-help>
-    <app-user-profile></app-user-profile>
+    </div>
+</nav>
+<app-geomakeit-help></app-geomakeit-help>
+<app-user-profile></app-user-profile>
 

@@ -10,10 +10,11 @@ export class CanActivateRouteService implements CanActivate {
 
   constructor(private auth: AuthService, private router: Router) { }
 
+  // router guard //
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
 
-    if (token != null){
+    if (token != null) {
       return true;
     } else {
       this.router.navigate(['login']);
