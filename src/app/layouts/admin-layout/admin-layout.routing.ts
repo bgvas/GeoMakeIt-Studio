@@ -15,6 +15,7 @@ import {GameSetupComponent} from '../../games/components/game-setup/game-setup.c
 import {StepperWizardComponent} from '../../games/components/stepper-wizard/stepper-wizard.component';
 
 
+
 export const AdminLayoutRoutes: Routes = [
 
     { path: 'home',  component: HomeComponent, canActivate: [CanActivateRouteService]},

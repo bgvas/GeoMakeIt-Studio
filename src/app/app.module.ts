@@ -24,6 +24,9 @@ import { PluginModule } from './plugins/plugin.module';
 import { SharedModule} from './shared/shared.module';
 import { GameModule } from './games/game.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AdminComponent } from './admin/admin.component';
+import {AdminModule} from './admin/admin.module';
+
 
 
 @NgModule({
@@ -48,13 +51,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         PluginModule,
         SharedModule,
         GameModule,
-        NgbModule
+        NgbModule,
+        AdminModule
     ],
     declarations: [
         AppComponent,
         AdminLayoutComponent,
         TabGroupComponent,
-        ErrorHandlingComponent
+        ErrorHandlingComponent,
+        AdminComponent
     ],
     providers: [{
         provide: HTTP_INTERCEPTORS,

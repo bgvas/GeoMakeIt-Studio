@@ -36,9 +36,8 @@ import { MatSelectModule} from '@angular/material/select';
 import { UserManagementModule} from '../user-management/user-management.module';
 import { StepByStepComponent } from './components/help/step-by-step/step-by-step.component';
 import { RouterModule} from '@angular/router';
-
-
-
+import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
+import {NgApexchartsModule} from 'ng-apexcharts';
 
 
 
@@ -66,7 +65,8 @@ import { RouterModule} from '@angular/router';
     ImageAsCheckBoxComponent,
     ProjectCardComponent,
     GeomakeitHelpComponent,
-    StepByStepComponent
+    StepByStepComponent,
+    DonutChartComponent
   ],
     exports: [
         SpinnerComponent,
@@ -77,7 +77,8 @@ import { RouterModule} from '@angular/router';
         HeaderBarComponent,
         FooterBarComponent,
         NotificationsComponent,
-        MapComponent
+        MapComponent,
+        DonutChartComponent
     ],
     imports: [
         CommonModule,
@@ -96,7 +97,8 @@ import { RouterModule} from '@angular/router';
         NgbModule,
         MatSelectModule,
         UserManagementModule,
-        RouterModule
+        RouterModule,
+        NgApexchartsModule
 
     ],
     providers: [

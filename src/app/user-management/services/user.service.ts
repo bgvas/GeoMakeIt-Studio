@@ -30,6 +30,10 @@ export class UserService {
   get element() {
     return this._element;
   }
+  
+  getRole(): string {
+    return localStorage.getItem('role');
+  }
 }
 
 
