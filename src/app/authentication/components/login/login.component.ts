@@ -4,6 +4,7 @@ import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {Observable, observable} from 'rxjs';
 import {UserService} from '../../../user-management/services/user.service';
+import {SpinnerComponent} from '../../../shared/components/spinner/spinner.component';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   errorLogin: boolean;
+  isSpinnerActive: boolean;
 
   constructor(private fb: FormBuilder, private service: AuthService, private router: Router, private user: UserService) { }
 
@@ -30,6 +32,7 @@ export class LoginComponent implements OnInit {
 
   // get username and password and check user. Then redirect by role //
   onSubmit() {
+   this.isSpinnerActive = true;
    this.service.login(this.loginForm.value).subscribe(isAuthenticatedUser => {
      if (isAuthenticatedUser) {
        if (this.user.getRole() === 'super_admin') {
@@ -38,7 +41,9 @@ export class LoginComponent implements OnInit {
      } else {
        this.errorLogin = true;
      }
+     this.isSpinnerActive = false;
    });
+
   }
 
 
