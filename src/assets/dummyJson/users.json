@@ -6,7 +6,7 @@
         "name": "admin",
         "username": "admin",
         "email": "admin@home.com",
-        "password": "1111",
+        "password": "test",
         "role": "super_admin"
       },
       {
@@ -14,7 +14,7 @@
         "name": "George Georgiou",
         "username": "georgeDev",
         "email": "plugin_dev@home.com",
-        "password": "1111",
+        "password": "test",
         "role": "plugin_developer"
       },
       {
@@ -22,7 +22,7 @@
         "name": "Nikos Nikolaou",
         "username": "nickAuthor",
         "email": "game_auth@home.com",
-        "password": "1111",
+        "password": "test",
         "role": "game_author"
       },
       {
@@ -30,7 +30,7 @@
         "name": "Petros Petrou",
         "username": "developer",
         "email": "plugin_dev@home.com",
-        "password": "1111",
+        "password": "test",
         "role": "plugin_developer"
       },
       {
@@ -38,7 +38,15 @@
         "name": "Tasos Anastasiou",
         "username": "author",
         "email": "game_auth@home.com",
-        "password": "1111",
+        "password": "test",
+        "role": "game_author"
+      },
+      {
+        "id": 4,
+        "name": "user",
+        "username": "user",
+        "email": "game_auth@home.com",
+        "password": "test",
         "role": "game_author"
       }
     ]

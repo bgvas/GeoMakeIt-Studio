@@ -7,6 +7,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {RouterModule} from '@angular/router';
+import {SharedModule} from '../shared/shared.module';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import {RouterModule} from '@angular/router';
         AuthenticationRoutingModule,
         ReactiveFormsModule,
         MatFormFieldModule,
-        RouterModule
+        RouterModule,
+        SharedModule
     ],
   providers: [
       AuthService,

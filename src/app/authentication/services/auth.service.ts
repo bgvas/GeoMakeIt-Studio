@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {AuthCredentials} from '../Models/auth-credentials';
 import {User} from '../../user-management/models/user';
 import {CurrentUser} from '../../user-management/models/current-user';
-import { map, filter, catchError, mergeMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import {environment} from '../../../environments/environment';
 
 
@@ -18,8 +18,7 @@ export class AuthService {
 
   private currentUserSubject: BehaviorSubject<User>;
   private currentUser: Observable<User>;
-  private user: Observable<User>;
-  result: boolean
+
 
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(sessionStorage.getItem('currentUser')));
@@ -45,13 +44,6 @@ export class AuthService {
       return this.http.get<User>(url);
     }
 
-    set loginResult(res: boolean){
-      this.result = res;
-    }
-
-    get loginResult() {
-      return this.result;
-    }
 
     login(user: AuthCredentials): Observable<boolean> {
       return this.getAllUsersFromDummyJson().pipe(map(e => {
@@ -72,7 +64,6 @@ export class AuthService {
           return true;
         }
       }));
-
     }
 
     logout() {
