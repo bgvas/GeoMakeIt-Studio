@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
-import {Observable, observable} from 'rxjs';
 import {UserService} from '../../../user-management/services/user.service';
-import {SpinnerComponent} from '../../../shared/components/spinner/spinner.component';
 
 @Component({
   selector: 'app-login',

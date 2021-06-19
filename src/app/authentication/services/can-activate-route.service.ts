@@ -21,6 +21,4 @@ export class CanActivateRouteService implements CanActivate {
       return false;
     }
   }
-
-
 }
