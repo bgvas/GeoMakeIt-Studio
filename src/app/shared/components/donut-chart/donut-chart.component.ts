@@ -37,6 +37,7 @@ export class DonutChartComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
+    console.log(this.values);
     this.chartOptions = {
       series: this.values,
       labels: this.titles,

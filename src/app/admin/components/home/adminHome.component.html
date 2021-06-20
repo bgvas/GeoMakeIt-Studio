@@ -1,35 +1,46 @@
 <div class="container-fluid mt-2">
-    <div class="row">
+    <div class="row justify-content-center  ">
         <div class="col-12 h1">
             Home
         </div>
-        <div class="col-4 h4 text-center">
+        <div class="col-4 text-center">
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 h3 font-weight-bold">
                     Users
                 </div>
+                <app-spinner [visible]="isActiveUsersSpinner"></app-spinner>
                 <div class="col-12">
                     <app-donut-chart [size]="chartSize" [values]="usersChartValues" [titles]="usersChartTitles"></app-donut-chart>
                 </div>
             </div>
         </div>
-        <div class="col-4 h4 text-center">
+       <!-- <div class="col-4 h4 text-center">
+
             <div class="row">
                 <div class="col-12">
                     Created Games/Applications
                 </div>
+
                 <div class="col-12">
                     <app-donut-chart [size]="chartSize" [values]="createdGamesValues" [titles]="createdGamesTitle"></app-donut-chart>
                 </div>
             </div>
-        </div>
-        <div class="col-4 h4 text-center">
+        </div>-->
+        <div class="col-4 text-center">
             <div class="row">
-                <div class="col-12">
-                    Uploaded Plugins
+                <div class="col-12 mt-5 h3">
+                    <span class="font-weight-bold">Created Plugins</span>
+                    <app-spinner class="mt-2" [visible]="isActivePluginSpinner"></app-spinner>
+                    <div class="col-12 mt-2">
+                        <h1 class="text-info">{{uploadedPluginsValues}}</h1>
+                    </div>
                 </div>
-                <div class="col-12">
-                    <app-donut-chart [size]="chartSize" [values]="uploadedPluginsValues" [titles]="uploadedPluginsTitles"></app-donut-chart>
+                <div class="col-12 mt-5 h3">
+                    <span class="font-weight-bold">Created Games</span>
+                    <app-spinner class="mt-2" [visible]="isActiveProjectsSpinner"></app-spinner>
+                    <div class="col-12 mt-2">
+                        <h1 class="text-warning">{{createdGamesValues}}</h1>
+                    </div>
                 </div>
             </div>
         </div>
@@ -44,7 +55,6 @@
                     <td>{{gameAuthor.name}}</td><td>{{gameAuthor.username}}</td><td>01/07/2021</td><td>12</td><td class="text-danger">offline</td>
                 </tr>
             </table>
-            <button class="btn btn-info text-lowercase" disabled>add game author</button>
         </div>
         <div class="col-6 mt-2 text-center">
             <span class="font-weight-bold h3">Plugin Developers</span>
@@ -56,7 +66,6 @@
                     <td>{{pluginDeveloper.name}}</td><td>{{pluginDeveloper.username}}</td><td>01/07/2021</td><td>12</td><td>3</td><td class="text-danger">offline</td>
                 </tr>
             </table>
-            <button class="btn btn-info text-lowercase" disabled>add plugin developer</button>
         </div>
     </div>
 </div>

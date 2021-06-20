@@ -64,7 +64,7 @@ export class GamesComponent implements OnInit, OnDestroy {
             this.showSpinner = false;    // hide spinner
         },
         error => {
-            /* error.message = 'No games found.'*/
+            /* errorFromProjectSubscribe.message = 'No games found.'*/
             console.log('Game List: ' + error.code + ' - ' + error.message);
             this.error = error;
             this.showSpinner = false;    // hide spinner

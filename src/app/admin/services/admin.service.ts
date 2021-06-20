@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../../user-management/models/user';
 import {map} from 'rxjs/operators';
+import {PluginService} from '../../plugins/services/plugin.service';
 
 
 @Injectable({
@@ -10,7 +11,9 @@ import {map} from 'rxjs/operators';
 })
 export class AdminService {
 
-  constructor(private http: HttpClient) { }
+
+
+  constructor(private http: HttpClient, private pluginService: PluginService) { }
 
   getAllUsers(): Observable<User[]> {
     const url = '../assets/dummyJson/users.json';
@@ -30,4 +33,5 @@ export class AdminService {
       return e.filter((pluginDev: User) => pluginDev.role === 'plugin_developer');
     }));
   }
+
 }

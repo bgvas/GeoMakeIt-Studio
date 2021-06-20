@@ -11,7 +11,7 @@ import {Location} from '@angular/common';
 export class DeletePopUpComponent implements OnInit {
 
   @Input() element;
-
+  @Input() deleteItemToolTip;
   @Output() delete = new EventEmitter();
 
 

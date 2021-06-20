@@ -5,8 +5,6 @@ import {GameRoot} from '../models/games/game-root';
 import {environment} from '../../../environments/environment';
 import {Game} from '../models/games/game';
 import {RootInstalledPlugins} from '../../plugins/models/installed_plugins/root-installed-plugins';
-import {Plugin} from '../../plugins/models/plugin';
-import {SelectedPlugin} from '../../plugins/models/selectedPlugin/selected-plugin';
 import {InstallPlugins} from '../models/installPlugins/install-plugins';
 import {projectElements} from '../models/projectElements/project-elements';
 
@@ -24,6 +22,10 @@ export class GameService {
   // Get-Http request //
   getGameById(id): Observable<GameRoot> {
     return this.http.get<GameRoot>(this.path + '/' + id);
+  }
+
+  getAllGames(): Observable<GameRoot> {
+    return this.http.get<GameRoot>(this.path);
   }
 
   // Get-Http request //

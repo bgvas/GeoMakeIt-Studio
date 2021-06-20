@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GameService } from './services/game.service';
-import { GameCreateComponent } from './components/game-create/game-create.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { GameViewComponent } from './components/game-view/game-view.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { GameBuildComponent } from './components/game-build/game-build.component';
 import { SharedModule} from '../shared/shared.module';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { PluginModule } from '../plugins/plugin.module';
@@ -41,9 +38,6 @@ import { GameMainConfigurationModalComponent } from './components/game-main-conf
 
 @NgModule({
     declarations: [
-        GameCreateComponent,
-        GameBuildComponent,
-        GameViewComponent,
         GamesComponent,
         PluginsForGamesComponent,
         PluginConfigsComponent,
@@ -79,7 +73,6 @@ import { GameMainConfigurationModalComponent } from './components/game-main-conf
         MatButtonModule
     ],
     exports: [
-        GameCreateComponent,
         GameSettingsModalComponent
     ],
     providers: [

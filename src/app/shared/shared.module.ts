@@ -38,6 +38,8 @@ import { StepByStepComponent } from './components/help/step-by-step/step-by-step
 import { RouterModule} from '@angular/router';
 import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
 import {NgApexchartsModule} from 'ng-apexcharts';
+import {PluginModule} from '../plugins/plugin.module';
+import { PluginCardComponent } from './components/plugin-card/plugin-card.component';
 
 
 
@@ -66,7 +68,8 @@ import {NgApexchartsModule} from 'ng-apexcharts';
     ProjectCardComponent,
     GeomakeitHelpComponent,
     StepByStepComponent,
-    DonutChartComponent
+    DonutChartComponent,
+    PluginCardComponent
   ],
     exports: [
         SpinnerComponent,
@@ -98,7 +101,8 @@ import {NgApexchartsModule} from 'ng-apexcharts';
         MatSelectModule,
         UserManagementModule,
         RouterModule,
-        NgApexchartsModule
+        NgApexchartsModule,
+        PluginModule
 
     ],
     providers: [

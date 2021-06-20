@@ -64,12 +64,12 @@ tslint                                     5.9.1   →         5.17.0
 typescript                                 3.1.6   →          3.4.5
 ```
 ### Bug fixing
-- browser console error
+- browser console errorFromProjectSubscribe
 ```
 href="#pablo" -> href="javascript:void(0)"
 href="#"      -> href="javascript:void(0)"
 ```
-- form-validation error from the `_forms.scss` file
+- form-validation errorFromProjectSubscribe from the `_forms.scss` file
 ```
 @include form-validation-state("valid", $label-color); -> @include form-validation-state("valid", $label-color, $form-feedback-icon-valid);
 ```
