@@ -92,10 +92,10 @@
                               <div class="col-md-4">
                                   <mat-form-field class="example-full-width">
                                       <input matInput placeholder="Email address" type="email" formControlName="email" [value] = "profile?.email">
-                                      <mat-error *ngIf="userProfileForm.get('email').invalid && userProfileForm.get('email').errors && userProfileForm.get('email').touched">
-                                            <mat-error *ngIf="userProfileForm.get('email').hasError('required')">Email can't be empty</mat-error>
-                                            <mat-error *ngIf="userProfileForm.get('email').hasError('email')">Not a valid email address</mat-error>
-                                      </mat-error>
+                                      <mat-errorFromProjectSubscribe *ngIf="userProfileForm.get('email').invalid && userProfileForm.get('email').errors && userProfileForm.get('email').touched">
+                                            <mat-errorFromProjectSubscribe *ngIf="userProfileForm.get('email').hasError('required')">Email can't be empty</mat-errorFromProjectSubscribe>
+                                            <mat-errorFromProjectSubscribe *ngIf="userProfileForm.get('email').hasError('email')">Not a valid email address</mat-errorFromProjectSubscribe>
+                                      </mat-errorFromProjectSubscribe>
                                   </mat-form-field>
                               </div>
                           </div>
@@ -103,7 +103,7 @@
                               <div class="col-md-12">
                                 <mat-form-field class="example-full-width">
                                   <input matInput placeholder="Name" type="text" formControlName="name" value = "{{profile?.name}}">
-                                   <mat-error *ngIf="userProfileForm.get('name').invalid">Name can't be empty</mat-error>
+                                   <mat-errorFromProjectSubscribe *ngIf="userProfileForm.get('name').invalid">Name can't be empty</mat-errorFromProjectSubscribe>
                                 </mat-form-field>
                               </div>
                           </div>

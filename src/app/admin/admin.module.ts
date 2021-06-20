@@ -6,6 +6,11 @@ import { AdminSideBarComponent } from './components/shared/admin-side-bar/admin-
 import {AdminService} from './services/admin.service';
 import {AdminHomeComponent} from './components/home/adminHome.component';
 import {SharedModule} from '../shared/shared.module';
+import {MatIconModule} from '@angular/material/icon';
+import {MatListModule} from '@angular/material/list';
+
+
+
 
 
 @NgModule({
@@ -19,11 +24,13 @@ import {SharedModule} from '../shared/shared.module';
     AdminSideBarComponent,
     AdminHomeComponent
   ],
-  imports: [
-    CommonModule,
-    AdminRoutingModule,
-    SharedModule
-  ],
+    imports: [
+        CommonModule,
+        AdminRoutingModule,
+        SharedModule,
+        MatIconModule,
+        MatListModule
+],
   providers: [
       AdminService
   ]

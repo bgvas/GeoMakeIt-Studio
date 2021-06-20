@@ -1,0 +1,28 @@
+<div class="card mb-3 border border-secondary" >
+    <img src="assets/img/plugin.jpg" width="100%" alt="Logo of plugin" class="rounded-top">
+    <div class="card-body">
+        <h5 class="card-title text-dark" style="font-weight: bold">
+            {{plugin?.title}}
+        </h5>
+        <div class="row">
+            <div class="col-10 text-right">
+                <a matTooltip="Edit plugin" role="button" class="text-dark" matTooltipClass="h5" style="background-color: inherit" >
+                    <mat-icon>edit</mat-icon>
+                </a>
+            </div>
+            <div class="text-right col-2">
+                <app-delete-pop-up (click)="pluginToDelete(plugin)" [element]="plugin" (delete)="onDelete($event)" [deleteItemToolTip]="'plugin'"></app-delete-pop-up>
+            </div>
+        </div>
+        <p class="card-text mb-0" >
+            <small style="font-weight: bold">
+                {{plugin?.description}}
+            </small>
+        </p>
+        <p class="card-text mb-0">
+            <small class="text-muted text-gray">
+                <span style="font-weight: bold">Last update at:</span> {{convertToReadableDate(plugin?.updated_at)}}
+            </small>
+        </p>
+    </div>
+</div>

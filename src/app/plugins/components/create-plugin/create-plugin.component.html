@@ -1,35 +1,70 @@
-<div class="main-content">
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-md-6 ">
-                <div class="card">
-                    <div class="card-header card-header-danger">
-                        <h4 class="card-title">New Plugin</h4>
-                        <p class="card-category">Type a unique identifier</p>
+
+<!-- Modal -->
+<div class="modal fade " id="newPlugin" tabindex="-1" role="dialog" aria-labelledby="newPlugin" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header m-2 bg-dark border border-dark">
+                <h3 class="modal-title text-white" id="createNewPlugin" style="font-weight: bold">New Plugin</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form [formGroup]="createPluginForm">
+                <div class="modal-body m-2 border bg-light border border-dark">
+                    <mat-form-field>
+                        <input type="text" class="text-dark" matInput placeholder="Identifier" formControlName="identifier">
+                    </mat-form-field>
+                    <div class="text-danger" *ngIf="createPluginForm.get('identifier').getError('required') && createPluginForm.get('identifier').touched">
+                        <mat-error class="mat-h5">
+                            Identifier can't be empty!
+                        </mat-error>
                     </div>
-                    <div class="card-body">
-                        <div class="col-sm-12">
-                            <form [formGroup]="createPluginForm">
-                                <mat-form-field class="mb-4">
-                                    <input class="mb-2" matInput type="text" placeholder="Identifier" #identifier formControlName="identifier" />
-                                    <mat-error *ngIf = "createPluginForm.controls['identifier'].value === ''">Identifier is required</mat-error>
-                                    <mat-error *ngIf = "createPluginForm.get('identifier').value?.length < 3 || createPluginForm.get('identifier').value?.length > 32">Identifier must have min-3 to max-32 characters</mat-error>
-                                    <mat-error *ngIf = "createPluginForm.controls['identifier'].errors?.pattern">Identifier must start with an alphabetic character and contains only lowercase</mat-error>
-                                </mat-form-field>
-                                <mat-form-field class="mb-4">
-                                    <input class="mb-2" matInput type="text" placeholder="Title of plugin" #title formControlName="title" />
-                                    <mat-error *ngIf = "createPluginForm.controls['title'].value === ''">Title is required</mat-error>
-                                </mat-form-field>
-                                <mat-form-field>
-                                    <textarea class="mb-2" matInput placeholder="Description" #description formControlName="description"></textarea>
-                                </mat-form-field>
-                                <button type="submit" class="btn btn-info m-2" (click) = "onSubmit()" [disabled]="!createPluginForm.valid">Save</button>
-                                <button type="reset" class="btn btn-secondary m-2" (click) = onCancel()>Cancel</button>
-                            </form>
-                        </div>
+                    <div class="text-danger" *ngIf="createPluginForm.get('identifier').getError('pattern') && createPluginForm.get('identifier').touched">
+                        <mat-error class="mat-h5">
+                            Not acceptable identifier. Try an other!
+                        </mat-error>
+                    </div>
+                    <div class="text-danger" *ngIf="createPluginForm.get('identifier').getError('minLength') && createPluginForm.get('identifier').touched">
+                        <mat-error class="mat-h5">
+                           Try a greater identifier!
+                        </mat-error>
+                    </div>
+                    <div class="text-danger" *ngIf="createPluginForm.get('identifier').getError('maxLength') && createPluginForm.get('identifier').touched">
+                        <mat-error class="mat-h5">
+                            Try an identifier up to 32 characters!
+                        </mat-error>
                     </div>
                 </div>
-            </div>
+                <div class="modal-body m-2 border bg-light border border-dark">
+                    <mat-form-field>
+                        <input type="text" class="text-dark" matInput placeholder="Title" formControlName="title">
+                    </mat-form-field>
+                    <div class="text-danger" *ngIf="createPluginForm.get('title').invalid && createPluginForm.get('title').touched">
+                        <mat-error class="mat-h5">
+                            Title can't be empty
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="modal-body m-2 border bg-light border border-dark">
+                    <mat-form-field>
+                        <input type="text" class="text-dark" matInput placeholder="Description" formControlName="description">
+                    </mat-form-field>
+                    <div class="text-danger" *ngIf="createPluginForm.get('description').invalid && createPluginForm.get('description').touched">
+                        <mat-error class="mat-h5">
+                            Description can't be empty
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="text-danger pl-2" *ngIf="createPluginForm.invalid && createPluginForm.touched">
+                    <mat-error>
+                        There are some errors in your form. Check again!
+                    </mat-error>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-outline-secondary" data-dismiss="modal" (click)="onCancel()">Cancel</button>
+                    <button type="submit" class="btn btn-dark" [disabled]="createPluginForm.invalid" (click)="onSubmit()" data-dismiss="modal">Save Plugin</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

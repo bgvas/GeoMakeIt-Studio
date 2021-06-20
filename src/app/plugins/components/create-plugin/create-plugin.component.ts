@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, EventEmitter, Output} from '@angular/core';
 import {Location} from '@angular/common';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {PluginService} from '../../services/plugin.service';
@@ -8,6 +8,9 @@ import {Error} from '../../../classes/error/error';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
+
+
+
 @Component({
   selector: 'app-create-plugin',
   templateUrl: './create-plugin.component.html',
@@ -15,6 +18,7 @@ import {takeUntil} from 'rxjs/operators';
 })
 export class CreatePluginComponent implements OnInit, OnDestroy {
 
+  @Output() isCreatedPlugin = new EventEmitter<boolean>();
   createPluginForm: FormGroup;
   notification = new NotificationsComponent();
   private unsubscribe = new Subject<void>();
@@ -38,12 +42,12 @@ export class CreatePluginComponent implements OnInit, OnDestroy {
             Validators.maxLength(32),
             Validators.pattern('^[a-z]{1}[a-z0-9_]{2,31}$')]),
       title: this.fb.control('', Validators.required),
-      description: this.fb.control('')
+      description: this.fb.control('', Validators.required)
     })
   }
 
-  onSubmit(){
-    if(this.createPluginForm.valid) {
+  onSubmit() {
+    if (this.createPluginForm.valid) {
       this.createNewPlugin(<Plugin>this.createPluginForm.value);
     }
   }
@@ -51,21 +55,20 @@ export class CreatePluginComponent implements OnInit, OnDestroy {
   createNewPlugin(newPlugin: Plugin): any {
     return this.service.postPlugin(newPlugin).pipe(takeUntil(this.unsubscribe)).subscribe((savePlugin: Plugin) => {
         this.notification.showNotification('Plugin, created successfully', 'success');
-        this.location.back();
+        this.isCreatedPlugin.emit(true);
     },
         (error: Error) => {
-            if(error.code === 422){
+            if (error.code === 422){
                 this.notification.showNotification('This plugin identifier, already exists', 'danger');
             } else {
                 this.notification.showNotification('Can\'t create new plugin', 'danger');
             }
-            this.location.back();
         })
   }
 
 
-  onCancel(): void {
-    this.location.back();
+  onCancel() {
+      this.createPluginForm.reset();
   }
 
   change(char: string): string {

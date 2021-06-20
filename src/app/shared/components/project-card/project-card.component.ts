@@ -15,7 +15,6 @@ import {Router} from '@angular/router';
 export class ProjectCardComponent implements OnInit, OnDestroy {
 
   @Input() project: any;
-  @Input() tooltip: any;
   @Output() deleted = new EventEmitter();
   deleteProject: any;
   notification = new NotificationsComponent();
@@ -58,7 +57,7 @@ export class ProjectCardComponent implements OnInit, OnDestroy {
   }
 
   onClick(project) {
-    localStorage.setItem('project', JSON.stringify(this.project));
+    sessionStorage.setItem('project', JSON.stringify(this.project));
     this.router.navigate(['games/setup']);
   }
 }

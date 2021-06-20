@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserService } from './services/user.service';
-import { UserManagementRoutingModule} from './user-management-routing.module';
 import { UserComponent } from './components/user/user.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -15,6 +14,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 
 
 
+
 @NgModule({
     declarations: [
         UserComponent,
@@ -25,7 +25,6 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
     ],
     imports: [
         CommonModule,
-        UserManagementRoutingModule,
         MatFormFieldModule,
         ReactiveFormsModule,
         MatInputModule,

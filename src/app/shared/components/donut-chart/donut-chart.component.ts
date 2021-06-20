@@ -34,11 +34,10 @@ export class DonutChartComponent implements OnInit {
   public chartOptions: Partial<any>;
 
 
-  constructor() {
-
-  }
+  constructor() {}
 
   ngOnInit(): void {
+    console.log(this.values);
     this.chartOptions = {
       series: this.values,
       labels: this.titles,
@@ -46,7 +45,7 @@ export class DonutChartComponent implements OnInit {
         type: 'donut'
       },
       title: {
-        text: 'My First Angular Chart'
+        text: 'My Chart'
       },
       plotOptions: {
         pie: {

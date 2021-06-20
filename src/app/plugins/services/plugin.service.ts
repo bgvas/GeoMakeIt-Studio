@@ -6,6 +6,7 @@ import {RootPlugins} from '../models/root-plugins';
 import {Plugin} from '../models/plugin';
 import {RootPluginReleases} from '../models/available_plugins/root-plugin-releases';
 import {PluginRelease} from '../models/available_plugins/plugin-release';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,6 @@ export class PluginService {
     this.getReleasesOfPlugin(pluginId).subscribe(releases => {
       this.pluginReleases =  releases.data;
     })
-
     return this.pluginReleases;
   }
 
@@ -40,9 +40,15 @@ export class PluginService {
     return this.http.get<any>(this.path + '/' + gameId);
   }
 
-  getAvailablePlugins(): Observable<any> {
-    //return this.http.get<any>(this.path);
-    return this.http.get<any>('assets/dummyJson/availablePlugins.json')
+  getAvailablePlugins(): Observable<RootPlugins> {
+     return this.http.get<RootPlugins>(this.path);
+    // return this.http.get<any>('assets/dummyJson/availablePlugins.json')
+  }
+
+  getNumberOfAvailablePlugins(): Observable<number> {
+    return this.getAvailablePlugins().pipe(map(plugins => {
+      return plugins.data.length;
+    }))
   }
 
   getAllPluginsOfUser(): Observable<RootPlugins> {

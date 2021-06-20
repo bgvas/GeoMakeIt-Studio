@@ -15,7 +15,7 @@
                     </a>
                 </div>
                 <div class="text-right col-2">
-                    <app-delete-pop-up (click)="projectToDelete(project)" [element] = "project" (delete)="onDelete($event)"></app-delete-pop-up>
+                    <app-delete-pop-up (click)="projectToDelete(project)" [element] = "project" (delete)="onDelete($event)" [deleteItemToolTip]="'project'"></app-delete-pop-up>
                 </div>
         </div>
         <p class="card-text mb-0" >
