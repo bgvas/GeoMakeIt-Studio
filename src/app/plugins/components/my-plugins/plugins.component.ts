@@ -42,7 +42,7 @@ export class PluginsComponent implements OnInit, OnDestroy {
 
   onDelete(data): void {
       if (data) {
-          this.service.deletePluginById(this.service.object.id).pipe(takeUntil(this.unsubscribe)).subscribe(value => {
+          this.service.deletePluginById(this.service.plugin.id).pipe(takeUntil(this.unsubscribe)).subscribe(value => {
               this.pluginReleasesMap.clear();
               this.loadListOfPlugins();
               this.notification.showNotification('Plugin Deleted!', 'success');
@@ -80,8 +80,8 @@ export class PluginsComponent implements OnInit, OnDestroy {
   }
 
   rememberPlugin(plugin) {
-    this.service.object = plugin;
-    this.deletePlugin = this.service.object;
+    this.service.plugin = plugin;
+    this.deletePlugin = this.service.plugin;
   }
 
   getMapKeys(): Plugin[] {
@@ -89,7 +89,7 @@ export class PluginsComponent implements OnInit, OnDestroy {
   }
 
   uploadRelease(plugin) {
-      this.service.object = plugin;
+      this.service.plugin = plugin;
       this.router.navigate(['plugins/edit']);
   }
 

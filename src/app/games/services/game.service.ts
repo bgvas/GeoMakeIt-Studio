@@ -66,12 +66,12 @@ export class GameService {
     return this.http.get<GameRoot>(this.path + '/' + gameId + '/releases')
   }
 
-  // get values from this general-use object //
+  // get values from this general-use plugin //
   get object(): any {
     return this._object;
   }
 
-  // set values to this general-use object //
+  // set values to this general-use plugin //
   set object(data) {
     this._object = data;
   }

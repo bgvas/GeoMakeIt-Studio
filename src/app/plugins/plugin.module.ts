@@ -12,7 +12,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatInputModule} from '@angular/material/input';
 import {PluginService} from './services/plugin.service';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {EditPluginComponent} from './components/edit-plugin/edit-plugin.component';
+import { EditPluginComponent } from './components/edit-plugin/edit-plugin.component';
 
 
 
@@ -36,7 +36,8 @@ import {EditPluginComponent} from './components/edit-plugin/edit-plugin.componen
         MatTooltipModule
     ],
     exports: [
-        CreatePluginComponent
+        CreatePluginComponent,
+        EditPluginComponent
     ],
     providers: [
         PluginService

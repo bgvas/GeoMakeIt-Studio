@@ -15,18 +15,18 @@ export class PluginService {
 
   path = environment.apiUrl + 'plugins'
 
-  _object: any;
+  _plugin: any;
   pluginReleases = new Array<PluginRelease>();
 
   constructor(private http: HttpClient) { }
 
 
-  set object(obj) {
-    this._object = obj;
+  set plugin(aPlugin) {
+    this._plugin = aPlugin;
   }
 
-  get object(): any {
-    return this._object;
+  get plugin(): any {
+    return this._plugin;
   }
 
   pluginReleasesById(pluginId): PluginRelease[] {
