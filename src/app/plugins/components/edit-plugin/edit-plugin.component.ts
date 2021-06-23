@@ -3,6 +3,7 @@ import {PluginService} from '../../services/plugin.service';
 import {Plugin} from '../../models/plugin';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {formatDate} from '@angular/common';
+import {PluginRelease} from '../../models/available_plugins/plugin-release';
 
 @Component({
   selector: 'app-edit-plugin',
@@ -13,24 +14,32 @@ export class EditPluginComponent implements OnInit {
 
   @Input() plugin: Plugin;
   pluginForm: FormGroup;
+  pluginReleaseForm: FormGroup;
+  latestPluginRelease: PluginRelease;
+  firstRelease: boolean;
   edit: boolean;
+  error = null;
 
   constructor(private service: PluginService, private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
     this.initializeForm();
+    this.getPluginRelease(this.plugin.id);
+    this.initializePluginReleaseForm();
   }
 
   initializeForm() {
     this.pluginForm = this.fb.group({
-      title: this.fb.control({value: '', disabled: true}, Validators.required),
-      description: this.fb.control({value: '', disabled: true}, Validators.required)
+      title: this.fb.control({value: this.plugin.title, disabled: true}, Validators.required),
+      description: this.fb.control({value: this.plugin.description, disabled: true}, Validators.required)
     })
+  }
 
-    this.pluginForm.get('title').setValue(this.plugin.title);
-    this.pluginForm.get('description').setValue(this.plugin.description);
-
+  initializePluginReleaseForm() {
+    this.pluginReleaseForm = this.fb.group({
+      file: this.fb.control('')
+    })
   }
 
   convertToReadableDate(dateStamp) {
@@ -40,13 +49,31 @@ export class EditPluginComponent implements OnInit {
     }
   }
 
+  getPluginRelease(id) {
+    this.service.getLatestReleaseOfPlugin(id).subscribe((data: PluginRelease) => {
+      if (typeof data.id === 'undefined') {
+        this.latestPluginRelease = new PluginRelease();
+        this.latestPluginRelease.name = 'Upload first version';
+        this.firstRelease = true;
+      }
+    },
+        (error => console.log('Error received: ' + error)))
+  }
+
   activateEdit() {
     this.edit = true;
     this.pluginForm.get('title').enable();
     this.pluginForm.get('description').enable();
   }
 
-  onCancel() {
-    this.pluginForm.reset();
+
+  uploadRelease(file: any) {
+   const fileName = file.target.files[0];
+   if (fileName.name.split('.', 2)[1] !== 'aar') {
+     this.error = 'Error type of file. Only *.aar files are accepted';
+     this.pluginReleaseForm.reset();
+   } else {
+     this.error = null;
+   }
   }
 }

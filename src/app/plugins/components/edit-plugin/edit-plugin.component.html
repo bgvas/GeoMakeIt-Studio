@@ -1,4 +1,4 @@
-<a matTooltip="Edit plugin" href="#editPlugin{{plugin.id}}" class="text-dark" matTooltipClass="h5" (click)="edit = false" data-toggle="modal" style="background-color: inherit" >
+<a matTooltip="Edit plugin" href="#editPlugin{{plugin.id}}" class="text-dark" matTooltipClass="h5" data-toggle="modal" style="background-color: inherit" >
     <mat-icon>edit</mat-icon>
 </a>
 
@@ -27,7 +27,7 @@
                     <mat-form-field>
                         <input type="text" class="text-dark" matInput placeholder="Title" formControlName="title" [disabled]="edit">
                     </mat-form-field>
-                    <div class="text-danger" *ngIf="edit && pluginForm.get('title').invalid && pluginForm.get('title').touched">
+                    <div class="text-danger" *ngIf="edit && pluginForm.get('title').getError('required') && pluginForm.get('title').touched">
                         <mat-error class="mat-h5">
                             Title can't be empty
                         </mat-error>
@@ -37,7 +37,7 @@
                     <mat-form-field>
                         <input type="text" class="text-dark" matInput placeholder="Description" formControlName="description" [disabled]="edit">
                     </mat-form-field>
-                    <div class="text-danger" *ngIf="edit && pluginForm.get('description').invalid && pluginForm.get('description').touched">
+                    <div class="text-danger" *ngIf="edit && pluginForm.get('description').getError('required') && pluginForm.get('description').touched">
                         <mat-error class="mat-h5">
                             Description can't be empty
                         </mat-error>
@@ -91,28 +91,46 @@
                     <div class="col-12 text-center" *ngIf="!edit">
                         <button class="ml-2 mb-2 w-75 btn btn-outline-dark" (click)="activateEdit()">Edit plugin details</button>
                     </div>
-                    <div class="col-12" *ngIf="edit">
-                        <div class="row">
-                            <div class="col-6 text-left ">
-                                <button type="reset" class="ml-2 mb-2 btn btn-outline-secondary w-50" data-dismiss="modal" (click)="onCancel()">
-                                    Cancel
-                                </button>
-                            </div>
-                            <div class="col-6 text-right">
-                                <button type="submit" class="mb-2 mr-2 btn btn-dark w-50" data-dismiss="modal">
-                                    Save Changes
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-12">
-                        Upload
-                    </div>
                 </div>
             </form>
+            <hr>
+            <div class="text-center font-weight-bold h3">
+                Plugin Releases
+            </div>
+            <div class="modal-body m-2 border bg-light border border-dark">
+                <div class="row">
+                    <div class="col-3 ml-2 font-weight-bold mb-2 text-center">
+                        <div *ngIf="firstRelease">
+                            {{latestPluginRelease?.name}}
+                        </div>
+                        <div  *ngIf="!firstRelease">
+                            Latest Release: {{latestPluginRelease?.name}}
+                        </div>
+                    </div>
+                    <div class="col-8 text-center">
+                        <form [formGroup]="pluginReleaseForm">
+                            <input formControlName="file" type="file" (change)="uploadRelease($event)" accept=".aar">
+                            <mat-error class="font-weight-bold" *ngIf="error !== null">
+                                {{error}}
+                            </mat-error>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-6 text-left ">
+                        <button type="reset" class="ml-2 mb-2 btn btn-outline-secondary w-50" data-dismiss="modal" >
+                            Cancel
+                        </button>
+                    </div>
+                    <div class="col-6 text-right">
+                        <button type="submit" class="mb-2 mr-2 btn btn-dark w-50" data-dismiss="modal">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

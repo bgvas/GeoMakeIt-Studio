@@ -59,6 +59,12 @@ export class PluginService {
     return this.http.get<RootPluginReleases>(this.path + '/' + pluginId + '/releases');
   }
 
+  getLatestReleaseOfPlugin(pluginId): Observable<any> {
+    return this.http.get(this.path + '/' + pluginId + '/releases').pipe(map((plugins: RootPluginReleases) => {
+      return ((plugins.data[plugins.data.length - 1]) || new PluginRelease());
+    }))
+  }
+
   postReleaseForPlugin(pluginId, release: FormData): Observable<any> {
     return this.http.post(this.path + '/' + pluginId + '/releases', release)
   }
