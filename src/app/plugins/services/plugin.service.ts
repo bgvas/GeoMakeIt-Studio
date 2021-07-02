@@ -13,7 +13,8 @@ import {map} from 'rxjs/operators';
 })
 export class PluginService {
 
-  path = environment.apiUrl + 'plugins'
+  path = environment.apiUrl + 'plugins';
+  newPathUrl = environment.myApiUrl;
 
   _plugin: any;
   pluginReleases = new Array<PluginRelease>();
@@ -55,6 +56,10 @@ export class PluginService {
     return this.http.get<RootPlugins>(this.path);
   }
 
+  getAllPluginsByUserId(userId): Observable<any> {
+    return this.http.get<any>(this.newPathUrl + 'plugin/user/1');
+  }
+
   getReleasesOfPlugin(pluginId): Observable<RootPluginReleases> {
     return this.http.get<RootPluginReleases>(this.path + '/' + pluginId + '/releases');
   }
@@ -69,9 +74,9 @@ export class PluginService {
     return this.http.post(this.path + '/' + pluginId + '/releases', release)
   }
 
-  getPluginById(pluginId): Observable<RootPlugins> {
-    /*return this.http.get<any>(this.path + '/' + pluginId);*/
-    return this.http.get<RootPlugins>('assets/dummyJson/availablePlugins.json')
+  getAllPlugins(): Observable<RootPlugins> {
+    return this.http.get<RootPlugins>(this.newPathUrl + 'plugin/all');
+    // return this.http.get<RootPlugins>('assets/dummyJson/availablePlugins.json')
   }
 
   putPluginById(pluginId: number, updatedPlugin: Plugin): Observable<any> {

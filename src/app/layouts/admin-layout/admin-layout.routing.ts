@@ -4,7 +4,7 @@ import { UserProfileComponent } from '../../user-management/components/user-prof
 import {GameSetupComponent} from '../../games/components/game-setup/game-setup.component';
 import {StepperWizardComponent} from '../../games/components/stepper-wizard/stepper-wizard.component';
 import {UserGuardService as UserGuard} from '../../authentication/services/user-guard.service';
-
+import {ActivateAccountComponent} from '../../authentication/components/activate-account/activate-account.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -17,5 +17,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'stepper',   component: StepperWizardComponent, canActivate: [UserGuard]},
     { path: 'forgotPassword',   redirectTo: '/forgotPassword'},
     { path: 'games/setup', component: GameSetupComponent, canActivate: [UserGuard]},
-    { path: 'login', redirectTo: '/login'}
+    { path: 'login', redirectTo: '/login'},
+    { path: 'activate_account', component: ActivateAccountComponent}
 ];

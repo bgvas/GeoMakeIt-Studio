@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {passwordMatchValidator} from '../../../shared/custom-validators/passwordsMatchValidator';
-import {NewAccount} from '../../models/new-account';
+import {NewAccount} from '../../../user-management/models/new-account';
 import {Router} from '@angular/router';
-import {UserService} from '../../services/user.service';
-
+import {UserService} from '../../../user-management/services/user.service';
+import {AuthService} from '../../services/auth.service';
 
 
 @Component({
@@ -18,7 +18,7 @@ export class RegistrationComponent implements OnInit {
   terms: boolean;
 
 
-  constructor(private fb: FormBuilder, private router: Router, private service: UserService) { }
+  constructor(private fb: FormBuilder, private router: Router, private service: AuthService) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -40,19 +40,19 @@ export class RegistrationComponent implements OnInit {
   onSubmit() {
     if ( this.registrationForm.valid) {
       const newAccount = new NewAccount();
-      newAccount.fName = this.registrationForm.get('fName').value;
-      newAccount.lName = this.registrationForm.get('lName').value;
+      newAccount.fname = this.registrationForm.get('fName').value;
+      newAccount.lname = this.registrationForm.get('lName').value;
       newAccount.username = this.registrationForm.get('username').value;
       newAccount.email = this.registrationForm.get('email').value;
       newAccount.password = this.registrationForm.get('password').value;
-
-      console.log(newAccount);
-      this.service.element = newAccount;
-      this.router.navigate(['confirm']);
-      // return newAccount;
-    } else {
-      this.router.navigate(['login']);
-      // return new NewAccount();
+      this.service.registration(newAccount).subscribe(data => {
+        this.service._element = [newAccount.email, data.access_token];
+        this.router.navigate(['confirm']);
+      },
+          (error: Error) => {
+              this.router.navigate(['login']);
+              console.log('Error registration: ' + error.message);
+          })
     }
   }
 

@@ -11,14 +11,13 @@ import {PluginService} from '../../plugins/services/plugin.service';
 })
 export class AdminService {
 
-
+apiUrl = 'http://localhost:8000/api/v1/';
 
   constructor(private http: HttpClient, private pluginService: PluginService) { }
 
   getAllUsers(): Observable<User[]> {
-    const url = '../assets/dummyJson/users.json';
-    return this.http.get<User[]>(url).pipe(map(e => {
-      return (e['data'].filter((user: User) => user.role !== 'super_admin'));
+    return this.http.get<User[]>(this.apiUrl + 'user/all').pipe(map(e => {
+      return (e.filter((user: User) => user.role !== 'super_admin'));
     }))
   }
 

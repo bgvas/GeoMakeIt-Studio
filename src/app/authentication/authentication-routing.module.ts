@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Routes } from '@angular/router';
+import {ActivateAccountComponent} from './components/activate-account/activate-account.component';
+
 
 @NgModule({
   declarations: [],
@@ -8,4 +9,6 @@ import { Routes } from '@angular/router';
     CommonModule
   ]
 })
-export class AuthenticationRoutingModule { }
+export class AuthenticationRoutingModule {
+
+}
