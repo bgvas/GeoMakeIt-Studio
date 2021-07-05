@@ -1,7 +1,7 @@
 export class NewAccount {
 
-    public fName: string;
-    public lName: string;
+    public fname: string;
+    public lname: string;
     public username: string;
     public email: string;
     public password: string;

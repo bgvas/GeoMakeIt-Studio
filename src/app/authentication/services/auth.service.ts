@@ -17,6 +17,8 @@ export class AuthService {
 
   private currentUserSubject: BehaviorSubject<User>;
   private currentUser: Observable<User>;
+  _element: any;
+  url = environment.myApiUrl;
 
 
   constructor(private http: HttpClient) {
@@ -28,48 +30,32 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
- /* login(user: AuthCredentials) {
-    const url = '';
-    return this.http.post<User>(//environment.apiUrl + url, user)
-        .pipe(map(checkUser => {
-          localStorage.setItem('currentUser', JSON.stringify(checkUser));
-          this.currentUserSubject.next(checkUser);
-          return checkUser;
-        }));
-    }*/
+  getAllUsersFromDummyJson(): Observable<User> {
+    const url = '../assets/dummyJson/users.json';
+    return this.http.get<User>(url);
+  }
 
-    getAllUsersFromDummyJson(): Observable<User> {
-      const url = '../assets/dummyJson/users.json';
-      return this.http.get<User>(url);
-    }
+  registration(request: any): Observable<any> {
+    return this.http.post(this.url + 'auth/registration', request);
+  }
 
+  confirmEmail(email: any): Observable<any> {
+    return this.http.post(this.url + 'confirmationMail', email);
+  }
+  
+  activateAccount(token: any): Observable<any> {
+    return this.http.post(this.url + 'auth/activateAccount', token);
+  }
 
-    login(user: AuthCredentials): Observable<boolean> {
-      return this.getAllUsersFromDummyJson().pipe(map(e => {
-        const authUser = e['data'].filter(k => k.username === user.username && k.password === user.password).pop();
-        if (typeof authUser === 'undefined') {
-          return false;
-        } else {
-          const nowUser = new CurrentUser();
-          nowUser.id = authUser.id;
-          nowUser.email = authUser.email;
-          nowUser.name = authUser.name;
-          nowUser.username = authUser.username;
-          nowUser.role = authUser.role;
+   login(credentials: AuthCredentials): Observable<any> {
+     return this.http.post(this.url + 'auth/login', credentials);
+   }
 
-          sessionStorage.setItem('user', JSON.stringify(nowUser));
-          localStorage.setItem('role', authUser.role);
-          sessionStorage.setItem('token', environment.token); // TODO Change this when begin getting tokens from login //
-          return true;
-        }
-      }));
-    }
-
-    logout() {
+  logout() {
     sessionStorage.removeItem('currentUser');
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('user');
     localStorage.removeItem('role');
     this.currentUserSubject.next(null);
-    }
+  }
 }

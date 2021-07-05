@@ -1,85 +1,79 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Router} from '@angular/router'
-import {Location} from '@angular/common';
+import {Component, Input, OnInit} from '@angular/core';
 import {PluginService} from '../../services/plugin.service';
 import {Plugin} from '../../models/plugin';
-import {PluginRelease} from '../../models/available_plugins/plugin-release';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {NotificationsComponent} from '../../../shared/components/notifications/notifications.component';
-import {Error} from '../../../classes/error/error';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
-
+import {formatDate} from '@angular/common';
+import {PluginRelease} from '../../models/available_plugins/plugin-release';
 
 @Component({
   selector: 'app-edit-plugin',
   templateUrl: './edit-plugin.component.html',
   styleUrls: ['./edit-plugin.component.css']
 })
-export class EditPluginComponent implements OnInit, OnDestroy {
+export class EditPluginComponent implements OnInit {
 
-  plugin: Plugin;
-  releases: PluginRelease[];
-  fileUploadForm: FormGroup;
-  fileName = '';
-  notification = new NotificationsComponent();
-  uploadStarted: boolean;
-  errorFileType: boolean;
-  unsubscribe = new Subject<void>();
+  @Input() plugin: Plugin;
+  pluginForm: FormGroup;
+  pluginReleaseForm: FormGroup;
+  latestPluginRelease: PluginRelease;
+  firstRelease: boolean;
+  edit: boolean;
+  error = null;
 
-
-  constructor(
-      private router: Router,
-      private location: Location,
-      private service: PluginService,
-      private fb: FormBuilder) { }
+  constructor(private service: PluginService, private fb: FormBuilder) {
+  }
 
   ngOnInit(): void {
-    this.uploadStarted = false;
-    this.plugin = this.service.object;
     this.initializeForm();
-  }
-
-  ngOnDestroy() {
-      this.unsubscribe.next();
-      this.unsubscribe.complete();
-  }
-
-    onCancel(): void {
-    this.location.back();
+    this.getPluginRelease(this.plugin.id);
+    this.initializePluginReleaseForm();
   }
 
   initializeForm() {
-      this.fileUploadForm = this.fb.group({
-          name: this.fb.control('', Validators.required),
-          file: this.fb.control('', Validators.required)
-      })
+    this.pluginForm = this.fb.group({
+      title: this.fb.control({value: this.plugin.title, disabled: true}, Validators.required),
+      description: this.fb.control({value: this.plugin.description, disabled: true}, Validators.required)
+    })
   }
 
-  onSubmit() {
-      this.uploadStarted = true;
-      const release = new FormData();
-      release.append('name', this.fileUploadForm.get('name').value);
-      release.append('file', this.fileUploadForm.get('file').value);
-      this.service.postReleaseForPlugin(this.plugin.id, release).pipe(takeUntil(this.unsubscribe)).subscribe(result => {
-           this.notification.showNotification('Plugin version, uploaded successfully. Will be visible after approval.', 'success');
-           this.router.navigate(['plugins']);
-      },
-      (error: Error) => {
-          console.log('New Release: ' + error.message + ' - ' + error.code);
-          this.notification.showNotification('Plugin version, didn\'t created', 'danger');
-      })
+  initializePluginReleaseForm() {
+    this.pluginReleaseForm = this.fb.group({
+      file: this.fb.control('')
+    })
   }
 
-  onFileSelect(event) {
-      const extension = (event.target.files[0].name);
-      if (event.target.files.length > 0 && extension.endsWith('aar')) {
-          const file = event.target.files[0];
-          this.fileUploadForm.get('file').setValue(file);
-      } else {
-         this.errorFileType = true;
+  convertToReadableDate(dateStamp) {
+    if ( dateStamp !== '') {
+      const newDate =  new Date(dateStamp);
+      return formatDate(newDate, 'dd/MM/yyyy', 'en-US');
+    }
+  }
+
+  getPluginRelease(id) {
+    this.service.getLatestReleaseOfPlugin(id).subscribe((data: PluginRelease) => {
+      if (typeof data.id === 'undefined') {
+        this.latestPluginRelease = new PluginRelease();
+        this.latestPluginRelease.name = 'Upload first version';
+        this.firstRelease = true;
       }
-
+    },
+        (error => console.log('Error received: ' + error)))
   }
 
+  activateEdit() {
+    this.edit = true;
+    this.pluginForm.get('title').enable();
+    this.pluginForm.get('description').enable();
+  }
+
+
+  uploadRelease(file: any) {
+   const fileName = file.target.files[0];
+   if (fileName.name.split('.', 2)[1] !== 'aar') {
+     this.error = 'Error type of file. Only *.aar files are accepted';
+     this.pluginReleaseForm.reset();
+   } else {
+     this.error = null;
+   }
+  }
 }

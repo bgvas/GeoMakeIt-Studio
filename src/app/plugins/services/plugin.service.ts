@@ -13,20 +13,21 @@ import {map} from 'rxjs/operators';
 })
 export class PluginService {
 
-  path = environment.apiUrl + 'plugins'
+  path = environment.apiUrl + 'plugins';
+  newPathUrl = environment.myApiUrl;
 
-  _object: any;
+  _plugin: any;
   pluginReleases = new Array<PluginRelease>();
 
   constructor(private http: HttpClient) { }
 
 
-  set object(obj) {
-    this._object = obj;
+  set plugin(aPlugin) {
+    this._plugin = aPlugin;
   }
 
-  get object(): any {
-    return this._object;
+  get plugin(): any {
+    return this._plugin;
   }
 
   pluginReleasesById(pluginId): PluginRelease[] {
@@ -55,17 +56,27 @@ export class PluginService {
     return this.http.get<RootPlugins>(this.path);
   }
 
+  getAllPluginsByUserId(userId): Observable<any> {
+    return this.http.get<any>(this.newPathUrl + 'plugin/user/1');
+  }
+
   getReleasesOfPlugin(pluginId): Observable<RootPluginReleases> {
     return this.http.get<RootPluginReleases>(this.path + '/' + pluginId + '/releases');
+  }
+
+  getLatestReleaseOfPlugin(pluginId): Observable<any> {
+    return this.http.get(this.path + '/' + pluginId + '/releases').pipe(map((plugins: RootPluginReleases) => {
+      return ((plugins.data[plugins.data.length - 1]) || new PluginRelease());
+    }))
   }
 
   postReleaseForPlugin(pluginId, release: FormData): Observable<any> {
     return this.http.post(this.path + '/' + pluginId + '/releases', release)
   }
 
-  getPluginById(pluginId): Observable<RootPlugins> {
-    /*return this.http.get<any>(this.path + '/' + pluginId);*/
-    return this.http.get<RootPlugins>('assets/dummyJson/availablePlugins.json')
+  getAllPlugins(): Observable<RootPlugins> {
+    return this.http.get<RootPlugins>(this.newPathUrl + 'plugin/all');
+    // return this.http.get<RootPlugins>('assets/dummyJson/availablePlugins.json')
   }
 
   putPluginById(pluginId: number, updatedPlugin: Plugin): Observable<any> {
