@@ -33,7 +33,7 @@ export class GamesComponent implements OnInit, OnDestroy {
       this.loadListOfGames();
   }
 
-  // save game-object to service, for sharing between components //
+  // save game-plugin to service, for sharing between components //
   onClick(obj) {
       this.service.object = obj;
   }

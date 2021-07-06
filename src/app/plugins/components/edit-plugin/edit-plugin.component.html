@@ -1,84 +1,137 @@
-<div class="main-content align-middle">
-    <div class="container">
-        <div class="row w-50" style="margin-left: 270px">
-            <div class="col-12 ">
+<a matTooltip="Edit plugin" href="#editPlugin{{plugin.id}}" class="text-dark" matTooltipClass="h5" data-toggle="modal" style="background-color: inherit" >
+    <mat-icon>edit</mat-icon>
+</a>
+
+<!-- Modal -->
+<div class="modal fade " id="editPlugin{{plugin.id}}" tabindex="-1" role="dialog" aria-labelledby="editPlugin" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header m-2 bg-dark border border-dark">
+                <h3 class="modal-title text-white" id="editThisPlugin" style="font-weight: bold">Edit {{plugin.title}}</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form [formGroup]="pluginForm">
+                <div class="modal-body m-2 border bg-light border border-dark">
+                    <div class="text-left">
+                        <mat-label class="text-gray mat-h6">
+                            Identifier
+                        </mat-label>
+                    </div>
+                    <div class="text-left form-control" style="background-color: inherit">
+                        {{plugin.identifier}}
+                    </div>
+                </div>
+                <div class="modal-body m-2 border bg-light border border-dark">
+                    <mat-form-field>
+                        <input type="text" class="text-dark" matInput placeholder="Title" formControlName="title" [disabled]="edit">
+                    </mat-form-field>
+                    <div class="text-danger" *ngIf="edit && pluginForm.get('title').getError('required') && pluginForm.get('title').touched">
+                        <mat-error class="mat-h5">
+                            Title can't be empty
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="modal-body m-2 border bg-light border border-dark">
+                    <mat-form-field>
+                        <input type="text" class="text-dark" matInput placeholder="Description" formControlName="description" [disabled]="edit">
+                    </mat-form-field>
+                    <div class="text-danger" *ngIf="edit && pluginForm.get('description').getError('required') && pluginForm.get('description').touched">
+                        <mat-error class="mat-h5">
+                            Description can't be empty
+                        </mat-error>
+                    </div>
+                </div>
                 <div class="row">
-                    <div class="col-12">
-                        <div class="card" style="height: auto">
-                            <div class="card-header card-header-danger" >
-                                <h4 class="card-title">Plugin</h4>
-                                <p class="card-category"></p>
+                    <div class="col-4">
+                        <div class="modal-body m-2 border bg-light border border-dark">
+                            <div class="text-center">
+                                <mat-label class="text-gray mat-h6">
+                                    Created at
+                                </mat-label>
                             </div>
-                            <div class="row m-2">
-                                <div class="col-12 m-4" *ngIf="plugin?.id === null">
-                                    <h5>no plugin selected</h5>
-                                    <div class="col-12 ">
-                                        <button type="reset" class="btn btn-outline-danger m-2" (click) = onCancel()>Back</button>
-                                    </div>
-                                </div>
-                                <div class="row m-2" *ngIf="plugin?.id !== null">
-                                    <form [formGroup]="fileUploadForm">
-                                        <div class="col-12">
-                                            <div class="mat-h2 text-center">
-                                                {{plugin?.title}}
-                                            </div>
-                                            <div *ngIf="plugin?.description !== ''" class="mat-h5 text-gray text-center">
-                                                {{plugin?.description}}
-                                            </div>
-                                            <hr>
-                                            <div class="row m-2">
-                                                <table>
-                                                    <tr>
-                                                        <td>
-                                                            <span style="font-weight: bold">
-                                                                Version
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control" placeholder="type a name for version" formControlName="name">
-                                                            <mat-error *ngIf="fileUploadForm.get('name').invalid && fileUploadForm.get('name').touched">
-                                                                Version name is required
-                                                            </mat-error>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 input-group" >
-                                            <mat-form-field appearance="outline" [style.width.px]="465">
-                                                <mat-label>
-                                                    Choose an *.aar file, to upload
-                                                </mat-label>
-                                                <ngx-mat-file-input (change) = "onFileSelect($event)" [accept]="'.aar'"></ngx-mat-file-input>
-                                                <mat-icon matSuffix class="text-info">
-                                                    folder
-                                                </mat-icon>
-                                            </mat-form-field>
-                                            <mat-error *ngIf="fileUploadForm.get('file').invalid && fileUploadForm.get('file').touched">
-                                                Version name is required
-                                            </mat-error>
-                                            <mat-error *ngIf="errorFileType" class = "mb-2">
-                                                Error file type. Only *.aar files allowed
-                                            </mat-error>
-                                        </div>
-                                        <div *ngIf="uploadStarted">
-                                            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-                                        </div>
-                                        <div class="row text-center">
-                                            <div class="col-6">
-                                                <button type="reset" class="btn btn-info m-2" [disabled]="fileUploadForm.invalid" (click) = onSubmit()>Upload</button>
-                                            </div>
-                                            <div class="col-6 ">
-                                                <button type="reset" class="btn btn-outline-danger m-2" (click) = onCancel()>Cancel</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+                            <div class="form-control text-center" style="background-color: inherit">
+                                {{convertToReadableDate(plugin.created_at)}}
                             </div>
                         </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="modal-body m-2 border bg-light border border-dark">
+                            <div class="text-center">
+                                <mat-label class="text-gray mat-h6">
+                                    Last Update at
+                                </mat-label>
+                            </div>
+                            <div class="form-control text-center" style="background-color: inherit">
+                                {{convertToReadableDate(plugin.updated_at)}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="modal-body m-2 border bg-light border border-dark">
+                            <div class="text-center">
+                                <mat-label class="text-gray mat-h6">
+                                    Status
+                                </mat-label>
+                            </div>
+                            <div class="form-control text-center" style="background-color: inherit">
+                                {{plugin.status}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-danger pl-2 text-left" *ngIf="edit && pluginForm.invalid && pluginForm.touched">
+                    <mat-error>
+                        There are some errors in your form. Check again!
+                    </mat-error>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12 text-center" *ngIf="!edit">
+                        <button class="ml-2 mb-2 w-75 btn btn-outline-dark" (click)="activateEdit()">Edit plugin details</button>
+                    </div>
+                </div>
+            </form>
+            <hr>
+            <div class="text-center font-weight-bold h3">
+                Plugin Releases
+            </div>
+            <div class="modal-body m-2 border bg-light border border-dark">
+                <div class="row">
+                    <div class="col-3 ml-2 font-weight-bold mb-2 text-center">
+                        <div *ngIf="firstRelease">
+                            {{latestPluginRelease?.name}}
+                        </div>
+                        <div  *ngIf="!firstRelease">
+                            Latest Release: {{latestPluginRelease?.name}}
+                        </div>
+                    </div>
+                    <div class="col-8 text-center">
+                        <form [formGroup]="pluginReleaseForm">
+                            <input formControlName="file" type="file" (change)="uploadRelease($event)" accept=".aar">
+                            <mat-error class="font-weight-bold" *ngIf="error !== null">
+                                {{error}}
+                            </mat-error>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-6 text-left ">
+                        <button type="reset" class="ml-2 mb-2 btn btn-outline-secondary w-50" data-dismiss="modal" >
+                            Cancel
+                        </button>
+                    </div>
+                    <div class="col-6 text-right">
+                        <button type="submit" class="mb-2 mr-2 btn btn-dark w-50" data-dismiss="modal">
+                            Save Changes
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+

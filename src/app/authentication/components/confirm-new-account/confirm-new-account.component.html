@@ -11,11 +11,14 @@
                         </div>
                         <div class="card-body h5">
                             We send you a confirmation email. Check your inbox
-                            <button class="btn btn-info w-100 mt-4 text-lowercase h5" (click)="onClick()" >
-                                Proceed to login
-                            </button>
                         </div>
                     </div>
+                </div>
+                <div class="col-12 text-primary h5 text-center">
+                    {{sendEmailResult}}
+                </div>
+                <div>
+                    <app-spinner [visible]="displaySpinner"></app-spinner>
                 </div>
             </div>
         </div>

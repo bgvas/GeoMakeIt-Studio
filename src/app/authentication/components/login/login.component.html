@@ -10,12 +10,12 @@
                                     <img src="../../../../assets/img/geomakeit_logo.png" width="100%">
                                 </div>
                             </div>
-                            <!--<div class="row text-white" style="font-size: small">
+                            <div class="row text-white" style="font-size: small">
                                 <div class="col-12" style="position: absolute; bottom: 20px">
                                     If you are new here,
                                     <a routerLinkActive="active" routerLink="/registration" style="text-decoration: underline; color: white">Register now</a>
                                 </div>
-                            </div>-->
+                            </div>
                         </div>
                         <div class="col-6">
                             <div class="row form-group">
@@ -53,6 +53,9 @@
             <p><app-spinner [visible]="isSpinnerActive"></app-spinner></p>
 
             <div class="row">
+                <div class="col-12 h5 font-weight-bold text-primary" *ngIf="messages != null">
+                    {{messages}}
+                </div>
                 <div class="col-12 h3 font-weight-bold text-warning">
                     Demo Version
                 </div>

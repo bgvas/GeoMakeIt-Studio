@@ -1,10 +1,10 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {NotificationsComponent} from '../notifications/notifications.component';
+import {NotificationsComponent} from '../../../shared/components/notifications/notifications.component';
 import {Subject} from 'rxjs';
 import {GameService} from '../../../games/services/game.service';
-import {FeaturesService} from '../../services/features.service';
+import {FeaturesService} from '../../../shared/services/features.service';
 import {Router} from '@angular/router';
-import {PluginService} from '../../../plugins/services/plugin.service';
+import {PluginService} from '../../services/plugin.service';
 import {takeUntil} from 'rxjs/operators';
 import {formatDate} from '@angular/common';
 
@@ -56,8 +56,8 @@ export class PluginCardComponent implements OnInit, OnDestroy {
     }
   }
 
-  onClick(plugin) {
-    sessionStorage.setItem('plugin', JSON.stringify(this.plugin));
+  onClickEdit(plugin) {
+    this.service.plugin = plugin;
     this.router.navigate(['plugins/setup']);
   }
 

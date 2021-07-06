@@ -23,6 +23,7 @@ export class AdminHomeComponent implements OnInit {
   isActiveUsersSpinner: boolean;
   isActivePluginSpinner: boolean;
   isActiveProjectsSpinner: boolean;
+  numberOfAllUsers: number;
 
 
   constructor(private service: AdminService, private gameService: GameService, private pluginService: PluginService) { }
@@ -37,14 +38,20 @@ export class AdminHomeComponent implements OnInit {
   }
 
   getUsers() {
+    this.service.getAllUsers().subscribe(allUsers => {
+      this.numberOfAllUsers = allUsers.length;
+      this.isActiveUsersSpinner = false;
+    })
+
     this.service.getGameAuthorsFromAllUsers().subscribe(gameAuthors => {
       this.allGameAuthors = gameAuthors;
       this.usersChartValues[0] = gameAuthors?.length;
+      this.isActiveProjectsSpinner = false;
     })
     this.service.getPluginDevelopersFromAllUsers().subscribe(pluginDevelopers => {
       this.allPluginDevelopers = pluginDevelopers;
       this.usersChartValues[1] = pluginDevelopers?.length;
-      this.isActiveUsersSpinner = false;
+      this.isActivePluginSpinner = false;
     })
   }
 

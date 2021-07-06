@@ -39,7 +39,7 @@ import { RouterModule} from '@angular/router';
 import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
 import {NgApexchartsModule} from 'ng-apexcharts';
 import {PluginModule} from '../plugins/plugin.module';
-import { PluginCardComponent } from './components/plugin-card/plugin-card.component';
+import { PluginCardComponent } from '../plugins/components/plugin-card/plugin-card.component';
 
 
 
