@@ -5,7 +5,7 @@
 
 export const environment = {
   'production': false,
-  'apiUrl': 'https://api.geomakeit.com/v1/',
-  'myApiUrl': 'https://geomakeit-be.herokuapp.com/api/v2/',
+   'v1Url': 'https://api.geomakeit.com/v1/',
+   'v2Url': 'https://geomakeit-be.herokuapp.com/api/v2/',
   'token': '1|XxqPWqgRFk9yj9B7KKmwRBOFziaeiaKsHYb235HA'
 };
