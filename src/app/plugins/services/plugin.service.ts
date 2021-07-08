@@ -13,8 +13,8 @@ import {map} from 'rxjs/operators';
 })
 export class PluginService {
 
-  path = environment.apiUrl + 'plugins';
-  newPathUrl = environment.myApiUrl;
+  path = environment.v1Url + 'plugins';
+  newPathUrl = environment.v2Url;
 
   _plugin: any;
   pluginReleases = new Array<PluginRelease>();

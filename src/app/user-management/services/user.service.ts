@@ -10,7 +10,7 @@ import {environment} from '../../../environments/environment';
 export class UserService {
 
   _element: any;
-  url = environment.myApiUrl;
+  url = environment.v2Url;
 
   constructor(private http: HttpClient) { }
 

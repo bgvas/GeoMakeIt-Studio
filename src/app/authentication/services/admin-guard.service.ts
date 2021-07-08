@@ -12,7 +12,7 @@ export class AdminGuardService {
 
   // router user guard //
   canActivate(): boolean {
-    const token = sessionStorage.getItem('token');
+    const token = sessionStorage.getItem('v2Token');
 
     if (token != null && localStorage.getItem('role') === 'super_admin') {
       return true;
