@@ -18,8 +18,14 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<User>;
   private currentUser: Observable<User>;
   _element: any;
-  url = environment.myApiUrl;
 
+  get element() {
+    return this._element;
+  }
+
+  set element(element: any) {
+    this._element = element;
+  }
 
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(sessionStorage.getItem('currentUser')));
@@ -36,19 +42,19 @@ export class AuthService {
   }
 
   registration(request: any): Observable<any> {
-    return this.http.post(this.url + 'auth/registration', request);
+    return this.http.post(environment.v2Url + 'auth/registration', request);
   }
 
   confirmEmail(email: any): Observable<any> {
-    return this.http.post(this.url + 'confirmationMail', email);
+    return this.http.post(environment.v2Url + 'auth/confirmMail', email);
   }
   
   activateAccount(token: any): Observable<any> {
-    return this.http.post(this.url + 'auth/activateAccount', token);
+    return this.http.post(environment.v2Url + 'auth/activateAccount', token);
   }
 
    login(credentials: AuthCredentials): Observable<any> {
-     return this.http.post(this.url + 'auth/login', credentials);
+     return this.http.post(environment.v2Url + 'auth/login', credentials);
    }
 
   logout() {

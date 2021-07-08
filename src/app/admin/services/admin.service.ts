@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {User} from '../../user-management/models/user';
 import {map} from 'rxjs/operators';
 import {PluginService} from '../../plugins/services/plugin.service';
+import {environment} from '../../../environments/environment';
 
 
 @Injectable({
@@ -11,12 +12,12 @@ import {PluginService} from '../../plugins/services/plugin.service';
 })
 export class AdminService {
 
-apiUrl = 'http://localhost:8000/api/v1/';
+
 
   constructor(private http: HttpClient, private pluginService: PluginService) { }
 
   getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl + 'user/all').pipe(map(e => {
+    return this.http.get<User[]>(environment.v2Url + 'user/all').pipe(map(e => {
       return (e.filter((user: User) => user.role !== 'super_admin'));
     }))
   }

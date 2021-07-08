@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {UserService} from '../../../user-management/services/user.service';
 import {environment} from '../../../../environments/environment.prod';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,10 +21,12 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder, private service: AuthService, private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
+    this.messages = this.service.element;
     this.initializeForm();
   }
 
   initializeForm() {
+
     this.loginForm = this.fb.group({
       username: this.fb.control('', Validators.required),
       password: this.fb.control('', Validators.required)
@@ -32,11 +35,12 @@ export class LoginComponent implements OnInit {
 
   // get username and password and check user. Then redirect by role //
   onSubmit() {
+   this.messages = null;
    this.isSpinnerActive = true;
    this.service.login(this.loginForm.value).subscribe(isAuthenticatedUser => {
-     if (isAuthenticatedUser.user !== null) {
-       sessionStorage.setItem('token', environment.token);
-       // sessionStorage.setItem('token', isAuthenticatedUser.access_token); TODO -> set active, when we can take token from BE-Builder
+     if (typeof isAuthenticatedUser !== 'undefined') {
+       sessionStorage.setItem('v1Token', environment.v1Token);
+       sessionStorage.setItem('v2Token', isAuthenticatedUser.access_token);
        localStorage.setItem('role', isAuthenticatedUser.user.role);
        sessionStorage.setItem('user', JSON.stringify(isAuthenticatedUser));
        if (this.userService.getRole() === 'super_admin') {
@@ -49,6 +53,7 @@ export class LoginComponent implements OnInit {
      }
    },
        (error: Error) => {
+       this.router.navigate(['login'])
       this.errorLogin = true;
          this.isSpinnerActive = false;
          console.log('Error in login process ' + error.message)

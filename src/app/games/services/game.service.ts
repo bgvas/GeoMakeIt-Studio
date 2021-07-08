@@ -15,7 +15,7 @@ import {projectElements} from '../models/projectElements/project-elements';
 export class GameService {
 
   _object: any;
-  path = environment.apiUrl + 'games';
+  path = environment.v1Url + 'games';
 
   constructor(private http: HttpClient) { }
 
