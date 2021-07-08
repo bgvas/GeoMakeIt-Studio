@@ -5,7 +5,7 @@
 
 export const environment = {
   'production': false,
-  'v1Url': 'https://api.geomakeit.com/v1/',
-  'v2Url': 'https://localhost:8000/api/v2/',
+  'apiUrl': 'https://api.geomakeit.com/v1/',
+  'myApiUrl': 'https://localhost:8000/api/v2/',
   'token': '1|XxqPWqgRFk9yj9B7KKmwRBOFziaeiaKsHYb235HA'
 };
