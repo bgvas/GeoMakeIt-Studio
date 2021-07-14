@@ -1,6 +1,7 @@
 import {Component, Input, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import * as EventEmitter from 'events';
+import {FeaturesService} from '../../services/features.service';
 
 @Component({
   selector: 'app-header-bar',
@@ -11,7 +12,7 @@ export class HeaderBarComponent implements OnInit {
 
   open: any;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private service: FeaturesService) { }
 
   ngOnInit(): void {
   }
@@ -31,6 +32,8 @@ export class HeaderBarComponent implements OnInit {
 
   onLogout() {
     localStorage.clear();
+    this.service.logout().subscribe(logoutData => {
+    })
     this.router.navigate(['login']);
   }
 

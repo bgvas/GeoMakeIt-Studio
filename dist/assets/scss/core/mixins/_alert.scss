@@ -52,7 +52,7 @@
 
 @mixin generic-variations($component, $selector-suffix, $color-default, $mixin-name, $mdb-param-1) {
 
-  //setup map to pass parameters (instead of the incredibly long-error-prone list for each and every @include)
+  //setup map to pass parameters (instead of the incredibly long-errorFromProjectSubscribe-prone list for each and every @include)
   $args: (
           //extra: $selector-suffix,
           //default: $color-default,

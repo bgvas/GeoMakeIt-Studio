@@ -1,0 +1,93 @@
+<div [formGroup]="userDetailsForm">
+    <table class="w-100 border mat-h5">
+        <tr  class="bg-white border border-secondary">
+            <td>
+                <mat-label>
+                    <strong>Username</strong>
+                    <input type="text" class="form-control h4" formControlName="username">
+                    <mat-error *ngIf="userDetailsForm.get('username').getError('required') && userDetailsForm.get('username').touched">
+                        Username can't be empty
+                    </mat-error>
+                </mat-label>
+            </td>
+        </tr>
+        <tr class="bg-white border border-secondary">
+            <td>
+                <mat-label>
+                    <strong>First name</strong>
+                    <input type="text" class="form-control h4" formControlName="fname">
+                    <mat-error *ngIf="userDetailsForm.get('fname').getError('required') && userDetailsForm.get('username').touched">
+                        First name can't be empty
+                    </mat-error>
+                </mat-label>
+            </td>
+        </tr>
+        <tr class="bg-white border border-secondary">
+            <td>
+                <mat-label>
+                    <strong>Last name</strong>
+                    <input type="text" class="form-control h4" formControlName="lname">
+                    <mat-error *ngIf="userDetailsForm.get('lname').getError('required') && userDetailsForm.get('username').touched">
+                        Last name can't be empty
+                    </mat-error>
+                </mat-label>
+            </td>
+        </tr>
+        <tr class="bg-white border border-secondary">
+            <td>
+                <mat-label>
+                    <strong>Email</strong>
+                    <input type="text" class="form-control h4" formControlName="email">
+                    <mat-error *ngIf="userDetailsForm.get('email').getError('required') && userDetailsForm.get('email').touched">
+                        Email can't be empty
+                    </mat-error>
+                    <mat-error *ngIf="userDetailsForm.get('email').getError('email') && userDetailsForm.get('email').touched">
+                        Not a valid email address
+                    </mat-error>
+                </mat-label>
+            </td>
+        </tr>
+        <tr class="bg-white border border-secondary">
+            <td>
+                <mat-label>
+                    <strong>User is active</strong>
+                    <select class="form-select" formControlName="isActive">
+                        <option value="true">true</option>
+                        <option value="false">false</option>
+                    </select>
+                </mat-label>
+            </td>
+        </tr>
+        <tr class="bg-white border border-secondary">
+            <td>
+                <mat-label>
+                    <strong>Role</strong>
+                    <select class="form-select" formControlName="role">
+                        <option value="super_admin">Admin</option>
+                        <option value="game_author">Game author</option>
+                        <option value="plugin_developer">Plugin developer</option>
+                    </select>
+                </mat-label>
+            </td>
+        </tr>
+    </table>
+    <div class="row">
+        <div class="col-6">
+            <button class="btn btn-dark rounded text-lowercase" [disabled]="userDetailsForm.invalid" (click) = "onSubmit()" >
+                Save
+            </button>
+        </div>
+        <div class="col-6 text-right">
+            <button class="btn btn-outline-secondary rounded text-lowercase" (click)="onCancel()">
+                Cancel
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+

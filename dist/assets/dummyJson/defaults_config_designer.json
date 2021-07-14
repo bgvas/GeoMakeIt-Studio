@@ -8,7 +8,11 @@
       "components": {
         "questions.allowed_wrong_answers_per_question": {
           "type": "integer",
-          "validation": ".....",
+          "validation": [
+            {"Required": true},
+            {"Max": 121},
+            {"Min": 90}
+          ],
           "tooltip": "......."
         },
         "questions.reward_on_correct": {
@@ -16,14 +20,18 @@
           "items": [
             "plugin_identifier::command <parameters and flags"
           ],
-          "validation": "....."
+          "validation": [
+            {"Required": true}
+          ]
         },
         "questions.reward_on_wrong": {
           "type": "arrayOfCommands",
           "items": [
             "plugin_identifier::command <parameters and flags"
           ],
-          "validation": "....."
+          "validation": [
+            {"Required": true}
+          ]
         }
       }
     },
@@ -33,26 +41,33 @@
       "components": {
         "quizzes.next_question_delay": {
           "type": "integer",
-          "validation": ".....",
+          "validation": [
+            {"Required": true}
+          ],
           "tooltip": ".......",
           "placeholder": "type an integer"
         },
         "quizzes.ratio_for_success": {
           "type": "float",
-          "validation": "....."
+          "validation": [
+            {"Required": true}
+          ]
         },
         "quizzes.reward_on_success": {
           "type": "arrayOfCommands",
           "items": [
             "plugin_identifier::command <parameters and flags>"
           ],
-          "validation": "....."
+          "validation": [
+            {"Required": true}
+          ]
         },
         "quizzes.reward_on_failure": {
           "type": "integer",
-          "validation": "....."
+          "validation": [
+            {"Required": true}
+          ]
         }
-
       }
     },
     "2": {
@@ -61,25 +76,32 @@
       "components": {
         "fight.date_of_fight": {
           "type": "integer",
-          "validation": ".....",
+          "validation": [
+            {"Required": true}
+          ],
           "tooltip": "choose date"
         },
         "fight.ratio_for_success": {
           "type": "float",
-          "validation": "....."
+          "validation": [
+            {"Required": true}
+          ]
         },
         "fight.reward_on_success": {
           "type": "arrayOfIntegers",
+          "validation": [
+            {"Required": true}
+          ],
           "items": [
             "plugin_identifier::command <parameters and flags>"
-          ],
-          "validation": "....."
+          ]
         },
         "fight.reward_on_failure": {
           "type": "integer",
-          "validation": "....."
+          "validation": [
+            {"Required": true}
+          ]
         }
-
       }
     }
   }

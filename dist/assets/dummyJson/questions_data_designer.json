@@ -11,7 +11,11 @@
       "components":{
         "question":{
           "type":"textBox",
-          "validation":"required|string|min:5|max:80",
+          "validation": [
+            {
+              "Required": true
+            }
+          ],
           "tooltip":"The question that the user will have to answer",
           "placeholder": "type text"
         },
@@ -24,17 +28,24 @@
             "multiple_choice_all",
             "fill_in_the_blank"
           ],
-          "validation":"required"
+          "validation": [
+            {
+              "Required": true
+            }
+          ]
         },
         "possible_answers":{
           "type":"arrayOfStrings",
-          "validation":"visible_if:this.question_type,(multiple_choice, multiple_choice_any, multiple_choice_all)"
+          "validations":"visible_if:this.question_type,(multiple_choice, multiple_choice_any, multiple_choice_all)"
         },
         "correct_answer":{
           "type":"textBox",
           "tooltip":"The unique id of a possible answer",
           "placeholder":"0",
-          "validation":"required_if:this.question_type,(multiple_choice, multiple_choice_any, multiple_choice_all)"
+          "validations":"required_if:this.question_type,(multiple_choice, multiple_choice_any, multiple_choice_all)"
+        },
+        "coordinates": {
+          "type": "map"
         }
       }
     },
@@ -43,7 +54,11 @@
       "components":{
         "image":{
           "type":"image",
-          "validation":""
+          "validation": [
+            {
+              "Required": true
+            }
+          ]
         }
       }
     }

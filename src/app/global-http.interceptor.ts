@@ -24,7 +24,7 @@ export class GlobalHttpInterceptor implements HttpInterceptor {
     // Todo  add Uth Token Service //
     const tokenV2 = sessionStorage.getItem('v2Token');
     const tokenV1 = sessionStorage.getItem('v1Token');
-    if (request.url.includes('api.')) {
+    if (request.url.includes('/v1/')) {
       this.requestWithAuth = request.clone({
         setHeaders: {
           Authorization: 'Bearer ' + tokenV1
