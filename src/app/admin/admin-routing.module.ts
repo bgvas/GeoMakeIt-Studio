@@ -2,10 +2,16 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {AdminHomeComponent} from './components/home/adminHome.component';
 import {AdminGuardService as AdminGuard} from '../authentication/services/admin-guard.service';
+import {UserManagementComponent} from './user-management/user-management.component';
+import {EditUserComponent} from './components/edit-user/edit-user.component';
+import {CreateUserComponent} from './create-user/create-user.component';
 
 const routes: Routes = [
 
   { path: 'home',  component: AdminHomeComponent, canActivate: [AdminGuard]},
+  { path: 'users',  component: UserManagementComponent, canActivate: [AdminGuard]},
+  { path: 'users/edit',  component: EditUserComponent, canActivate: [AdminGuard]},
+  { path: 'users/new',  component: CreateUserComponent, canActivate: [AdminGuard]},
 ];
 
 @NgModule({

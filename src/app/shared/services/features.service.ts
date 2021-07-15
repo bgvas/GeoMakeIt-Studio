@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
+import {AuthService} from '../../authentication/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class FeaturesService {
   aProject: any;
   aPlugin: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   set project(project) {
     this.aProject = project;
@@ -34,5 +35,9 @@ export class FeaturesService {
 
   getStepByStepImages(): Observable<any> {
     return this.http.get('assets/dummyJson/stepByStep-images.json');
+  }
+
+  logout(): Observable<any> {
+    return this.authService.logout();
   }
 }

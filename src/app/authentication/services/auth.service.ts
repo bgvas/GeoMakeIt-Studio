@@ -57,11 +57,12 @@ export class AuthService {
      return this.http.post(environment.v2Url + 'auth/login', credentials);
    }
 
-  logout() {
+  logout(): Observable<any> {
     sessionStorage.removeItem('currentUser');
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('user');
     localStorage.removeItem('role');
     this.currentUserSubject.next(null);
+    return this.http.get(environment.v2Url + 'auth/logout');
   }
 }

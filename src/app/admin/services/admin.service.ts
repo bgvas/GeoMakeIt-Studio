@@ -12,17 +12,17 @@ import {environment} from '../../../environments/environment';
 })
 export class AdminService {
 
-
+  _storedObject: any;
 
   constructor(private http: HttpClient, private pluginService: PluginService) { }
 
-  getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(environment.v2Url + 'user/all').pipe(map(e => {
+  getAllUsers(): Observable<any[]> {
+    return this.http.get<any[]>(environment.v2Url + 'user/all').pipe(map(e => {
       return (e.filter((user: User) => user.role !== 'super_admin'));
     }))
   }
 
-  getGameAuthorsFromAllUsers(): Observable<any> {
+  /*getGameAuthorsFromAllUsers(): Observable<any> {
     return this.getAllUsers().pipe(map(e => {
       return e.filter((gameAuthor: User) => gameAuthor.role === 'game_author');
     }));
@@ -32,6 +32,18 @@ export class AdminService {
     return this.getAllUsers().pipe(map(e => {
       return e.filter((pluginDev: User) => pluginDev.role === 'plugin_developer');
     }));
+  }*/
+
+  getUserOnlineStatus(): Observable<any> {
+    return this.http.get(environment.v2Url + 'user/status');
+  }
+
+  set storeObject(obj) {
+    this._storedObject = obj;
+  }
+
+  get storeObject() {
+    return this._storedObject;
   }
 
 }

@@ -20,7 +20,7 @@
                     <span class="font-weight-bold">Created Plugins</span>
                     <app-spinner class="mt-2" [visible]="isActivePluginSpinner"></app-spinner>
                     <div class="col-12 mt-2">
-                        <h1 class="text-info">{{uploadedPluginsValues}}</h1>
+                        <h1 class="text-info">{{numberOfUploadedPlugins}}</h1>
                     </div>
                 </div>
             </div>
@@ -31,35 +31,23 @@
                     <span class="font-weight-bold">Created Games</span>
                     <app-spinner class="mt-2" [visible]="isActiveProjectsSpinner"></app-spinner>
                     <div class="col-12 mt-2">
-                        <h1 class="text-warning">{{createdGamesValues}}</h1>
+                        <h1 class="text-warning">{{numberOfCreatedGames}}</h1>
                     </div>
                 </div>
             </div>
         </div>
         <hr style="max-width: 98%">
+        <p class="text-center" *ngIf="errorMessage !== null">
+            <mat-error style="font-weight: bold; text-decoration: underline">{{errorMessage}}</mat-error>
+        </p>
         <div class="col-6 mt-2 text-center">
             <span class="font-weight-bold h3">Game Authors</span>
-            <table class="w-100 border mat-h5">
-                <tr class="bg-dark text-light">
-                    <td>Name</td><td>Username</td><td>Last activity</td><td>Games</td><td>Status</td>
-                </tr>
-                <tr class="mb-1" *ngFor="let gameAuthor of allGameAuthors">
-                    <td>{{gameAuthor.name}}</td><td>{{gameAuthor.username}}</td><td>01/07/2021</td><td>12</td><td class="text-danger">offline</td>
-                </tr>
-            </table>
+            <app-users-list [usersData]="gameAuthors"></app-users-list>
         </div>
         <div class="col-6 mt-2 text-center">
             <span class="font-weight-bold h3">Plugin Developers</span>
-            <table class="w-100 border mat-h5">
-                <tr class="bg-dark text-light">
-                    <td>Name</td><td>Username</td><td>Last activity</td><td>Games</td><td>Plugins</td><td>Status</td>
-                </tr>
-                <tr class="mb-1" *ngFor="let pluginDeveloper of allPluginDevelopers">
-                    <td>{{pluginDeveloper.name}}</td><td>{{pluginDeveloper.username}}</td><td>01/07/2021</td><td>12</td><td>3</td><td class="text-danger">offline</td>
-                </tr>
-            </table>
+            <app-users-list [usersData]="pluginDevelopers"></app-users-list>
         </div>
     </div>
 </div>
-
 

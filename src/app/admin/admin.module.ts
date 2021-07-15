@@ -8,6 +8,13 @@ import {AdminHomeComponent} from './components/home/adminHome.component';
 import {SharedModule} from '../shared/shared.module';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
+import { UserManagementComponent } from './user-management/user-management.component';
+import { UsersListComponent } from './components/shared/users-list/users-list.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { EditUserComponent } from './components/edit-user/edit-user.component';
+import { UserDetailsTableComponent } from './components/shared/user-details-table/user-details-table.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { CreateUserComponent } from './create-user/create-user.component';
 
 
 
@@ -17,7 +24,12 @@ import {MatListModule} from '@angular/material/list';
   declarations: [
     AdminHeadBarComponent,
     AdminSideBarComponent,
-    AdminHomeComponent
+    AdminHomeComponent,
+    UserManagementComponent,
+    UsersListComponent,
+    EditUserComponent,
+    UserDetailsTableComponent,
+    CreateUserComponent
   ],
   exports: [
     AdminHeadBarComponent,
@@ -29,8 +41,11 @@ import {MatListModule} from '@angular/material/list';
         AdminRoutingModule,
         SharedModule,
         MatIconModule,
-        MatListModule
-],
+        MatListModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        FormsModule
+    ],
   providers: [
       AdminService
   ]

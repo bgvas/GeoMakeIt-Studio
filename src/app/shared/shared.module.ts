@@ -40,9 +40,7 @@ import { DonutChartComponent } from './components/donut-chart/donut-chart.compon
 import {NgApexchartsModule} from 'ng-apexcharts';
 import {PluginModule} from '../plugins/plugin.module';
 import { PluginCardComponent } from '../plugins/components/plugin-card/plugin-card.component';
-
-
-
+import { NumberToBooleanPipe} from './pipes/number-to-boolean.pipe';
 
 
 
@@ -69,7 +67,8 @@ import { PluginCardComponent } from '../plugins/components/plugin-card/plugin-ca
     GeomakeitHelpComponent,
     StepByStepComponent,
     DonutChartComponent,
-    PluginCardComponent
+    PluginCardComponent,
+    NumberToBooleanPipe
   ],
     exports: [
         SpinnerComponent,
@@ -81,7 +80,8 @@ import { PluginCardComponent } from '../plugins/components/plugin-card/plugin-ca
         FooterBarComponent,
         NotificationsComponent,
         MapComponent,
-        DonutChartComponent
+        DonutChartComponent,
+        NumberToBooleanPipe
     ],
     imports: [
         CommonModule,
