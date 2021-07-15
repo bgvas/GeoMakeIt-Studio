@@ -3,7 +3,6 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {passwordMatchValidator} from '../../../shared/custom-validators/passwordsMatchValidator';
 import {NewAccount} from '../../../user-management/models/new-account';
 import {Router} from '@angular/router';
-import {UserService} from '../../../user-management/services/user.service';
 import {AuthService} from '../../services/auth.service';
 
 
@@ -49,7 +48,7 @@ export class RegistrationComponent implements OnInit {
         this.service._element = [newAccount.email, data.access_token];
         this.router.navigate(['confirm']);
       },
-          (error: Error) => {
+          (error) => {
               this.router.navigate(['login']);
               console.log('Error registration: ' + error.message);
           })

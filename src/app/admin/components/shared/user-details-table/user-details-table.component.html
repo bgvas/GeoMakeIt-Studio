@@ -1,5 +1,5 @@
 <div [formGroup]="userDetailsForm">
-    <table class="w-100 border mat-h5">
+    <table class="w-100 border mat-h5 m-1">
         <tr  class="bg-white border border-secondary">
             <td>
                 <mat-label>
@@ -52,8 +52,8 @@
                 <mat-label>
                     <strong>User is active</strong>
                     <select class="form-select" formControlName="isActive">
-                        <option value="true">true</option>
-                        <option value="false">false</option>
+                        <option [ngValue]= true >true</option>
+                        <option [ngValue]= false >false</option>
                     </select>
                 </mat-label>
             </td>
@@ -63,8 +63,8 @@
                 <mat-label>
                     <strong>Role</strong>
                     <select class="form-select" formControlName="role">
-                        <option value="super_admin">Admin</option>
                         <option value="game_author">Game author</option>
+                        <option value="super_admin">Admin</option>
                         <option value="plugin_developer">Plugin developer</option>
                     </select>
                 </mat-label>

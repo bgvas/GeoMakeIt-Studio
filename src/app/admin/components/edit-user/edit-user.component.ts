@@ -3,7 +3,7 @@ import {AdminService} from '../../services/admin.service';
 import {UserService} from '../../../user-management/services/user.service';
 import {NotificationsComponent} from '../../../shared/components/notifications/notifications.component';
 import {Router} from '@angular/router';
-import {Error} from '../../../classes/error/error';
+
 
 @Component({
   selector: 'app-edit-user',
@@ -27,7 +27,7 @@ export class EditUserComponent implements OnInit {
           this.notification.showNotification(deleted.displayed_message, 'success')
           this.router.navigate(['admin/users']);
         },
-            (error: Error) => {
+            (error) => {
               this.notification.showNotification(error.displayed_message, 'danger')
               this.router.navigate(['admin/users']);
               console.log('Error in delete-user' + error.message + error.code);
@@ -37,11 +37,11 @@ export class EditUserComponent implements OnInit {
 
   onSubmit(form) {
       form.isActive = (form.isActive === 'true') ? 1 : 0;
-      this.userService.updateUser(form).subscribe(updated => {
+      this.userService.updateUser(form, this.user?.id).subscribe(updated => {
         this.notification.showNotification(updated.displayed_message, 'success')
         this.router.navigate(['admin/users']);
       },
-      (error: Error) => {
+      (error) => {
         this.notification.showNotification('Error in update process', 'danger')
         this.router.navigate(['admin/users']);
         console.log('Error in update-user ' + error.message + ' - ' + error.code);

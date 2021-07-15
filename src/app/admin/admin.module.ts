@@ -14,6 +14,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { UserDetailsTableComponent } from './components/shared/user-details-table/user-details-table.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { CreateUserComponent } from './create-user/create-user.component';
 
 
 
@@ -27,7 +28,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     UserManagementComponent,
     UsersListComponent,
     EditUserComponent,
-    UserDetailsTableComponent
+    UserDetailsTableComponent,
+    CreateUserComponent
   ],
   exports: [
     AdminHeadBarComponent,

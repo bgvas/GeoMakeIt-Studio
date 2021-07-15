@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-user-details-table',
@@ -12,7 +13,7 @@ export class UserDetailsTableComponent implements OnInit {
   @Output() detailsForm = new EventEmitter();
   userDetailsForm: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -36,11 +37,11 @@ export class UserDetailsTableComponent implements OnInit {
     this.userDetailsForm.get('lname').setValue(this.user?.lname);
     this.userDetailsForm.get('email').setValue(this.user?.email);
     this.userDetailsForm.get('isActive').setValue(this.user?.isActive === 1);
-    this.userDetailsForm.get('role').setValue(this.user?.role);
+    this.userDetailsForm.get('role').setValue(this.user?.role !== undefined ? this.user?.role : 'game_author');
   }
 
   onCancel() {
-
+      this.router.navigate(['admin/users']);
   }
 
   onSubmit() {
