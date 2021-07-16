@@ -37,7 +37,7 @@ export class AuthService {
   }
 
   getAllUsersFromDummyJson(): Observable<User> {
-    const url = '../assets/dummyJson/users.json';
+    const url = 'assets/dummyJson/users.json';
     return this.http.get<User>(url);
   }
 
