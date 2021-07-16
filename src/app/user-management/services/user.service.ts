@@ -16,12 +16,12 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getUserProfile(): Observable<User> {
-    const path = './assets/dummyJson/userProfile.json';
+    const path = 'assets/dummyJson/userProfile.json';
     return this.http.get<User>(path);
   }
 
   /*putUserProfile(userId, userProfileToUpdate: User): Observable<any> {
-    const path = './assets/dummyJson/userProfile.json';
+    const path = 'assets/dummyJson/userProfile.json';
     return this.http.put(path, userProfileToUpdate);
   }*/
 
