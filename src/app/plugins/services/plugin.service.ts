@@ -7,17 +7,17 @@ import {Plugin} from '../models/plugin';
 import {RootPluginReleases} from '../models/available_plugins/root-plugin-releases';
 import {PluginRelease} from '../models/available_plugins/plugin-release';
 import {map} from 'rxjs/operators';
+import {json} from 'express';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PluginService {
 
-  path = environment.v1Url + 'plugins';
-  newPathUrl = environment.v2Url;
-
+  path = environment.be_Url + 'plugins';
   _plugin: any;
   pluginReleases = new Array<PluginRelease>();
+  currentUser = JSON.parse(sessionStorage.getItem('user'));
 
   constructor(private http: HttpClient) { }
 
@@ -37,13 +37,9 @@ export class PluginService {
     return this.pluginReleases;
   }
 
-  getInstalledPluginsOfAGame(gameId): Observable<any> {
-    return this.http.get<any>(this.path + '/' + gameId);
-  }
 
   getAvailablePlugins(): Observable<RootPlugins> {
-     return this.http.get<RootPlugins>(this.path);
-    // return this.http.get<any>('assets/dummyJson/availablePlugins.json')
+     return this.http.get<RootPlugins>(this.path + '/all');
   }
 
   getNumberOfAvailablePlugins(): Observable<number> {
@@ -53,11 +49,11 @@ export class PluginService {
   }
 
   getAllPluginsOfUser(): Observable<RootPlugins> {
-    return this.http.get<RootPlugins>(this.path);
+    return this.http.get<RootPlugins>(this.path + '/user/' + this.currentUser.id);
   }
 
-  getAllPluginsByUserId(userId): Observable<any> {
-    return this.http.get<any>(this.newPathUrl + 'plugin/user/1');
+  getAllPluginsByUserId(userId): Observable<RootPlugins> {
+    return this.http.get<RootPlugins>(this.path + '/user/' + userId);
   }
 
   getReleasesOfPlugin(pluginId): Observable<RootPluginReleases> {
@@ -74,10 +70,10 @@ export class PluginService {
     return this.http.post(this.path + '/' + pluginId + '/releases', release)
   }
 
-  getAllPlugins(): Observable<RootPlugins> {
+  /*getAllPlugins(): Observable<RootPlugins> {
     return this.http.get<RootPlugins>(this.newPathUrl + 'plugin/all');
     // return this.http.get<RootPlugins>('assets/dummyJson/availablePlugins.json')
-  }
+  }*/
 
   putPluginById(pluginId: number, updatedPlugin: Plugin): Observable<any> {
     return this.http.put<any>(this.path + '/' + pluginId, updatedPlugin);

@@ -116,7 +116,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
       projectToUpdate.title = this.projectForm.get('title').value;
       projectToUpdate.description = this.projectForm.get('description').value;
 
-      this.projectService.putProject(this.project.id, projectToUpdate).subscribe(update => {
+      this.projectService.updateGame(this.project.id, projectToUpdate).subscribe(update => {
         console.log(update);
       },
           (e: Error) => {

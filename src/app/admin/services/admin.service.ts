@@ -13,29 +13,12 @@ import {environment} from '../../../environments/environment';
 export class AdminService {
 
   _storedObject: any;
+  private path = environment.be_Url;
 
-  constructor(private http: HttpClient, private pluginService: PluginService) { }
-
-  getAllUsers(): Observable<any[]> {
-    return this.http.get<any[]>(environment.v2Url + 'user/all').pipe(map(e => {
-      return (e.filter((user: User) => user.role !== 'super_admin'));
-    }))
-  }
-
-  /*getGameAuthorsFromAllUsers(): Observable<any> {
-    return this.getAllUsers().pipe(map(e => {
-      return e.filter((gameAuthor: User) => gameAuthor.role === 'game_author');
-    }));
-  }
-
-  getPluginDevelopersFromAllUsers(): Observable<any> {
-    return this.getAllUsers().pipe(map(e => {
-      return e.filter((pluginDev: User) => pluginDev.role === 'plugin_developer');
-    }));
-  }*/
+  constructor(private http: HttpClient) { }
 
   getUserOnlineStatus(): Observable<any> {
-    return this.http.get(environment.v2Url + 'user/status');
+    return this.http.get(this.path + 'users/status');
   }
 
   set storeObject(obj) {

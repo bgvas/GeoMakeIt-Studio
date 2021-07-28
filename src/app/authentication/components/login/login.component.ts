@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   initializeForm() {
 
     this.loginForm = this.fb.group({
-      username: this.fb.control('', Validators.required),
+      email: this.fb.control('', Validators.required),
       password: this.fb.control('', Validators.required)
     })
   }
@@ -39,11 +39,10 @@ export class LoginComponent implements OnInit {
    this.isSpinnerActive = true;
    this.service.login(this.loginForm.value).subscribe(isAuthenticatedUser => {
      if (typeof isAuthenticatedUser !== 'undefined') {
-       sessionStorage.setItem('v1Token', environment.v1Token);
-       sessionStorage.setItem('v2Token', isAuthenticatedUser.access_token);
-       localStorage.setItem('role', isAuthenticatedUser.user.role);
+       sessionStorage.setItem('token', isAuthenticatedUser.access_token);
+       localStorage.setItem('role_id', isAuthenticatedUser.user.role_id);
        sessionStorage.setItem('user', JSON.stringify(isAuthenticatedUser));
-       if (this.userService.getRole() === 'super_admin') {
+       if (this.userService.getRoleId() === '1') {
          this.router.navigate(['admin/home'])
        } else  { this.router.navigate(['home'])}
        this.isSpinnerActive = false;

@@ -15,18 +15,18 @@
                 <table class="w-100 border mb-2">
                     <tr class="bg-dark text-light text-center">
                         <td></td>
-                        <td>Username</td>
+                        <td>Name</td>
+                        <td>Email</td>
                         <td>Role</td>
-                        <td>isActive</td>
-                        <td>Last activity</td>
+                        <td>Created at</td>
                         <td></td>
                     </tr>
-                    <tr class="text-center" *ngFor="let user of usersList; let i = index" id="user{{i+1}}">
+                    <tr class="text-center mat-h5" *ngFor="let user of usersList; let i = index" id="user{{i+1}}">
                         <td class="pl-2">{{i + 1}}</td>
-                        <td>{{user.username}}</td>
-                        <td>{{user.role}}</td>
-                        <td>{{user.isActive | numberToBoolean}}</td>
-                        <td>{{user.last_activity | date: 'dd/MM/yy HH:mm': timeZone}}</td>
+                        <td>{{user.name}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.role_id | roleIdToRoleName}}</td>
+                        <td>{{user.created_at | date: 'dd/MM/yy'}}</td>
                         <td><a class="text-lowercase btn btn-warning" (click)="onEdit(user)">edit</a></td>
                     </tr>
                 </table>

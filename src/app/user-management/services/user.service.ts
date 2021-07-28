@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {User} from '../models/user';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {environment} from '../../../environments/environment';
-import {map} from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ import {map} from 'rxjs/operators';
 export class UserService {
 
   _element: any;
-  url2 = environment.v2Url;
+  path = environment.be_Url + 'users';
 
   constructor(private http: HttpClient) { }
 
@@ -33,27 +33,30 @@ export class UserService {
     return this._element;
   }
   
-  getRole(): string {
-    return localStorage.getItem('role');
+  getRoleId(): any {
+    return localStorage.getItem('role_id');
   }
 
-  getAllUsers(): Observable<any[]> {
-    return this.http.get<any[]>(this.url2 + 'user/all').pipe(map(e => {
-      return (e.filter((user: User) => user.role !== 'super_admin'));
-    }))
+  getAllUsers(): Observable<User> {
+    return this.http.get<User>(this.path + '/all');
   }
 
   deleteUser(userId): Observable<any> {
-    return this.http.delete(this.url2 + 'user/delete/' + userId);
+    return this.http.delete(this.path + '/delete/' + userId);
   }
 
-  updateUser(user: User, id): Observable<any> {
-    return this.http.put(this.url2 + 'user/update', [id, user]);
+  updateUser(user, id): Observable<any> {
+    return this.http.put(this.path + '/update/' + id, [user]);
   }
 
   newUser(user: User): Observable<any> {
-    return this.http.post(this.url2 + 'user/new', [user]);
+    return this.http.post(this.path + '/new', [user]);
   }
+
+  checkIfEmailExists(email): Observable<any> {
+    return this.http.post(this.path + '/check/email', {'email': email});
+  }
+
  }
 
 

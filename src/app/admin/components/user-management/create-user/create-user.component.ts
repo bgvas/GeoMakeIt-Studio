@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from '../../user-management/models/user';
-import {UserService} from '../../user-management/services/user.service';
-import {NotificationsComponent} from '../../shared/components/notifications/notifications.component';
+import {User} from '../../../../user-management/models/user';
+import {UserService} from '../../../../user-management/services/user.service';
+import {NotificationsComponent} from '../../../../shared/components/notifications/notifications.component';
 import {Router} from '@angular/router';
 
 @Component({
@@ -19,7 +19,6 @@ export class CreateUserComponent implements OnInit {
   }
 
   onSubmit(form: User) {
-
    form.password = 'test';
    this.userService.newUser(form).subscribe(newUser => {
       this.notification.showNotification('User created successfully.', 'success');

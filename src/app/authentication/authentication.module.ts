@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthenticationRoutingModule} from './authentication-routing.module';
 import { AuthService } from './services/auth.service';
-import { CanActivateRouteService } from './services/can-activate-route.service';
+import { CanActivateRouteService } from './guards/can-activate-route.service';
 import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -13,6 +13,9 @@ import {ForgotPasswordComponent} from './components/forgot-password/forgot-passw
 import {RegistrationComponent} from './components/registration/registration.component';
 import {MatInputModule} from '@angular/material/input';
 import { ActivateAccountComponent } from './components/activate-account/activate-account.component';
+import {AdminGuardService} from './guards/admin-guard.service';
+import {UserGuardService} from './guards/user-guard.service';
+import {PluginDeveloperGuardService} from './guards/plugin-developer-guard.service';
 
 
 @NgModule({
@@ -35,7 +38,10 @@ import { ActivateAccountComponent } from './components/activate-account/activate
     ],
   providers: [
       AuthService,
-      CanActivateRouteService
+      CanActivateRouteService,
+      AdminGuardService,
+      UserGuardService,
+      PluginDeveloperGuardService
   ]
 })
 export class AuthenticationModule { }

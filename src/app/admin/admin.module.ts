@@ -8,13 +8,14 @@ import {AdminHomeComponent} from './components/home/adminHome.component';
 import {SharedModule} from '../shared/shared.module';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
-import { UserManagementComponent } from './user-management/user-management.component';
+import { UserManagementComponent } from './components/user-management/user-management.component';
 import { UsersListComponent } from './components/shared/users-list/users-list.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { EditUserComponent } from './components/edit-user/edit-user.component';
+import { EditUserComponent } from './components/user-management/edit-user/edit-user.component';
 import { UserDetailsTableComponent } from './components/shared/user-details-table/user-details-table.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { CreateUserComponent } from './create-user/create-user.component';
+import { CreateUserComponent } from './components/user-management/create-user/create-user.component';
+import { ProjectManagementComponent } from './components/project-management/project-management.component';
 
 
 
@@ -29,7 +30,8 @@ import { CreateUserComponent } from './create-user/create-user.component';
     UsersListComponent,
     EditUserComponent,
     UserDetailsTableComponent,
-    CreateUserComponent
+    CreateUserComponent,
+    ProjectManagementComponent
   ],
   exports: [
     AdminHeadBarComponent,

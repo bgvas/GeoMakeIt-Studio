@@ -1,11 +1,10 @@
 <table class="w-100 border mat-h5">
     <tr class="bg-dark text-light">
-        <td>Name</td><td>Username</td><td>Last activity</td><td>Games</td><td>Plugins</td><td>Status</td>
+        <td>Name</td><td>Email</td><td>Games</td><td>Plugins</td><td>Status</td>
     </tr>
     <tr class="mb-1" *ngFor="let userDetails of usersData">
-        <td>{{userDetails.user.fname}} {{userDetails.user.lname}}</td>
-        <td>{{userDetails.user.username}}</td>
-        <td>{{userDetails.user.last_activity | date: 'dd/MM/yy HH:mm': timeZone}}</td>
+        <td>{{userDetails.user.name}}</td>
+        <td>{{userDetails.user.email}}</td>
         <td></td>
         <td></td>
         <td *ngIf="userDetails.status === 'offline'" class="text-danger" style="font-weight: bold">{{userDetails.status}}</td>

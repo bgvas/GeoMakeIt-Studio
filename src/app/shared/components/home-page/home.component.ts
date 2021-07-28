@@ -1,20 +1,20 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GameService} from '../../../games/services/game.service';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Observable, Subject} from 'rxjs';
 import {Game} from '../../../games/models/games/game';
 import {Error} from '../../../classes/error/error';
-import {FeaturesService} from '../../services/features.service';
 import {NotificationsComponent} from '../notifications/notifications.component';
 import {PluginService} from '../../../plugins/services/plugin.service';
 import {Plugin} from '../../../plugins/models/plugin';
+import {AppService} from '../../../app.service';
+import {delay} from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit{
 
   projectList: Game[];
   pluginList: Plugin[];
@@ -24,23 +24,24 @@ export class HomeComponent implements OnInit, OnDestroy {
   errorFromPluginSubscribe: Error;
   notification = new NotificationsComponent();
   private unsubscribe = new Subject<void>();
+  projects = [];
 
-  constructor(private service: GameService, private pluginService: PluginService) { }
+  constructor(private gameService: GameService, private pluginService: PluginService, private appService: AppService) { }
 
   ngOnInit() {
-      this.displaySpinnerForProject = true;
       this.loadListOfProjects();
-      if (localStorage.getItem('role') === 'plugin_developer') {
+      this.displaySpinnerForProject = true;
+      if (this.isPluginDeveloper()) {
           this.displaySpinnerForPlugins = true;
           this.loadListOfPlugins();
       }
   }
 
   loadListOfProjects() {
-      this.service.getGamesOfSpecificUser().subscribe(data => {
-            this.projectList = data.data;
-            this.displaySpinnerForProject = false;    // hide spinner
-          },
+      this.gameService.getAllGamesByUserId(this.appService.GetCurrentUser().id).subscribe( projects => {
+          this.projectList = projects;
+          this.displaySpinnerForProject = false;    // hide spinner
+      },
           error => {
             console.log('List of Projects: ' + error.code + ' - ' + error.message);
             this.errorFromProjectSubscribe = error;
@@ -49,24 +50,20 @@ export class HomeComponent implements OnInit, OnDestroy {
       )
   }
 
-    loadListOfPlugins() {
-        this.pluginService.getAllPluginsOfUser().subscribe(data => {
-                this.pluginList = data.data;
-                this.displaySpinnerForPlugins = false;    // hide spinner
-            },
-            error => {
-                console.log('List of Plugins: ' + error.code + ' - ' + error.message);
-                this.errorFromPluginSubscribe = error;
-                this.displaySpinnerForPlugins = false;    // hide spinner
-            }
-        )
-    }
+   loadListOfPlugins() {
+       this.pluginService.getAllPluginsOfUser().subscribe(plugins => {
+             this.pluginList = plugins.data;
+             this.displaySpinnerForPlugins = false;    // hide spinner
+          },
+          error => {
+              console.log('List of Plugins: ' + error.code + ' - ' + error.message);
+              this.errorFromPluginSubscribe = error;
+              this.displaySpinnerForPlugins = false;    // hide spinner
+          }
+       )
+   }
 
-  // on exit, unsubscribe //
-  ngOnDestroy() {
-    this.unsubscribe.next();
-    this.unsubscribe.complete();
-  }
+
 
   onCreateProject(event) {
      this.loadListOfProjects();
@@ -84,7 +81,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   isPluginDeveloper(): boolean {
-      return (localStorage.getItem('role') === 'plugin_developer');
+      return (localStorage.getItem('role_id') === '3');
   }
 
     // the deletion of the plugin, will be done in Plugin-Card-Component //

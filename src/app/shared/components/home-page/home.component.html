@@ -26,21 +26,21 @@
                                 +
                             </button>
                             <div class="wrapper">
-                                <div class="item" *ngFor="let projectFile of projectList">
+                                <div class="item" *ngFor="let projectFile of projectList ">
                                     <app-project-card [project] = "projectFile" (deleted)="onDeleteProject($event)"></app-project-card>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div *ngIf="!displaySpinnerForProject && projectList?.length === 0">
+                <div *ngIf="!displaySpinnerForProject && projectList?.length  === 0">
                     <div class="col-12 text-left text-secondary mat-h5">
                         You don't have projects
                     </div>
                 </div>
                 <div *ngIf="!displaySpinnerForProject && errorFromProjectSubscribe?.message !== null">
                     <div class="col-12 text-left text-danger">
-                        {{errorFromProjectSubscribe?.message}}
+                        {{errorFromProjectSubscribe?.displayed_message}}
                     </div>
                 </div>
             </div>
@@ -79,7 +79,7 @@
                 </div>
                 <div *ngIf="!displaySpinnerForPlugins && errorFromPluginSubscribe?.message !== null">
                     <div class="col-12 text-left text-danger">
-                        {{errorFromPluginSubscribe?.message}}
+                        {{errorFromPluginSubscribe?.displayed_message}}
                     </div>
                 </div>
             </div>

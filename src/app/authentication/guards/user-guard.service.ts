@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {AuthService} from './auth.service';
+import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 
 
@@ -12,9 +12,9 @@ export class UserGuardService {
 
   // router user guard //
   canActivate(): boolean {
-    const token = sessionStorage.getItem('v2Token');
+    const token = sessionStorage.getItem('token');
 
-    if (token != null && localStorage.getItem('role') === 'game_author' || localStorage.getItem('role') === 'plugin_developer') {
+    if (token != null && localStorage.getItem('role_id') !== '1') {
       return true;
     } else {
       this.router.navigate(['login']);

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {GameRoot} from '../models/games/game-root';
@@ -7,6 +7,9 @@ import {Game} from '../models/games/game';
 import {RootInstalledPlugins} from '../../plugins/models/installed_plugins/root-installed-plugins';
 import {InstallPlugins} from '../models/installPlugins/install-plugins';
 import {projectElements} from '../models/projectElements/project-elements';
+import {delay, filter, map, mergeAll, switchMap} from 'rxjs/operators';
+
+
 
 
 @Injectable({
@@ -15,50 +18,70 @@ import {projectElements} from '../models/projectElements/project-elements';
 export class GameService {
 
   _object: any;
-  path = environment.v1Url + 'games';
+  path = environment.be_Url + 'games';
+
 
   constructor(private http: HttpClient) { }
 
   // Get-Http request //
-  getGameById(id): Observable<GameRoot> {
-    return this.http.get<GameRoot>(this.path + '/' + id);
+  getGameById(id): Observable<Game> {
+    return this.http.get<Game>(this.path + '/id/' + id);
   }
 
-  getAllGames(): Observable<GameRoot> {
-    return this.http.get<GameRoot>(this.path);
+  getAllGames(): Observable<Game[]> {
+    return this.http.get<Game[]>(this.path + '/all');
   }
 
-  // Get-Http request //
-  getGamesOfSpecificUser(): Observable<GameRoot> {
-    return this.http.get<GameRoot>(this.path);
+  getAllActiveGames(): Observable<Game[]> {
+      return this.http.get<Game[]>(this.path + '/all').pipe(
+          map(game => {
+              return game['games'].filter(e => e.deleted_at === null);
+              // return game['games'].forEach(e => e.deleted_at === null //
+          })
+      );
+
+
   }
 
-  // Post-HTTP request //
-  postNewGameForSpecificUser(game: Game): Observable<Game> {
-    return this.http.post<Game>(this.path, game);
-  }
 
-  // Update project title and description
-  putProject(projectId, project: projectElements): Observable<any> {
-    return this.http.put(this.path + '/' + projectId, project);
-  }
+ getAllGamesByUserId(userId): Observable<any> {
+     return this.http.get(this.path + '/user/id/' + userId)
+         .pipe(map((allProjects) => allProjects['games']));
+ }
 
-  // Delete-HTTP request //
-  deleteGameOfSpecificUser(gameId: number): Observable<any> {
-    return this.http.delete(this.path + '/' + gameId);
-  }
+ getAllGamesOfCurrentUser(): Observable<any> {
+    return this.http.get(this.path + '/user/')
+        .pipe(map((allProjects) => allProjects['games']));
+ }
 
-  // Install plugin to project //
-  postPluginToProject(projectId: number, plugin: InstallPlugins): Observable<InstallPlugins> {
-    return this.http.post<InstallPlugins>(this.path + '/' + projectId + '/plugins', plugin);
-  }
+ // Post-HTTP request //
+ createNewGame(newGame: Game): Observable<Game> {
+   return this.http.post<Game>(this.path + '/new', [newGame]);
+ }
 
-  deleteInstalledPluginFromGame(gameId: number, pluginId: number): Observable<any> {
-   return this.http.delete(this.path + '/' + gameId + '/plugins/' + pluginId);
-  }
 
-  getInstalledPluginsOfGame(gameId: number): Observable<RootInstalledPlugins> {
-    /*return this.http.get<RootInstalledPlugins>(this.path + '/' + gameId + '/plugins'); */
+ // Update project title and description
+ updateGame(id, gameChanges: projectElements): Observable<any> {
+   return this.http.put(this.path + '/update/' + id, gameChanges);
+ }
+
+ // Delete-HTTP request //
+ deleteGame(id: number): Observable<any> {
+   return this.http.delete(this.path + '/delete/' + id);
+ }
+
+
+ // Install plugin to project //
+ postPluginToProject(projectId: number, plugin: InstallPlugins): Observable<InstallPlugins> {
+   return this.http.post<InstallPlugins>(this.path + '/' + projectId + '/plugins', plugin);
+ }
+
+ deleteInstalledPluginFromGame(gameId: number, pluginId: number): Observable<any> {
+  return this.http.delete(this.path + '/' + gameId + '/plugins/' + pluginId);
+ }
+
+ getInstalledPluginsOfGame(gameId: number): Observable<RootInstalledPlugins> {
+   /*return this.http.get<RootInstalledPlugins>(this.path + '/' + gameId + '/plugins'); */
     return this.http.get<RootInstalledPlugins>('assets/dummyJson/installedPlugins.json');
   }
 

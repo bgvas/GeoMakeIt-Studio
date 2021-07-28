@@ -23,18 +23,18 @@
                                     <h1 class="text-white">Login</h1>
                                 </div>
                                 <div class="col-12">
-                                    <input class="form-control h5 text-white" type="text" placeholder="Username" formControlName="username">
-                                    <mat-error *ngIf="loginForm.get('username').touched && loginForm.get('username').invalid">Username is required</mat-error>
+                                    <input class="form-control h5 text-white" type="text" placeholder="Email" formControlName="email">
+                                    <mat-error *ngIf="loginForm.get('email').touched && loginForm.get('email').getError('required')">Email is required</mat-error>
                                 </div>
                             </div>
                             <div class="row form-group">
                                 <div class="col-12">
                                     <input class="form-control h5 text-white" type="password" placeholder="Password" formControlName="password">
-                                    <mat-error *ngIf="loginForm.get('password').touched && loginForm.get('password').invalid">Password is required</mat-error>
+                                    <mat-error *ngIf="loginForm.get('password').touched && loginForm.get('password').getError('required')">Password is required</mat-error>
                                 </div>
                             </div>
                             <div *ngIf="errorLogin" class="text-danger font-weight-bold">
-                                Error username or password. Try again
+                                Error email or password. Try again
                             </div>
                             <div class="row">
                                 <div class="col-12">
@@ -64,13 +64,13 @@
                 </div>
                 <hr>
                 <div class="col-4 mat-h5">
-                    Admin --> username: admin, password: test
+                    Admin --> email: admin, password: test
                 </div>
                 <div class="col-4 mat-h5">
-                    Plugin Developer --> username: developer, password: test
+                    Plugin Developer --> email: developer, password: test
                 </div>
                 <div class="col-4 mat-h5">
-                    Game author --> username: user, password: test
+                    Game author --> email: user, password: test
                 </div>
             </div>
         </div>

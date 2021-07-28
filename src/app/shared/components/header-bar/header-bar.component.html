@@ -1,10 +1,13 @@
 <nav class="navbar navbar-dark bg-dark fixed-top mr-0">
     <div class="row w-100">
-        <div class="col-9">
+        <div class="col-2">
             <img src="assets/img/geomakeit_logo.png" width="200" alt="GeoMakeIt">
         </div>
+        <div class="col-7 text-center">
+            Name:  {{authenticated.user?.name}}
+        </div>
         <div class="col-3 text-white justify-content-center align-items-center" style="display: flex">
-            <div class="row">
+            <div class="row w-100">
                 <div class="col-4">
                     <a role="button" style="background-color: inherit" (click)="onHomeClick()">Home</a>
                 </div>
@@ -12,7 +15,7 @@
                     <div ngbDropdown >
                         <a role="button" class="text-white" style="background-color: inherit" id="helpDropdown" ngbDropdownToggle>Help</a>
                         <div ngbDropdownMenu aria-labelledby="helpDropdown">
-                            <button ngbDropdownItem data-toggle="modal" data-target="#helpTag">
+                            <button ngbDropdownItem  data-toggle="modal" data-target="#helpTag">
                                Help info
                             </button>
                             <button ngbDropdownItem routerLinkActive="active" routerLink="/guide">

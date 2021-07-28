@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {AdminService} from '../../services/admin.service';
-import {UserService} from '../../../user-management/services/user.service';
-import {NotificationsComponent} from '../../../shared/components/notifications/notifications.component';
+import {AdminService} from '../../../services/admin.service';
+import {UserService} from '../../../../user-management/services/user.service';
+import {NotificationsComponent} from '../../../../shared/components/notifications/notifications.component';
 import {Router} from '@angular/router';
 
 
@@ -36,7 +36,6 @@ export class EditUserComponent implements OnInit {
   }
 
   onSubmit(form) {
-      form.isActive = (form.isActive === 'true') ? 1 : 0;
       this.userService.updateUser(form, this.user?.id).subscribe(updated => {
         this.notification.showNotification(updated.displayed_message, 'success')
         this.router.navigate(['admin/users']);

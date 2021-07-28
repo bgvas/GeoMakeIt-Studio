@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import {Game} from '../../models/games/game';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {AppService} from '../../../app.service';
 
 @Component({
   selector: 'app-games',
@@ -25,7 +26,7 @@ export class GamesComponent implements OnInit, OnDestroy {
    
 
 
-  constructor(private service: GameService, private location: Location) { }
+  constructor(private service: GameService, private location: Location, private appService: AppService) { }
 
   ngOnInit(): void {
       this.showSpinner = true; // display spinner while loading //
@@ -45,7 +46,7 @@ export class GamesComponent implements OnInit, OnDestroy {
     // onClick delete-button, delete game and display notification
   onDelete(data): void {
       if (data) {
-            this.service.deleteGameOfSpecificUser(this.service.object.id).pipe(takeUntil(this.unsubscribe)).subscribe(deletedGame => {
+            this.service.deleteGame(this.service.object.id).pipe(takeUntil(this.unsubscribe)).subscribe(deletedGame => {
               this.loadListOfGames();
               this.afterDelete.showNotification('Game deleted!', 'success');
             },
@@ -58,8 +59,8 @@ export class GamesComponent implements OnInit, OnDestroy {
 
 
   loadListOfGames() {
-        this.service.getGamesOfSpecificUser().pipe(takeUntil(this.unsubscribe)).subscribe(data => {
-            this.listOfGames = data.data;
+        this.service.getAllGamesOfCurrentUser().pipe(takeUntil(this.unsubscribe)).subscribe(data => {
+            this.listOfGames = data;
             this.showSpinner = false;    // hide spinner
         },
         error => {

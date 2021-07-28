@@ -14,7 +14,7 @@
                    <mat-form-field>
                         <input type="text" class="text-dark" matInput placeholder="Title" formControlName="title">
                    </mat-form-field>
-                    <div class="text-danger" *ngIf="createProjectForm.get('title').invalid && createProjectForm.get('title').touched">
+                    <div class="text-danger" *ngIf="createProjectForm.get('title').getError('required') && createProjectForm.get('title').touched">
                         <mat-error class="mat-h5">
                             Title can't be empty
                         </mat-error>
@@ -24,7 +24,7 @@
                     <mat-form-field>
                         <input type="text" class="text-dark" matInput placeholder="Description" formControlName="description">
                     </mat-form-field>
-                    <div class="text-danger" *ngIf="createProjectForm.get('description').invalid && createProjectForm.get('description').touched">
+                    <div class="text-danger" *ngIf="createProjectForm.get('description').getError('required') && createProjectForm.get('description').touched">
                         <mat-error class="mat-h5">
                             Description can't be empty
                         </mat-error>

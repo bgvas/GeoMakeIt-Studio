@@ -1,0 +1,68 @@
+<div class="container-fluid mt-5">
+    <div class="row  w-100 justify-content-center">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-12  text-center h3 font-weight-bold">
+                    All Created Projects
+                </div>
+            </div>
+            <div class="row h5 bg-dark text-light p-2" >
+                <div class="col-1">
+                </div>
+                <div class="col-2">
+                    Title
+                </div>
+                <div class="col-3">
+                    Description
+                </div>
+                <div class="col-2">
+                    Creator
+                </div>
+                <div class="col-1">
+                    Status
+                </div>
+                <div class="col-1">
+                    Version
+                </div>
+                <div class="col-1">
+                    Created at
+                </div>
+                <div class="col-1">
+                    Condition
+                </div>
+            </div>
+            <app-spinner [visible]="loadProjectsSpinner"></app-spinner>
+            <div class="row border h5  p-2"  *ngFor="let project of projectsList; let i = index">
+                <div class="row-12">
+                    <div class="row bg-white">
+                        <div class="col-1">
+                            {{i + 1}}
+                        </div>
+                        <div class="col-2">
+                            {{project?.title}}
+                        </div>
+                        <div class="col-3">
+                            {{project?.description}}
+                        </div>
+                        <div class="col-2">
+                            {{project?.user_id}}
+                        </div>
+                        <div class="col-1">
+                            {{project?.status}}
+                        </div>
+                        <div class="col-1">
+                            {{project?.version}}
+                        </div>
+                        <div class="col-1">
+                            {{project?.created_at | date: 'dd/MM/yy'}}
+                        </div>
+                        <div class="col-1">
+                            <span class="text-success font-weight-bold" *ngIf="project?.deleted_at === null">active</span>
+                            <span class="text-danger font-weight-bold" *ngIf="project?.deleted_at !== null">inactive</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

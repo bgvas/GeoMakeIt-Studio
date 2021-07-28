@@ -1,11 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AdminService} from '../services/admin.service';
-import {environment} from '../../../environments/environment';
+import {AdminService} from '../../services/admin.service';
+import {environment} from '../../../../environments/environment';
 import {Router} from '@angular/router';
-import {UserService} from '../../user-management/services/user.service';
+import {UserService} from '../../../user-management/services/user.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {Error} from '../../classes/error/error';
+import {Error} from '../../../classes/error/error';
 
 @Component({
   selector: 'app-user-management',
@@ -14,7 +14,7 @@ import {Error} from '../../classes/error/error';
 })
 export class UserManagementComponent implements OnInit, OnDestroy {
 
-  usersList: any[];
+  usersList: any;
   loadingUsers: boolean;
   timeZone: any;
   private unsubscribe = new Subject<void>();
@@ -34,6 +34,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
 
   getAllUsers() {
     this.userService.getAllUsers().pipe(takeUntil(this.unsubscribe)).subscribe(allUsers => {
+      console.log(allUsers);
       this.usersList = allUsers;
       this.loadingUsers = false;
     }, (error: Error) => {

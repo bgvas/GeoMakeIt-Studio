@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {AdminHomeComponent} from './components/home/adminHome.component';
-import {AdminGuardService as AdminGuard} from '../authentication/services/admin-guard.service';
-import {UserManagementComponent} from './user-management/user-management.component';
-import {EditUserComponent} from './components/edit-user/edit-user.component';
-import {CreateUserComponent} from './create-user/create-user.component';
+import {AdminGuardService as AdminGuard} from '../authentication/guards/admin-guard.service';
+import {UserManagementComponent} from './components/user-management/user-management.component';
+import {EditUserComponent} from './components/user-management/edit-user/edit-user.component';
+import {CreateUserComponent} from './components/user-management/create-user/create-user.component';
+import {ProjectManagementComponent} from './components/project-management/project-management.component';
 
 const routes: Routes = [
 
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'users',  component: UserManagementComponent, canActivate: [AdminGuard]},
   { path: 'users/edit',  component: EditUserComponent, canActivate: [AdminGuard]},
   { path: 'users/new',  component: CreateUserComponent, canActivate: [AdminGuard]},
+  { path: 'projects',  component: ProjectManagementComponent, canActivate: [AdminGuard]},
 ];
 
 @NgModule({

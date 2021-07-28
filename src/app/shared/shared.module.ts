@@ -41,6 +41,8 @@ import {NgApexchartsModule} from 'ng-apexcharts';
 import {PluginModule} from '../plugins/plugin.module';
 import { PluginCardComponent } from '../plugins/components/plugin-card/plugin-card.component';
 import { NumberToBooleanPipe} from './pipes/number-to-boolean.pipe';
+import { RoleIdToRoleNamePipe } from './pipes/role-id-to-role-name.pipe';
+import { EmailExistsValidatorDirective } from './custom-validators/email-exists-validator.directive';
 
 
 
@@ -68,7 +70,9 @@ import { NumberToBooleanPipe} from './pipes/number-to-boolean.pipe';
     StepByStepComponent,
     DonutChartComponent,
     PluginCardComponent,
-    NumberToBooleanPipe
+    NumberToBooleanPipe,
+    RoleIdToRoleNamePipe,
+    EmailExistsValidatorDirective
   ],
     exports: [
         SpinnerComponent,
@@ -81,7 +85,9 @@ import { NumberToBooleanPipe} from './pipes/number-to-boolean.pipe';
         NotificationsComponent,
         MapComponent,
         DonutChartComponent,
-        NumberToBooleanPipe
+        NumberToBooleanPipe,
+        RoleIdToRoleNamePipe,
+        EmailExistsValidatorDirective
     ],
     imports: [
         CommonModule,

@@ -34,14 +34,14 @@ export class ProjectCardComponent implements OnInit, OnDestroy {
   onDelete(project) {
     if (project) {
       this.deleteProject = this.featureService.project;
-      this.service.deleteGameOfSpecificUser(this.deleteProject?.id).pipe(takeUntil(this.unsubscribe)).subscribe(projectDeleted => {
-            this.deleted.emit(true);
-            this.notification.showNotification('Project deleted!', 'success');
-          },
-          error => {
-            console.log('Deleting project: ' + error.code + ' - ' + error.message);
-            this.notification.showNotification('Can\'t delete project. Something went wrong!', 'danger');
-          })
+      this.service.deleteGame(this.deleteProject?.id).pipe(takeUntil(this.unsubscribe)).subscribe(projectDeleted => {
+          this.notification.showNotification('Project deleted!', 'success');
+          this.deleted.emit(true);
+        },
+            error => {
+              console.log('Deleting project: ' + error.code + ' - ' + error.message);
+              this.notification.showNotification('Can\'t delete project. Something went wrong!', 'danger');
+            })
     }
   }
 

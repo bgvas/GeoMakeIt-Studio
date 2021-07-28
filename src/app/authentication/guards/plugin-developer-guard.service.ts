@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {AuthService} from './auth.service';
+import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 
 @Injectable({
@@ -11,9 +11,9 @@ export class PluginDeveloperGuardService {
 
   // router plugin developer guard //
   canActivate(): boolean {
-    const token = sessionStorage.getItem('v2Token');
+    const token = sessionStorage.getItem('token');
 
-    if (token != null &&  localStorage.getItem('role') === 'plugin_developer') {
+    if (token != null &&  localStorage.getItem('role_id') === '3') {
       return true;
     } else {
       this.router.navigate(['login']);

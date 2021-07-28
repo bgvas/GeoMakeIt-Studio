@@ -6,6 +6,7 @@ import {Game} from '../../models/games/game';
 import {Error} from '../../../classes/error/error';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {AppService} from '../../../app.service';
 
 @Component({
   selector: 'app-create-project',
@@ -17,13 +18,15 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   designRadio: any;
   createProjectForm: FormGroup;
   notification = new NotificationsComponent();
+  currentUserId;
   private unsubscribe = new Subject<void>();
 
   @Output() project = new EventEmitter();
 
-  constructor(private service: GameService, private fb: FormBuilder) { }
+  constructor(private service: GameService, private fb: FormBuilder, private appService: AppService) { }
 
   ngOnInit(): void {
+    this.currentUserId = this.appService.GetCurrentUser().id;
     this.initializeForm();
   }
 
@@ -36,24 +39,25 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   initializeForm(): void {
     this.createProjectForm = this.fb.group({
       title: this.fb.control('', Validators.required),
-      description: this.fb.control('', Validators.required)
+      description: this.fb.control('', Validators.required),
+      user_id: this.fb.control(this.currentUserId)
     })
   }
 
   onSubmit() {
-    if(this.createProjectForm.valid) {
+    if (this.createProjectForm.valid) {
       this.createNewProject(<Game>this.createProjectForm.value);
     }
   }
 
   createNewProject(newProject: Game): any {
-      return this.service.postNewGameForSpecificUser(newProject).pipe(takeUntil(this.unsubscribe)).subscribe(
+      return this.service.createNewGame(newProject).pipe(takeUntil(this.unsubscribe)).subscribe(
           (project: Game) => {
-            this.project.emit(true);
-            this.notification.showNotification('Your project, created successfully', 'success');
-            this.createProjectForm.reset();
-          },
-          (error: Error) => {
+                this.project.emit(true);
+                this.notification.showNotification('Your project, created successfully', 'success');
+                this.createProjectForm.reset();
+            },
+            (error: Error) => {
               if (error.code === 422) {
                   this.notification.showNotification('This project title, already exists', 'danger');
               } else {

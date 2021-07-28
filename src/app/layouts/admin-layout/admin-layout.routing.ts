@@ -3,7 +3,7 @@ import { HomeComponent } from '../../shared/components/home-page/home.component'
 import { UserProfileComponent } from '../../user-management/components/user-profile/user-profile.component';
 import {GameSetupComponent} from '../../games/components/game-setup/game-setup.component';
 import {StepperWizardComponent} from '../../games/components/stepper-wizard/stepper-wizard.component';
-import {UserGuardService as UserGuard} from '../../authentication/services/user-guard.service';
+import {UserGuardService as UserGuard} from '../../authentication/guards/user-guard.service';
 import {ActivateAccountComponent} from '../../authentication/components/activate-account/activate-account.component';
 
 

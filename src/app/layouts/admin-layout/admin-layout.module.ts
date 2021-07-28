@@ -36,7 +36,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
         TableListComponent,
         TypographyComponent,
         MapsComponent,
-        UpgradeComponent,
+        UpgradeComponent
     ]
 })
 

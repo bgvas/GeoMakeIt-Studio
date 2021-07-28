@@ -52,14 +52,13 @@ export class AdminHomeComponent implements OnInit {
 
 
   getAllUsers() {
-
     this.service.getUserOnlineStatus().subscribe(allUsers => {
       this.numberOfAllUsers = allUsers.length;  // number of all users //
       this.isActiveUsersSpinner = false; // hide spinner //
       this.gameAuthors = [];  // clear array //
       this.pluginDevelopers = [];  // clear array //
       allUsers.forEach(userStatus => {
-        if (userStatus.user.role === 'game_author') {
+        if (userStatus.user.role_id === 2) {
           this.gameAuthors.push(userStatus);
         } else {
           this.pluginDevelopers.push(userStatus);
@@ -74,7 +73,7 @@ export class AdminHomeComponent implements OnInit {
   }
 
 
-
+  // get all details about projects //
   getPluginsData() {
     this.pluginService.getAvailablePlugins().subscribe(plugin => {
       this.numberOfUploadedPlugins = plugin.data?.length;
@@ -87,9 +86,10 @@ export class AdminHomeComponent implements OnInit {
         })
   }
 
+  // get all details about plugins //
   getProjectsData() {
-    this.gameService.getAllGames().subscribe(projects => {
-      this.numberOfCreatedGames = projects.data?.length;
+    this.gameService.getAllActiveGames().subscribe(projects => {
+      this.numberOfCreatedGames = projects?.length;
       this.isActiveProjectsSpinner = false;
     },
         (error: Error) => {

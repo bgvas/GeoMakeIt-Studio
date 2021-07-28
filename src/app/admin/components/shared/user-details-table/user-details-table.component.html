@@ -3,32 +3,10 @@
         <tr  class="bg-white border border-secondary">
             <td>
                 <mat-label>
-                    <strong>Username</strong>
-                    <input type="text" class="form-control h4" formControlName="username">
-                    <mat-error *ngIf="userDetailsForm.get('username').getError('required') && userDetailsForm.get('username').touched">
-                        Username can't be empty
-                    </mat-error>
-                </mat-label>
-            </td>
-        </tr>
-        <tr class="bg-white border border-secondary">
-            <td>
-                <mat-label>
-                    <strong>First name</strong>
-                    <input type="text" class="form-control h4" formControlName="fname">
-                    <mat-error *ngIf="userDetailsForm.get('fname').getError('required') && userDetailsForm.get('username').touched">
-                        First name can't be empty
-                    </mat-error>
-                </mat-label>
-            </td>
-        </tr>
-        <tr class="bg-white border border-secondary">
-            <td>
-                <mat-label>
-                    <strong>Last name</strong>
-                    <input type="text" class="form-control h4" formControlName="lname">
-                    <mat-error *ngIf="userDetailsForm.get('lname').getError('required') && userDetailsForm.get('username').touched">
-                        Last name can't be empty
+                    <strong>Name</strong>
+                    <input type="text" class="form-control h4" formControlName="name">
+                    <mat-error *ngIf="userDetailsForm.get('name').getError('required') && userDetailsForm.get('name').touched" required>
+                        Name can't be empty
                     </mat-error>
                 </mat-label>
             </td>
@@ -37,24 +15,16 @@
             <td>
                 <mat-label>
                     <strong>Email</strong>
-                    <input type="text" class="form-control h4" formControlName="email">
+                    <input type="text" class="form-control h4" formControlName="email" appEmailExists required>
                     <mat-error *ngIf="userDetailsForm.get('email').getError('required') && userDetailsForm.get('email').touched">
                         Email can't be empty
                     </mat-error>
                     <mat-error *ngIf="userDetailsForm.get('email').getError('email') && userDetailsForm.get('email').touched">
                         Not a valid email address
                     </mat-error>
-                </mat-label>
-            </td>
-        </tr>
-        <tr class="bg-white border border-secondary">
-            <td>
-                <mat-label>
-                    <strong>User is active</strong>
-                    <select class="form-select" formControlName="isActive">
-                        <option [ngValue]= true >true</option>
-                        <option [ngValue]= false >false</option>
-                    </select>
+                    <mat-error *ngIf="checkIfEmailExists() && userDetailsForm.get('email').hasError('emailExists')">
+                        This email already exists
+                    </mat-error>
                 </mat-label>
             </td>
         </tr>
@@ -62,10 +32,10 @@
             <td>
                 <mat-label>
                     <strong>Role</strong>
-                    <select class="form-select" formControlName="role">
-                        <option value="game_author">Game author</option>
-                        <option value="super_admin">Admin</option>
-                        <option value="plugin_developer">Plugin developer</option>
+                    <select class="form-select" formControlName="role_id">
+                        <option value=2>Game author</option>
+                        <option value=1>Admin</option>
+                        <option value=3>Plugin developer</option>
                     </select>
                 </mat-label>
             </td>
@@ -73,7 +43,7 @@
     </table>
     <div class="row">
         <div class="col-6">
-            <button class="btn btn-dark rounded text-lowercase" [disabled]="userDetailsForm.invalid" (click) = "onSubmit()" >
+            <button class="btn btn-dark rounded text-lowercase" [disabled]="this.userDetailsForm.invalid " (click) = "onSubmit()" >
                 Save
             </button>
         </div>

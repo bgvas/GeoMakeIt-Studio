@@ -21,22 +21,13 @@ export class GlobalHttpInterceptor implements HttpInterceptor {
   
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    // Todo  add Uth Token Service //
-    const tokenV2 = sessionStorage.getItem('v2Token');
-    const tokenV1 = sessionStorage.getItem('v1Token');
-    if (request.url.includes('/v1/')) {
+    // add Bearer token in every request //
+    const token = sessionStorage.getItem('token');
       this.requestWithAuth = request.clone({
         setHeaders: {
-          Authorization: 'Bearer ' + tokenV1
+          Authorization: 'Bearer ' + token
         }
       })
-    } else {
-        this.requestWithAuth = request.clone({
-          setHeaders: {
-            Authorization: 'Bearer ' + tokenV2
-          }
-        })
-      }
 
     return next.handle(this.requestWithAuth).pipe(
     catchError((error: HttpErrorResponse) => {
