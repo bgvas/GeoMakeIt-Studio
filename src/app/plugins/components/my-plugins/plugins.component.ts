@@ -7,6 +7,7 @@ import {PluginRelease} from '../../models/available_plugins/plugin-release';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {AppService} from '../../../app.service';
 
 
 
@@ -27,7 +28,7 @@ export class PluginsComponent implements OnInit, OnDestroy {
   withOutPlugins: boolean;
   private unsubscribe = new Subject<void>();
 
-  constructor(private service: PluginService, private router: Router) { }
+  constructor(private service: PluginService, private router: Router, private appService: AppService) { }
 
   ngOnInit(): void {
       this.showSpinner = true;
@@ -55,10 +56,10 @@ export class PluginsComponent implements OnInit, OnDestroy {
   }
 
   loadListOfPlugins() {
-      this.service.getAllPluginsOfUser().pipe(takeUntil(this.unsubscribe)).subscribe(plugins => {
+      this.service.getAllPluginsOfUser(this.appService.GetCurrentUser()).pipe(takeUntil(this.unsubscribe)).subscribe(projects => {
           this.showSpinner = false;
-          if (plugins.data.length > 0) {
-              for (const plugin of plugins.data) {
+          if (projects['plugins'].length > 0) {
+              for (const plugin of projects['plugins']) {
                   this.service.getReleasesOfPlugin(plugin.id).pipe(takeUntil(this.unsubscribe)).subscribe(releases => {
                         this.pluginReleasesMap.set(plugin, releases.data);
                   },

@@ -11,8 +11,7 @@ import {environment} from '../../../environments/environment';
 })
 export class AuthService {
 
-  /*private currentUserSubject: BehaviorSubject<User>;
-  private currentUser: Observable<User>;*/
+
   _element: any;
   private path = environment.be_Url + 'auth';
 
@@ -27,15 +26,6 @@ export class AuthService {
   constructor(private http: HttpClient) {
    /* this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(sessionStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();*/
-  }
-
- /* public get currentUserValue(): User {
-    return this.currentUserSubject.value;
-  }*/
-
-  getAllUsersFromDummyJson(): Observable<User> {
-    const url = 'assets/dummyJson/users.json';
-    return this.http.get<User>(url);
   }
 
   registration(request: any): Observable<any> {

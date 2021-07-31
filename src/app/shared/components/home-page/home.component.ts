@@ -56,8 +56,8 @@ export class HomeComponent implements OnInit{
   }
 
    loadListOfPlugins() {
-       this.pluginService.getAllPluginsOfUser(this.appService.GetCurrentUser().id).subscribe(plugins => {
-             this.pluginList = plugins.data;
+       this.pluginService.getAllPluginsOfUser(this.appService.GetCurrentUser().id).subscribe(projects => {
+             this.pluginList = projects['plugins'];
              this.displaySpinnerForPlugins = false;    // hide spinner
           },
            (error: Error) => {

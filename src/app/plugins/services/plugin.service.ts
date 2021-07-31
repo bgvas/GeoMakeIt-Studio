@@ -47,12 +47,12 @@ export class PluginService {
     }))
   }
 
-  getAllPluginsOfUser(userId): Observable<RootPlugins> {
-    return this.http.get<RootPlugins>(this.path + '/user/id/' + userId);
+  getAllPluginsOfUser(userId): Observable<Plugin[]> {
+    return this.http.get<Plugin[]>(this.path + '/user/id/' + userId);
   }
 
-  getAllPluginsByUserId(userId): Observable<RootPlugins> {
-    return this.http.get<RootPlugins>(this.path + '/user/' + userId);
+  getAllPluginsByUserId(userId): Observable<Plugin[]> {
+    return this.http.get<Plugin[]>(this.path + '/user/' + userId);
   }
 
   getReleasesOfPlugin(pluginId): Observable<RootPluginReleases> {
