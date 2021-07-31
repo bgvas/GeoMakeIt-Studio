@@ -39,8 +39,8 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
   ngOnInit(): void {
 
     this.logo = '/assets/img/logo-icon.png';
-    this.pluginService.getAvailablePlugins().pipe(takeUntil(this.unsubscribe)).subscribe(plugins => {
-          this.availablePlugins = plugins.data;
+    this.pluginService.getAllPlugins().pipe(takeUntil(this.unsubscribe)).subscribe(plugins => {
+          this.availablePlugins = plugins;
         },
         (e: Error) => {
           this.error = e;

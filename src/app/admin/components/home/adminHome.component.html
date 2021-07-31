@@ -41,12 +41,14 @@
             <mat-error style="font-weight: bold; text-decoration: underline">{{errorMessage}}</mat-error>
         </p>
         <div class="col-6 mt-2 text-center">
-            <span class="font-weight-bold h3">Game Authors</span>
-            <app-users-list [usersData]="gameAuthors"></app-users-list>
+            <div>
+                <span class="font-weight-bold h3">Game Authors</span>
+                <app-users-list [usersData]="gameAuthors"></app-users-list>
+            </div>
         </div>
         <div class="col-6 mt-2 text-center">
-            <span class="font-weight-bold h3">Plugin Developers</span>
-            <app-users-list [usersData]="pluginDevelopers"></app-users-list>
+                <span class="font-weight-bold h3">Plugin Developers</span>
+                <app-users-list [usersData]="pluginDevelopers"></app-users-list>
         </div>
     </div>
 </div>

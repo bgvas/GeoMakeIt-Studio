@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
-import { AdminHeadBarComponent } from './components/shared/admin-head-bar/admin-head-bar.component';
+import { AdminHeadBarComponent} from './components/shared/admin-head-bar/admin-head-bar.component';
 import { AdminSideBarComponent } from './components/shared/admin-side-bar/admin-side-bar.component';
 import {AdminService} from './services/admin.service';
 import {AdminHomeComponent} from './components/home/adminHome.component';
@@ -12,10 +12,11 @@ import { UserManagementComponent } from './components/user-management/user-manag
 import { UsersListComponent } from './components/shared/users-list/users-list.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { EditUserComponent } from './components/user-management/edit-user/edit-user.component';
-import { UserDetailsTableComponent } from './components/shared/user-details-table/user-details-table.component';
+import { UserDetailsTableComponent} from './components/shared/user-details-table/user-details-table.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { CreateUserComponent } from './components/user-management/create-user/create-user.component';
-import { ProjectManagementComponent } from './components/project-management/project-management.component';
+import { CreateUserComponent} from './components/user-management/create-user/create-user.component';
+import { ProjectManagementComponent} from './components/project-management/project-management.component';
+import { PluginManagementComponent } from './components/plugin-management/plugin-management.component';
 
 
 
@@ -31,7 +32,8 @@ import { ProjectManagementComponent } from './components/project-management/proj
     EditUserComponent,
     UserDetailsTableComponent,
     CreateUserComponent,
-    ProjectManagementComponent
+    ProjectManagementComponent,
+    PluginManagementComponent
   ],
   exports: [
     AdminHeadBarComponent,

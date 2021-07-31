@@ -75,8 +75,8 @@ export class AdminHomeComponent implements OnInit {
 
   // get all details about projects //
   getPluginsData() {
-    this.pluginService.getAvailablePlugins().subscribe(plugin => {
-      this.numberOfUploadedPlugins = plugin.data?.length;
+    this.pluginService.getAllPlugins().subscribe(listOfPlugins => {
+      this.numberOfUploadedPlugins = listOfPlugins['plugin']?.length;
       this.isActivePluginSpinner = false;
     },
         (error: Error) => {

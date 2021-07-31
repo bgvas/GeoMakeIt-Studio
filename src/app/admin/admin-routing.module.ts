@@ -6,6 +6,7 @@ import {UserManagementComponent} from './components/user-management/user-managem
 import {EditUserComponent} from './components/user-management/edit-user/edit-user.component';
 import {CreateUserComponent} from './components/user-management/create-user/create-user.component';
 import {ProjectManagementComponent} from './components/project-management/project-management.component';
+import {PluginManagementComponent} from './components/plugin-management/plugin-management.component';
 
 const routes: Routes = [
 
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'users/edit',  component: EditUserComponent, canActivate: [AdminGuard]},
   { path: 'users/new',  component: CreateUserComponent, canActivate: [AdminGuard]},
   { path: 'projects',  component: ProjectManagementComponent, canActivate: [AdminGuard]},
+  { path: 'plugins',  component: PluginManagementComponent, canActivate: [AdminGuard]}
 ];
 
 @NgModule({

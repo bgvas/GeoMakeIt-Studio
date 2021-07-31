@@ -39,14 +39,11 @@ export class GameService {
               // return game['games'].forEach(e => e.deleted_at === null //
           })
       );
-
-
   }
 
 
  getAllGamesByUserId(userId): Observable<any> {
-     return this.http.get(this.path + '/user/id/' + userId)
-         .pipe(map((allProjects) => allProjects['games']));
+     return this.http.get(this.path + '/user/id/' + userId);
  }
 
  getAllGamesOfCurrentUser(): Observable<any> {

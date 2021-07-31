@@ -7,12 +7,50 @@
                         All Users
                     </div>
                     <div class="col-2">
-                       <a routerLink="new" role="button" class="btn btn-info text-lowercase">add user</a>
+                       <a routerLink="new" class="text-lowercase btn btn-info">add user</a>
                     </div>
                 </div>
             </div>
             <div>
-                <table class="w-100 border mb-2">
+                <div class="row bg-dark text-light h4 p-2 text-center">
+                    <div class="col-1">
+                    </div>
+                    <div class="col-3">
+                        Name
+                    </div>
+                    <div class="col-2">
+                        Email
+                    </div>
+                    <div class="col-2">
+                        Role
+                    </div>
+                    <div class="col-2">
+                        Created at
+                    </div>
+                    <div class="col-2">
+                    </div>
+                </div>
+                <div class="row bg-light text-black mat-h5 p-1 text-center" *ngFor="let user of usersList; let i = index" id="user{{i+1}}">
+                    <div class="col-1">
+                        {{i + 1}}
+                    </div>
+                    <div class="col-3">
+                        {{user.name}}
+                    </div>
+                    <div class="col-2">
+                        {{user.email}}
+                    </div>
+                    <div class="col-2">
+                        {{user.role_id}}
+                    </div>
+                    <div class="col-2">
+                        {{user.created_at | date: 'dd/MM/yy'}}
+                    </div>
+                    <div class="col-2">
+                        <a class="text-lowercase btn btn-warning" (click)="onEdit(user)">edit</a>
+                    </div>
+                </div>
+               <!-- <table class="w-100 border mb-2">
                     <tr class="bg-dark text-light text-center">
                         <td></td>
                         <td>Name</td>
@@ -29,7 +67,7 @@
                         <td>{{user.created_at | date: 'dd/MM/yy'}}</td>
                         <td><a class="text-lowercase btn btn-warning" (click)="onEdit(user)">edit</a></td>
                     </tr>
-                </table>
+                </table>-->
                 <app-spinner [visible]="loadingUsers"></app-spinner>
             </div>
         </div>

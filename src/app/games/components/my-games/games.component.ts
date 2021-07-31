@@ -56,11 +56,9 @@ export class GamesComponent implements OnInit, OnDestroy {
             })
       }
   }
-
-
   loadListOfGames() {
-        this.service.getAllGamesOfCurrentUser().pipe(takeUntil(this.unsubscribe)).subscribe(data => {
-            this.listOfGames = data;
+        this.service.getAllGamesByUserId(this.appService.GetCurrentUser().id).subscribe(data => {
+            this.listOfGames = data['game'];
             this.showSpinner = false;    // hide spinner
         },
         error => {

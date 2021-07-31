@@ -14,33 +14,25 @@
             </button>
         </div>
         <div class="col-12">
-            <div class="row">
-                <div class="text-center" *ngIf="displaySpinnerForProject">
-                    <app-spinner [visible]="displaySpinnerForProject" ></app-spinner>
-                    <span class="mt-2" style="font-weight: bold">Loading....</span>
-                </div>
-                <div>
-                    <div class="row w-100 align-items-center">
-                        <div class="col-12">
-                            <button  mat-fab color="primary" class="h1 mr-3" style="font-weight: bold" matTooltip="create new project" matTooltipClass="h5" data-toggle="modal" data-target="#newProject">
-                                +
-                            </button>
-                            <div class="wrapper">
-                                <div class="item" *ngFor="let projectFile of projectList ">
-                                    <app-project-card [project] = "projectFile" (deleted)="onDeleteProject($event)"></app-project-card>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div *ngIf="!displaySpinnerForProject && projectList?.length  === 0">
-                    <div class="col-12 text-left text-secondary mat-h5">
-                        You don't have projects
-                    </div>
-                </div>
-                <div *ngIf="!displaySpinnerForProject && errorFromProjectSubscribe?.message !== null">
-                    <div class="col-12 text-left text-danger">
+            <div class="text-center" *ngIf="displaySpinnerForProject">
+                <app-spinner [visible]="displaySpinnerForProject" ></app-spinner>
+                <span class="mt-2" style="font-weight: bold">Loading....</span>
+            </div>
+            <div class="row w-100 align-items-center">
+                <div class="col-12">
+                    <div class="text-left text-danger" *ngIf="!displaySpinnerForProject && errorFromProjectSubscribe?.message !== null">
                         {{errorFromProjectSubscribe?.displayed_message}}
+                    </div>
+                    <button  mat-fab color="primary" class="h1 mr-3" style="font-weight: bold" matTooltip="create new project" matTooltipClass="h5" data-toggle="modal" data-target="#newProject">
+                        +
+                    </button>
+                    <div class="wrapper">
+                        <div class="text-left text-secondary h3 font-weight-bold" *ngIf="!displaySpinnerForProject && projectList?.length  === 0">
+                            You don't have projects
+                        </div>
+                        <div class="item" *ngFor="let projectFile of projectList ">
+                            <app-project-card [project] = "projectFile" (deleted)="onDeleteProject($event)"></app-project-card>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -58,50 +50,23 @@
                     <app-spinner [visible]="displaySpinnerForPlugins" ></app-spinner>
                     <span class="mt-2" style="font-weight: bold">Loading....</span>
                 </div>
-                <div>
-                    <div class="row align-items-center">
-                        <div class="col-12">
-                            <button  mat-fab color="accent" class="h1 mr-3" style="font-weight: bold" matTooltip="create new plugin" matTooltipClass="h5" data-toggle="modal" data-target="#newPlugin">
-                                +
-                            </button>
-                            <div class="wrapper-sm">
-                                 <div class="item" *ngFor="let pluginFile of pluginList">
-                                     <app-plugin-card [plugin]="pluginFile" (deleted)="onDeletePlugin($event)"></app-plugin-card>
-                                 </div>
-                            </div>
+                <div class="row w-100 align-items-center">
+                    <div class="col-12">
+                        <div class="text-left text-danger" *ngIf="!displaySpinnerForPlugins && errorFromPluginSubscribe?.message !== null">
+                            {{errorFromPluginSubscribe?.displayed_message}}
+                        </div>
+                        <button  mat-fab color="accent" class="h1 mr-3" style="font-weight: bold" matTooltip="create new plugin" matTooltipClass="h5" data-toggle="modal" data-target="#newPlugin">
+                            +
+                        </button>
+                        <div class="wrapper-sm">
+                             <div class="text-left text-secondary h3 font-weight-bold" *ngIf="!displaySpinnerForProject && projectList?.length  === 0">
+                                You don't have plugins
+                             </div>
+                             <div class="item" *ngFor="let pluginFile of pluginList">
+                                 <app-plugin-card [plugin]="pluginFile" (deleted)="onDeletePlugin($event)"></app-plugin-card>
+                             </div>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <div class="col-12 text-left text-secondary mat-h5" *ngIf="!displaySpinnerForPlugins && pluginList?.length === 0">
-                        You don't have plugins
-                    </div>
-                </div>
-                <div *ngIf="!displaySpinnerForPlugins && errorFromPluginSubscribe?.message !== null">
-                    <div class="col-12 text-left text-danger">
-                        {{errorFromPluginSubscribe?.displayed_message}}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-12">
-            <div class="row">
-                <div class="col-12 text-left">
-                    <h2 class="text-secondary" style="font-weight: bold;  text-shadow: 2px 2px black;">
-                        All available projects
-                    </h2>
-                </div>
-                <div class="col-12 text-left" >
-                    <button style="border: 0; background-color: inherit; text-decoration: underline" class="text-dark">
-                   <span>search for a project
-                        <mat-icon>
-                            search
-                        </mat-icon>
-                   </span>
-                    </button>
-                </div>
-                <div class="col-12 text-left text-secondary mat-h5">
-                    no projects found
                 </div>
             </div>
         </div>

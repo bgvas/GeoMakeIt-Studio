@@ -13,6 +13,7 @@ export class HeaderBarComponent implements OnInit {
 
   open: any;
   authenticated: any;
+  avatarLogo = 'assets/img/avatar.png';
 
   constructor(private router: Router, private service: FeaturesService) { }
 

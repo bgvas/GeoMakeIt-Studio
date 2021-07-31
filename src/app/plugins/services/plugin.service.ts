@@ -37,19 +37,18 @@ export class PluginService {
     return this.pluginReleases;
   }
 
-
-  getAvailablePlugins(): Observable<RootPlugins> {
-     return this.http.get<RootPlugins>(this.path + '/all');
+  getAllPlugins(): Observable<Plugin[]> {
+    return this.http.get<Plugin[]>(this.path + '/all');
   }
 
   getNumberOfAvailablePlugins(): Observable<number> {
-    return this.getAvailablePlugins().pipe(map(plugins => {
-      return plugins.data.length;
+    return this.getAllPlugins().pipe(map(plugins => {
+      return plugins.length;
     }))
   }
 
-  getAllPluginsOfUser(): Observable<RootPlugins> {
-    return this.http.get<RootPlugins>(this.path + '/user/' + this.currentUser.id);
+  getAllPluginsOfUser(userId): Observable<RootPlugins> {
+    return this.http.get<RootPlugins>(this.path + '/user/id/' + userId);
   }
 
   getAllPluginsByUserId(userId): Observable<RootPlugins> {
@@ -69,11 +68,6 @@ export class PluginService {
   postReleaseForPlugin(pluginId, release: FormData): Observable<any> {
     return this.http.post(this.path + '/' + pluginId + '/releases', release)
   }
-
-  /*getAllPlugins(): Observable<RootPlugins> {
-    return this.http.get<RootPlugins>(this.newPathUrl + 'plugin/all');
-    // return this.http.get<RootPlugins>('assets/dummyJson/availablePlugins.json')
-  }*/
 
   putPluginById(pluginId: number, updatedPlugin: Plugin): Observable<any> {
     return this.http.put<any>(this.path + '/' + pluginId, updatedPlugin);

@@ -1,13 +1,33 @@
-<table class="w-100 border mat-h5">
-    <tr class="bg-dark text-light">
-        <td>Name</td><td>Email</td><td>Games</td><td>Plugins</td><td>Status</td>
-    </tr>
-    <tr class="mb-1" *ngFor="let userDetails of usersData">
-        <td>{{userDetails.user.name}}</td>
-        <td>{{userDetails.user.email}}</td>
-        <td></td>
-        <td></td>
-        <td *ngIf="userDetails.status === 'offline'" class="text-danger" style="font-weight: bold">{{userDetails.status}}</td>
-        <td *ngIf="userDetails.status === 'online'" class="text-success" style="font-weight: bold">{{userDetails.status}}</td>
-    </tr>
-</table>
+<div class="text-center h5 bg-dark text-light">
+    <div class="row">
+        <div class="col-1">
+        </div>
+        <div class="col-4">
+            Name
+        </div>
+        <div class="col-3">
+            Email
+        </div>
+        <div class="col-3">
+            Status
+        </div>
+    </div>
+</div>
+<div class="p-2 mat-h5 bg-white text-dark text-center" *ngFor="let userDetails of usersData; let i = index">
+    <div class="row">
+        <div class="col-1">
+            {{i + 1}}
+        </div>
+        <div class="col-4">
+            {{userDetails.user.name}}
+        </div>
+        <div class="col-3">
+            {{userDetails.user.email}}
+        </div>
+        <div class="col-3">
+            <span *ngIf="userDetails.status === 'offline'" class="text-danger" style="font-weight: bold">{{userDetails.status}}</span>
+            <span *ngIf="userDetails.status === 'online'" class="text-success" style="font-weight: bold">{{userDetails.status}}</span>
+        </div>
+    </div>
+</div>
+

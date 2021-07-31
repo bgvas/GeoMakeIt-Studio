@@ -46,8 +46,8 @@ export class PluginsForGamesComponent implements OnInit {
        console.log('Installed plugins of game: ' + this.error.message + ' - ' + this.error.code);
     })
 
-    this.pluginService.getAvailablePlugins().subscribe(data => {
-      this.availablePlugins = data.data;
+    this.pluginService.getAllPlugins().subscribe(data => {
+      this.availablePlugins = data;
     },
     (error: Error) => {
       this.error = error;

@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit{
   private unsubscribe = new Subject<void>();
   projects = [];
 
+
   constructor(private gameService: GameService, private pluginService: PluginService, private appService: AppService) { }
 
   ngOnInit() {
@@ -39,27 +40,35 @@ export class HomeComponent implements OnInit{
 
   loadListOfProjects() {
       this.gameService.getAllGamesByUserId(this.appService.GetCurrentUser().id).subscribe( projects => {
-          this.projectList = projects;
+          this.projectList = projects['games'];
           this.displaySpinnerForProject = false;    // hide spinner
       },
-          error => {
-            console.log('List of Projects: ' + error.code + ' - ' + error.message);
-            this.errorFromProjectSubscribe = error;
+          (error: Error) => {
+          if (error.code === 404) {
+              this.projectList = [];
+          } else {
+              console.log('List of Projects: ' + error.code + ' - ' + error.message);
+              this.errorFromProjectSubscribe = error;
+          }
             this.displaySpinnerForProject = false;    // hide spinner
           }
       )
   }
 
    loadListOfPlugins() {
-       this.pluginService.getAllPluginsOfUser().subscribe(plugins => {
+       this.pluginService.getAllPluginsOfUser(this.appService.GetCurrentUser().id).subscribe(plugins => {
              this.pluginList = plugins.data;
              this.displaySpinnerForPlugins = false;    // hide spinner
           },
-          error => {
-              console.log('List of Plugins: ' + error.code + ' - ' + error.message);
-              this.errorFromPluginSubscribe = error;
-              this.displaySpinnerForPlugins = false;    // hide spinner
-          }
+           (error: Error) => {
+               if (error.code === 404) {
+                   this.pluginList = [];
+               } else {
+                   console.log('List of Plugins: ' + error.code + ' - ' + error.message);
+                   this.errorFromPluginSubscribe = error;
+               }
+               this.displaySpinnerForPlugins = false;    // hide spinner
+           }
        )
    }
 
