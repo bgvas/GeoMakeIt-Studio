@@ -14,7 +14,7 @@ import {delay} from 'rxjs/operators';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit, OnDestroy{
 
   projectList: Game[];
   pluginList: Plugin[];
@@ -37,6 +37,11 @@ export class HomeComponent implements OnInit{
           this.loadListOfPlugins();
       }
   }
+
+    ngOnDestroy() {
+        this.unsubscribe.next();
+        this.unsubscribe.complete();
+    }
 
   loadListOfProjects() {
       this.gameService.getAllGamesByUserId(this.appService.GetCurrentUser().id).subscribe( projects => {

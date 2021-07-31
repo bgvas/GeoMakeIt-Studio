@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {User} from '../../../user-management/models/user';
 import {AdminService} from '../../services/admin.service';
 import {GameService} from '../../../games/services/game.service';
 import {PluginService} from '../../../plugins/services/plugin.service';
-import { interval, Subscription } from 'rxjs';
+import {interval, Subject, Subscription} from 'rxjs';
 import {Error} from '../../../classes/error/error';
+import {takeUntil} from 'rxjs/operators';
 
 
 @Component({
@@ -12,7 +13,7 @@ import {Error} from '../../../classes/error/error';
   templateUrl: './adminHome.component.html',
   styleUrls: ['./adminHome.component.css']
 })
-export class AdminHomeComponent implements OnInit {
+export class AdminHomeComponent implements OnInit, OnDestroy {
 
   gameAuthors = [];
   pluginDevelopers = [];
@@ -24,10 +25,17 @@ export class AdminHomeComponent implements OnInit {
   numberOfAllUsers: number;
   subscription: Subscription;
   errorMessage: string;
+  private unsubscribe = new Subject<void>();
+
 
 
   constructor(private service: AdminService, private gameService: GameService, private pluginService: PluginService) {
 
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
   ngOnInit(): void {
@@ -42,17 +50,15 @@ export class AdminHomeComponent implements OnInit {
     this.getProjectsData();
 
     // every 1 minute, refresh results from functions //
-    const source = interval(60000);  // 60000 = 1min
-    this.subscription = source.subscribe(val => {
+    const source =  interval(60000);  // 60000 = 1min
+    this.subscription = source.pipe(takeUntil(this.unsubscribe)).subscribe(val => {
       this.getAllUsers();
-      this.getPluginsData();
-      this.getProjectsData();
     });
   }
 
 
   getAllUsers() {
-    this.service.getUserOnlineStatus().subscribe(allUsers => {
+    this.service.getUserOnlineStatus().pipe(takeUntil(this.unsubscribe)).subscribe(allUsers => {
       this.numberOfAllUsers = allUsers.length;  // number of all users //
       this.isActiveUsersSpinner = false; // hide spinner //
       this.gameAuthors = [];  // clear array //
@@ -75,7 +81,7 @@ export class AdminHomeComponent implements OnInit {
 
   // get all details about projects //
   getPluginsData() {
-    this.pluginService.getAllPlugins().subscribe(listOfPlugins => {
+    this.pluginService.getAllPlugins().pipe(takeUntil(this.unsubscribe)).subscribe(listOfPlugins => {
       this.numberOfUploadedPlugins = listOfPlugins['plugin']?.length;
       this.isActivePluginSpinner = false;
     },
@@ -88,7 +94,7 @@ export class AdminHomeComponent implements OnInit {
 
   // get all details about plugins //
   getProjectsData() {
-    this.gameService.getAllActiveGames().subscribe(projects => {
+    this.gameService.getAllActiveGames().pipe(takeUntil(this.unsubscribe)).subscribe(projects => {
       this.numberOfCreatedGames = projects?.length;
       this.isActiveProjectsSpinner = false;
     },

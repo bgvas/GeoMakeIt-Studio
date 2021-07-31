@@ -1,10 +1,11 @@
 <div class="container-fluid mt-5">
     <div class="row justify-content-center">
-        <div class="col-7 text-center h2">
+        <div class="col-7 bg-dark text-light text-center h2">
             Edit user
         </div>
         <div class="col-7 text-right">
-             <app-delete-pop-up [element]="user" [deleteItemToolTip]="'user'" (delete)="onDelete($event, user)"></app-delete-pop-up>
+            <span style="font-weight: bold">Delete User</span>
+            <app-delete-pop-up [element]="user" [deleteItemToolTip]="'user'" (delete)="onDelete($event, user)"></app-delete-pop-up>
         </div>
     </div>
     <div class="row justify-content-center">

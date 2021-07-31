@@ -1,13 +1,11 @@
 <div class="container-fluid mt-5">
     <div class="row justify-content-center">
-        <div class="col-12 text-center h2">
+        <div class="col-7 bg-dark text-light text-center h2">
             Create new User
         </div>
-    </div>
-    <div class="row justify-content-center">
-        <div class="col-7 border border-secondary shadow">
+        <div class="col-7">
             <app-user-details-table (detailsForm)="onSubmit($event)"></app-user-details-table>
-            <p class="text-center w-100 mat-h5">Default password is 'test'</p>
+            <p class="text-center w-100 mat-h5" style="font-weight: bold">Default password is 'test'</p>
         </div>
     </div>
 </div>
