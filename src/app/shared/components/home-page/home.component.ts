@@ -77,7 +77,11 @@ export class HomeComponent implements OnInit, OnDestroy{
        )
    }
 
-
+  onUpdate(event) {
+      if(event) {
+          this.loadListOfPlugins();
+      }
+  }
 
   onCreateProject(event) {
      this.loadListOfProjects();

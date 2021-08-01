@@ -17,6 +17,7 @@ export class PluginCardComponent implements OnInit, OnDestroy {
 
   @Input() plugin: any;
   @Output() deleted = new EventEmitter();
+  @Output() updated = new EventEmitter();
   deletePlugin: any;
   notification = new NotificationsComponent();
   private unsubscribe = new Subject<void>();
@@ -35,6 +36,7 @@ export class PluginCardComponent implements OnInit, OnDestroy {
     if (plugin) {
       this.deletePlugin = this.featureService.plugin;
       this.service.deletePluginById(this.deletePlugin?.id).pipe(takeUntil(this.unsubscribe)).subscribe(pluginDeleted => {
+        console.log(pluginDeleted);
             this.deleted.emit(true);
             this.notification.showNotification('Plugin deleted!', 'success');
           },
@@ -59,6 +61,10 @@ export class PluginCardComponent implements OnInit, OnDestroy {
   onClickEdit(plugin) {
     this.service.plugin = plugin;
     this.router.navigate(['plugins/setup']);
+  }
+
+  onUpdate(event) {
+    this.updated.emit(true);
   }
 
 }

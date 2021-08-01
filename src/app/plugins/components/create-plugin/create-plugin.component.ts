@@ -7,6 +7,7 @@ import {NotificationsComponent} from '../../../shared/components/notifications/n
 import {Error} from '../../../classes/error/error';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {AppService} from '../../../app.service';
 
 
 
@@ -23,7 +24,7 @@ export class CreatePluginComponent implements OnInit, OnDestroy {
   notification = new NotificationsComponent();
   private unsubscribe = new Subject<void>();
 
-  constructor(private location: Location, private fb: FormBuilder, private service: PluginService) { }
+  constructor(private location: Location, private fb: FormBuilder, private service: PluginService, private appService: AppService) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -42,27 +43,26 @@ export class CreatePluginComponent implements OnInit, OnDestroy {
             Validators.maxLength(32),
             Validators.pattern('^[a-z]{1}[a-z0-9_]{2,31}$')]),
       title: this.fb.control('', Validators.required),
+      user_id: this.fb.control(this.appService.GetCurrentUser().id),
+      short_description: this.fb.control('', Validators.required),
       description: this.fb.control('', Validators.required)
     })
   }
 
   onSubmit() {
     if (this.createPluginForm.valid) {
-      this.createNewPlugin(<Plugin>this.createPluginForm.value);
+      this.createNewPlugin(this.createPluginForm.value);
     }
   }
 
-  createNewPlugin(newPlugin: Plugin): any {
-    return this.service.postPlugin(newPlugin).pipe(takeUntil(this.unsubscribe)).subscribe((savePlugin: Plugin) => {
+  createNewPlugin(plugin): any {
+    return this.service.addNewPlugin(plugin).pipe(takeUntil(this.unsubscribe)).subscribe((savedPlugin) => {
         this.notification.showNotification('Plugin, created successfully', 'success');
         this.isCreatedPlugin.emit(true);
     },
         (error: Error) => {
-            if (error.code === 422){
-                this.notification.showNotification('This plugin identifier, already exists', 'danger');
-            } else {
-                this.notification.showNotification('Can\'t create new plugin', 'danger');
-            }
+        console.log('Plugin creation error: ' + error.message + ' - ' + error.code);
+            this.notification.showNotification('Can\'t create new plugin', 'danger');
         })
   }
 

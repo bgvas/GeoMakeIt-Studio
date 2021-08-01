@@ -1,9 +1,9 @@
 import {Component, OnInit, Output, EventEmitter, Input, OnDestroy} from '@angular/core';
 import {takeUntil} from 'rxjs/operators';
-import {GameService} from '../../../games/services/game.service';
-import {NotificationsComponent} from '../notifications/notifications.component';
+import {GameService} from '../../services/game.service';
+import {NotificationsComponent} from '../../../shared/components/notifications/notifications.component';
 import {Subject} from 'rxjs';
-import {FeaturesService} from '../../services/features.service';
+import {FeaturesService} from '../../../shared/services/features.service';
 import {formatDate} from '@angular/common';
 import {Router} from '@angular/router';
 

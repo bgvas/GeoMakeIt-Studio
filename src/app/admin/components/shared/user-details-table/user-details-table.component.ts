@@ -2,7 +2,7 @@ import {AfterViewChecked, ChangeDetectorRef, Component, EventEmitter, Input, OnI
 import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {UserService} from '../../../../user-management/services/user.service';
-import {EmailExistsValidatorDirective} from '../../../../shared/custom-validators/email-exists-validator.directive';
+
 
 @Component({
   selector: 'app-user-details-table',

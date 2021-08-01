@@ -23,7 +23,7 @@ div.scrollmenu a:hover {
 }
 
 .wrapper{
-    height: 450px;
+    height: 500px;
     max-width: 96%;
     display: inline-flex;
     overflow-x: auto;
@@ -36,7 +36,7 @@ div.scrollmenu a:hover {
 }
 
 .wrapper-sm{
-    height: 320px;
+    height: 500px;
     max-width: 96%;
     display: inline-flex;
     overflow-x: auto;

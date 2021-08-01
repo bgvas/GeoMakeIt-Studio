@@ -1,4 +1,3 @@
-
 <!-- Modal -->
 <div class="modal fade " id="newPlugin" tabindex="-1" role="dialog" aria-labelledby="newPlugin" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -9,10 +8,10 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form [formGroup]="createPluginForm">
+            <div [formGroup]="createPluginForm">
                 <div class="modal-body m-2 border bg-light border border-dark">
                     <mat-form-field>
-                        <input type="text" class="text-dark" matInput placeholder="Identifier" formControlName="identifier">
+                        <input type="text" class="text-dark" matInput placeholder="Identifier" formControlName="identifier" appIdentifierExists>
                     </mat-form-field>
                     <div class="text-danger" *ngIf="createPluginForm.get('identifier').getError('required') && createPluginForm.get('identifier').touched">
                         <mat-error class="mat-h5">
@@ -34,6 +33,11 @@
                             Try an identifier up to 32 characters!
                         </mat-error>
                     </div>
+                    <div class="text-danger" *ngIf="createPluginForm.get('identifier').hasError('identifierExists')">
+                        <mat-error class="mat-h5">
+                            This identifier, already exists
+                        </mat-error>
+                    </div>
                 </div>
                 <div class="modal-body m-2 border bg-light border border-dark">
                     <mat-form-field>
@@ -42,6 +46,16 @@
                     <div class="text-danger" *ngIf="createPluginForm.get('title').invalid && createPluginForm.get('title').touched">
                         <mat-error class="mat-h5">
                             Title can't be empty
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="modal-body m-2 border bg-light border border-dark">
+                    <mat-form-field>
+                        <input type="text" class="text-dark" matInput placeholder="Short Description" formControlName="short_description">
+                    </mat-form-field>
+                    <div class="text-danger" *ngIf="createPluginForm.get('short_description').invalid && createPluginForm.get('short_description').touched">
+                        <mat-error class="mat-h5">
+                            Short description can't be empty
                         </mat-error>
                     </div>
                 </div>
@@ -64,7 +78,7 @@
                     <button type="reset" class="btn btn-outline-secondary" data-dismiss="modal" (click)="onCancel()">Cancel</button>
                     <button type="submit" class="btn btn-dark" [disabled]="createPluginForm.invalid" (click)="onSubmit()" data-dismiss="modal">Save Plugin</button>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>

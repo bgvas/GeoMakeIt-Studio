@@ -1,7 +1,7 @@
 <div class="card mb-3 border border-secondary" >
 
           <!--  <button  style="border: 0" (click)="onClick(project)" matTooltip="{{tooltip}}" matTooltipClass="h5" class="w-100">-->
-                <img src="assets/img/mapīmage.jpg"  width="100%" alt="Logo of project" class="rounded-top">
+                <img src="../../../../assets/img/mapīmage.jpg" width="100%" alt="Logo of project" class="rounded-top">
           <!--  </button>-->
 
     <div class="card-body">
@@ -25,12 +25,12 @@
         </p>
         <p class="card-text mb-0">
             <small class="text-muted text-gray">
-                <span style="font-weight: bold">Created at:</span> {{convertToReadableDate(project?.created_at)}}
+                <span style="font-weight: bold">Created at:</span> {{project?.created_at | date: 'dd/MM/yy'}}
             </small>
         </p>
         <p class="card-text mb-0">
-            <small class="text-muted text-gray">
-                <span style="font-weight: bold">Last update at:</span> {{convertToReadableDate(project?.updated_at)}}
+            <small class="text-muted text-gray" *ngIf="project?.updated_at !== null">
+                <span style="font-weight: bold">Update at:</span> {{project?.updated_at | date: 'dd/MM/yy'}}
             </small>
         </p>
     </div>

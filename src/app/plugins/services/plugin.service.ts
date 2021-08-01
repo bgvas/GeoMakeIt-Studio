@@ -69,16 +69,20 @@ export class PluginService {
     return this.http.post(this.path + '/' + pluginId + '/releases', release)
   }
 
-  putPluginById(pluginId: number, updatedPlugin: Plugin): Observable<any> {
-    return this.http.put<any>(this.path + '/' + pluginId, updatedPlugin);
+  updatePluginById(pluginId: number, updatedPlugin): Observable<any> {
+    return this.http.put<any>(this.path + '/update/' + pluginId, updatedPlugin);
   }
 
-  postPlugin(newPlugin: Plugin): Observable<Plugin> {
-    return this.http.post<Plugin>(this.path , newPlugin);
+  addNewPlugin(newPlugin): Observable<any> {
+    return this.http.post<any>(this.path + '/new', [newPlugin]);
   }
 
   deletePluginById(pluginId: number): Observable<any> {
-    return this.http.delete<any>(this.path + '/' + pluginId);
+    return this.http.delete<any>(this.path + '/delete/' + pluginId);
+  }
+
+  checkIfIdentifierExists(identifier: any): Observable<any> {
+    return this.http.post<any>(this.path + '/check/identifier', {'identifier': identifier});
   }
 
 

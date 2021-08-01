@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../../authentication/services/auth.service';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ export class FeaturesService {
 
   aProject: any;
   aPlugin: any;
+  path = environment.be_Url;
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -40,4 +42,6 @@ export class FeaturesService {
   logout(): Observable<any> {
     return this.authService.logout();
   }
+
+
 }

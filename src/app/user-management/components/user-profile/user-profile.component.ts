@@ -34,14 +34,14 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   initializeForm() {
     this.userProfileForm = this.fb.group({
-      lname: this.fb.control('', Validators.required),
+      name: this.fb.control('', Validators.required),
       email: this.fb.control('', [Validators.email, Validators.required])
      /* photo: this.fb.control('')*/
     })
   }
 
   addValuesToForm(value){
-    this.userProfileForm.get('lname').setValue(value.name);
+    this.userProfileForm.get('name').setValue(value.name);
     this.userProfileForm.get('email').setValue(value.email);
   }
 

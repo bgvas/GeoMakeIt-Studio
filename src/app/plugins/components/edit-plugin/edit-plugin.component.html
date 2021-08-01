@@ -12,7 +12,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form [formGroup]="pluginForm">
+            <div [formGroup]="pluginForm">
                 <div class="modal-body m-2 border bg-light border border-dark">
                     <div class="text-left">
                         <mat-label class="text-gray mat-h6">
@@ -23,7 +23,7 @@
                         {{plugin.identifier}}
                     </div>
                 </div>
-                <div class="modal-body m-2 border bg-light border border-dark">
+                <div class="modal-body m-2 border bg-light" [class.border-warning]="edit"  [class.border-dark]="!edit">
                     <mat-form-field>
                         <input type="text" class="text-dark" matInput placeholder="Title" formControlName="title" [disabled]="edit">
                     </mat-form-field>
@@ -33,13 +33,23 @@
                         </mat-error>
                     </div>
                 </div>
-                <div class="modal-body m-2 border bg-light border border-dark">
+                <div class="modal-body m-2 border bg-light" [class.border-warning]="edit"  [class.border-dark]="!edit">
                     <mat-form-field>
                         <input type="text" class="text-dark" matInput placeholder="Description" formControlName="description" [disabled]="edit">
                     </mat-form-field>
                     <div class="text-danger" *ngIf="edit && pluginForm.get('description').getError('required') && pluginForm.get('description').touched">
                         <mat-error class="mat-h5">
                             Description can't be empty
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="modal-body m-2 border bg-light" [class.border-warning]="edit"  [class.border-dark]="!edit">
+                    <mat-form-field>
+                        <input type="text" class="text-dark" matInput placeholder="Short Description" formControlName="short_description" [disabled]="edit">
+                    </mat-form-field>
+                    <div class="text-danger" *ngIf="edit && pluginForm.get('short_description').getError('required') && pluginForm.get('short_description').touched">
+                        <mat-error class="mat-h5">
+                            Short Description can't be empty
                         </mat-error>
                     </div>
                 </div>
@@ -52,7 +62,7 @@
                                 </mat-label>
                             </div>
                             <div class="form-control text-center" style="background-color: inherit">
-                                {{convertToReadableDate(plugin.created_at)}}
+                                {{plugin?.created_at | date: 'dd/MM/yy'}}
                             </div>
                         </div>
                     </div>
@@ -64,7 +74,7 @@
                                 </mat-label>
                             </div>
                             <div class="form-control text-center" style="background-color: inherit">
-                                {{convertToReadableDate(plugin.updated_at)}}
+                                {{plugin?.updated_at | date: 'dd/MM/yy'}}
                             </div>
                         </div>
                     </div>
@@ -92,7 +102,7 @@
                         <button class="ml-2 mb-2 w-75 btn btn-outline-dark" (click)="activateEdit()">Edit plugin details</button>
                     </div>
                 </div>
-            </form>
+            </div>
             <hr>
             <div class="text-center font-weight-bold h3">
                 Plugin Releases
@@ -108,12 +118,12 @@
                         </div>
                     </div>
                     <div class="col-8 text-center">
-                        <form [formGroup]="pluginReleaseForm">
-                            <input formControlName="file" type="file" (change)="uploadRelease($event)" accept=".aar">
+                        <div [formGroup]="pluginReleaseForm">
+                            <input formControlName="file" type="file" (change)="uploadRelease($event)" accept=".zip">
                             <mat-error class="font-weight-bold" *ngIf="error !== null">
                                 {{error}}
                             </mat-error>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -125,7 +135,7 @@
                         </button>
                     </div>
                     <div class="col-6 text-right">
-                        <button type="submit" class="mb-2 mr-2 btn btn-dark w-50" data-dismiss="modal">
+                        <button type="submit" class="mb-2 mr-2 btn btn-dark w-50" data-dismiss="modal" (click)="submitUpdate()">
                             Save Changes
                         </button>
                     </div>

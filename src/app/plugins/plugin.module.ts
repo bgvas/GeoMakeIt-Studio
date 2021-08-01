@@ -10,18 +10,18 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {RouterModule} from '@angular/router';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatInputModule} from '@angular/material/input';
-import {PluginService} from './services/plugin.service';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { PluginService} from './services/plugin.service';
+import { MatTooltipModule} from '@angular/material/tooltip';
 import { EditPluginComponent } from './components/edit-plugin/edit-plugin.component';
-
-
+import {IdentifierExistsValidatorDirective} from './custom-validators/identifier-exists-validator.directive';
 
 
 @NgModule({
     declarations: [
         CreatePluginComponent,
         PluginsComponent,
-        EditPluginComponent
+        EditPluginComponent,
+        IdentifierExistsValidatorDirective
     ],
     imports: [
         CommonModule,
@@ -37,7 +37,8 @@ import { EditPluginComponent } from './components/edit-plugin/edit-plugin.compon
     ],
     exports: [
         CreatePluginComponent,
-        EditPluginComponent
+        EditPluginComponent,
+        IdentifierExistsValidatorDirective
     ],
     providers: [
         PluginService

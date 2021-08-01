@@ -30,7 +30,7 @@ import {MatInputModule} from '@angular/material/input';
 import {FeaturesService} from './services/features.service';
 import { CreateProjectComponent } from '../games/components/create-project/create-project.component';
 import { ImageAsCheckBoxComponent } from './components/image-as-check-box/image-as-check-box.component';
-import { ProjectCardComponent } from './components/project-card/project-card.component';
+import { ProjectCardComponent } from '../games/components/project-card/project-card.component';
 import { GeomakeitHelpComponent } from './components/help/geomakeit-help/geomakeit-help.component';
 import { MatSelectModule} from '@angular/material/select';
 import { UserManagementModule} from '../user-management/user-management.module';
@@ -43,6 +43,7 @@ import { PluginCardComponent } from '../plugins/components/plugin-card/plugin-ca
 import { NumberToBooleanPipe} from './pipes/number-to-boolean.pipe';
 import { RoleIdToRoleNamePipe } from './pipes/role-id-to-role-name.pipe';
 import { EmailExistsValidatorDirective } from './custom-validators/email-exists-validator.directive';
+
 
 
 

@@ -1,0 +1,7 @@
+.isEnabled {
+    border: 2px solid darkorange;
+}
+
+.isDisabled {
+    border: 1px solid darkorange;
+}
