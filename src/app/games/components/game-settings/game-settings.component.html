@@ -1,4 +1,4 @@
-<form [formGroup]="projectForm">
+<div [formGroup]="projectForm">
     <div class="row">
         <div class="col-6 mb-2">
             <mat-form-field class="bg-white p-2">
@@ -29,79 +29,98 @@
             </mat-form-field>
         </div>
     </div>
-</form>
+</div>
 
 
-    <div class="row">
-        <div class="col-12">
-            <button type="button" class="btn bg-secondary w-100"
-                    data-toggle="collapse"
-                    data-target="#addActions"
-                    aria-expanded="false"
-                    aria-controls="addActions">
-                            <span class="mat-h5 text-lowercase">
-                                    Add Actions to project
-                            </span>
-            </button>
-            <div id="addActions" class="collapse m-1 shadow border bg-white" style="overflow-y: auto" >
-                <table class="w-100">
-                    <tr class="border-bottom">
-                        <td> Index </td><td> Title </td><td> Usage </td><td>Use it</td>
-                    </tr>
-                    <tr *ngFor="let plugin of availablePlugins; let i = index" class="text-dark mat-h4">
-                        <td>{{i+1}}</td><td>{{ plugin.title }}</td>
-                        <td *ngIf="plugin.is_required">
-                            required
-                        </td>
-                        <td *ngIf="!plugin.is_required">
-                            optional
-                        </td>
-                        <td>
-                            <input type="checkbox" name="usePlugin" (change)="onCheck($event, plugin)" [defaultChecked]="plugin?.is_required" [disabled]="plugin?.is_required">
-                        </td>
-                    </tr>
-                </table>
+<div class="row">
+    <div class="col-12">
+        <button type="button" class="btn bg-secondary w-100"
+                data-toggle="collapse"
+                data-target="#addActions"
+                aria-expanded="false"
+                aria-controls="addActions">
+                        <span class="mat-h5 text-lowercase">
+                                Add Actions to project
+                        </span>
+        </button>
+        <div id="addActions" class="collapse text-dark shadow w-100" >
+            <div class="border">
+                <div class="row">
+                    <div class="col-2">Index</div>
+                    <div class="col-4">Title</div>
+                    <div class="col-6">Short description</div>
+                </div>
             </div>
+            <button class="btn btn-outline-secondary w-100" style="height: 50px" *ngFor="let plugin of availablePlugins; let i = index">
+                <div class="row mat-h4 text-lowercase" >
+                    <div class="col-2">{{i+1}}</div>
+                    <div class="col-4">{{plugin?.title}}</div>
+                    <div class="col-6">{{plugin?.short_description}}</div>
+                </div>
+            </button>
         </div>
     </div>
-    <div class="row">
-        <div class="col-12">
-            <button type="button" class="btn bg-secondary w-100"
-                    data-toggle="collapse"
-                    data-target="#selectedActions"
-                    aria-expanded="true"
-                    aria-controls="addActions">
-                            <span class="mat-h5 text-lowercase">
-                                    Selected Actions
-                            </span>
-            </button>
-            <div id="selectedActions" class="collapse m-2 shadow border bg-white">
-                <table class="w-100">
-                    <tr class="border-bottom">
-                        <td style="width: 10%">Index</td><td style="width: 50%">Title</td><td style="width: 20%">Version</td><td style="width: 20%">Details</td>
-                    </tr>
-                    <tr *ngFor="let plugin of selectedPlugins; let i = index" class="text-dark mat-h4">
-                        <td style="width: 10%" >
-                            {{i+1}}
-                        </td>
-                        <td style="width: 50%">
-                            {{plugin?.title}}
-                        </td>
-                        <td style="width: 20%">
-                            <select class="form-select" style="text-align-last: center; align-self: center" (change)="onSelect($event)">
-                                <option value="1.0.0">1.0.0</option>
-                                <option value="2.0.0">2.0.0</option>
-                            </select>
-                        </td>
-                        <td style="width: 20%">
-                            <a role="button" class="mat-h5 font-weight-bold text-info">info</a>
-                        </td>
-                    </tr>
-                </table>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <button type="button" class="btn bg-secondary w-100"
+                data-toggle="collapse"
+                data-target="#selectedActions"
+                aria-expanded="true"
+                aria-controls="addActions">
+                        <span class="mat-h5 text-lowercase">
+                                Selected Actions
+                        </span>
+        </button>
+        <div id="selectedActions" class="collapse m-2 shadow border bg-white">
+            <div class="row ml-1 text-dark mat-h4" *ngFor="let plugin of selectedPlugins; let i = index" >
+                <div class="row ml-1">
+                    <div class="col-1">
+                        {{i+1}}
+                    </div>
+                    <div class="col-3">
+                        {{plugin?.title}}
+                    </div>
+                    <div class="col-7">
+                        {{plugin?.short_description}}
+                    </div>
+                    <div class="col-1">
+                    </div>
+                </div>
             </div>
+            <!--<table class="w-100">
+                <tr class="border-bottom">
+                    <td style="width: 10%">Index</td><td style="width: 50%">Title</td><td style="width: 20%">Version</td><td style="width: 20%">Details</td>
+                </tr>
+                <tr *ngFor="let plugin of selectedPlugins; let i = index" class="text-dark mat-h4">
+                    <td style="width: 10%" >
+                        {{i+1}}
+                    </td>
+                    <td style="width: 50%">
+                        {{plugin?.title}}
+                    </td>
+                    <td style="width: 20%">
+                        <select class="form-select" style="text-align-last: center; align-self: center" (change)="onSelect($event)">
+                            <option value="1.0.0">1.0.0</option>
+                            <option value="2.0.0">2.0.0</option>
+                        </select>
+                    </td>
+                    <td style="width: 20%">
+                        <a role="button" class="mat-h5 font-weight-bold text-info">info</a>
+                    </td>
+                </tr>
+                <tr *ngIf="error !== null">
+                    <td>
+                        Error: {{error?.displayed_message}}
+                    </td>
+                </tr>
+            </table>-->
         </div>
     </div>
-<div class="row mb-2" *ngIf="isModal">
+</div>
+
+<div class="row mb-2" *ngIf="isModal">  <!-- Available only if coming from modal. In Step-By-Step will not displayed-->
     <div class="col-6 text-left">
         <button type="submit" class="btn btn-info" data-dismiss="modal" (click)="onSubmit()">
             Save

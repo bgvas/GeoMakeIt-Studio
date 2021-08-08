@@ -11,6 +11,7 @@ import {GameService} from '../../services/game.service';
 import {InstallPlugins} from '../../models/installPlugins/install-plugins';
 import {projectElements} from '../../models/projectElements/project-elements';
 import {Subscription} from 'rxjs/Subscription';
+import {InstalledPlugin} from '../../../plugins/models/installed_plugins/installed-plugin';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
   unsubscribe = new Subject<void>();
   error: Error;
   selectedPlugins = new Array<Plugin>();
-  pluginsForProject = new Array<InstallPlugins>();
+  pluginsForProject = new Array<SelectedPlugin>();
   private submitEvent: Subscription;
 
 
@@ -38,21 +39,30 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
 
   ngOnInit(): void {
 
+    const basicApiToPlugin = new SelectedPlugin();
+    basicApiToPlugin.enabled = true;
+    basicApiToPlugin.game_id = this.project?.id;
+    basicApiToPlugin.plugin_id = 1;
+
+    this.addPluginToProject(basicApiToPlugin);
+
+    this.error = null;
     this.logo = '/assets/img/logo-icon.png';
-    this.pluginService.getAllPlugins().pipe(takeUntil(this.unsubscribe)).subscribe(plugins => {
-          this.availablePlugins = plugins;
+    this.pluginService.getAllPlugins().pipe(takeUntil(this.unsubscribe)).subscribe(projects => {
+          this.availablePlugins = projects['plugin'];
+          this.selectedPlugins.push(this.availablePlugins.filter(plugin => plugin.id === 1).pop());
         },
         (e: Error) => {
           this.error = e;
           console.log('Game settings(Available plugins): ' + e.message + ' - ' + e.code);
         })
     this.initializeProjectForm();
-
     // when submit comes from stepper-wizard //
-    this.submitEvent = this.submitFromStepper?.subscribe(submit => {
+    if (typeof this.submitFromStepper !== 'undefined') {
+      this.submitEvent = this.submitFromStepper?.subscribe(submit => {
         this.onSubmit();
-    })
-
+      })
+    }
   }
 
   ngOnDestroy() {
@@ -72,18 +82,14 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
     }
   }
 
-
   onCheck(event, plugin) {
-
     if (event.target.checked) {
       this.selectedPlugins.push(plugin);
       const addPlugin = new SelectedPlugin();
-      addPlugin.game_id = this.project.id;
-      addPlugin.plugin_id = plugin.id;
-      addPlugin.plugin_release_id = 42;
+      addPlugin.game_id = this.project?.id;
+      addPlugin.plugin_id = plugin?.id;
       addPlugin.enabled = true;
-
-      this.pluginsForProject.push(addPlugin);
+      this.addPluginToProject(addPlugin);
     }
     if (!event.target.checked) {
       this.selectedPlugins.splice(this.selectedPlugins.indexOf(plugin), 1);
@@ -123,22 +129,22 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
             console.log('Update elements of project: ' + e.message + ' - ' + e.code);
           });
     }
-    for (const plugin of this.pluginsForProject) {
+    /*for (const plugin of this.pluginsForProject) {
       const newSelectedPlugin = {
           plugin_release_id: plugin.plugin_release_id,
           enabled: true
       }
       this.postPluginToProject(newSelectedPlugin);
-    }
+    }*/
   }
 
-  postPluginToProject(plugin: InstallPlugins) {
-    this.projectService.postPluginToProject(this.project.id, plugin).subscribe(installPlugin => {
-      },
-        (e: Error) => {
-          console.log('Install plugin to game: ' + e.message + ' - ' + e.code);
-        }
-    )
+  addPluginToProject(installedPlugin: SelectedPlugin) {
+       this.projectService.addPluginToProject(installedPlugin).subscribe(installPlugin => {
+           },
+           (e: Error) => {
+             console.log('Install plugin to game: ' + e.message + ' - ' + e.code);
+           }
+       )
   }
 
 

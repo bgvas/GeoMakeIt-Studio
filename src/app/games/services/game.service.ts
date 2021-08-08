@@ -8,6 +8,7 @@ import {RootInstalledPlugins} from '../../plugins/models/installed_plugins/root-
 import {InstallPlugins} from '../models/installPlugins/install-plugins';
 import {projectElements} from '../models/projectElements/project-elements';
 import {delay, filter, map, mergeAll, switchMap} from 'rxjs/operators';
+import {SelectedPlugin} from '../../plugins/models/selectedPlugin/selected-plugin';
 
 
 
@@ -69,8 +70,8 @@ export class GameService {
 
 
  // Install plugin to project //
- postPluginToProject(projectId: number, plugin: InstallPlugins): Observable<InstallPlugins> {
-   return this.http.post<InstallPlugins>(this.path + '/' + projectId + '/plugins', plugin);
+ addPluginToProject(plugin: SelectedPlugin): Observable<any> {
+   return this.http.post<any>(this.path + '/addPlugin', [plugin]);
  }
 
  deleteInstalledPluginFromGame(gameId: number, pluginId: number): Observable<any> {
