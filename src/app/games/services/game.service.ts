@@ -4,10 +4,8 @@ import {Observable} from 'rxjs';
 import {GameRoot} from '../models/games/game-root';
 import {environment} from '../../../environments/environment';
 import {Game} from '../models/games/game';
-import {RootInstalledPlugins} from '../../plugins/models/installed_plugins/root-installed-plugins';
-import {InstallPlugins} from '../models/installPlugins/install-plugins';
 import {projectElements} from '../models/projectElements/project-elements';
-import {delay, filter, map, mergeAll, switchMap} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {SelectedPlugin} from '../../plugins/models/selectedPlugin/selected-plugin';
 
 

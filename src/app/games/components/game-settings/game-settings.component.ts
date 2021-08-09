@@ -10,7 +10,7 @@ import {SelectedPlugin} from '../../../plugins/models/selectedPlugin/selected-pl
 import {GameService} from '../../services/game.service';
 import {projectElements} from '../../models/projectElements/project-elements';
 import {Subscription} from 'rxjs/Subscription';
-import {typeCheckFilePath} from '@angular/compiler-cli/src/ngtsc/typecheck';
+
 
 
 
@@ -33,7 +33,6 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
   unsubscribe = new Subject<void>();
   error: Error;
   selectedPlugins: any;
-  pluginsForProject = new Array<SelectedPlugin>();
   private submitEvent: Subscription;
 
 
@@ -48,7 +47,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
           console.log('Plugins of game: ' + e.message + ' - ' + e.code)
         })
     this.error = null;
-    this.logo = '/assets/img/logo-icon.png'; // default logo for new project //
+    this.logo = '/../../../../assets/img/logo-icon.png'; // default logo for new project //
     this.pluginService.getAllPlugins().pipe(takeUntil(this.unsubscribe)).subscribe(projects => {
       this.availablePlugins = projects['plugin'].filter((e: Plugin) => e.id !== 1); // display all available plugins except basic Plugin//
         },
