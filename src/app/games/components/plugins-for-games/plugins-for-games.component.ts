@@ -16,7 +16,7 @@ import {NotificationsComponent} from '../../../shared/components/notifications/n
 export class PluginsForGamesComponent implements OnInit {
 
   availablePlugins: Plugin[];
-  installedPlugins: InstalledPlugin[];
+  installedPlugins: any[];
   game: any;
   error: Error;
   notification = new NotificationsComponent();
@@ -39,7 +39,7 @@ export class PluginsForGamesComponent implements OnInit {
 
     // get installed plugins of a game //
     this.gameService.getInstalledPluginsOfGame(this.game?.id).subscribe((plugins) => {
-      this.installedPlugins = plugins.data;
+      this.installedPlugins = plugins['plugin'];
     },
     (error: Error) => {
        this.error = error;

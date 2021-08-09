@@ -7,6 +7,7 @@ import {Error} from '../../../classes/error/error';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
+import {SelectedPlugin} from '../../../plugins/models/selectedPlugin/selected-plugin';
 
 @Component({
   selector: 'app-create-project',
@@ -18,7 +19,6 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   designRadio: any;
   createProjectForm: FormGroup;
   notification = new NotificationsComponent();
-  currentUserId;
   private unsubscribe = new Subject<void>();
 
   @Output() project = new EventEmitter();
@@ -26,7 +26,6 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   constructor(private service: GameService, private fb: FormBuilder, private appService: AppService) { }
 
   ngOnInit(): void {
-    this.currentUserId = this.appService.GetCurrentUser().id;
     this.initializeForm();
   }
 
@@ -40,21 +39,32 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
     this.createProjectForm = this.fb.group({
       title: this.fb.control('', Validators.required),
       description: this.fb.control('', Validators.required),
-      user_id: this.fb.control(this.currentUserId)
+      user_id: this.fb.control('')
     })
   }
 
   onSubmit() {
     if (this.createProjectForm.valid) {
-      this.createNewProject(<Game>this.createProjectForm.value);
+      this.createProjectForm.get('user_id').setValue(this.appService.GetCurrentUser().id)
+      this.createNewProject(this.createProjectForm.value);
     }
   }
 
   createNewProject(newProject: Game): any {
       return this.service.createNewGame(newProject).pipe(takeUntil(this.unsubscribe)).subscribe(
-          (project: Game) => {
+          project => {
+              console.log(project);
                 this.project.emit(true);
                 this.notification.showNotification('Your project, created successfully', 'success');
+                const basicPlugin = new SelectedPlugin();
+                basicPlugin.plugin_id = 1;
+                basicPlugin.game_id = project['game_id'];
+                basicPlugin.enabled = true;
+                this.service.addPluginToProject(basicPlugin).subscribe(addedPlugin => {
+                },
+                    (error: Error) => {
+                        console.log('Added plugin to game error: ' + error.code + ' - ' + error.message);
+                    });
                 this.createProjectForm.reset();
             },
             (error: Error) => {

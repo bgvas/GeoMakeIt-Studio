@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-6 mb-2">
             <mat-form-field class="bg-white p-2">
-                <input type="text" class="text-dark" matInput placeholder="Title of project" formControlName="title"  value="{{project?.title}}">
+                <input type="text" class="text-dark font-weight-bold" matInput placeholder="Title of project" formControlName="title"  value="{{project?.title}}">
                 <mat-error class="mat-h5" *ngIf="projectForm.get('title').getError('required') && projectForm.get('title').touched">
                     Title can't be empty
                 </mat-error>
@@ -22,7 +22,7 @@
     <div class="row">
         <div class="col-12">
             <mat-form-field class="bg-white p-2">
-                <input type="text" class="text-dark" matInput placeholder="Description of project" formControlName="description"  value="{{project?.description}}">
+                <input type="text" class="text-dark font-weight-bold" matInput placeholder="Description of project" formControlName="description"  value="{{project?.description}}">
                 <mat-error class="mat-h5" *ngIf="projectForm.get('description').getError('required') && projectForm.get('description').touched">
                     Description can't be empty
                 </mat-error>
@@ -30,8 +30,6 @@
         </div>
     </div>
 </div>
-
-
 <div class="row">
     <div class="col-12">
         <button type="button" class="btn bg-secondary w-100"
@@ -47,24 +45,27 @@
             <div class="border">
                 <div class="row">
                     <div class="col-2">Index</div>
-                    <div class="col-4">Title</div>
-                    <div class="col-6">Short description</div>
+                    <div class="col-3">Title</div>
+                    <div class="col-4">Short description</div>
+                    <div class="col-1">Info</div>
+                    <div class="col-2">Select</div>
                 </div>
             </div>
-            <button class="btn btn-outline-secondary w-100" style="height: 50px" *ngFor="let plugin of availablePlugins; let i = index">
-                <div class="row mat-h4 text-lowercase" >
+            <div class="w-100" style="height: 50px" *ngFor="let plugin of availablePlugins; let i = index" [class.bg-light]="i % 2 === 0">
+                <div class="row mat-h4 text-lowercase" id="plugin{{plugin.id}}">
                     <div class="col-2">{{i+1}}</div>
-                    <div class="col-4">{{plugin?.title}}</div>
-                    <div class="col-6">{{plugin?.short_description}}</div>
+                    <div class="col-3">{{plugin?.title}}</div>
+                    <div class="col-4">{{plugin?.short_description}}</div>
+                    <div class="col-1" [ngbTooltip]="plugin.description" tooltipClass="h4 font-weight-bold"  triggers="click"><mat-icon style="font-size: 50px">description</mat-icon></div>
+                    <div class="col-2"><button class="btn btn-info btn-just-icon" type="button" (click)="onAddPlugin(plugin)">+</button></div>
                 </div>
-            </button>
+            </div>
         </div>
     </div>
 </div>
-
 <div class="row">
     <div class="col-12">
-        <button type="button" class="btn bg-secondary w-100"
+        <button type="button" class="btn bg-secondary shadow w-100"
                 data-toggle="collapse"
                 data-target="#selectedActions"
                 aria-expanded="true"
@@ -73,61 +74,34 @@
                                 Selected Actions
                         </span>
         </button>
-        <div id="selectedActions" class="collapse m-2 shadow border bg-white">
-            <div class="row ml-1 text-dark mat-h4" *ngFor="let plugin of selectedPlugins; let i = index" >
-                <div class="row ml-1">
-                    <div class="col-1">
-                        {{i+1}}
-                    </div>
-                    <div class="col-3">
-                        {{plugin?.title}}
-                    </div>
-                    <div class="col-7">
-                        {{plugin?.short_description}}
-                    </div>
-                    <div class="col-1">
-                    </div>
+        <div id="selectedActions" class="collapse w-100 shadow ">
+            <div class="border">
+                <div class="row">
+                    <div class="col-2">Index</div>
+                    <div class="col-3">Title</div>
+                    <div class="col-5">Short description</div>
+                    <div class="col-2">Remove</div>
                 </div>
             </div>
-            <!--<table class="w-100">
-                <tr class="border-bottom">
-                    <td style="width: 10%">Index</td><td style="width: 50%">Title</td><td style="width: 20%">Version</td><td style="width: 20%">Details</td>
-                </tr>
-                <tr *ngFor="let plugin of selectedPlugins; let i = index" class="text-dark mat-h4">
-                    <td style="width: 10%" >
-                        {{i+1}}
-                    </td>
-                    <td style="width: 50%">
-                        {{plugin?.title}}
-                    </td>
-                    <td style="width: 20%">
-                        <select class="form-select" style="text-align-last: center; align-self: center" (change)="onSelect($event)">
-                            <option value="1.0.0">1.0.0</option>
-                            <option value="2.0.0">2.0.0</option>
-                        </select>
-                    </td>
-                    <td style="width: 20%">
-                        <a role="button" class="mat-h5 font-weight-bold text-info">info</a>
-                    </td>
-                </tr>
-                <tr *ngIf="error !== null">
-                    <td>
-                        Error: {{error?.displayed_message}}
-                    </td>
-                </tr>
-            </table>-->
+            <div class="w-100" style="height: 50px" *ngFor="let selectedPlugin of selectedPlugins; let i = index" [class.bg-light]="i % 2 === 0">
+                <div class="row mat-h4 text-lowercase" id="plugin{{selectedPlugin.id}}">
+                    <div class="col-2">{{i+1}}</div>
+                    <div class="col-3">{{selectedPlugin?.title}}</div>
+                    <div class="col-5">{{selectedPlugin?.short_description}}</div>
+                    <div class="col-2"><button class="btn btn-danger btn-just-icon" type="button" (click)="onRemovePlugin(selectedPlugin)">-</button></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
 <div class="row mb-2" *ngIf="isModal">  <!-- Available only if coming from modal. In Step-By-Step will not displayed-->
     <div class="col-6 text-left">
-        <button type="submit" class="btn btn-info" data-dismiss="modal" (click)="onSubmit()">
+        <button type="submit" class="btn btn-dark" data-dismiss="modal" (click)="onSubmit()">
             Save
         </button>
     </div>
     <div class="col-6 text-right">
-        <button type="button" class="btn btn-warning" data-dismiss="modal">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
             Cancel
         </button>
     </div>

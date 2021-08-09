@@ -18,7 +18,7 @@ export class GameSetupComponent implements OnInit {
 
   ngOnInit(): void {
     this.project = JSON.parse(sessionStorage.getItem('project'));
-    console.log(this.project);
+
    /* if (typeof(this.project) === 'undefined') {
      this.redirectProjectIfUndefined();
     }*/

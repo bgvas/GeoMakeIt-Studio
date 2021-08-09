@@ -43,6 +43,7 @@ import { PluginCardComponent } from '../plugins/components/plugin-card/plugin-ca
 import { NumberToBooleanPipe} from './pipes/number-to-boolean.pipe';
 import { RoleIdToRoleNamePipe } from './pipes/role-id-to-role-name.pipe';
 import { EmailExistsValidatorDirective } from './custom-validators/email-exists-validator.directive';
+import { CustomToolTipComponent } from './components/custom-tool-tip/custom-tool-tip.component';
 
 
 
@@ -73,8 +74,10 @@ import { EmailExistsValidatorDirective } from './custom-validators/email-exists-
     PluginCardComponent,
     NumberToBooleanPipe,
     RoleIdToRoleNamePipe,
-    EmailExistsValidatorDirective
-  ],
+    EmailExistsValidatorDirective,
+    CustomToolTipComponent
+
+],
     exports: [
         SpinnerComponent,
         DeletePopUpComponent,
@@ -88,7 +91,8 @@ import { EmailExistsValidatorDirective } from './custom-validators/email-exists-
         DonutChartComponent,
         NumberToBooleanPipe,
         RoleIdToRoleNamePipe,
-        EmailExistsValidatorDirective
+        EmailExistsValidatorDirective,
+        CustomToolTipComponent
     ],
     imports: [
         CommonModule,

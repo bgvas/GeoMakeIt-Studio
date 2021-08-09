@@ -5,13 +5,13 @@ import {Plugin} from '../../../plugins/models/plugin';
 import {Error} from '../../../classes/error/error';
 import {Observable, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SelectedPlugin} from '../../../plugins/models/selectedPlugin/selected-plugin';
 import {GameService} from '../../services/game.service';
-import {InstallPlugins} from '../../models/installPlugins/install-plugins';
 import {projectElements} from '../../models/projectElements/project-elements';
 import {Subscription} from 'rxjs/Subscription';
-import {InstalledPlugin} from '../../../plugins/models/installed_plugins/installed-plugin';
+import {typeCheckFilePath} from '@angular/compiler-cli/src/ngtsc/typecheck';
+
 
 
 @Component({
@@ -19,6 +19,8 @@ import {InstalledPlugin} from '../../../plugins/models/installed_plugins/install
   templateUrl: './game-settings.component.html',
   styleUrls: ['./game-settings.component.css']
 })
+
+
 export class GameSettingsComponent implements OnInit, OnDestroy  {
 
   @Input() project: Game;
@@ -30,7 +32,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
   projectForm: FormGroup;
   unsubscribe = new Subject<void>();
   error: Error;
-  selectedPlugins = new Array<Plugin>();
+  selectedPlugins: any;
   pluginsForProject = new Array<SelectedPlugin>();
   private submitEvent: Subscription;
 
@@ -38,19 +40,17 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
   constructor(private pluginService: PluginService, private fb: FormBuilder, private projectService: GameService) { }
 
   ngOnInit(): void {
-
-    const basicApiToPlugin = new SelectedPlugin();
-    basicApiToPlugin.enabled = true;
-    basicApiToPlugin.game_id = this.project?.id;
-    basicApiToPlugin.plugin_id = 1;
-
-    this.addPluginToProject(basicApiToPlugin);
-
+    this.projectService.getInstalledPluginsOfGame(this.project.id).subscribe(plugins => {  // get installed plugins from dataBase //
+      this.selectedPlugins = plugins.filter(e => e['id'] !== 1);  // except the basic plugin //
+    },
+        (e: Error) => {
+          this.error = e;
+          console.log('Plugins of game: ' + e.message + ' - ' + e.code)
+        })
     this.error = null;
-    this.logo = '/assets/img/logo-icon.png';
+    this.logo = '/assets/img/logo-icon.png'; // default logo for new project //
     this.pluginService.getAllPlugins().pipe(takeUntil(this.unsubscribe)).subscribe(projects => {
-          this.availablePlugins = projects['plugin'];
-          this.selectedPlugins.push(this.availablePlugins.filter(plugin => plugin.id === 1).pop());
+      this.availablePlugins = projects['plugin'].filter((e: Plugin) => e.id !== 1); // display all available plugins except basic Plugin//
         },
         (e: Error) => {
           this.error = e;
@@ -65,6 +65,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
     }
   }
 
+  // on exit, unsubscribe //
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
@@ -82,20 +83,37 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
     }
   }
 
-  onCheck(event, plugin) {
-    if (event.target.checked) {
-      this.selectedPlugins.push(plugin);
-      const addPlugin = new SelectedPlugin();
-      addPlugin.game_id = this.project?.id;
-      addPlugin.plugin_id = plugin?.id;
-      addPlugin.enabled = true;
-      this.addPluginToProject(addPlugin);
-    }
-    if (!event.target.checked) {
-      this.selectedPlugins.splice(this.selectedPlugins.indexOf(plugin), 1);
-      this.pluginsForProject.splice(this.selectedPlugins.indexOf(plugin), 1);
+  onAddPlugin(plugin) {
+    if (typeof plugin !== 'undefined') {
+      if (this.selectedPlugins.includes(plugin)) {
+        console.log('Plugin Exists in game configuration');
+      } else {
+          this.selectedPlugins.push(plugin);
+          const addPlugin = new SelectedPlugin();
+          addPlugin.game_id = this.project?.id;
+          addPlugin.plugin_id = plugin?.id;
+          addPlugin.enabled = true;
+          this.addPluginToProject(addPlugin);
+      }
     }
   }
+
+  onRemovePlugin(plugin) {
+      if (typeof plugin !== 'undefined') {
+        if (this.selectedPlugins.includes(plugin)) {
+          this.selectedPlugins.splice(this.selectedPlugins.indexOf(plugin), 1);
+          this.projectService.deleteInstalledPluginFromGame(this.project.id, plugin.id).subscribe(deletePlugin => {
+            console.log(deletePlugin);
+          },
+              (error: Error) => {
+                  console.log('Error in delete plugin from game: ' + error.message + error.code);
+              }
+          )
+        }
+      }
+  }
+
+
 
   initializeProjectForm() {
     this.projectForm = this.fb.group({
@@ -111,17 +129,15 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
     this.projectForm.get('description').setValue(this.project?.description);
   }
 
-  onSelect(event) {
-    console.log(event.target.value);
-  }
+
+
+
 
   onSubmit() {
-
     if ( this.projectForm.valid) {
       const projectToUpdate = new projectElements();
       projectToUpdate.title = this.projectForm.get('title').value;
       projectToUpdate.description = this.projectForm.get('description').value;
-
       this.projectService.updateGame(this.project.id, projectToUpdate).subscribe(update => {
         console.log(update);
       },
@@ -129,24 +145,16 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
             console.log('Update elements of project: ' + e.message + ' - ' + e.code);
           });
     }
-    /*for (const plugin of this.pluginsForProject) {
-      const newSelectedPlugin = {
-          plugin_release_id: plugin.plugin_release_id,
-          enabled: true
-      }
-      this.postPluginToProject(newSelectedPlugin);
-    }*/
   }
 
   addPluginToProject(installedPlugin: SelectedPlugin) {
        this.projectService.addPluginToProject(installedPlugin).subscribe(installPlugin => {
+              console.log(installPlugin);
            },
            (e: Error) => {
              console.log('Install plugin to game: ' + e.message + ' - ' + e.code);
            }
        )
   }
-
-
 
 }

@@ -47,11 +47,6 @@ export class GameService {
      return this.http.get(this.path + '/user/id/' + userId);
  }
 
- getAllGamesOfCurrentUser(): Observable<any> {
-    return this.http.get(this.path + '/user/')
-        .pipe(map((allProjects) => allProjects['games']));
- }
-
  // Post-HTTP request //
  createNewGame(newGame: Game): Observable<Game> {
    return this.http.post<Game>(this.path + '/new', [newGame]);
@@ -75,12 +70,11 @@ export class GameService {
  }
 
  deleteInstalledPluginFromGame(gameId: number, pluginId: number): Observable<any> {
-  return this.http.delete(this.path + '/' + gameId + '/plugins/' + pluginId);
+  return this.http.delete(this.path + '/' + gameId + '/removePlugin/' + pluginId);
  }
 
- getInstalledPluginsOfGame(gameId: number): Observable<RootInstalledPlugins> {
-   /*return this.http.get<RootInstalledPlugins>(this.path + '/' + gameId + '/plugins'); */
-    return this.http.get<RootInstalledPlugins>('assets/dummyJson/installedPlugins.json');
+ getInstalledPluginsOfGame(gameId: number): Observable<Plugin[]> {
+    return this.http.get<Plugin[]>(this.path + '/plugins/' + gameId);
   }
 
   getGameRelease(gameId: number): Observable<GameRoot> {
