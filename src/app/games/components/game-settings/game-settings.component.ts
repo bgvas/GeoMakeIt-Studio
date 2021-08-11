@@ -32,20 +32,15 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
   projectForm: FormGroup;
   unsubscribe = new Subject<void>();
   error: Error;
-  selectedPlugins: any;
+  selectedPlugins = [];
   private submitEvent: Subscription;
 
 
   constructor(private pluginService: PluginService, private fb: FormBuilder, private projectService: GameService) { }
 
   ngOnInit(): void {
-    this.projectService.getInstalledPluginsOfGame(this.project.id).subscribe(plugins => {  // get installed plugins from dataBase //
-      this.selectedPlugins = plugins.filter(e => e['id'] !== 1);  // except the basic plugin //
-    },
-        (e: Error) => {
-          this.error = e;
-          console.log('Plugins of game: ' + e.message + ' - ' + e.code)
-        })
+
+    this.getInstalledPlugins();
     this.error = null;
     this.logo = '/../../../../assets/img/logo-icon.png'; // default logo for new project //
     this.pluginService.getAllPlugins().pipe(takeUntil(this.unsubscribe)).subscribe(projects => {
@@ -82,26 +77,28 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
     }
   }
 
-  onAddPlugin(plugin) {
+  onAddPlugin(plugin: Plugin) {
     if (typeof plugin !== 'undefined') {
-      if (this.selectedPlugins.includes(plugin)) {
-        console.log('Plugin Exists in game configuration');
-      } else {
-          this.selectedPlugins.push(plugin);
-          const addPlugin = new SelectedPlugin();
-          addPlugin.game_id = this.project?.id;
-          addPlugin.plugin_id = plugin?.id;
-          addPlugin.enabled = true;
-          this.addPluginToProject(addPlugin);
-      }
+      this.projectService.checkIfPluginIsAlreadyInstalled(this.project.id, plugin.id).pipe(takeUntil(this.unsubscribe)).subscribe(isInstalled => {
+        if (isInstalled['message']) {
+          console.log('already installed');
+        } else {
+           this.selectedPlugins.push(plugin);
+           const addPlugin = new SelectedPlugin();
+           addPlugin.game_id = this.project?.id;
+           addPlugin.plugin_id = plugin?.id;
+           addPlugin.enabled = true;
+           this.addPluginToProject(addPlugin);
+        }
+      })
     }
   }
 
-  onRemovePlugin(plugin) {
+  onRemovePlugin(plugin: Plugin) {
       if (typeof plugin !== 'undefined') {
         if (this.selectedPlugins.includes(plugin)) {
           this.selectedPlugins.splice(this.selectedPlugins.indexOf(plugin), 1);
-          this.projectService.deleteInstalledPluginFromGame(this.project.id, plugin.id).subscribe(deletePlugin => {
+          this.projectService.deleteInstalledPluginFromGame(this.project.id, plugin.id).pipe(takeUntil(this.unsubscribe)).subscribe(deletePlugin => {
             console.log(deletePlugin);
           },
               (error: Error) => {
@@ -111,8 +108,6 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
         }
       }
   }
-
-
 
   initializeProjectForm() {
     this.projectForm = this.fb.group({
@@ -129,15 +124,12 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
   }
 
 
-
-
-
   onSubmit() {
     if ( this.projectForm.valid) {
       const projectToUpdate = new projectElements();
       projectToUpdate.title = this.projectForm.get('title').value;
       projectToUpdate.description = this.projectForm.get('description').value;
-      this.projectService.updateGame(this.project.id, projectToUpdate).subscribe(update => {
+      this.projectService.updateGame(this.project.id, projectToUpdate).pipe(takeUntil(this.unsubscribe)).subscribe(update => {
         console.log(update);
       },
           (e: Error) => {
@@ -147,13 +139,30 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
   }
 
   addPluginToProject(installedPlugin: SelectedPlugin) {
-       this.projectService.addPluginToProject(installedPlugin).subscribe(installPlugin => {
-              console.log(installPlugin);
+       this.projectService.addPluginToProject(installedPlugin).pipe(takeUntil(this.unsubscribe)).subscribe(installPlugin => {
+             console.log('Plugin added!')
            },
            (e: Error) => {
              console.log('Install plugin to game: ' + e.message + ' - ' + e.code);
            }
        )
   }
+
+  getInstalledPlugins() {
+      this.projectService.getInstalledPluginsOfGame(this.project.id).subscribe(plugins => {  // get installed plugins from dataBase //
+            this.selectedPlugins = plugins.filter(e => e['id'] !== 1);  // except the basic plugin //
+          },
+          (e: Error) => {
+            this.error = e;
+            console.log('Plugins of game: ' + e.message + ' - ' + e.code)
+          })
+  }
+
+  checkPlugin(plugin: Plugin){
+      this.projectService.checkIfPluginIsAlreadyInstalled(this.project.id, plugin.id).subscribe(e => {
+       this.projectService.isInstalledPlugin = e['message'];
+      });
+  }
+
 
 }

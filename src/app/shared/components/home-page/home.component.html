@@ -20,18 +20,15 @@
             </div>
             <div class="row w-100 align-items-center">
                 <div class="col-12">
-                    <div class="text-left text-danger" *ngIf="!displaySpinnerForProject && errorFromProjectSubscribe?.message !== null">
-                        {{errorFromProjectSubscribe?.displayed_message}}
-                    </div>
                     <button  mat-fab color="primary" class="h1 mr-3" style="font-weight: bold" matTooltip="create new project" matTooltipClass="h5" data-toggle="modal" data-target="#newProject">
                         +
                     </button>
                     <div class="wrapper">
-                        <div class="text-left text-secondary h3 font-weight-bold" *ngIf="!displaySpinnerForProject && projectList?.length  === 0">
-                            You don't have projects
+                        <div class="text-left text-secondary h3 font-weight-bold" *ngIf="!displaySpinnerForProject &&  errorFromProjectSubscribe !== null && projectList.length === 0">
+                            {{errorFromProjectSubscribe}}
                         </div>
                         <div class="item" *ngFor="let projectFile of projectList ">
-                            <app-project-card [project] = "projectFile" (deleted)="onDeleteProject($event)"></app-project-card>
+                            <app-project-card [project] = "projectFile"  (deleted)="onDeleteProject($event)"></app-project-card>
                         </div>
                     </div>
                 </div>
@@ -52,15 +49,12 @@
                 </div>
                 <div class="row w-100 align-items-center">
                     <div class="col-12">
-                        <div class="text-left text-danger" *ngIf="!displaySpinnerForPlugins && errorFromPluginSubscribe?.message !== null">
-                            {{errorFromPluginSubscribe?.displayed_message}}
-                        </div>
                         <button  mat-fab color="accent" class="h1 mr-3" style="font-weight: bold" matTooltip="create new plugin" matTooltipClass="h5" data-toggle="modal" data-target="#newPlugin">
                             +
                         </button>
                         <div class="wrapper-sm">
-                             <div class="text-left text-secondary h3 font-weight-bold" *ngIf="!displaySpinnerForPlugins && pluginList?.length  === 0">
-                                You don't have plugins
+                             <div class="text-left text-secondary h3 font-weight-bold" *ngIf="!displaySpinnerForPlugins && errorFromPluginSubscribe !== null  && pluginList.length === 0">
+                                 {{errorFromPluginSubscribe}}
                              </div>
                              <div class="item" *ngFor="let pluginFile of pluginList">
                                  <app-plugin-card [plugin]="pluginFile" (updated)="onUpdate($event)" (deleted)="onDeletePlugin($event)"></app-plugin-card>

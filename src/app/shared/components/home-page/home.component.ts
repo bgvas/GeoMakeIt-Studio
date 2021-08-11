@@ -1,13 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GameService} from '../../../games/services/game.service';
-import {Observable, Subject} from 'rxjs';
+import {Subject} from 'rxjs';
 import {Game} from '../../../games/models/games/game';
 import {Error} from '../../../classes/error/error';
 import {NotificationsComponent} from '../notifications/notifications.component';
 import {PluginService} from '../../../plugins/services/plugin.service';
 import {Plugin} from '../../../plugins/models/plugin';
 import {AppService} from '../../../app.service';
-import {delay} from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -20,8 +19,8 @@ export class HomeComponent implements OnInit, OnDestroy{
   pluginList: Plugin[];
   displaySpinnerForProject: boolean;
   displaySpinnerForPlugins: boolean;
-  errorFromProjectSubscribe: Error;
-  errorFromPluginSubscribe: Error;
+  errorFromProjectSubscribe: any;
+  errorFromPluginSubscribe: any;
   notification = new NotificationsComponent();
   private unsubscribe = new Subject<void>();
   projects = [];
@@ -49,13 +48,10 @@ export class HomeComponent implements OnInit, OnDestroy{
           this.displaySpinnerForProject = false;    // hide spinner
       },
           (error: Error) => {
-          if (error.code === 404) {
-              this.projectList = [];
-          } else {
               console.log('List of Projects: ' + error.code + ' - ' + error.message);
-              this.errorFromProjectSubscribe = error;
-          }
-            this.displaySpinnerForProject = false;    // hide spinner
+              this.errorFromProjectSubscribe = error.displayed_message;
+              this.projectList = [];
+              this.displaySpinnerForProject = false;    // hide spinner
           }
       )
   }
@@ -66,13 +62,10 @@ export class HomeComponent implements OnInit, OnDestroy{
              this.displaySpinnerForPlugins = false;    // hide spinner
           },
            (error: Error) => {
-               if (error.code === 404) {
-                   this.pluginList = [];
-               } else {
                    console.log('List of Plugins: ' + error.code + ' - ' + error.message);
-                   this.errorFromPluginSubscribe = error;
-               }
-               this.displaySpinnerForPlugins = false;    // hide spinner
+                   this.errorFromPluginSubscribe = error.displayed_message;
+                   this.pluginList = [];
+                   this.displaySpinnerForPlugins = false;    // hide spinner
            }
        )
    }

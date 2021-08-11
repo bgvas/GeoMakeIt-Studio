@@ -7,8 +7,7 @@ import {Game} from '../models/games/game';
 import {projectElements} from '../models/projectElements/project-elements';
 import {map} from 'rxjs/operators';
 import {SelectedPlugin} from '../../plugins/models/selectedPlugin/selected-plugin';
-
-
+import {Plugin} from '../../plugins/models/plugin';
 
 
 @Injectable({
@@ -18,6 +17,7 @@ export class GameService {
 
   _object: any;
   path = environment.be_Url + 'games';
+  checkPlugin: any;
 
 
   constructor(private http: HttpClient) { }
@@ -79,6 +79,10 @@ export class GameService {
     return this.http.get<GameRoot>(this.path + '/' + gameId + '/releases')
   }
 
+  checkIfPluginIsAlreadyInstalled(gameId: number, pluginId: number){
+      return this.http.get(this.path + '/' + gameId + '/plugin/' + pluginId);
+  }
+
   // get values from this general-use plugin //
   get object(): any {
     return this._object;
@@ -89,5 +93,14 @@ export class GameService {
     this._object = data;
   }
 
+  set isInstalledPlugin(installed: boolean) {
+      console.log(this.checkPlugin);
+      this.checkPlugin = installed;
+  }
+
+  get isInstalledPlugin(): boolean {
+      console.log(this.checkPlugin);
+      return this.checkPlugin;
+  }
 
 }

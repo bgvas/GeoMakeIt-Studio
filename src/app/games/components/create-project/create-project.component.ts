@@ -51,7 +51,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   }
 
   createNewProject(newProject: Game): any {
-      return this.service.createNewGame(newProject).pipe(takeUntil(this.unsubscribe)).subscribe(
+      return this.service.createNewGame(newProject).subscribe(
           project => {
               console.log(project);
                 this.project.emit(true);
@@ -63,17 +63,13 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
                 this.service.addPluginToProject(basicPlugin).subscribe(addedPlugin => {
                 },
                     (error: Error) => {
-                        console.log('Added plugin to game error: ' + error.code + ' - ' + error.message);
+                        console.log('Error on added plugin to game: ' + error.code + ' - ' + error.message);
                     });
                 this.createProjectForm.reset();
             },
             (error: Error) => {
-              if (error.code === 422) {
-                  this.notification.showNotification('This project title, already exists', 'danger');
-              } else {
-                  this.notification.showNotification('Can\'t create new project', 'danger');
-              }
-              console.log('Create new Project: ' + error.code + ' - ' + error.message);
+                 this.notification.showNotification(error.displayed_message, 'danger');
+                 console.log('Error on create new Project: ' + error.code + ' - ' + error.message);
           }
       )
   }
