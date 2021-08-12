@@ -17,8 +17,8 @@ import {takeUntil} from 'rxjs/operators';
 })
 export class HomeComponent implements OnInit, OnDestroy{
 
-  projectList: Game[];
-  pluginList: Plugin[];
+  projectList = Array<Game>();
+  pluginList = Array<Plugin>();
   displaySpinnerForProject: boolean;
   displaySpinnerForPlugins: boolean;
   errorFromProjectSubscribe: any;
@@ -98,7 +98,7 @@ export class HomeComponent implements OnInit, OnDestroy{
     if (typeof project !== 'undefined') {
        this.projectList.splice(this.projectList.indexOf(project), 1);
       if (this.projectList.length === 0) {
-          this.projectList = [];
+          this.projectList = new Array<Game>();
       } else {
           this.loadListOfProjects();
       }
@@ -114,7 +114,7 @@ export class HomeComponent implements OnInit, OnDestroy{
         if (typeof plugin !== 'undefined') {
             this.pluginList.splice(this.pluginList.indexOf(plugin), 1);
             if (this.pluginList.length === 0) {
-                this.pluginList = [];
+                this.pluginList = new Array<Plugin>();
             } else {
                 this.loadListOfPlugins();
             }
