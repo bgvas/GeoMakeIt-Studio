@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {GameRoot} from '../models/games/game-root';
 import {environment} from '../../../environments/environment';
 import {Game} from '../models/games/game';
 import {projectElements} from '../models/projectElements/project-elements';
-import {map} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 import {SelectedPlugin} from '../../plugins/models/selectedPlugin/selected-plugin';
 import {Plugin} from '../../plugins/models/plugin';
 
@@ -18,6 +18,7 @@ export class GameService {
   _object: any;
   path = environment.be_Url + 'games';
   checkPlugin: any;
+  _refreshProjectsList$ = new Subject<void>();
 
 
   constructor(private http: HttpClient) { }
@@ -35,7 +36,6 @@ export class GameService {
       return this.http.get<Game[]>(this.path + '/all').pipe(
           map(game => {
               return game['games'].filter(e => e.deleted_at === null);
-              // return game['games'].forEach(e => e.deleted_at === null //
           })
       );
   }
@@ -48,6 +48,7 @@ export class GameService {
  // Post-HTTP request //
  createNewGame(newGame: Game): Observable<Game> {
    return this.http.post<Game>(this.path + '/new', [newGame]);
+
  }
 
 
@@ -58,7 +59,9 @@ export class GameService {
 
  // Delete-HTTP request //
  deleteGame(id: number): Observable<any> {
-   return this.http.delete(this.path + '/delete/' + id);
+   return this.http.delete(this.path + '/delete/' + id).pipe(tap(() => {
+       this._refreshProjectsList$.next();
+   }));
  }
 
 
@@ -94,13 +97,14 @@ export class GameService {
   }
 
   set isInstalledPlugin(installed: boolean) {
-      console.log(this.checkPlugin);
       this.checkPlugin = installed;
   }
 
   get isInstalledPlugin(): boolean {
-      console.log(this.checkPlugin);
       return this.checkPlugin;
   }
 
+  get refreshProjectsList$() {
+      return this._refreshProjectsList$;
+  }
 }

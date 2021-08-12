@@ -36,6 +36,7 @@ export class AdminHomeComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
+    this.subscription.unsubscribe();
   }
 
   ngOnInit(): void {

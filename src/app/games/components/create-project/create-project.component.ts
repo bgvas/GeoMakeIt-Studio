@@ -21,7 +21,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   notification = new NotificationsComponent();
   private unsubscribe = new Subject<void>();
 
-  @Output() project = new EventEmitter();
+  @Output() project = new EventEmitter<any>();
 
   constructor(private service: GameService, private fb: FormBuilder, private appService: AppService) { }
 
@@ -54,7 +54,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
       return this.service.createNewGame(newProject).subscribe(
           project => {
               console.log(project);
-                this.project.emit(true);
+                this.project.emit(newProject);
                 this.notification.showNotification('Your project, created successfully', 'success');
                 const basicPlugin = new SelectedPlugin();
                 basicPlugin.plugin_id = 1;

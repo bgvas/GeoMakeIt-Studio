@@ -24,11 +24,14 @@
                         +
                     </button>
                     <div class="wrapper">
-                        <div class="text-left text-secondary h3 font-weight-bold" *ngIf="!displaySpinnerForProject &&  errorFromProjectSubscribe !== null && projectList.length === 0">
-                            {{errorFromProjectSubscribe}}
+                        <div class="text-left text-secondary h3 font-weight-bold" *ngIf="!displaySpinnerForProject &&  projectList?.length === 0">
+                            No Games Found
                         </div>
-                        <div class="item" *ngFor="let projectFile of projectList ">
+                        <div class="item" *ngFor="let projectFile of projectList; let i = index" id = "project{{i}}">
                             <app-project-card [project] = "projectFile"  (deleted)="onDeleteProject($event)"></app-project-card>
+                        </div>
+                        <div class="text-left text-secondary h3 font-weight-bold" *ngIf="!displaySpinnerForProject &&  errorFromProjectSubscribe !== null">
+                            {{errorFromProjectSubscribe}}
                         </div>
                     </div>
                 </div>
@@ -53,12 +56,15 @@
                             +
                         </button>
                         <div class="wrapper-sm">
-                             <div class="text-left text-secondary h3 font-weight-bold" *ngIf="!displaySpinnerForPlugins && errorFromPluginSubscribe !== null  && pluginList.length === 0">
-                                 {{errorFromPluginSubscribe}}
-                             </div>
-                             <div class="item" *ngFor="let pluginFile of pluginList">
+                            <div class="text-left text-secondary h3 font-weight-bold" *ngIf="!displaySpinnerForPlugins &&  pluginList?.length === 0">
+                                No Plugins Found
+                            </div>
+                             <div class="item" *ngFor="let pluginFile of pluginList; let i = index" id="plugin{{i}}">
                                  <app-plugin-card [plugin]="pluginFile" (updated)="onUpdate($event)" (deleted)="onDeletePlugin($event)"></app-plugin-card>
                              </div>
+                            <div class="text-left text-secondary h3 font-weight-bold" *ngIf="!displaySpinnerForPlugins && errorFromPluginSubscribe !== null">
+                                {{errorFromPluginSubscribe}}
+                            </div>
                         </div>
                     </div>
                 </div>

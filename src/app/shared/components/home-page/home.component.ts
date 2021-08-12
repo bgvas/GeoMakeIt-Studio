@@ -7,6 +7,8 @@ import {NotificationsComponent} from '../notifications/notifications.component';
 import {PluginService} from '../../../plugins/services/plugin.service';
 import {Plugin} from '../../../plugins/models/plugin';
 import {AppService} from '../../../app.service';
+import {takeUntil} from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-home',
@@ -29,12 +31,14 @@ export class HomeComponent implements OnInit, OnDestroy{
   constructor(private gameService: GameService, private pluginService: PluginService, private appService: AppService) { }
 
   ngOnInit() {
-      this.loadListOfProjects();
       this.displaySpinnerForProject = true;
+      this.loadListOfProjects();
+
       if (this.isPluginDeveloper()) {
           this.displaySpinnerForPlugins = true;
           this.loadListOfPlugins();
       }
+
   }
 
     ngOnDestroy() {
@@ -43,51 +47,61 @@ export class HomeComponent implements OnInit, OnDestroy{
     }
 
   loadListOfProjects() {
-      this.gameService.getAllGamesByUserId(this.appService.GetCurrentUser().id).subscribe( projects => {
+
+      this.gameService.getAllGamesByUserId(this.appService.GetCurrentUser().id).pipe(takeUntil(this.unsubscribe)).subscribe( projects => {
           this.projectList = projects['games'];
           this.displaySpinnerForProject = false;    // hide spinner
       },
           (error: Error) => {
               console.log('List of Projects: ' + error.code + ' - ' + error.message);
               this.errorFromProjectSubscribe = error.displayed_message;
-              this.projectList = [];
               this.displaySpinnerForProject = false;    // hide spinner
           }
       )
   }
 
    loadListOfPlugins() {
-       this.pluginService.getAllPluginsOfUser(this.appService.GetCurrentUser().id).subscribe(projects => {
+       this.pluginService.getAllPluginsOfUser(this.appService.GetCurrentUser().id).pipe(takeUntil(this.unsubscribe)).subscribe(projects => {
              this.pluginList = projects['plugins'];
              this.displaySpinnerForPlugins = false;    // hide spinner
           },
            (error: Error) => {
                    console.log('List of Plugins: ' + error.code + ' - ' + error.message);
                    this.errorFromPluginSubscribe = error.displayed_message;
-                   this.pluginList = [];
                    this.displaySpinnerForPlugins = false;    // hide spinner
            }
        )
    }
 
   onUpdate(event) {
-      if(event) {
+      if (event) {
           this.loadListOfPlugins();
       }
   }
 
-  onCreateProject(event) {
-     this.loadListOfProjects();
+  onCreateProject(project) {
+      if (typeof project !== 'undefined') {
+          this.projectList.push(project);
+          this.loadListOfProjects();
+      }
   }
 
-  onCreatePlugin(event) {
-     this.loadListOfPlugins();
+  onCreatePlugin(plugin) {
+      if (typeof plugin !== 'undefined') {
+          this.pluginList.push(plugin);
+          this.loadListOfPlugins();
+      }
   }
 
   // the deletion of the project, will be done in Project-Card-Component //
-  onDeleteProject(event) {
-    if (event) {
-        this.loadListOfProjects();  // load again the project-list, after deletion //
+  onDeleteProject(project) {
+    if (typeof project !== 'undefined') {
+       this.projectList.splice(this.projectList.indexOf(project), 1);
+      if (this.projectList.length === 0) {
+          this.projectList = [];
+      } else {
+          this.loadListOfProjects();
+      }
     }
   }
 
@@ -96,9 +110,14 @@ export class HomeComponent implements OnInit, OnDestroy{
   }
 
     // the deletion of the plugin, will be done in Plugin-Card-Component //
-    onDeletePlugin(event) {
-        if (event) {
-            this.loadListOfPlugins();  // load again the plugins-list, after deletion //
+    onDeletePlugin(plugin) {
+        if (typeof plugin !== 'undefined') {
+            this.pluginList.splice(this.pluginList.indexOf(plugin), 1);
+            if (this.pluginList.length === 0) {
+                this.pluginList = [];
+            } else {
+                this.loadListOfPlugins();
+            }
         }
     }
 
