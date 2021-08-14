@@ -17,8 +17,8 @@ import {takeUntil} from 'rxjs/operators';
 })
 export class HomeComponent implements OnInit, OnDestroy{
 
-  projectList = Array<Game>();
-  pluginList = Array<Plugin>();
+  projectList = new Array<Game>();
+  pluginList = new Array<Plugin>();
   displaySpinnerForProject: boolean;
   displaySpinnerForPlugins: boolean;
   errorFromProjectSubscribe: any;

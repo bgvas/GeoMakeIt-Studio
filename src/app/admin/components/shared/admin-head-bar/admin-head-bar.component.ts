@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {environment} from '../../../../../environments/environment';
 import {AuthService} from '../../../../authentication/services/auth.service';
 import {Router} from '@angular/router';
 
@@ -15,7 +14,7 @@ export class AdminHeadBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  logout(){
+  logout() {
     this.auth.logout();
     this.router.navigate(['login']);
   }

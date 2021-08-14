@@ -4,6 +4,7 @@ import {passwordMatchValidator} from '../../../shared/custom-validators/password
 import {NewAccount} from '../../../user-management/models/new-account';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
+import {User} from '../../../user-management/models/user';
 
 
 @Component({
@@ -27,9 +28,8 @@ export class RegistrationComponent implements OnInit {
   initializeForm() {
     this.registrationForm = this.fb.group({
       fName: this.fb.control('', Validators.required),
-      lName: this.fb.control('', Validators.required),
+      lName: this.fb.control(''),
       email: this.fb.control('', [Validators.required, Validators.email]),
-      username: this.fb.control('', Validators.required),
       password: this.fb.control('', [Validators.required, Validators.pattern('^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$')]),
       confirm: this.fb.control('')
     })
@@ -38,14 +38,12 @@ export class RegistrationComponent implements OnInit {
 
   onSubmit() {
     if ( this.registrationForm.valid) {
-      const newAccount = new NewAccount();
-      newAccount.fname = this.registrationForm.get('fName').value;
-      newAccount.lname = this.registrationForm.get('lName').value;
-      newAccount.username = this.registrationForm.get('username').value;
+      const newAccount = new User();
+      newAccount.name = this.registrationForm.get('fName').value + ' ' + this.registrationForm.get('lName').value;
       newAccount.email = this.registrationForm.get('email').value;
       newAccount.password = this.registrationForm.get('password').value;
       this.service.registration(newAccount).subscribe(data => {
-        this.service._element = [newAccount.email, data.access_token];
+        this.service._element = {'email': newAccount.email, 'confirm_token': data.confirm_token}; // pass email and token, thru AuthService, to ConfirmController
         this.router.navigate(['confirm']);
       },
           (error) => {

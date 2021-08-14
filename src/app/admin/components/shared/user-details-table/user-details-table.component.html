@@ -12,7 +12,7 @@
         <div class="bg-white mb-2">
             <mat-label>
                 <strong>Email</strong>
-                <input type="text" class="form-control h4" formControlName="email" appEmailExists required>
+                <input type="text" class="form-control h4" formControlName="email" appEmailExists>
                 <mat-error *ngIf="userDetailsForm.get('email').getError('required') && userDetailsForm.get('email').touched">
                     Email can't be empty
                 </mat-error>

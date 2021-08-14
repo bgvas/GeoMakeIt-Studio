@@ -19,26 +19,17 @@
                                 </div>
                                 <div class="col-10">
                                     <mat-form-field appearance="outline">
-                                        <mat-label>* Last name</mat-label>
+                                        <mat-label>  Last name</mat-label>
                                         <input matInput type="text" formControlName="lName">
-                                        <mat-error class="font-weight-bold" *ngIf="registrationForm.get('lName').invalid && registrationForm.get('lName').touched">
-                                            Last name is required
-                                        </mat-error>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-10">
-                                    <mat-form-field appearance="outline">
-                                        <mat-label>* Username</mat-label>
-                                        <input matInput type="text" formControlName="username">
-                                        <mat-error class="font-weight-bold" *ngIf="registrationForm.get('username').invalid && registrationForm.get('username').touched">
-                                            Username is required
-                                        </mat-error>
                                     </mat-form-field>
                                 </div>
                                 <div class="col-10">
                                     <mat-form-field appearance="outline">
                                         <mat-label>* Email</mat-label>
-                                        <input matInput type="email" formControlName="email">
+                                        <input matInput type="email" formControlName="email" appEmailExists required>
+                                        <mat-error class="font-weight-bold" *ngIf="registrationForm.get('email').hasError('emailExists')">
+                                            This email address, already exists
+                                        </mat-error>
                                         <mat-error class="font-weight-bold" *ngIf="registrationForm.get('email').getError('required') && registrationForm.get('email').touched">
                                             Email is required
                                         </mat-error>

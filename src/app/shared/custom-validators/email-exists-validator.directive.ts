@@ -15,7 +15,6 @@ export class EmailExistsValidatorDirective implements AsyncValidator {
   validate (control: AbstractControl): Observable<ValidationErrors | null> {
     return this.userService.checkIfEmailExists(control.value).pipe(map(
         email => {
-          console.log(email);
           return email['exists'] ? {'emailExists': true} : null;
         }
     ))

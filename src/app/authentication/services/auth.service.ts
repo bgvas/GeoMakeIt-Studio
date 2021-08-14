@@ -28,12 +28,12 @@ export class AuthService {
     this.currentUser = this.currentUserSubject.asObservable();*/
   }
 
-  registration(request: any): Observable<any> {
+  registration(request: User): Observable<any> {
     return this.http.post(this.path + '/registration', request);
   }
 
-  confirmEmail(email: any): Observable<any> {
-    return this.http.post(this.path + '/confirmMail', email);
+  confirmEmail(userElements: any): Observable<any> {
+    return this.http.post(this.path + '/confirmMail', userElements);
   }
   
   activateAccount(token: any): Observable<any> {

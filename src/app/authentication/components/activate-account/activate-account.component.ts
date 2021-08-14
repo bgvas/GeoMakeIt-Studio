@@ -12,23 +12,21 @@ import {Error} from '../../../classes/error/error';
 
 export class ActivateAccountComponent implements OnInit {
 
-  tokenElement: any;
 
-  constructor(private activatedRoute: ActivatedRoute, private service: AuthService, private router: Router) {
+  constructor(private activatedRoute: ActivatedRoute, private service: AuthService, private router: Router) { }
+
+  ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
       this.service.activateAccount({'token': params['token']}).subscribe(userActivated => {
-        this.service.element = userActivated['displayed_message'];
-        console.log(this.service.element);
-        this.router.navigate(['login']);
-      },
+            this.service.element = userActivated['displayed_message'];
+            this.router.navigate(['login']);
+          },
           (error: Error) => {
             this.service.element = error.displayed_message;
             console.log('Error in user activation: ' + error.message);
+            this.router.navigate(['login']);
           })
     });
-  }
-
-  ngOnInit(): void {
   }
 
 }
