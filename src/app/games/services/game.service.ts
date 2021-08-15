@@ -5,7 +5,7 @@ import {GameRoot} from '../models/games/game-root';
 import {environment} from '../../../environments/environment';
 import {Game} from '../models/games/game';
 import {projectElements} from '../models/projectElements/project-elements';
-import {map, tap} from 'rxjs/operators';
+import {map, retry, tap} from 'rxjs/operators';
 import {SelectedPlugin} from '../../plugins/models/selectedPlugin/selected-plugin';
 import {Plugin} from '../../plugins/models/plugin';
 
@@ -29,15 +29,19 @@ export class GameService {
   }
 
   getAllGames(): Observable<Game[]> {
-    return this.http.get<Game[]>(this.path + '/all');
+    return this.http.get<Game[]>(this.path + '/all').pipe(retry(3));
   }
 
   getAllActiveGames(): Observable<Game[]> {
-      return this.http.get<Game[]>(this.path + '/all').pipe(
+      return this.getAllGames().pipe(
           map(game => {
               return game['games'].filter(e => e.deleted_at === null);
           })
       );
+  }
+
+  getNumberOfActiveGames(): Observable<any> {
+      return this.getAllActiveGames().pipe(map( games => { return games.length}))
   }
 
 

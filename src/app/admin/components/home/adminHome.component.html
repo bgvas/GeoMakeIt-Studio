@@ -20,7 +20,7 @@
                     <span class="font-weight-bold">Created Plugins</span>
                     <app-spinner class="mt-2" [visible]="isActivePluginSpinner"></app-spinner>
                     <div class="col-12 mt-2">
-                        <h1 class="text-info">{{numberOfUploadedPlugins}}</h1>
+                        <h1 class="text-info">{{numberOfUploadedPlugins$ | async}}</h1>
                     </div>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                     <span class="font-weight-bold">Created Games (active)</span>
                     <app-spinner class="mt-2" [visible]="isActiveProjectsSpinner"></app-spinner>
                     <div class="col-12 mt-2">
-                        <h1 class="text-warning">{{numberOfCreatedGames}}</h1>
+                        <h1 class="text-warning">{{numberOfCreatedGames$ | async}}</h1>
                     </div>
                 </div>
             </div>

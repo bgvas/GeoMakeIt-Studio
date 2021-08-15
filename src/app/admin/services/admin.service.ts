@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../../user-management/models/user';
-import {map} from 'rxjs/operators';
+import {map, retry} from 'rxjs/operators';
 import {PluginService} from '../../plugins/services/plugin.service';
 import {environment} from '../../../environments/environment';
 
@@ -18,7 +18,7 @@ export class AdminService {
   constructor(private http: HttpClient) { }
 
   getUserOnlineStatus(): Observable<any> {
-    return this.http.get(this.path + 'users/status');
+    return this.http.get(this.path + 'users/status').pipe(retry(3));
   }
 
   set storeObject(obj) {

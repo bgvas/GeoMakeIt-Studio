@@ -3,9 +3,11 @@ import {User} from '../../../user-management/models/user';
 import {AdminService} from '../../services/admin.service';
 import {GameService} from '../../../games/services/game.service';
 import {PluginService} from '../../../plugins/services/plugin.service';
-import {interval, Subject, Subscription} from 'rxjs';
+import {interval, Observable, Subject, Subscription} from 'rxjs';
+
+import {delay, map, takeUntil} from 'rxjs/operators';
 import {Error} from '../../../classes/error/error';
-import {takeUntil} from 'rxjs/operators';
+
 
 
 @Component({
@@ -17,8 +19,8 @@ export class AdminHomeComponent implements OnInit, OnDestroy {
 
   gameAuthors = [];
   pluginDevelopers = [];
-  numberOfCreatedGames: number;
-  numberOfUploadedPlugins: number;
+  numberOfCreatedGames$: any;
+  numberOfUploadedPlugins$: any;
   isActiveUsersSpinner: boolean;
   isActivePluginSpinner: boolean;
   isActiveProjectsSpinner: boolean;
@@ -29,9 +31,7 @@ export class AdminHomeComponent implements OnInit, OnDestroy {
 
 
 
-  constructor(private service: AdminService, private gameService: GameService, private pluginService: PluginService) {
-
-  }
+  constructor(private service: AdminService, private gameService: GameService, private pluginService: PluginService) { }
 
   ngOnDestroy() {
     this.unsubscribe.next();
@@ -42,23 +42,24 @@ export class AdminHomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // activate spinners //
     this.isActiveUsersSpinner = true;
-    this.isActivePluginSpinner = true;
-    this.isActiveProjectsSpinner = true;
+   /* this.isActivePluginSpinner = true;
+    this.isActiveProjectsSpinner = true;*/
 
     // run functions, to get results //
-    this.getAllUsers();
-    this.getPluginsData();
-    this.getProjectsData();
+    this.getUsersData();
+    this.numberOfUploadedPlugins$ = this.pluginService.getNumberOfAvailablePlugins();
+    this.numberOfCreatedGames$ = this.gameService.getNumberOfActiveGames();
 
     // every 1 minute, refresh results from functions //
     const source =  interval(60000);  // 60000 = 1min
     this.subscription = source.pipe(takeUntil(this.unsubscribe)).subscribe(val => {
-      this.getAllUsers();
+      this.getUsersData();
     });
   }
 
 
-  getAllUsers() {
+  getUsersData() {
+
     this.service.getUserOnlineStatus().pipe(takeUntil(this.unsubscribe)).subscribe(allUsers => {
       this.numberOfAllUsers = allUsers.length;  // number of all users //
       this.isActiveUsersSpinner = false; // hide spinner //
@@ -74,36 +75,10 @@ export class AdminHomeComponent implements OnInit, OnDestroy {
     },
         (error: Error) => {
           this.isActiveUsersSpinner = false; // hide spinner //
-          this.errorMessage = error.displayed_message;
+          this.errorMessage = error.message;
           console.log('Error in getAllUsers function(adminHomeComponent): ' + error.code + ' - ' + error.message);
         })
   }
 
-
-  // get all details about projects //
-  getPluginsData() {
-    this.pluginService.getAllPlugins().pipe(takeUntil(this.unsubscribe)).subscribe(listOfPlugins => {
-      this.numberOfUploadedPlugins = listOfPlugins['plugin']?.length;
-      this.isActivePluginSpinner = false;
-    },
-        (error: Error) => {
-          this.isActivePluginSpinner = false; // hide spinner //
-          this.errorMessage = error.displayed_message;
-          console.log('Error in getPluginsData function(adminHomeComponent): ' + error.code + ' - ' + error.message);
-        })
-  }
-
-  // get all details about plugins //
-  getProjectsData() {
-    this.gameService.getAllActiveGames().pipe(takeUntil(this.unsubscribe)).subscribe(projects => {
-      this.numberOfCreatedGames = projects?.length;
-      this.isActiveProjectsSpinner = false;
-    },
-        (error: Error) => {
-          this.isActiveProjectsSpinner = false; // hide spinner //
-          this.errorMessage = error.displayed_message;
-          console.log('Error in getProjectsData function(adminHomeComponent): ' + error.code + ' - ' + error.message);
-        })
-  }
 
 }
