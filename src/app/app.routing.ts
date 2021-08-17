@@ -5,11 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import {Error404Component} from './shared/components/error404/error404.component';
 import {LoginComponent} from './authentication/components/login/login.component';
-import {RegistrationComponent} from './authentication/components/registration/registration.component';
-import {ForgotPasswordComponent} from './authentication/components/forgot-password/forgot-password.component';
+import {RegistrationComponent} from './user-management/components/registration/registration.component';
+import {ForgotPasswordComponent} from './user-management/components/forgot-password/forgot-password.component';
 import {StepByStepComponent} from './shared/components/help/step-by-step/step-by-step.component';
 import {AdminComponent} from './admin/admin.component';
-import {ConfirmNewAccountComponent} from './authentication/components/confirm-new-account/confirm-new-account.component';
+import {ConfirmNewAccountComponent} from './user-management/components/confirm-new-account/confirm-new-account.component';
+import {ResetPasswordComponent} from './user-management/components/reset-password/reset-password.component';
+import {ChangeForgotPasswordComponent} from './user-management/components/change-forgot-password/change-forgot-password.component';
 
 const routes: Routes = [
   {
@@ -54,6 +56,14 @@ const routes: Routes = [
   {
     path: 'forgotPassword',
     component: ForgotPasswordComponent
+  },
+  {
+    path: 'resetPassword',
+    component: ResetPasswordComponent
+  },
+  {
+    path: 'changeForgotPassword',
+    component: ChangeForgotPasswordComponent
   },
   {
     path: 'guide',

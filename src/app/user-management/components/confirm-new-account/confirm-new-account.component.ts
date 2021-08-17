@@ -1,20 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {AuthService} from '../../services/auth.service';
 import {Error} from '../../../classes/error/error';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-confirm-new-account',
   templateUrl: './confirm-new-account.component.html',
   styleUrls: ['./confirm-new-account.component.css']
 })
-export class ConfirmNewAccountComponent implements OnInit {
+export class ConfirmNewAccountComponent implements OnInit, OnDestroy {
 
   account = [];
   sendEmailResult;
   displaySpinner: boolean;
+  private unsubscribe = new Subject<void>();
 
-  constructor(private service: AuthService, private router: Router) { }
+  constructor(private service: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.account = this.service._element;
@@ -23,7 +26,7 @@ export class ConfirmNewAccountComponent implements OnInit {
       this.router.navigate(['login']);
     }
     this.displaySpinner = true;
-    this.service.confirmEmail(this.account).subscribe(data => {
+    this.service.confirmEmail(this.account).pipe(takeUntil(this.unsubscribe)).subscribe(data => {
       this.sendEmailResult = data.displayed_message;
       this.displaySpinner = false;
     },
@@ -32,5 +35,10 @@ export class ConfirmNewAccountComponent implements OnInit {
           this.sendEmailResult = error.displayed_message;
           console.log('Error while sent Confirmation email' + error.message)
         });
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 }

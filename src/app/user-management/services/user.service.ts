@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {User} from '../models/user';
 import {Observable, of} from 'rxjs';
 import {environment} from '../../../environments/environment';
+import {ChangeUsersPassword} from '../../authentication/Models/change-users-password';
+import {Response} from '../../shared/models/Response';
 
 
 @Injectable({
@@ -12,6 +14,7 @@ export class UserService {
 
   _element: any;
   path = environment.be_Url + 'users';
+  authPath = environment.be_Url + 'auth';
 
   constructor(private http: HttpClient) { }
 
@@ -55,6 +58,30 @@ export class UserService {
 
   checkIfEmailExists(email): Observable<any> {
     return this.http.post(this.path + '/check/email', {'email': email});
+  }
+
+  registration(request: User): Observable<any> {
+    return this.http.post(this.authPath + '/registration', request);
+  }
+
+  confirmEmail(userElements: any): Observable<any> {
+    return this.http.post(this.authPath + '/confirmMail', userElements);
+  }
+
+  activateAccount(token: any): Observable<any> {
+    return this.http.post(this.authPath + '/activateAccount', token);
+  }
+
+  resetPasswordEmail(email: string): Observable<any> {
+    return this.http.post(this.authPath + '/resetPassword', {'email': email});
+  }
+
+  confirmPasswordReset(token: any): Observable<any> {
+    return this.http.post(this.authPath + '/confirmPasswordReset', token);
+  }
+
+  changePassword(details: ChangeUsersPassword): Observable<Response> {
+    return this.http.post<Response>(this.authPath + '/PasswordReset', details);
   }
 
  }

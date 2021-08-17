@@ -4,6 +4,8 @@ import {HttpClient} from '@angular/common/http';
 import {AuthCredentials} from '../Models/auth-credentials';
 import {User} from '../../user-management/models/user';
 import {environment} from '../../../environments/environment';
+import {ChangeUsersPassword} from '../Models/change-users-password';
+import {Response} from '../../shared/models/Response';
 
 
 @Injectable({
@@ -28,6 +30,10 @@ export class AuthService {
     this.currentUser = this.currentUserSubject.asObservable();*/
   }
 
+  login(credentials: AuthCredentials): Observable<any> {
+    return this.http.post(this.path + '/login', credentials);
+  }
+
   registration(request: User): Observable<any> {
     return this.http.post(this.path + '/registration', request);
   }
@@ -35,14 +41,22 @@ export class AuthService {
   confirmEmail(userElements: any): Observable<any> {
     return this.http.post(this.path + '/confirmMail', userElements);
   }
-  
+
   activateAccount(token: any): Observable<any> {
     return this.http.post(this.path + '/activateAccount', token);
   }
 
-   login(credentials: AuthCredentials): Observable<any> {
-     return this.http.post(this.path + '/login', credentials);
+   resetPasswordEmail(email: string): Observable<any> {
+    return this.http.post(this.path + '/resetPassword', {'email': email});
    }
+
+   confirmPasswordReset(token: any): Observable<any> {
+    return this.http.post(this.path + '/confirmPasswordReset', token);
+   }
+
+    changePassword(details: ChangeUsersPassword): Observable<Response> {
+        return this.http.post<Response>(this.path + '/confirmPasswordReset', details);
+    }
 
   logout(): Observable<any> {
     sessionStorage.removeItem('currentUser');

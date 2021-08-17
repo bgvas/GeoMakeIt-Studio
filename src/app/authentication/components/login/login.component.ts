@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {UserService} from '../../../user-management/services/user.service';
 import {environment} from '../../../../environments/environment.prod';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 
 @Component({
@@ -11,12 +13,13 @@ import {environment} from '../../../../environments/environment.prod';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   loginForm: FormGroup;
   errorLogin: boolean;
   isSpinnerActive: boolean;
   messages;
+  private unsubscribe = new Subject<void>();
 
   constructor(private fb: FormBuilder, private service: AuthService, private router: Router, private userService: UserService) { }
 
@@ -25,8 +28,12 @@ export class LoginComponent implements OnInit {
     this.initializeForm();
   }
 
-  initializeForm() {
+    ngOnDestroy() {
+        this.unsubscribe.next();
+        this.unsubscribe.complete();
+    }
 
+  initializeForm() {
     this.loginForm = this.fb.group({
       email: this.fb.control('', Validators.required),
       password: this.fb.control('', Validators.required)
@@ -37,7 +44,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
    this.messages = null;
    this.isSpinnerActive = true;
-   this.service.login(this.loginForm.value).subscribe(isAuthenticatedUser => {
+   this.service.login(this.loginForm.value).pipe(takeUntil(this.unsubscribe)).subscribe(isAuthenticatedUser => {
      if (typeof isAuthenticatedUser !== 'undefined') {
        sessionStorage.setItem('token', isAuthenticatedUser.access_token);
        localStorage.setItem('role_id', isAuthenticatedUser.user.role_id);

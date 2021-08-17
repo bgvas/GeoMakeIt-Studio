@@ -1,4 +1,4 @@
-import {FormGroup, ValidatorFn} from '@angular/forms';
+import {ValidatorFn} from '@angular/forms';
 
 export  function passwordMatchValidator(password: string, confirm: string): ValidatorFn {
     return (control): { [key: string]: boolean } | null => {

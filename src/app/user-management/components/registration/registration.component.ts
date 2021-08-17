@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {passwordMatchValidator} from '../../../shared/custom-validators/passwordsMatchValidator';
-import {NewAccount} from '../../../user-management/models/new-account';
+import {NewAccount} from '../../models/new-account';
 import {Router} from '@angular/router';
-import {AuthService} from '../../services/auth.service';
-import {User} from '../../../user-management/models/user';
+import {AuthService} from '../../../authentication/services/auth.service';
+import {User} from '../../models/user';
+import {UserService} from '../../services/user.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class RegistrationComponent implements OnInit {
   terms: boolean;
 
 
-  constructor(private fb: FormBuilder, private router: Router, private service: AuthService) { }
+  constructor(private fb: FormBuilder, private router: Router, private service: UserService) { }
 
   ngOnInit(): void {
     this.initializeForm();
