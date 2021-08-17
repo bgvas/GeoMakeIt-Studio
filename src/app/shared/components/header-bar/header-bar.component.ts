@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import * as EventEmitter from 'events';
 import {FeaturesService} from '../../services/features.service';
 import {json} from 'express';
+import {User} from '../../../user-management/models/user';
 
 @Component({
   selector: 'app-header-bar',
@@ -13,12 +14,13 @@ export class HeaderBarComponent implements OnInit {
 
   open: any;
   authenticated: any;
+  userLoggedIn: boolean;
   avatarLogo = 'assets/img/avatar.png';
 
   constructor(private router: Router, private service: FeaturesService) { }
 
   ngOnInit(): void {
-    this.authenticated = JSON.parse(sessionStorage.getItem('user'));
+      this.authenticated = JSON.parse(sessionStorage.getItem('user'));
   }
 
 

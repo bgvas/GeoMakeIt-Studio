@@ -6,6 +6,7 @@ import {StepperWizardComponent} from '../../games/components/stepper-wizard/step
 import {UserGuardService as UserGuard} from '../../authentication/guards/user-guard.service';
 import {ActivateAccountComponent} from '../../user-management/components/activate-account/activate-account.component';
 import {ChangePasswordComponent} from '../../user-management/components/change-password/change-password.component';
+import {ResetPasswordComponent} from '../../user-management/components/reset-password/reset-password.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -19,7 +20,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'forgotPassword',   redirectTo: '/forgotPassword'},
     { path: 'games/setup', component: GameSetupComponent, canActivate: [UserGuard]},
     { path: 'login', redirectTo: '/login'},
-    { path: 'resetPassword', redirectTo: '/resetPassword'},
+    { path: 'resetPassword', component: ResetPasswordComponent},
     { path: 'changeForgotPassword', redirectTo: '/changeForgotPassword'},
     { path: 'changePassword',   component: ChangePasswordComponent, canActivate: [UserGuard]},
     { path: 'activate_account', component: ActivateAccountComponent}

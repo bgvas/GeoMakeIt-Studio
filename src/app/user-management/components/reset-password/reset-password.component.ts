@@ -14,16 +14,15 @@ import {UserService} from '../../services/user.service';
 export class ResetPasswordComponent implements OnInit, OnDestroy {
 
   private unsubscribe = new Subject<void>();
+  token: string;
 
   constructor(private activatedRoute: ActivatedRoute, private service: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.pipe(takeUntil(this.unsubscribe)).subscribe(params => {
-      const token = params['token'];
-      console.log('token: ' + token);
       this.service.confirmPasswordReset({'token': params['token']}).pipe(takeUntil(this.unsubscribe)).subscribe(result => {
-            console.log(result.user)
-            this.router.navigate(['login']);
+            this.service.element = result.user;
+            this.router.navigate(['changeForgotPassword']);
           },
           (error: Error) => {
             this.service.element = error.displayed_message;

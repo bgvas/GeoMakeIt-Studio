@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {AuthCredentials} from '../Models/auth-credentials';
 import {User} from '../../user-management/models/user';
 import {environment} from '../../../environments/environment';
-import {ChangeUsersPassword} from '../Models/change-users-password';
+import {ChangeUsersPassword} from '../../user-management/models/change-users-password';
 import {Response} from '../../shared/models/Response';
 
 

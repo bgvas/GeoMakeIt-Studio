@@ -33,11 +33,9 @@ export class ChangeForgotPasswordComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-
-      if(this.changePasswordForm.valid) {
-        const details = {'user_id': this.user.id, 'password': this.changePasswordForm.get('password').value}
+      if (this.changePasswordForm.valid) {
+        const details = {'user_id': this.user[0].id, 'password': this.changePasswordForm.get('password').value}
         this.userService.changePassword(details).subscribe(changePasswordResult => {
-          console.log(changePasswordResult.displayed_message);
           this.router.navigate(['login']);
         },
             (error: Error) => {

@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {User} from '../models/user';
 import {Observable, of} from 'rxjs';
 import {environment} from '../../../environments/environment';
-import {ChangeUsersPassword} from '../../authentication/Models/change-users-password';
+import {ChangeUsersPassword} from '../models/change-users-password';
 import {Response} from '../../shared/models/Response';
 
 
@@ -81,7 +81,7 @@ export class UserService {
   }
 
   changePassword(details: ChangeUsersPassword): Observable<Response> {
-    return this.http.post<Response>(this.authPath + '/PasswordReset', details);
+    return this.http.post<Response>(this.authPath + '/changePassword', details);
   }
 
  }
