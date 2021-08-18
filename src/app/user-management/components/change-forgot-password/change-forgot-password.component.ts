@@ -7,6 +7,7 @@ import {passwordMatchValidator} from '../../../shared/custom-validators/password
 import {Subject} from 'rxjs';
 import {Error} from '../../../classes/error/error';
 import {UserService} from '../../services/user.service';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-change-forgot-password',
@@ -47,7 +48,7 @@ export class ChangeForgotPasswordComponent implements OnInit, OnDestroy {
 
   initializeForm () {
     this.changePasswordForm = this.fb.group({
-      password: this.fb.control('', [Validators.required, Validators.pattern('^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$')]),
+      password: this.fb.control('', [Validators.required, Validators.pattern(environment.password_pattern)]),
       confirm: this.fb.control('', Validators.required)
     })
     this.changePasswordForm.setValidators(passwordMatchValidator('password', 'confirm'));

@@ -31,7 +31,8 @@ import { ChangeForgotPasswordComponent } from './components/change-forgot-passwo
     ],
     exports: [
         UserProfileComponent,
-        UserComponent
+        UserComponent,
+        ChangePasswordComponent
     ],
     providers: [
         UserService

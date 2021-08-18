@@ -7,7 +7,7 @@ import {Error} from '../../../classes/error/error';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
-import {SelectedPlugin} from '../../../plugins/models/selectedPlugin/selected-plugin';
+
 
 @Component({
   selector: 'app-create-project',
@@ -51,21 +51,10 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   }
 
   createNewProject(newProject: Game): any {
-      return this.service.createNewGame(newProject).subscribe(
+      return this.service.createNewGame(newProject).pipe(takeUntil(this.unsubscribe)).subscribe(
           project => {
-              console.log(project);
                 this.project.emit(newProject);
                 this.notification.showNotification('Your project, created successfully', 'success');
-                const basicPlugin = new SelectedPlugin();
-                basicPlugin.plugin_id = 1;
-                basicPlugin.game_id = project['game_id'];
-                basicPlugin.enabled = true;
-                this.service.addPluginToProject(basicPlugin).subscribe(addedPlugin => {
-                },
-                    (error: Error) => {
-                        console.log('Error on added plugin to game: ' + error.code + ' - ' + error.message);
-                    });
-                this.createProjectForm.reset();
             },
             (error: Error) => {
                  this.notification.showNotification(error.displayed_message, 'danger');

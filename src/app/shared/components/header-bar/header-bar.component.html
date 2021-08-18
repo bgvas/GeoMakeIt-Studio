@@ -27,14 +27,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
-                    <div ngbDropdown >
+                <div class="col-2">
+                    <div ngbDropdown>
                         <a role="button" class="text-white" style="background-color: inherit" id="userDropdown" ngbDropdownToggle>User</a>
                         <div ngbDropdownMenu aria-labelledby="userDropdown">
-                            <button ngbDropdownItem data-toggle="modal" data-target="#userProfile">
+                            <button ngbDropdownItem style="width: 94%" data-toggle="modal" data-target="#userProfile">
                                Profile
                             </button>
-                            <button ngbDropdownItem (click) = "onLogout()">
+                            <button ngbDropdownItem style="width: 94%" data-toggle="modal" data-target="#changePassword">
+                                Change Password
+                            </button>
+                            <button ngbDropdownItem style="width: 94%" (click) = "onLogout()">
                                 Logout
                             </button>
                         </div>
@@ -48,4 +51,5 @@
 <!-- Modals -->
 <app-geomakeit-help></app-geomakeit-help>
 <app-user-profile></app-user-profile>
+<app-change-password></app-change-password>
 

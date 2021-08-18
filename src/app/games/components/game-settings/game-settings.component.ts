@@ -42,7 +42,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
 
     this.getInstalledPlugins();
     this.error = null;
-    this.logo = '/../../../../assets/img/logo-icon.png'; // default logo for new project //
+    this.logo = 'assets/img/logo-icon.png'; // default logo for new project //
     this.pluginService.getAllPlugins().pipe(takeUntil(this.unsubscribe)).subscribe(projects => {
       this.availablePlugins = projects['plugin'].filter((e: Plugin) => e.id !== 1); // display all available plugins except basic Plugin//
         },
