@@ -44,6 +44,8 @@ import { NumberToBooleanPipe} from './pipes/number-to-boolean.pipe';
 import { RoleIdToRoleNamePipe } from './pipes/role-id-to-role-name.pipe';
 import { EmailExistsValidatorDirective } from './custom-validators/email-exists-validator.directive';
 import { CustomToolTipComponent } from './components/custom-tool-tip/custom-tool-tip.component';
+import { ColorPickerComponent } from './components/color-picker/color-picker.component';
+
 
 
 
@@ -75,7 +77,9 @@ import { CustomToolTipComponent } from './components/custom-tool-tip/custom-tool
     NumberToBooleanPipe,
     RoleIdToRoleNamePipe,
     EmailExistsValidatorDirective,
-    CustomToolTipComponent
+    CustomToolTipComponent,
+    ColorPickerComponent
+
 
 ],
     exports: [
@@ -92,7 +96,8 @@ import { CustomToolTipComponent } from './components/custom-tool-tip/custom-tool
         NumberToBooleanPipe,
         RoleIdToRoleNamePipe,
         EmailExistsValidatorDirective,
-        CustomToolTipComponent
+        CustomToolTipComponent,
+        ColorPickerComponent
     ],
     imports: [
         CommonModule,

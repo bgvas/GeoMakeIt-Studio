@@ -1,5 +1,7 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {Point} from '../../../games/models/point/point';
+import {ZonesEditor} from '../../../plugins/models/designer-models/zones/ZonesEditor';
+
 
 @Component({
   selector: 'app-map',
@@ -10,10 +12,10 @@ export class MapComponent implements OnInit {
 
   selectedLat: any;
   selectedLng: any;
-  arrayOfCoordinates = new Array<Point>();
+  arrayOfCoordinates: ZonesEditor[];
   marker = 'assets/img/note2.png'
 
-  @Input() points: Point[];
+  @Input() points: ZonesEditor[];
   @Output() coordinates = new EventEmitter<any>();
   @Output() ChangeLocation = new EventEmitter<any>();
 
@@ -23,16 +25,15 @@ export class MapComponent implements OnInit {
   }
 
   onMapClick(event) {
-    const newPoint = new Point();
-    newPoint.lat = event?.coords.lat;
-    newPoint.lng = event?.coords.lng;
-    newPoint.name = 'point-' + (this.points.length + 1);
+    const newPoint = new ZonesEditor();
+    newPoint.center.latitude = event?.coords.lat;
+    newPoint.center.longitude = event?.coords.lng;
+    newPoint.title = 'new Point';
     this.points.push(newPoint);
-
   }
 
   clickedMarker(label: string, index: number) {
-    console.log(`clicked the marker: ${label || index}`)
+
   }
 
   onDelete(index: number) {
@@ -40,12 +41,12 @@ export class MapComponent implements OnInit {
   }
 
   onChangeLocation(event, index) {
-    this.points[index].lat = event?.coords.lat;
-    this.points[index].lng = event?.coords.lng;
+    this.points[index].center.latitude = event?.coords.lat;
+    this.points[index].center.longitude = event?.coords.lng;
   }
 
-  onRadiusChange(event, index) {
-    console.log(event)
+  onRadiusChange(event: number, index) {
+    this.points[index].radius = Math.round(event);
   }
 
 

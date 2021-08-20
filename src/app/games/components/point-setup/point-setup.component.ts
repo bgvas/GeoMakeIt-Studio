@@ -1,7 +1,8 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {Point} from '../../models/point/point';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {GameService} from '../../services/game.service';
+import {ZonesEditor} from '../../../plugins/models/designer-models/zones/ZonesEditor';
 
 @Component({
   selector: 'app-point-setup',
@@ -10,12 +11,12 @@ import {GameService} from '../../services/game.service';
 })
 export class PointSetupComponent implements OnInit {
 
-  @Input() points: Point[];
-  pointForm: FormGroup;
-  selectedPoint: Point;
+  @Input() points: ZonesEditor[];
+  zonesForm: FormGroup;
+  selectedPoint: ZonesEditor;
 
   @Output() pointForDelete = new EventEmitter();
-  @Output() returnedPoint = new EventEmitter<Point>();
+  @Output() returnedPoint = new EventEmitter<ZonesEditor>();
 
   constructor(private fb: FormBuilder) { }
 
@@ -24,24 +25,22 @@ export class PointSetupComponent implements OnInit {
   }
 
   initializeForm() {
-    this.pointForm = this.fb.group({
+    this.zonesForm = this.fb.group({
+            title: this.fb.control('', Validators.required),
+            latitude: this.fb.control(''),
+            longitude: this.fb.control(''),
+            unique_id: this.fb.control('', Validators.required),
+            fill_color: this.fb.control(''),
+            stroke_width: this.fb.control(''),
+            enter_or_exit: this.fb.control(''),
+            on_action: this.fb.array([]),
+            image: this.fb.control(''),
+            width: this.fb.control('')
     });
-
-    this.pointForm.addControl('id' ,  new FormControl(''));
-    this.pointForm.addControl('name' ,  new FormControl('', Validators.required));
-    this.pointForm.addControl('description' ,  new FormControl(''));
-    this.pointForm.addControl('lat' ,  new FormControl(''));
-    this.pointForm.addControl('lng' ,  new FormControl(''));
   }
 
-  onSelect(point: Point, index: number) {
+  onSelect(point: ZonesEditor, index: number) {
     this.selectedPoint = point;
-    this.selectedPoint.id = index;
-    this.pointForm.get('name').setValue(point?.name);
-    this.pointForm.get('description').setValue(point?.description);
-    this.pointForm.get('lat').setValue(point?.lat);
-    this.pointForm.get('lng').setValue(point?.lng);
-    this.pointForm.get('id').setValue(index);
   }
 
   onDelete(index: number) {
@@ -49,9 +48,9 @@ export class PointSetupComponent implements OnInit {
   }
 
   onSubmit() {
-    const point: Point = <Point>this.pointForm.value;
+    /*const point: Point = <Point>this.zonesForm.value;
     this.points[point.id] = point;
-    this.returnedPoint.emit(point);
+    this.returnedPoint.emit(point);*/
   }
 
   background(i: number) {
@@ -60,6 +59,7 @@ export class PointSetupComponent implements OnInit {
     }
   }
 
-
-
+  onColorSelection(event) {
+      this.zonesForm.get('fill_color').setValue(event);
+  }
 }

@@ -33,7 +33,7 @@ export class ConfirmNewAccountComponent implements OnInit, OnDestroy {
         (error: Error) => {
           this.displaySpinner = false;
           this.sendEmailResult = error.displayed_message;
-          console.log('Error while sent Confirmation email' + error.message)
+          console.log('Error while send Confirmation email' + error.message)
         });
   }
 

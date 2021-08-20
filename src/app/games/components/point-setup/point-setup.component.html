@@ -6,7 +6,7 @@
                 <table class="w-100">
                     <tr >
                         <td class="mat-h5" style="width: 10%">{{i + 1 }}</td>
-                        <td class="mat-h5" style="width: 90%">{{point?.name}}</td>
+                        <td class="mat-h5" style="width: 90%">{{point?.title}}</td>
                     </tr>
                 </table>
             </button>
@@ -31,114 +31,77 @@
                 <h3 class="modal-title text-white" id="newAction" style="font-weight: bold">Setup point of action</h3>
             </div>
             <div class="modal-body m-2 border  border-dark">
-                <form [formGroup]="pointForm">
+                <form [formGroup]="zonesForm">
                     <div class="row">
                         <div class="col-4">
-                            <div class="modal-body m-2 bg-secondary">
-                                <img src="assets/img/geomakeit_logo.png" width="150" alt="Image for action">
+                            <div class="row">
+                                <div class="col-5 h5 font-weight-bold">
+                                    Latitude
+                                </div>
+                                <div class="col-7 mat-h5 pt-1 bg-light border border-dark">
+                                    {{selectedPoint?.center.latitude}}
+                                </div>
+                                <div class="col-5 h5 font-weight-bold">
+                                    Longitude
+                                </div>
+                                <div class="col-7 mat-h5 pt-1 bg-light border border-dark">
+                                    {{selectedPoint?.center.longitude}}
+                                </div>
+                                <div class="col-5 h5 font-weight-bold">
+                                    Radius
+                                </div>
+                                <div class="col-7  mat-h5 pt-1 bg-light border border-dark">
+                                    {{selectedPoint?.radius}} meters
+                                </div>
                             </div>
                         </div>
                         <div class="col-8">
-                                <div class="modal-body border border-dark bg-light ">
-                                    <mat-form-field>
-                                        <input type="text" class="text-dark" matInput placeholder="Title of action"  formControlName  = "name" value="{{selectedPoint?.name}}">
-                                    </mat-form-field>
-                                    <div class="text-danger mat-h5" *ngIf="pointForm.get('name').invalid && pointForm.get('name').touched">
-                                            Title can't be empty
-                                    </div>
-                                     <mat-form-field>
-                                         <input type="text" class="text-dark" matInput placeholder="Description" formControlName="description" value="{{selectedPoint?.description}}">
-                                     </mat-form-field>
-                                     <!--<div class="text-danger" *ngIf="createProjectForm.get('description').invalid && createProjectForm.get('description').touched">
-                                         <mat-errorFromProjectSubscribe>
-                                             Description can't be null
-                                         </mat-errorFromProjectSubscribe>
-                                     </div>-->
+                            <div class="modal-body border border-dark bg-light ">
+                                <mat-form-field>
+                                    <input type="text" class="text-dark" matInput placeholder="Title of action zone"  formControlName  = "title" value="{{selectedPoint?.title}}">
+                                </mat-form-field>
+                                <div class="text-danger mat-h5" *ngIf="zonesForm.get('title').invalid && zonesForm.get('title').touched">
+                                        Title can't be empty
                                 </div>
-                        </div>
-                    </div>
-                    <p class="text-left ml-2 text-dark">
-                        Coordinates
-                    </p>
-                    <div class="row text-dark ml-2">
-                        Latitude
-                        <div class="col-3">
-                            <div class="modal-body mat-h5 pt-1 bg-light border border-dark">
-                                    {{selectedPoint?.lat}}
-                            </div>
-                        </div>
-                        Longitude
-                        <div class="col-3">
-                            <div class="modal-body mat-h5 pt-1 bg-light border border-dark">
-                                    {{selectedPoint?.lng}}
-                            </div>
-                        </div>
-                        Radius
-                        <div class="col-3">
-                            <div class="modal-body  mat-h5 pt-1 bg-light border border-dark">
-                                100m
+                                 <mat-form-field>
+                                     <input type="text" class="text-dark" matInput placeholder="Unique identifier of action-zone"  formControlName = "unique_id" value="{{selectedPoint?.unique_id}}">
+                                 </mat-form-field>
+                                <div class="text-danger mat-h5" *ngIf="zonesForm.get('unique_id').invalid && zonesForm.get('unique_id').touched">
+                                    Identifier can't be empty
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <hr>
+                    <div class="row text-dark mt-2">
+                        <div class="col-3 text-right">
+                            Color of Zone
+                        </div>
+                        <div class="col-3">
+                            <input type="color" class="w-100" formControlName="fill_color">
+                        </div>
+                        <div class="col-3 text-right">
+                            Stroke width
+                        </div>
+                        <div class="col-3 text-left">
+                            <input class="text-center" type="number" style="width: 50px" formControlName="stroke_width" min="0" step="1" >
+                        </div>
+                    </div>
+                    <hr>
                     <div class="row">
-                        <div class="col-12">
-                            <div class="modal-body pt-1">
-                                <button type="button" class="btn bg-secondary w-100"
-                                        data-toggle="collapse"
-                                        data-target="#typeOfAction"
-                                        aria-expanded="false"
-                                        aria-controls="typeOfAction">
-                                        <span class="mat-h5 text-lowercase">
-                                                Add action to this location
-                                        </span>
-                                </button>
-                                <div id="typeOfAction" class="collapse m-1 shadow border bg-white">
-                                    Actions
-                                </div>
-                            </div>
+                        <div class="col-2">
+                            The action begins
+                        </div>
+                        <div class="col-4 text-center">
+                            <select class="form-select w-75" formControlName="enter_or_exit">
+                                <option class="form-control" value="on_enter" [defaultSelected]="true">upon entering the zone</option>
+                                <option class="form-control" value="on_exit">when leaving the zone</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="modal-body pt-1">
-                                <button type="button" class="btn bg-secondary w-100"
-                                        data-toggle="collapse"
-                                        data-target="#dataForAction"
-                                        aria-expanded="false"
-                                        aria-controls="dataForAction">
-                            <span class="mat-h5 text-lowercase">
-                                    Settings for this point
-                            </span>
-                                </button>
-                                <div id="dataForAction" class="collapse m-1 shadow border bg-white">
-                                    Data
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                   <!-- <div class="row">
-                        <div class="col-12">
-                            <div class="modal-body pt-1">
-                                <button type="button" class="btn btn-outline-light w-100"
-                                        data-toggle="collapse"
-                                        data-target="#settingsOfAction"
-                                        aria-expanded="false"
-                                        aria-controls="settingsOfAction">
-                                    <span class="mat-h5">
-                                            Global Settings
-                                    </span>
-                                </button>
-                                <div id="settingsOfAction" class="collapse m-1 shadow border bg-white">
-                                   <div class="text-center" style="height: 400px; overflow: auto; font-weight: bold">
-                                        <app-designer></app-designer>
-                                   </div>&lt;!&ndash;// General plugin's Settings //&ndash;&gt;
-                                </div>
-                            </div>
-                        </div>
-                    </div>-->
                     <div class="row">
                         <div class="col-6 text-left">
-                            <button type="submit" class="btn btn-info" (click)="onSubmit()" [disabled]="pointForm.invalid" data-dismiss="modal">
+                            <button type="submit" class="btn btn-info" (click)="onSubmit()" [disabled]="zonesForm.invalid" data-dismiss="modal">
                                 Save
                             </button>
                         </div>

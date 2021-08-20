@@ -19,8 +19,8 @@ export class AdminHomeComponent implements OnInit, OnDestroy {
 
   gameAuthors = [];
   pluginDevelopers = [];
-  numberOfCreatedGames$: any;
-  numberOfUploadedPlugins$: any;
+  numberOfCreatedGames$: Observable<number>;
+  numberOfUploadedPlugins$: Observable<number>
   isActiveUsersSpinner: boolean;
   isActivePluginSpinner: boolean;
   isActiveProjectsSpinner: boolean;
@@ -42,9 +42,6 @@ export class AdminHomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // activate spinners //
     this.isActiveUsersSpinner = true;
-   /* this.isActivePluginSpinner = true;
-    this.isActiveProjectsSpinner = true;*/
-
     // run functions, to get results //
     this.getUsersData();
     this.numberOfUploadedPlugins$ = this.pluginService.getNumberOfAvailablePlugins();

@@ -7,10 +7,10 @@
             (mapClick)="onMapClick($event)">
             <agm-marker
                     *ngFor="let point of points; let i = index"
-                    (markerClick)="clickedMarker(point.name, i)"
-                    [latitude]="point.lat"
-                    [longitude]="point.lng"
-                    [label] = "{color: 'white', fontSize: '14px', fontWeight: 'bold',  text: point.name}"
+                    (markerClick)="clickedMarker(point?.title, i)"
+                    [latitude]="point?.center.latitude"
+                    [longitude]="point?.center.longitude"
+                    [label] = "{color: 'white', fontSize: '14px', fontWeight: 'bold',  text: point?.title}"
                     [iconUrl]="marker"
                     [markerDraggable]="true"
                     (dragEnd)="onChangeLocation($event, i)">
@@ -18,7 +18,7 @@
                     <agm-info-window>
                         <div class="bg-secondary ml-0 mr-0">
                             <strong class=" pl-1 text-white text-center font-weight-bold mat-h3">
-                                {{i + 1}} - {{point.name}}
+                                {{i + 1}} - {{point.title}}
                                 <button class = "pr-1 text-white text-center font-weight-bold" type="button" style="background-color: inherit; border: 0;" (click)="onDelete(i)" >
                                     <mat-icon>delete</mat-icon>
                                 </button>
@@ -26,7 +26,7 @@
                         </div>
                     </agm-info-window>
 
-                    <agm-circle [latitude]="point.lat" [longitude]="point.lng"
+                    <agm-circle [latitude]="point?.center.latitude" [longitude]="point?.center.longitude"
                                 [radius]="500"
                                 [fillColor]="'red'"
                                 [circleDraggable]="true"

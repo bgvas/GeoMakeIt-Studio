@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {GameService} from '../../services/game.service';
 import {Point} from '../../models/point/point';
 import {Router} from '@angular/router';
+import {ZonesEditor} from '../../../plugins/models/designer-models/zones/ZonesEditor';
 
 @Component({
   selector: 'app-game-setup',
@@ -10,7 +11,7 @@ import {Router} from '@angular/router';
 })
 export class GameSetupComponent implements OnInit {
 
-  pointsArray = new Array<Point>();
+  pointsArray = new Array<ZonesEditor>();
   project: any;
   selected: boolean;
 
@@ -39,8 +40,8 @@ export class GameSetupComponent implements OnInit {
     this.addPoint(bPoint);*/
   }
 
-  addPoint(point) {
-    if (point.lng !== null && point.lat !== null) {
+  addPoint(point: ZonesEditor) {
+    if (point.center.longitude !== null && point.center.latitude !== null) {
       this.pointsArray.push(point);
     }
   }
@@ -53,12 +54,12 @@ export class GameSetupComponent implements OnInit {
     this.pointsArray.splice(index, 1);
   }
 
-  updateArrayOfPoints(point: Point) {
+  updateArrayOfPoints(point: ZonesEditor) {
     if (point !== null) {
-      this.pointsArray[point.id].name = point.name;
-      this.pointsArray[point.id].description = point.description;
+      this.pointsArray[point.id] = point;
+     /* this.pointsArray[point.id].description = point.description;
       this.pointsArray[point.id].lat = point.lat;
-      this.pointsArray[point.id].lng = point.lng;
+      this.pointsArray[point.id].lng = point.lng;*/
     }
   }
 
