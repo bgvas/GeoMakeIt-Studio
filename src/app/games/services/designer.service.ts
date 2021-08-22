@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {RootDesigner} from '../models/designers/rootDesignerClass/root-designer';
-import {catchError} from 'rxjs/operators';
+import {environment} from '../../../environments/environment';
+import {ZonesEditor} from '../../plugins/models/designer-models/zones/ZonesEditor';
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +11,15 @@ import {catchError} from 'rxjs/operators';
 export class DesignerService {
 
   item: any;
+  gamePlugins_path = environment.be_Url + 'gamePlugins/';
+
   constructor(private http: HttpClient) {}
 
-  set variable(value){
+  set storagedObject(value: any) {
     this.item = value;
   }
 
-  get variable(): any {
+  get storagedObject(): any {
     return this.item;
   }
 
@@ -38,6 +41,10 @@ export class DesignerService {
   getAPi(): Observable<any> {
     const url = 'http://api.geomakeit.com/v1/games';
     return this.http.get(url);
+  }
+
+  getZonesFromDB(game_id: number): Observable<ZonesEditor[]> {
+    return this.http.get<ZonesEditor[]>(this.gamePlugins_path + 'zones/' + game_id)
   }
 
 

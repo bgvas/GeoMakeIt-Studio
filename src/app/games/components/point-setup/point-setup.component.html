@@ -1,18 +1,19 @@
 <!-- Button trigger modal -->
-<table class="w-100">
-    <tr *ngFor="let point of points; let i = index" class="{{background(i)}}">
-        <td style="width: 95%">
+
+<table class="rounded border shadow" *ngFor="let point of points; let i = index"  id="{{i}}">
+    <tr>
+        <td style="width: 99%">
             <button class="w-100" data-toggle="modal" (click) = "onSelect(point, i)" data-target="#pointSetup" style="border: 0; background-color: inherit">
                 <table class="w-100">
-                    <tr >
-                        <td class="mat-h5" style="width: 10%">{{i + 1 }}</td>
-                        <td class="mat-h5" style="width: 90%">{{point?.title}}</td>
+                    <tr>
+                        <td class="mat-h5 text-center" style="width: 1%">{{i + 1 }}</td>
+                        <td class="mat-h5 text-center" style="width: 99%">{{point?.title}}</td>
                     </tr>
                 </table>
             </button>
         <td>
-        <td style="width: 5%">
-            <button  style="background-color: inherit; border: 0" (click)="onDelete(i)">
+        <td style="width: 1%">
+            <button class="text-danger" matTooltip="Delete this point" style="background-color: inherit; border: 0" (click)="onDelete(i)">
                 <mat-icon class="h5">
                     delete
                 </mat-icon>
@@ -63,12 +64,6 @@
                                 <div class="text-danger mat-h5" *ngIf="zonesForm.get('title').invalid && zonesForm.get('title').touched">
                                         Title can't be empty
                                 </div>
-                                 <mat-form-field>
-                                     <input type="text" class="text-dark" matInput placeholder="Unique identifier of action-zone"  formControlName = "unique_id" value="{{selectedPoint?.unique_id}}">
-                                 </mat-form-field>
-                                <div class="text-danger mat-h5" *ngIf="zonesForm.get('unique_id').invalid && zonesForm.get('unique_id').touched">
-                                    Identifier can't be empty
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -78,13 +73,13 @@
                             Color of Zone
                         </div>
                         <div class="col-3">
-                            <input type="color" class="w-100" formControlName="fill_color">
+                            <input type="color" value="{{selectedPoint?.fill_color}}"  class="w-100" formControlName="fill_color" >
                         </div>
                         <div class="col-3 text-right">
                             Stroke width
                         </div>
                         <div class="col-3 text-left">
-                            <input class="text-center" type="number" style="width: 50px" formControlName="stroke_width" min="0" step="1" >
+                            <input class="text-center" type="number" style="width: 50px" formControlName="stroke_width" min="0" step="1" value="{{selectedPoint?.stroke_width}}" >
                         </div>
                     </div>
                     <hr>
@@ -94,8 +89,8 @@
                         </div>
                         <div class="col-4 text-center">
                             <select class="form-select w-75" formControlName="enter_or_exit">
-                                <option class="form-control" value="on_enter" [defaultSelected]="true">upon entering the zone</option>
-                                <option class="form-control" value="on_exit">when leaving the zone</option>
+                                <option class="form-control" value="on_enter" [defaultSelected]="true" [selected]="selectedPoint?.on_enter !== null">upon entering the zone</option>
+                                <option class="form-control" value="on_exit" [selected]="selectedPoint?.on_exit !== null">when leaving the zone</option>
                             </select>
                         </div>
                     </div>
