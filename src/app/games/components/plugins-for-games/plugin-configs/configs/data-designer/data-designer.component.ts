@@ -96,7 +96,7 @@ export class DataDesignerComponent implements OnInit, AfterContentChecked {
 
   // delete  a formGroup //
   deleteGroup(groupId): void {
-    this.service.storagedObject = groupId;
+    this.service.savedObject = groupId;
     (this.dataForm as FormGroup).removeControl(groupId);
     this.dataFromForm.removeControl(groupId);
   }
@@ -117,8 +117,8 @@ export class DataDesignerComponent implements OnInit, AfterContentChecked {
     for (const item in form) {
       name = item;             // keep the name of last fromGroup
     }
-    if (name === '' && this.service.storagedObject !== '') {            // if we remove all previous group names, get from service the stored name //
-      name = this.service.storagedObject.substring(0, this.service.storagedObject.length - 1);
+    if (name === '' && this.service.savedObject !== '') {            // if we remove all previous group names, get from service the stored name //
+      name = this.service.savedObject.substring(0, this.service.savedObject.length - 1);
       return name + 1;
     } else if (name !== '') {
       index = name.substring(name.length - 1, name.length);  // keep the number of last formGroup

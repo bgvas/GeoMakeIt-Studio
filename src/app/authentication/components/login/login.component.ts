@@ -1,9 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {UserService} from '../../../user-management/services/user.service';
-import {environment} from '../../../../environments/environment.prod';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 

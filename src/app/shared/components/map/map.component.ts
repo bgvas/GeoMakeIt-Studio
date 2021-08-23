@@ -1,5 +1,4 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
-import {Point} from '../../../games/models/point/point';
 import {ZonesEditor} from '../../../plugins/models/designer-models/zones/ZonesEditor';
 
 

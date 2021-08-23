@@ -4,6 +4,7 @@ import {Error} from '../../../classes/error/error';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {UserService} from '../../services/user.service';
+import {AuthService} from '../../../authentication/services/auth.service';
 
 @Component({
   selector: 'app-activate-account',
@@ -17,12 +18,12 @@ export class ActivateAccountComponent implements OnInit, OnDestroy {
 
       private unsubscribe = new Subject<void>();
 
-      constructor(private activatedRoute: ActivatedRoute, private service: UserService, private router: Router) { }
+      constructor(private activatedRoute: ActivatedRoute, private service: UserService, private router: Router, private authService: AuthService) { }
 
       ngOnInit(): void {
         this.activatedRoute.queryParams.pipe(takeUntil(this.unsubscribe)).subscribe(params => {
           this.service.activateAccount({'token': params['token']}).pipe(takeUntil(this.unsubscribe)).subscribe(userActivated => {
-                this.service.element = userActivated['displayed_message'];
+                this.authService.element = userActivated['displayed_message'];
                 this.router.navigate(['login']);
               },
               (error: Error) => {

@@ -27,8 +27,8 @@
                     </agm-info-window>
 
                     <agm-circle [latitude]="point?.center.latitude" [longitude]="point?.center.longitude"
-                                [radius]="500"
-                                [fillColor]="'red'"
+                                [radius]="point?.radius"
+                                [fillColor]="point?.fill_color"
                                 [circleDraggable]="true"
                                 (radiusChange)="onRadiusChange($event, i)"
                                 [editable]="true">
