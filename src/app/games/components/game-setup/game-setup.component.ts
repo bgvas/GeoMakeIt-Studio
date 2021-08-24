@@ -25,12 +25,13 @@ export class GameSetupComponent implements OnInit, OnDestroy {
     this.project = JSON.parse(sessionStorage.getItem('project'));
     this.gamePlugins.getZonesFromDB(this.project.id).pipe(takeUntil(this.unsubscribe)).subscribe(zones => {
       if (zones !== null) {
-        this.pointsArray = zones
+        this.pointsArray = zones['contents'];
       }
     })
   }
 
   ngOnDestroy() {
+    this.gamePlugins.updateZones(this.project.id, this.pointsArray).subscribe(result => console.log(result)); // TODO remove id from object //
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
@@ -39,6 +40,7 @@ export class GameSetupComponent implements OnInit, OnDestroy {
     if (point.center.longitude !== null && point.center.latitude !== null) {
       this.pointsArray.push(point);
     }
+    console.log(this.pointsArray)
   }
 
   onSelect(point: Point) {

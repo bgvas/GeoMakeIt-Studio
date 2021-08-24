@@ -47,5 +47,9 @@ export class DesignerService {
     return this.http.get<ZonesEditor[]>(this.gamePlugins_path + 'zones/' + game_id)
   }
 
+  updateZones(game_id: number, zones: any): Observable<any> {
+    return this.http.post(this.gamePlugins_path + 'zones/update/' + game_id , zones);
+  }
+
 
 }

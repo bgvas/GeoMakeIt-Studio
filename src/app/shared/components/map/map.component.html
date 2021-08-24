@@ -9,6 +9,7 @@
                     *ngFor="let point of points; let i = index"
                     (markerClick)="clickedMarker(point?.title, i)"
                     [latitude]="point?.center.latitude"
+                    [animation]="'DROP'"
                     [longitude]="point?.center.longitude"
                     [label] = "{color: 'white', fontSize: '14px', fontWeight: 'bold',  text: point?.title}"
                     [iconUrl]="marker"
