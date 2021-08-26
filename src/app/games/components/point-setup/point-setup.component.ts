@@ -1,7 +1,8 @@
 import {Component, Input, OnInit, Output, EventEmitter, OnDestroy} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ZonesEditor} from '../../../plugins/models/designer-models/zones/ZonesEditor';
 import {DesignerService} from '../../services/designer.service';
+import {fromArray} from 'rxjs-compat/observable/fromArray';
 
 @Component({
   selector: 'app-point-setup',
@@ -13,6 +14,7 @@ export class PointSetupComponent implements OnInit {
   @Input() points: ZonesEditor[];
   zonesForm: FormGroup;
   selectedPoint: ZonesEditor;
+  actionsArray = new FormArray([]);
 
   @Output() pointForDelete = new EventEmitter<number>();
   @Output() returnedPoint = new EventEmitter<ZonesEditor>();
@@ -20,7 +22,7 @@ export class PointSetupComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.initializeForm();
+      this.initializeForm();
   }
 
   initializeForm() {
@@ -34,11 +36,19 @@ export class PointSetupComponent implements OnInit {
             fill_color: this.fb.control(''),
             stroke_width: this.fb.control(''),
             enter_or_exit: this.fb.control(''),
-            on_action: this.fb.array([]),
+            on_action: this.fb.array([this.fb.control('')]),
             image: this.fb.control(''),
             width: this.fb.control('')
     });
   }
+
+ addAction() {
+      this.actionsArray.push(this.fb.control(''))
+ }
+
+ deleteAction(index: number) {
+      this.actionsArray.removeAt(index);
+ }
 
   addValuesToForm(point: ZonesEditor) {
       this.zonesForm.get('id').setValue(point.id);
@@ -48,12 +58,14 @@ export class PointSetupComponent implements OnInit {
       this.zonesForm.get('longitude').setValue(point.center.longitude);
       this.zonesForm.get('radius').setValue(point.radius);
       this.zonesForm.get('fill_color').setValue(point.fill_color);
+      this.zonesForm.get('image').setValue(point.icon.image);
+      this.zonesForm.get('width').setValue(point.icon.width);
       if (point.on_enter?.length > 0) {
           this.zonesForm.get('enter_or_exit').setValue('on_enter');
-          this.zonesForm.get('on_action').setValue(point.on_enter);
+          point.on_enter.forEach(p => {this.actionsArray.push(this.fb.control(p))})
       } else if (point.on_exit?.length > 0) {
           this.zonesForm.get('enter_or_exit').setValue('on_exit');
-          this.zonesForm.get('on_action').setValue(point.on_exit);
+          point.on_exit.forEach(p => {this.actionsArray.push(this.fb.control(p))})
       }
   }
 
@@ -62,10 +74,15 @@ export class PointSetupComponent implements OnInit {
     point.id = index;
     this.selectedPoint = point;
     this.addValuesToForm(point);
+    console.log(this.selectedPoint);
   }
 
   onDelete(index: number) {
     this.pointForDelete.emit(index);
+  }
+
+  onCancel() {
+      this.actionsArray.clear();
   }
 
   onSubmit() {
@@ -77,10 +94,10 @@ export class PointSetupComponent implements OnInit {
      newPoint.center.latitude = this.zonesForm.get('latitude').value;
      newPoint.fill_color = this.zonesForm.get('fill_color').value;
      if (this.zonesForm.get('enter_or_exit').value === 'on_enter') {
-         newPoint.on_enter = this.zonesForm.get('on_action').value;
+         newPoint.on_enter = this.actionsArray.value;
          newPoint.on_exit = [];
      } else if (this.zonesForm.get('enter_or_exit').value === 'on_exit') {
-         newPoint.on_exit = this.zonesForm.get('on_action').value;
+         newPoint.on_exit = this.actionsArray.value;
          newPoint.on_enter = [];
      }
      newPoint.radius = this.zonesForm.get('radius').value;
@@ -89,5 +106,6 @@ export class PointSetupComponent implements OnInit {
      newPoint.icon.image = this.zonesForm.get('image').value;
 
      this.returnedPoint.emit(newPoint);
+     this.actionsArray.clear();
   }
 }

@@ -40,7 +40,7 @@ perfect-scrollbar                          1.1.0   →          1.4.0
 popper.js                                 1.14.3   →         1.15.0
 rxjs                                       6.3.3   →          6.5.2
 rxjs-compat                                6.3.3   →          6.5.2
-zone.js                                   0.8.26   →          0.9.1
+zoneObject.js                                   0.8.26   →          0.9.1
 @angular-devkit/build-angular              0.6.3   →        0.800.2
 @angular/cli                               7.0.2   →          8.0.2
 @angular/compiler-cli                      7.0.2   →          8.0.0

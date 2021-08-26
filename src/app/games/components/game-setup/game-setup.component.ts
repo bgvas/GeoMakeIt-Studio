@@ -6,6 +6,8 @@ import {ZonesEditor} from '../../../plugins/models/designer-models/zones/ZonesEd
 import {DesignerService} from '../../services/designer.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {Error} from '../../../classes/error/error';
+import {ZoneObject} from '../../../plugins/models/designer-models/zones/ZoneObject';
 
 @Component({
   selector: 'app-game-setup',
@@ -17,6 +19,7 @@ export class GameSetupComponent implements OnInit, OnDestroy {
   pointsArray = new Array<ZonesEditor>();
   project: any;
   selected: boolean;
+  zones_array = [];
   private unsubscribe = new Subject<void>();
 
   constructor(private service: GameService, private gamePlugins: DesignerService,  private router: Router) { }
@@ -31,7 +34,7 @@ export class GameSetupComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.gamePlugins.updateZones(this.project.id, this.pointsArray).subscribe(result => console.log(result)); // TODO remove id from object //
+    this.updateZones();
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
@@ -40,12 +43,11 @@ export class GameSetupComponent implements OnInit, OnDestroy {
     if (point.center.longitude !== null && point.center.latitude !== null) {
       this.pointsArray.push(point);
     }
-    console.log(this.pointsArray)
   }
 
-  onSelect(point: Point) {
+ /* onSelect(point: Point) {
     this.service.object = point;
-  }
+  }*/
 
   onDelete(index: number) {
     this.pointsArray.splice(index, 1);
@@ -57,13 +59,35 @@ export class GameSetupComponent implements OnInit, OnDestroy {
     }
   }
 
-  redirectProjectIfUndefined() {
-      this.router.navigate(['home']);
-  }
-
   onClickOpen() {
     this.service.object = this.project;
     this.router.navigate(['stepper'])
+  }
+
+  // on exit from this window, update records in DB //
+  updateZones() {
+    for (const newZone of this.pointsArray) {
+      const _zone = new ZoneObject();
+      _zone.title = newZone.title;
+      _zone.unique_id = newZone.unique_id;
+      _zone.fill_color = newZone.fill_color;
+      _zone.center = newZone.center;
+      _zone.on_enter = newZone.on_enter;
+      _zone.on_exit = newZone.on_exit;
+      _zone.icon = newZone.icon;
+      _zone.radius = newZone.radius;
+      _zone.stroke_width = newZone.stroke_width;
+
+      this.zones_array.push(_zone);
+    }
+
+    this.gamePlugins.updateZones(this.project.id, this.zones_array)
+        .subscribe(result => {
+              console.log(result)
+            },
+            (error: Error) => {
+              console.log(error.displayed_message);
+            });
   }
 
 
