@@ -1,6 +1,6 @@
 <!-- Button trigger modal -->
 
-<table class="rounded border shadow" *ngFor="let point of points; let i = index"  id="{{i}}">
+<table class="rounded border shadow" *ngFor="let point of points; let i = index" id="{{i}}">
     <tr>
         <td style="width: 99%">
             <button class="w-100" data-toggle="modal" (click) = "onSelect(point, i)" data-target="#pointSetup" style="border: 0; background-color: inherit">
@@ -13,7 +13,7 @@
             </button>
         <td>
         <td style="width: 1%">
-            <button class="text-danger" matTooltip="Delete this point" style="background-color: inherit; border: 0" (click)="onDelete(i)">
+            <button *ngIf="point.unique_id !== 'zone_regen'" class="text-danger" matTooltip="Delete this point" style="background-color: inherit; border: 0" (click)="onDelete(i)">
                 <mat-icon class="h5">
                     delete
                 </mat-icon>
@@ -57,43 +57,43 @@
                             </div>
                         </div>
                         <div class="col-8">
-                            <div class="modal-body border border-dark bg-light ">
+                            <div class="modal-body border border-dark bg-light">
                                 <mat-form-field>
-                                    <input type="text" class="text-dark" matInput placeholder="Title of action-zone"  formControlName= "title" value="{{selectedPoint?.title}}">
+                                    <input type="text" class="text-dark" matInput placeholder="Title of action-zone" formControlName= "title" value="{{selectedPoint?.title}}">
                                 </mat-form-field>
-                                <div class="text-danger mat-h5" *ngIf="zonesForm.get('title').invalid && zonesForm.get('title').touched">
+                                <div class="text-danger  mat-h5" *ngIf="zonesForm.get('title').invalid && zonesForm.get('title').touched">
                                         Title can't be empty
                                 </div>
                             </div>
+                            <p class="pt-2 text-left text-info" *ngIf="selectedPoint?.unique_id === 'zone_regen'" >This is the starting point of your project</p>
                         </div>
                     </div>
                     <hr>
-                    <div class="row text-dark mt-2">
-                        <div class="col-3 text-right">
+                    <div class="row justify-content-center text-dark mt-2">
+                        <div class="col-2" *ngIf="selectedPoint?.unique_id !== 'zone_regen'">
+                            Type of Zone
+                        </div>
+                        <div class="col-2" *ngIf="selectedPoint?.unique_id !== 'zone_regen'">
+                            <select class="form-select" formControlName="type_of_zone" [value]="zonesForm.get('type_of_zone').value">
+                                <option class="form-control" value="zone_question">Question Zone</option>
+                                <option class="form-control" value="zone_fight">Fighting Zone</option>
+                                <option class="form-control" value="zone_locked">Locked Zone</option>
+                            </select>
+                        </div>
+                        <div class="col-2 text-right">
                             Color of Zone
                         </div>
-                        <div class="col-3">
+                        <div class="col-2">
                             <input type="color" value="{{selectedPoint?.fill_color}}"  class="w-100" formControlName="fill_color" >
                         </div>
-                        <div class="col-3 text-right">
+                        <div class="col-2 text-right">
                             Stroke width
                         </div>
-                        <div class="col-3 text-left">
+                        <div class="col-2 text-left">
                             <input class="text-center" type="number" style="width: 50px" formControlName="stroke_width" min="0" step="1" value="{{selectedPoint?.stroke_width}}" >
                         </div>
                     </div>
                     <hr>
-                    <div class="row mb-2">
-                        <div class="col-4">
-                            The action begins
-                        </div>
-                        <div class="col-8">
-                            <select class="form-select w-75" formControlName="enter_or_exit" [value]="zonesForm.get('enter_or_exit').value">
-                                <option class="form-control" value="on_enter">upon entering the zone</option>
-                                <option class="form-control" value="on_exit">when leaving the zone</option>
-                            </select>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-12" >
                             <button class="btn w-100 bg-secondary"
@@ -101,12 +101,22 @@
                                     data-target="#actions"
                                     aria-expanded="false"
                                     ngbTooltip="Click to open"
-                                    [animation]="false"
                                     placement="top"
                                     aria-controls="actions">
                                 Actions
                             </button>
                             <div class="collapse border border-secondary rounded shadow" id="actions">
+                                <div class="row mb-2 mt-2">
+                                    <div class="col-4">
+                                        The action begins
+                                    </div>
+                                    <div class="col-8">
+                                        <select class="form-select w-75" formControlName="enter_or_exit" [value]="zonesForm.get('enter_or_exit').value">
+                                            <option class="form-control" value="on_enter">upon entering the zone</option>
+                                            <option class="form-control" value="on_exit">when leaving the zone</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-12">
                                         <button class="btn btn-info rounded-pill text-lowercase pull-right mr-2" (click)="addAction()">add new action</button>
@@ -131,18 +141,28 @@
                         </div>
                     </div>
                     <div class="row justify-content-center">
-                        <div class="col-8 border border-secondary">
-                            Select Image
-                            <div class="row">
-                                <div class="col-10">
-                                    <mat-form-field>
-                                        <input type="text" matInput class="form-control" placeholder="Address" formControlName="image">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-2">
-                                    <mat-form-field>
-                                        <input type="number" matInput min="0" step="1" class="form-control" placeholder="Width" formControlName="width">
-                                    </mat-form-field>
+                        <div class="col-12">
+                            <button class="btn w-100 bg-secondary"
+                                    data-toggle="collapse"
+                                    data-target="#image"
+                                    aria-expanded="false"
+                                    ngbTooltip="Click to open"
+                                    placement="top"
+                                    aria-controls="image">
+                                Image
+                            </button>
+                            <div class="collapse border border-secondary rounded shadow" id="image">
+                                <div class="row justify-content-center">
+                                    <div class="col-8">
+                                        <mat-form-field>
+                                            <input type="text" matInput class="form-control" placeholder="Address" formControlName="image">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-2">
+                                        <mat-form-field>
+                                            <input type="number" matInput min="0" step="1" class="form-control" placeholder="Width" formControlName="width">
+                                        </mat-form-field>
+                                    </div>
                                 </div>
                             </div>
                         </div>

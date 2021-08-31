@@ -1,11 +1,9 @@
 import {Component, OnDestroy, OnInit, Output} from '@angular/core';
 import {GameService} from '../../services/game.service';
-import {EventEmitter} from 'events';
 import {Subject} from 'rxjs';
 import {Router} from '@angular/router';
-import {Point} from '../../models/point/point';
 import {ZonesEditor} from '../../../plugins/models/designer-models/zones/ZonesEditor';
-import {DesignerService} from '../../services/designer.service';
+import {GamePluginConfigService} from '../../services/gamePlugin/gamePluginConfig.service';
 import {takeUntil} from 'rxjs/operators';
 import {ZoneObject} from '../../../plugins/models/designer-models/zones/ZoneObject';
 import {Error} from '../../../classes/error/error';
@@ -25,7 +23,7 @@ export class StepperWizardComponent implements OnInit, OnDestroy {
   zones_array = [];
 
 
-  constructor(private gameService: GameService, private router: Router, private gamePlugins: DesignerService) { }
+  constructor(private gameService: GameService, private router: Router, private gamePlugins: GamePluginConfigService) { }
 
   ngOnInit(): void {
     if (typeof this.gameService.object === 'undefined') {

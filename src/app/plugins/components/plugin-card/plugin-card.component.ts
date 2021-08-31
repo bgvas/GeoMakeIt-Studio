@@ -1,12 +1,10 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {NotificationsComponent} from '../../../shared/components/notifications/notifications.component';
 import {Subject} from 'rxjs';
-import {GameService} from '../../../games/services/game.service';
 import {FeaturesService} from '../../../shared/services/features.service';
 import {Router} from '@angular/router';
 import {PluginService} from '../../services/plugin.service';
 import {takeUntil} from 'rxjs/operators';
-import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-plugin-card',
@@ -37,25 +35,18 @@ export class PluginCardComponent implements OnInit, OnDestroy {
       this.deletePlugin = this.featureService.plugin;
       this.service.deletePluginById(this.deletePlugin?.id).pipe(takeUntil(this.unsubscribe)).subscribe(pluginDeleted => {
         console.log(pluginDeleted);
-            this.deleted.emit(true);
-            this.notification.showNotification('Plugin deleted!', 'success');
-          },
-          error => {
-            console.log('Deleting plugin: ' + error.code + ' - ' + error.message);
-            this.notification.showNotification('Can\'t delete plugin. Something went wrong!', 'danger');
-          })
+        this.deleted.emit(true);
+        this.notification.showNotification('Plugin deleted!', 'success');
+      },
+      error => {
+        console.log('Deleting plugin: ' + error.code + ' - ' + error.message);
+        this.notification.showNotification('Can\'t delete plugin. Something went wrong!', 'danger');
+      })
     }
   }
 
   pluginToDelete(pluginToDelete) {
     this.featureService.plugin = pluginToDelete;
-  }
-
-  convertToReadableDate(date) {
-    if ( date !== '') {
-      const newDate =  new Date(date);
-      return formatDate(newDate, 'dd/MM/yyyy', 'en-US');
-    }
   }
 
   onClickEdit(plugin) {

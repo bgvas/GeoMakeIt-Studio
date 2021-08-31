@@ -97,7 +97,8 @@ import { ColorPickerComponent } from './components/color-picker/color-picker.com
         RoleIdToRoleNamePipe,
         EmailExistsValidatorDirective,
         CustomToolTipComponent,
-        ColorPickerComponent
+        ColorPickerComponent,
+        PluginCardComponent
     ],
     imports: [
         CommonModule,

@@ -1,9 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GameService} from '../../services/game.service';
-import {Point} from '../../models/point/point';
 import {Router} from '@angular/router';
 import {ZonesEditor} from '../../../plugins/models/designer-models/zones/ZonesEditor';
-import {DesignerService} from '../../services/designer.service';
+import {GamePluginConfigService} from '../../services/gamePlugin/gamePluginConfig.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {Error} from '../../../classes/error/error';
@@ -22,7 +21,7 @@ export class GameSetupComponent implements OnInit, OnDestroy {
   zones_array = [];
   private unsubscribe = new Subject<void>();
 
-  constructor(private service: GameService, private gamePlugins: DesignerService,  private router: Router) { }
+  constructor(private service: GameService, private gamePlugins: GamePluginConfigService, private router: Router) { }
 
   ngOnInit(): void {
     this.project = JSON.parse(sessionStorage.getItem('project'));
@@ -45,9 +44,6 @@ export class GameSetupComponent implements OnInit, OnDestroy {
     }
   }
 
- /* onSelect(point: Point) {
-    this.service.object = point;
-  }*/
 
   onDelete(index: number) {
     this.pointsArray.splice(index, 1);
@@ -56,20 +52,36 @@ export class GameSetupComponent implements OnInit, OnDestroy {
   updateArrayOfPoints(point: ZonesEditor) {
     if (point !== null) {
       this.pointsArray[point.id] = point;
+      console.log(point);
     }
   }
 
-  onClickOpen() {
+  onClickOpenStepper() {
     this.service.object = this.project;
     this.router.navigate(['stepper'])
   }
 
   // on exit from this window, update records in DB //
   updateZones() {
+    let fight = 1;
+    let question = 1;
+    let locked = 1;
+    
     for (const newZone of this.pointsArray) {
       const _zone = new ZoneObject();
       _zone.title = newZone.title;
-      _zone.unique_id = newZone.unique_id;
+      if (newZone.unique_id === 'zone_fight') {
+        _zone.unique_id = newZone.unique_id + '_' + fight;
+        fight++;
+      } else if (newZone.unique_id === 'zone_question') {
+        _zone.unique_id = newZone.unique_id + '_' + question;
+        question++;
+      } else if (newZone.unique_id === 'zone_locked') {
+        _zone.unique_id = newZone.unique_id + '_' + locked;
+        locked++;
+      } else {
+        _zone.unique_id = newZone.unique_id;
+      }
       _zone.fill_color = newZone.fill_color;
       _zone.center = newZone.center;
       _zone.on_enter = newZone.on_enter;

@@ -6,7 +6,7 @@ import {isEmpty} from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class DataFileService {
+export class GamePluginDataService {
 
   constructor(private http: HttpClient) { }
 

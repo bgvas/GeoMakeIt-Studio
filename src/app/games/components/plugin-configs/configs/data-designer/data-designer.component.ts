@@ -1,10 +1,10 @@
 import {ChangeDetectorRef, Component, Input, OnInit, AfterContentChecked} from '@angular/core';
-import {RootDesigner} from '../../../../../models/designers/rootDesignerClass/root-designer';
-import {AbstractControl, Form, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {DesignerService} from '../../../../../services/designer.service';
+import {RootDesigner} from '../../../../models/designers/rootDesignerClass/root-designer';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {GamePluginConfigService} from '../../../../services/gamePlugin/gamePluginConfig.service';
 import {Location} from '@angular/common';
-import {ValidationsService} from '../../../../../../shared/services/validations/validations.service';
-import {DeclareFormControlsService} from '../../../../../../shared/services/declareFormControls/declare-form-controls.service';
+import {ValidationsService} from '../../../../../shared/services/validations/validations.service';
+import {DeclareFormControlsService} from '../../../../../shared/services/declareFormControls/declare-form-controls.service';
 
 @Component({
   selector: 'app-data-designer',
@@ -22,7 +22,7 @@ export class DataDesignerComponent implements OnInit, AfterContentChecked {
   dataForm: FormGroup;
   dataArray: any;
 
-  constructor(private fb: FormBuilder, private service: DesignerService,
+  constructor(private fb: FormBuilder, private service: GamePluginConfigService,
               private location: Location,
               private validationService: ValidationsService,
               private changeDetector: ChangeDetectorRef,

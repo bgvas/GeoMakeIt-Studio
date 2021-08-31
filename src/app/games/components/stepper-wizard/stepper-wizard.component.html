@@ -1,5 +1,5 @@
-<mat-horizontal-stepper linear #stepper>
-    <mat-step  [editable]="true">  <!-- Step-1 Basic Settings -->
+<mat-horizontal-stepper linear #stepper >
+    <mat-step>  <!-- Step-1 Basic Settings -->
         <ng-template matStepLabel>Setup Basic Settings</ng-template>
         <h2>Basic Settings </h2>
         <h4>Setup the basic settings for project</h4>
@@ -8,7 +8,7 @@
             <button class="btn bg-secondary shadow border border-success" mat-button matStepperNext (click) = "onSubmit()">Next</button>
         </div>
     </mat-step>
-    <mat-step  [editable]="true">  <!-- Step-2 Select points on map -->
+    <mat-step>  <!-- Step-2 Select points on map -->
         <ng-template matStepLabel>Select location on map</ng-template>
         <div class="container-fluid">
             <div class="row" style="height: 700px">
@@ -28,7 +28,7 @@
             </div>
         </div>
     </mat-step>
-    <mat-step  [editable]="true">  <!-- Step-3 Setup actions -->
+    <mat-step>  <!-- Step-3 Setup actions -->
         <ng-template matStepLabel>Add action in location-point</ng-template>
         <p class="text-center h2">
             Click on every point, to setup actions

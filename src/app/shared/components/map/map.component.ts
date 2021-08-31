@@ -13,6 +13,7 @@ export class MapComponent implements OnInit {
   selectedLng: any;
   arrayOfCoordinates: ZonesEditor[];
   marker = 'assets/img/note2.png'
+  isStartingPoint = false;
 
   @Input() points: ZonesEditor[];
   @Output() coordinates = new EventEmitter<any>();
@@ -27,7 +28,15 @@ export class MapComponent implements OnInit {
     const newPoint = new ZonesEditor();
     newPoint.center.latitude = event?.coords.lat;
     newPoint.center.longitude = event?.coords.lng;
-    newPoint.title = 'new Point';
+    if (this.points.length === 0) {
+      newPoint.unique_id = 'zone_regen';
+      newPoint.title = 'Starting point';
+      this.isStartingPoint = true;
+    } else {
+      newPoint.title = 'new Point';
+      newPoint.unique_id = 'zone_new_point';
+    }
+    newPoint.radius = 60; // default radius
     this.points.push(newPoint);
   }
 

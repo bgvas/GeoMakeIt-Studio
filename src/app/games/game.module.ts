@@ -8,17 +8,16 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { PluginModule } from '../plugins/plugin.module';
 import { GamesComponent } from './components/my-games/games.component';
 import { RouterModule } from '@angular/router';
-import { PluginsForGamesComponent} from './components/plugins-for-games/plugins-for-games.component';
-import { PluginConfigsComponent} from './components/plugins-for-games/plugin-configs/plugin-configs.component';
-import { ConfigsComponent} from './components/plugins-for-games/plugin-configs/configs/configs.component';
-import { DesignerComponent} from './components/plugins-for-games/plugin-configs/configs/config-designer/designer.component';
-import { DataDesignerComponent } from './components/plugins-for-games/plugin-configs/configs/data-designer/data-designer.component';
-import { InformationComponent } from './components/plugins-for-games/plugin-configs/information/information.component';
-import { StringsComponent } from './components/plugins-for-games/plugin-configs/strings/strings.component';
+import { PluginConfigsComponent} from './components/plugin-configs/plugin-configs.component';
+import { ConfigsComponent} from './components/plugin-configs/configs/configs.component';
+import { DesignerComponent} from './components/plugin-configs/configs/config-designer/designer.component';
+import { DataDesignerComponent } from './components/plugin-configs/configs/data-designer/data-designer.component';
+import { InformationComponent } from './components/plugin-configs/information/information.component';
+import { StringsComponent } from './components/plugin-configs/strings/strings.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import {MatInputModule} from '@angular/material/input';
-import {DataFileService} from './services/data-file.service';
-import {DesignerService} from './services/designer.service';
+import {GamePluginDataService} from './services/gamePlugin/gamePluginData.service';
+import {GamePluginConfigService} from './services/gamePlugin/gamePluginConfig.service';
 import {AvailablePluginsService} from './services/availbable-plugins/available-plugins.service';
 import {InstalledPluginsService} from './services/instaled-plugins-of-a-game/installed-plugins.service';
 import {MatIconModule} from '@angular/material/icon';
@@ -34,12 +33,12 @@ import {StepperWizardComponent} from './components/stepper-wizard/stepper-wizard
 import {MatButtonModule} from '@angular/material/button';
 import { GameSettingsComponent } from './components/game-settings/game-settings.component';
 import { GameMainConfigurationModalComponent } from './components/game-main-configuration-modal/game-main-configuration-modal.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 @NgModule({
     declarations: [
         GamesComponent,
-        PluginsForGamesComponent,
         PluginConfigsComponent,
         ConfigsComponent,
         DesignerComponent,
@@ -70,15 +69,16 @@ import { GameMainConfigurationModalComponent } from './components/game-main-conf
         NgbModule,
         MatSelectModule,
         MatStepperModule,
-        MatButtonModule
+        MatButtonModule,
+        MatCheckboxModule
     ],
     exports: [
         GameSettingsModalComponent
     ],
     providers: [
         GameService,
-        DataFileService,
-        DesignerService,
+        GamePluginDataService,
+        GamePluginConfigService,
         AvailablePluginsService,
         InstalledPluginsService
     ]

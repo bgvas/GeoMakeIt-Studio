@@ -1,8 +1,6 @@
-import {Component, Input, OnInit, Output, EventEmitter, OnDestroy} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter, OnDestroy, ViewChild, ViewChildren} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ZonesEditor} from '../../../plugins/models/designer-models/zones/ZonesEditor';
-import {DesignerService} from '../../services/designer.service';
-import {fromArray} from 'rxjs-compat/observable/fromArray';
 
 @Component({
   selector: 'app-point-setup',
@@ -15,6 +13,7 @@ export class PointSetupComponent implements OnInit {
   zonesForm: FormGroup;
   selectedPoint: ZonesEditor;
   actionsArray = new FormArray([]);
+  isStartingPoint = false;
 
   @Output() pointForDelete = new EventEmitter<number>();
   @Output() returnedPoint = new EventEmitter<ZonesEditor>();
@@ -30,6 +29,7 @@ export class PointSetupComponent implements OnInit {
             id: this.fb.control(''),
             title: this.fb.control('', Validators.required),
             latitude: this.fb.control(''),
+            type_of_zone: this.fb.control(''),
             radius: this.fb.control(''),
             longitude: this.fb.control(''),
             unique_id: this.fb.control(''),
@@ -53,6 +53,11 @@ export class PointSetupComponent implements OnInit {
   addValuesToForm(point: ZonesEditor) {
       this.zonesForm.get('id').setValue(point.id);
       this.zonesForm.get('title').setValue(point.title);
+      if (point.unique_id !== 'zone_regen') {
+          this.zonesForm.get('type_of_zone').setValue(point?.unique_id.substring(0, point?.unique_id.length - 2));
+      } else {
+          this.zonesForm.get('type_of_zone').setValue(point?.unique_id);
+      }
       this.zonesForm.get('stroke_width').setValue(point.stroke_width);
       this.zonesForm.get('latitude').setValue(point.center.latitude);
       this.zonesForm.get('longitude').setValue(point.center.longitude);
@@ -70,11 +75,11 @@ export class PointSetupComponent implements OnInit {
   }
 
 
+
   onSelect(point: ZonesEditor, index: number) {
     point.id = index;
     this.selectedPoint = point;
     this.addValuesToForm(point);
-    console.log(this.selectedPoint);
   }
 
   onDelete(index: number) {
@@ -87,9 +92,10 @@ export class PointSetupComponent implements OnInit {
 
   onSubmit() {
      const newPoint = new ZonesEditor();
+     console.log()
      newPoint.id = this.zonesForm.get('id').value;
      newPoint.title = this.zonesForm.get('title').value;
-     newPoint.unique_id = 'zone_' + this.zonesForm.get('title').value.toLowerCase().replace(/ /g, '_'); // create unique_id from title
+     newPoint.unique_id = this.zonesForm.get('type_of_zone').value;
      newPoint.center.longitude = this.zonesForm.get('longitude').value;
      newPoint.center.latitude = this.zonesForm.get('latitude').value;
      newPoint.fill_color = this.zonesForm.get('fill_color').value;

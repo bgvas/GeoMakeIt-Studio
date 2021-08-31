@@ -2,8 +2,10 @@
     <agm-map
             [latitude]="38.892548108719396"
             [longitude]="22.458088777351076"
+            [zoom]="10"
             [disableDefaultUI]="false"
             [zoomControl]="false"
+            [mapTypeId]="'terrain'"
             (mapClick)="onMapClick($event)">
             <agm-marker
                     *ngFor="let point of points; let i = index"
@@ -20,8 +22,8 @@
                         <div class="bg-secondary ml-0 mr-0">
                             <strong class=" pl-1 text-white text-center font-weight-bold mat-h3">
                                 {{i + 1}} - {{point.title}}
-                                <button class = "pr-1 text-white text-center font-weight-bold" type="button" style="background-color: inherit; border: 0;" (click)="onDelete(i)" >
-                                    <mat-icon>delete</mat-icon>
+                                <button *ngIf="point.unique_id !== 'zone_regen'" class = "pr-1 text-white text-center font-weight-bold" type="button" style="background-color: inherit; border: 0;" (click)="onDelete(i)" >
+                                    <mat-icon >delete</mat-icon>
                                 </button>
                             </strong>
                         </div>

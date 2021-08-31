@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {DesignerService} from '../../../../services/designer.service';
-import {RootDesigner} from '../../../../models/designers/rootDesignerClass/root-designer';
-import {DataFileService} from '../../../../services/data-file.service';
-import {Error} from '../../../../../classes/error/error';
+import {GamePluginConfigService} from '../../../services/gamePlugin/gamePluginConfig.service';
+import {RootDesigner} from '../../../models/designers/rootDesignerClass/root-designer';
+import {GamePluginDataService} from '../../../services/gamePlugin/gamePluginData.service';
+import {Error} from '../../../../classes/error/error';
 
 @Component({
   selector: 'app-configs',
@@ -16,11 +16,11 @@ export class ConfigsComponent implements OnInit {
   data: any;
   error: Error;
 
-  constructor(public designerService: DesignerService, public dataService: DataFileService) { }
+  constructor(public designerService: GamePluginConfigService, public dataService: GamePluginDataService) { }
 
   ngOnInit(): void {
 
-    this.designerService.getDataDesigner().subscribe(data => {
+    /*this.designerService.getDataDesigner().subscribe(data => {
       this.designer = data;
     },
     error => {
@@ -32,7 +32,7 @@ export class ConfigsComponent implements OnInit {
     },
     error => {
       this.error = error;
-    })
+    })*/
 }
 
 }

@@ -1,18 +1,20 @@
-import {Component, OnInit, Input, ChangeDetectorRef, AfterContentChecked} from '@angular/core';
-import {RootDesigner} from '../../../../../models/designers/rootDesignerClass/root-designer';
+import {Component, OnInit, Input, ChangeDetectorRef, AfterContentChecked, OnDestroy} from '@angular/core';
+import {RootDesigner} from '../../../../models/designers/rootDesignerClass/root-designer';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {Location} from '@angular/common';
-import {ValidationsService} from '../../../../../../shared/services/validations/validations.service';
-import {DeclareFormControlsService} from '../../../../../../shared/services/declareFormControls/declare-form-controls.service';
-import {DesignerService} from '../../../../../services/designer.service';
-import {DataFileService} from '../../../../../services/data-file.service';
+import {ValidationsService} from '../../../../../shared/services/validations/validations.service';
+import {DeclareFormControlsService} from '../../../../../shared/services/declareFormControls/declare-form-controls.service';
+import {GamePluginConfigService} from '../../../../services/gamePlugin/gamePluginConfig.service';
+import {GamePluginDataService} from '../../../../services/gamePlugin/gamePluginData.service';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-designer',
   templateUrl: './designer.component.html',
   styleUrls: ['./designer.component.css']
 })
-export class DesignerComponent implements OnInit, AfterContentChecked {
+export class DesignerComponent implements OnInit, AfterContentChecked, OnDestroy {
 
   @Input() designerFile: any;
   @Input() dataFile: any;
@@ -22,23 +24,23 @@ export class DesignerComponent implements OnInit, AfterContentChecked {
   designer: RootDesigner;
   data: any;
   dataForm: FormGroup;
-
+  private unsubscribe = new Subject<void>();
 
   constructor(private fb: FormBuilder,
               private location: Location,
               private validationService: ValidationsService,
               private changeDetector: ChangeDetectorRef,
               private declareService: DeclareFormControlsService,
-              private designerService: DesignerService,
-              private dataService: DataFileService) {}
+              private designerService: GamePluginConfigService,
+              private dataService: GamePluginDataService) {}
 
 
   ngOnInit(): void {
-     this.designerService.getConfigDesigner().subscribe(data => {
+     /*this.designerService.getConfigDesigner().pipe(takeUntil(this.unsubscribe)).subscribe(data => {
          this.designer = data;
-     });
+     });*/
 
-     this.dataService.getDataDefaultJsonFile().subscribe(data => {
+     this.dataService.getDataDefaultJsonFile().pipe(takeUntil(this.unsubscribe)).subscribe(data => {
         this.data = data;
 
          // form creation //
@@ -48,6 +50,11 @@ export class DesignerComponent implements OnInit, AfterContentChecked {
         this.declareService.fillForm(data, this.dataForm);
      })
   }
+
+    ngOnDestroy() {
+        this.unsubscribe.next();
+        this.unsubscribe.complete();
+    }
 
     // wait child, to detect form changes first //
   ngAfterContentChecked(): void {
