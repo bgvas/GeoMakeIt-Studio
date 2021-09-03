@@ -1,6 +1,22 @@
 <!-- Modal -->
-<div class="modal fade" id="game-main-config" tabindex="-1" role="dialog" aria-labelledby="game-main-config" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+
+<button  class="btn bg-dark w-100" data-toggle="modal" data-target="#game-main-config" >
+    <div class="row">
+        <div class="col-3 text-right pr-0">
+                                <span class="mat-h5">
+                                    <mat-icon class="material-icons-outlined">
+                                        build
+                                    </mat-icon>
+                                </span>
+        </div>
+        <div class="col-9 text-left mat-h5 text-lowercase">
+            Main Configuration
+        </div>
+    </div>
+</button>
+
+<div class="modal fade" id="game-main-config" tabindex="-1" role="dialog" aria-labelledby="gameMainConfig" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document" style="width: 100%">
         <div class="modal-content ">
             <div class="modal-header m-2 bg-secondary border border-dark">
                 <h3 class="modal-title text-white" id="settings" style="font-weight: bold">Main configurations of project</h3>
@@ -10,12 +26,12 @@
             </div>
             <div class="row mb-2">
                 <div class="col-6 ">
-                    <button type="submit" class="btn btn-info" data-dismiss="modal">
+                    <button type="submit" class="btn btn-dark" data-dismiss="modal">
                         Save
                     </button>
                 </div>
                 <div class="col-6">
-                    <button type="reset" class="btn btn-warning " data-dismiss="modal">
+                    <button type="reset"  class="btn btn-outline-secondary" data-dismiss="modal">
                         Cancel
                     </button>
                 </div>

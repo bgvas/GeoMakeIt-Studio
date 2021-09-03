@@ -1,11 +1,21 @@
 <mat-horizontal-stepper linear #stepper >
     <mat-step>  <!-- Step-1 Basic Settings -->
         <ng-template matStepLabel>Setup Basic Settings</ng-template>
-        <h2>Basic Settings </h2>
-        <h4>Setup the basic settings for project</h4>
-        <app-game-settings [project]="project" [isModal] = "false" [submitFromStepper]="sendSubmit.asObservable()"></app-game-settings>
-        <div class="text-right">
-            <button class="btn bg-secondary shadow border border-success" mat-button matStepperNext (click) = "onSubmit()">Next</button>
+        <div class="container-fluid">
+            <div class="row" style="height: 700px">
+                <div class="col-6 text-left">
+                    <h2>Basic Settings </h2>
+                    <h4>Setup the basic settings for project</h4>
+                </div>
+                <div class="col-6">
+                    <div class="text-right">
+                        <button class="btn bg-secondary shadow border border-success" mat-button matStepperNext (click) = "onSubmit()">Next</button>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <app-game-settings [project]="project" [isModal] = "false" [submitFromStepper]="sendSubmit.asObservable()"></app-game-settings>
+                </div>
+            </div>
         </div>
     </mat-step>
     <mat-step>  <!-- Step-2 Select points on map -->
@@ -100,7 +110,7 @@
                 </button>
             </div>
             <div class="col-2 text-left">
-                <button mat-button class="btn btn-warning shadow border border-success" (click)="onExit()">Exit</button>
+                <button mat-button class="btn btn-outline-secondary" (click)="onExit()">Exit</button>
             </div>
         </div>
     </mat-step>

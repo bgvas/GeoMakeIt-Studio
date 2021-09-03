@@ -67,10 +67,14 @@ export class PointSetupComponent implements OnInit {
       this.zonesForm.get('width').setValue(point.icon.width);
       if (point.on_enter?.length > 0) {
           this.zonesForm.get('enter_or_exit').setValue('on_enter');
-          point.on_enter.forEach(p => {this.actionsArray.push(this.fb.control(p))})
+          point.on_enter.forEach(p => {
+              this.actionsArray.push(this.fb.control(p));
+          })
       } else if (point.on_exit?.length > 0) {
           this.zonesForm.get('enter_or_exit').setValue('on_exit');
-          point.on_exit.forEach(p => {this.actionsArray.push(this.fb.control(p))})
+          point.on_exit.forEach(p => {
+              this.actionsArray.push(this.fb.control(p))
+          })
       }
   }
 
@@ -92,7 +96,6 @@ export class PointSetupComponent implements OnInit {
 
   onSubmit() {
      const newPoint = new ZonesEditor();
-     console.log()
      newPoint.id = this.zonesForm.get('id').value;
      newPoint.title = this.zonesForm.get('title').value;
      newPoint.unique_id = this.zonesForm.get('type_of_zone').value;

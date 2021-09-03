@@ -1,20 +1,17 @@
-<div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col-2 bg-light pr-0 border">
-            <div class="row shadow mb-1">
-                <div class="col-12 pl-0 text-dark mat-h1  pt-2" style="font-weight: bold; text-align: center; text-shadow: 2px 2px  grey">
+            <div class="row shadow bg-white mb-1 ">
+                <div class="col-12 text-dark mat-h2  pt-2" style="font-weight: bold; text-align: center; text-shadow: 2px 2px  grey">
                     {{project?.title}}
                 </div>
             </div>
             <div class="row" matTooltip="Click to handle location-points with specific actions" matTooltipClass="h5">
-                <div class="col-12 pl-0" style="font-weight: bold; text-align: center">
-                    <button class="btn w-100 bg-dark"
+                <div class="col-12 pr-3" style="font-weight: bold; text-align: center">
+                    <button class="btn bg-dark w-100 "
                             data-toggle="collapse"
                             data-target="#points"
                             aria-expanded="false"
                             aria-controls="points">
                             <div class="row">
-                                <div class="col-3 text-right pr-0">
+                                <div class="col-3 text-right">
                                     <span class="mat-h5">
                                         <mat-icon class="material-icons-outlined">
                                             place
@@ -26,7 +23,7 @@
                                 </div>
                             </div>
                     </button>
-                    <div id="points" class="collapse m-1 shadow-lg rounded border bg-light border-dark">
+                    <div id="points" class="collapse w-100 m-1 shadow-lg rounded border bg-light border-dark" style="align-items: center">
                         <table class="w-100">
                             <tr>
                                 <td>
@@ -50,75 +47,39 @@
                     </div>
                 </div>
             </div>
+            <!-- Basic settings -->
             <div class="row" matTooltip="Click to handle settings of this project" matTooltipClass="h5">
-                <div class="col-12 pl-0" style="font-weight: bold; text-align: center">
-                    <button  class="w-100 btn bg-dark" data-toggle="modal" data-target="#projectSettings">
-                        <div class="row">
-                            <div class="col-3 text-right pr-0">
-                                <span class="mat-h5">
-                                    <mat-icon class="material-icons-outlined">
-                                        settings
-                                    </mat-icon>
-                                </span>
-                            </div>
-                            <div class="col-9 text-left mat-h5 text-lowercase">
-                                    Basic Settings
-                            </div>
-                        </div>
-                    </button>
+                <div class="col-12 pr-3" style="font-weight: bold; text-align: center">
                     <app-game-settings-modal [project]="project"></app-game-settings-modal>
                 </div>
             </div>
+            <!-- Main Configuration -->
             <div class="row" matTooltip="Click to handle settings of this project" matTooltipClass="h5">
-                <div class="col-12 pl-0" style="font-weight: bold; text-align: center">
-                    <button  class="w-100 btn bg-dark" data-toggle="modal" data-target="#game-main-config">
-                        <div class="row">
-                            <div class="col-3 text-right pr-0">
-                                <span class="mat-h5">
-                                    <mat-icon class="material-icons-outlined">
-                                        build
-                                    </mat-icon>
-                                </span>
-                            </div>
-                            <div class="col-9 text-left mat-h5 text-lowercase">
-                                    Main Configuration
-                            </div>
-                        </div>
-                    </button>
+                <div class="col-12 pr-3" style="font-weight: bold; text-align: center">
                     <app-game-main-configuration-modal></app-game-main-configuration-modal>
                 </div>
             </div>
+            <!-- Game info -->
             <div class="row" matTooltip="Click to display information for this project" matTooltipClass="h5">
-                <div class="col-12 pl-0" style="font-weight: bold; text-align: center">
+                <div class="col-12 pr-3" style="font-weight: bold; text-align: center">
                     <app-game-info></app-game-info>
                 </div>
             </div>
-            <div class="row w-100 mb-2" style="position: absolute; bottom: 5px">
-                <div class="col-12 text-center" >
-                    <button class="mat-raised-button mat-primary" style="width: 100%">
-                       <mat-icon class="material-icons-outlined">
-                            app_settings_alt
-                       </mat-icon>
-                        Build
+            <!-- Stepper wizard -->
+            <div class="row">
+                <div class="col-12 pr-3" style="font-weight: bold; text-align: center">
+                    <button class="btn btn-white shadow rounded-lg w-100"  (click)="onClickOpenStepper()">
+                        <div class="col-12 text-center">
+                            <img src="assets/img/wizard-image.png" width="60" alt="Image for step by step wizard">
+                        </div>
+                        <div class="col-12 h5 text-info font-weight-bold text-center" style="text-shadow: 2px 2px grey">
+                            Step by Step
+                            <p class="text-secondary h6 text-lowercase" style="text-shadow: 0 0">Create a project with our help</p>
+                        </div>
                     </button>
                 </div>
             </div>
-            <div class="row w-100 mt-3" style="position: sticky">
-                <button class="ml-2 btn btn-outline-secondary shadow rounded-lg "  (click)="onClickOpenStepper()">
-                    <div class="col-12 text-center">
-                        <img src="assets/img/wizard-image.png" width="60" alt="Image for step by step wizard">
-                    </div>
-                    <div class="col-12 h5 text-info font-weight-bold text-center" style="text-shadow: 2px 2px grey">
-                        Step by Step
-                        <p class="text-secondary h6 text-lowercase" style="text-shadow: 0 0">Create a project with our help</p>
-                    </div>
-                </button>
-            </div>
-        </div>
-        <div class="col-10 pl-0 pr-0">
-            <app-map [points] = "pointsArray" (coordinates)="addPoint($event)"></app-map>
-        </div>
-    </div>
-</div>
+
+
 
 

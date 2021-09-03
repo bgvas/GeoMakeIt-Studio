@@ -1,10 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {GameService} from '../../services/game.service';
 import {Router} from '@angular/router';
 import {ZonesEditor} from '../../../plugins/models/designer-models/zones/ZonesEditor';
 import {GamePluginConfigService} from '../../services/gamePlugin/gamePluginConfig.service';
 import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
 import {Error} from '../../../classes/error/error';
 import {ZoneObject} from '../../../plugins/models/designer-models/zones/ZoneObject';
 
@@ -15,7 +14,7 @@ import {ZoneObject} from '../../../plugins/models/designer-models/zones/ZoneObje
 })
 export class GameSetupComponent implements OnInit, OnDestroy {
 
-  pointsArray = new Array<ZonesEditor>();
+  @Input() pointsArray: ZonesEditor[];
   project: any;
   selected: boolean;
   zones_array = [];
@@ -25,11 +24,6 @@ export class GameSetupComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.project = JSON.parse(sessionStorage.getItem('project'));
-    this.gamePlugins.getZonesFromDB(this.project.id).pipe(takeUntil(this.unsubscribe)).subscribe(zones => {
-      if (zones !== null) {
-        this.pointsArray = zones['contents'];
-      }
-    })
   }
 
   ngOnDestroy() {
@@ -101,9 +95,4 @@ export class GameSetupComponent implements OnInit, OnDestroy {
               console.log(error.displayed_message);
             });
   }
-
-
-
-
-
 }

@@ -34,7 +34,8 @@ import {MatButtonModule} from '@angular/material/button';
 import { GameSettingsComponent } from './components/game-settings/game-settings.component';
 import { GameMainConfigurationModalComponent } from './components/game-main-configuration-modal/game-main-configuration-modal.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-
+import {MatDialogModule} from '@angular/material/dialog';
+import { GameSetupMainPageComponent } from './components/game-setup-main-page/game-setup-main-page.component';
 
 @NgModule({
     declarations: [
@@ -51,7 +52,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
         GameInfoComponent,
         StepperWizardComponent,
         GameSettingsComponent,
-        GameMainConfigurationModalComponent
+        GameMainConfigurationModalComponent,
+        GameSetupMainPageComponent
     ],
     imports: [
         CommonModule,
@@ -70,7 +72,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
         MatSelectModule,
         MatStepperModule,
         MatButtonModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatDialogModule
     ],
     exports: [
         GameSettingsModalComponent

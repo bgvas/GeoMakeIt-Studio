@@ -14,6 +14,7 @@ import { PluginService} from './services/plugin.service';
 import { MatTooltipModule} from '@angular/material/tooltip';
 import { EditPluginComponent } from './components/edit-plugin/edit-plugin.component';
 import {IdentifierExistsValidatorDirective} from './custom-validators/identifier-exists-validator.directive';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import {IdentifierExistsValidatorDirective} from './custom-validators/identifier
         RouterModule,
         MatButtonToggleModule,
         MatInputModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatDialogModule
     ],
     exports: [
         CreatePluginComponent,

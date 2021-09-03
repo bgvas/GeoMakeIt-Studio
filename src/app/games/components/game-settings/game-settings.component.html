@@ -29,6 +29,30 @@
             </mat-form-field>
         </div>
     </div>
+    <div class="row">
+        <div class="col-12" data-toggle="tooltip" title="Select if you want to add authentication for your project">
+            <div class="row">
+                <div class="col-2">
+                   <div class="h5 text-dark text-left pl-2">
+                       Add authentication
+                   </div>
+                </div>
+                <div class="col-10 text-left">
+                    <mat-checkbox value="{{projectForm.get('use_auth').value}}" formControlName="use_auth" (change)="use_auth($event)"></mat-checkbox>
+                </div>
+                <div class="col-12 ml-3 text-left" *ngIf="useAuthentication" >
+                    <mat-checkbox value="{{projectForm.get('check_by_email').value}}" formControlName="check_by_email" (change)="checkByEmail($event)">
+                        By email
+                    </mat-checkbox>
+                </div>
+                <div class="col-12 ml-3 text-left" *ngIf="useAuthentication" >
+                    <mat-checkbox formControlName="allow_anonymous" value="{{projectForm.get('allow_anonymous').value}}" (change)="anonymous_auth($event)">
+                        Allow anonymous
+                    </mat-checkbox>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="row">
     <div class="col-12">
@@ -56,8 +80,36 @@
                     <div class="col-2">{{i+1}}</div>
                     <div class="col-3">{{plugin?.title}}</div>
                     <div class="col-4">{{plugin?.short_description}}</div>
-                    <div class="col-1" [ngbTooltip]="plugin.description" tooltipClass="h4 font-weight-bold"  triggers="click"><mat-icon style="font-size: 50px">description</mat-icon></div>
-                    <div class="col-2"><button class="btn btn-info btn-just-icon" type="button" (click)="onAddPlugin(plugin)">+</button></div>
+                    <div class="col-1">
+
+                        <!-- display in modal, details about selected plugin -->
+                        <button data-toggle="modal" [attr.data-target]="'#pluginInfo' + i" style="border: 0; background-color: inherit">
+                            <mat-icon style="font-size: 50px">
+                                description
+                            </mat-icon>
+                        </button>
+                        <!-- details dialog -->
+                        <div class="mt-5 modal fade" id="pluginInfo{{i}}" tabindex="-1" role="dialog"  aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header m-2 bg-secondary border border-info">
+                                        <h3 class="modal-title text-white" id="settings" style="font-weight: bold">
+                                            Details about plugin
+                                        </h3>
+                                    </div>
+                                    <div class="modal-body border border-info m-2">
+                                        {{plugin?.description}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-2">
+                        <button class="btn btn-info btn-just-icon" type="button" (click)="onAddPlugin(plugin)">
+                            +
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -88,7 +140,11 @@
                     <div class="col-2">{{i+1}}</div>
                     <div class="col-3">{{selectedPlugin?.title}}</div>
                     <div class="col-5">{{selectedPlugin?.short_description}}</div>
-                    <div class="col-2"><button class="btn btn-danger btn-just-icon" type="button" (click)="onRemovePlugin(selectedPlugin)">-</button></div>
+                    <div class="col-2">
+                        <button class="btn btn-danger btn-just-icon" type="button" (click)="onRemovePlugin(selectedPlugin)">
+                            -
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

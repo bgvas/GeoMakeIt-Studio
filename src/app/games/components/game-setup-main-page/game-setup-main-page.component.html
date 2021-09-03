@@ -1,0 +1,11 @@
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-2 shadow border border-dark" style="background-color: lightgrey">
+            <app-game-setup [pointsArray]="pointsArray"></app-game-setup>
+        </div>
+        <div class="col-10 pl-0 pr-0">
+            <app-map [points] = "pointsArray" (coordinates)="gameSetup.addPoint($event)"></app-map>
+        </div>
+    </div>
+</div>
+
