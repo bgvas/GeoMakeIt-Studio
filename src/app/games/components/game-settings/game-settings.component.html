@@ -12,9 +12,9 @@
             <input type="file" style="display: none" (change)="onLogoChange($event)" #fileSelect [accept]="'.jpg'">
             <button (click) = "fileSelect.click()">
                 <img src="{{logo}}"  alt="logo pic" width="100">
-                <p class="text-danger" *ngIf="error?.message !== null">
+                <!--<p class="text-danger" *ngIf="error?.message !== null">
                     Can't load image
-                </p>
+                </p>-->
             </button>
             Logo
         </div>
