@@ -36,7 +36,7 @@ export class SocialLoginComponent implements OnInit, OnDestroy  {
             this.router.navigate(['admin/home'])
           } else  {
             window.close();  // close current window //
-            window.open('./home');
+            window.open(environment.base_Fe_Url + 'home');
           }
           this.isSpinnerActive = false;
         }
