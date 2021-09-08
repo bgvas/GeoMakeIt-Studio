@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {UserService} from '../../../user-management/services/user.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {environment} from '../../../../environments/environment';
 
 
 @Component({
@@ -63,8 +64,11 @@ export class LoginComponent implements OnInit, OnDestroy {
          this.isSpinnerActive = false;
          console.log('Error in login process ' + error.message)
        });
+  }
 
-
+  onGitHubClick(event) {
+      window.close();
+      window.open(environment.be_Url + 'auth/socialLogin/github');
   }
 
 

@@ -7,6 +7,7 @@ import {ActivateAccountComponent} from '../../user-management/components/activat
 import {ChangePasswordComponent} from '../../user-management/components/change-password/change-password.component';
 import {ResetPasswordComponent} from '../../user-management/components/reset-password/reset-password.component';
 import {GameSetupMainPageComponent} from '../../games/components/game-setup-main-page/game-setup-main-page.component';
+import {SocialLoginComponent} from '../../authentication/components/social-login/social-login.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -22,6 +23,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'login', redirectTo: '/login'},
     { path: 'resetPassword', component: ResetPasswordComponent},
     { path: 'changeForgotPassword', redirectTo: '/changeForgotPassword'},
+    { path: 'socialLogin', component: SocialLoginComponent},
     { path: 'changePassword',   component: ChangePasswordComponent, canActivate: [UserGuard]},
     { path: 'activate_account', component: ActivateAccountComponent}
 ];

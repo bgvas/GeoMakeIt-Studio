@@ -15,7 +15,7 @@ import {takeUntil} from 'rxjs/operators';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, OnDestroy{
+export class HomeComponent implements OnInit, OnDestroy {
 
   projectList = new Array<Game>();
   pluginList = new Array<Plugin>();

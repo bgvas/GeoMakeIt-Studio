@@ -4,13 +4,13 @@
                 </div>
             </div>
             <div class="row" matTooltip="Click to handle location-points with specific actions" matTooltipClass="h5">
-                <div class="col-12 pr-3" style="font-weight: bold; text-align: center">
-                    <button class="btn bg-dark w-100 "
+                <div class="col-12 pr-3 mb-2" style="font-weight: bold; text-align: center">
+                    <button class="mat-raised-button bg-dark w-100 text-white"
                             data-toggle="collapse"
                             data-target="#points"
                             aria-expanded="false"
                             aria-controls="points">
-                            <div class="row">
+                            <div class="row m-2">
                                 <div class="col-3 text-right">
                                     <span class="mat-h5">
                                         <mat-icon class="material-icons-outlined">
@@ -47,25 +47,25 @@
                     </div>
                 </div>
             </div>
-            <!-- Basic settings -->
+            <!-- Basic settings modal -->
             <div class="row" matTooltip="Click to handle settings of this project" matTooltipClass="h5">
-                <div class="col-12 pr-3" style="font-weight: bold; text-align: center">
+                <div class="col-12 pr-3 mb-2" style="font-weight: bold; text-align: center">
                     <app-game-settings-modal [project]="project"></app-game-settings-modal>
                 </div>
             </div>
-            <!-- Main Configuration -->
+            <!-- Main Configuration modal-->
             <div class="row" matTooltip="Click to handle settings of this project" matTooltipClass="h5">
-                <div class="col-12 pr-3" style="font-weight: bold; text-align: center">
+                <div class="col-12 pr-3 mb-2" style="font-weight: bold; text-align: center">
                     <app-game-main-configuration-modal></app-game-main-configuration-modal>
                 </div>
             </div>
-            <!-- Game info -->
+            <!-- Game info modal-->
             <div class="row" matTooltip="Click to display information for this project" matTooltipClass="h5">
-                <div class="col-12 pr-3" style="font-weight: bold; text-align: center">
+                <div class="col-12 pr-3 mb-2" style="font-weight: bold; text-align: center">
                     <app-game-info></app-game-info>
                 </div>
             </div>
-            <!-- Stepper wizard -->
+            <!-- Stepper wizard screen-->
             <div class="row">
                 <div class="col-12 pr-3" style="font-weight: bold; text-align: center">
                     <button class="btn btn-white shadow rounded-lg w-100"  (click)="onClickOpenStepper()">

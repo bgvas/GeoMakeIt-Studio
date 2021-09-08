@@ -12,6 +12,7 @@ import {AdminComponent} from './admin/admin.component';
 import {ConfirmNewAccountComponent} from './user-management/components/confirm-new-account/confirm-new-account.component';
 import {ResetPasswordComponent} from './user-management/components/reset-password/reset-password.component';
 import {ChangeForgotPasswordComponent} from './user-management/components/change-forgot-password/change-forgot-password.component';
+import {SocialLoginComponent} from './authentication/components/social-login/social-login.component';
 
 const routes: Routes = [
   {

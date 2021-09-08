@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {FeaturesService} from '../../services/features.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {AppService} from '../../../app.service';
 
 
 @Component({
@@ -16,9 +17,10 @@ export class HeaderBarComponent implements OnInit, OnDestroy {
   authenticated: any;
   private unsubscribe = new Subject<void>();
 
-  constructor(private router: Router, private service: FeaturesService) { }
+  constructor(private router: Router, private service: FeaturesService, private appService: AppService) { }
 
   ngOnInit(): void {
+    //console.log(this.appService.GetCurrentUser());
       this.authenticated = JSON.parse(sessionStorage.getItem('user'));
   }
 

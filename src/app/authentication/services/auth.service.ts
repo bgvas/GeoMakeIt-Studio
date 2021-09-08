@@ -25,13 +25,14 @@ export class AuthService {
     this._element = element;
   }
 
-  constructor(private http: HttpClient) {
-   /* this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(sessionStorage.getItem('currentUser')));
-    this.currentUser = this.currentUserSubject.asObservable();*/
-  }
+  constructor(private http: HttpClient) { }
 
   login(credentials: AuthCredentials): Observable<any> {
     return this.http.post(this.path + '/login', credentials);
+  }
+
+  socialAuthentication(userSocial): Observable<any> {
+    return this.http.post(this.path + '/socialLogin', userSocial);
   }
 
   registration(request: User): Observable<any> {

@@ -11,6 +11,7 @@ import {GameService} from '../../services/game.service';
 import {projectElements} from '../../models/projectElements/project-elements';
 import {Subscription} from 'rxjs/Subscription';
 import {GamePluginDataService} from '../../services/gamePlugin/gamePluginData.service';
+import {GameAuthenticationModel} from '../../models/gameAuthentication/GameAuthenticationModel';
 
 
 
@@ -36,7 +37,6 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
   useAuthentication = false;
   check_by_email = false;
   allow_anonymous = false;
-  gameAuthProviders = [];
   private submitEvent: Subscription;
 
 
@@ -54,6 +54,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
         })
     this.initializeProjectForm();
     this.getGameAuthFromBaseApi();
+
     // when submit comes from stepper-wizard //
     if (typeof this.submitFromStepper !== 'undefined') {
       this.submitEvent = this.submitFromStepper?.pipe(takeUntil(this.unsubscribe)).subscribe(submit => {
@@ -62,7 +63,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
     }
   }
 
-  // on exit, unsubscribe //
+  // on exit, unsubscribe all//
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
@@ -83,9 +84,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
   onAddPlugin(plugin: Plugin) {
     if (typeof plugin !== 'undefined') {
       this.projectService.checkIfPluginIsAlreadyInstalled(this.project.id, plugin.id).pipe(takeUntil(this.unsubscribe)).subscribe(isInstalled => {
-        if (isInstalled['message']) {
-          console.log('already installed');
-        } else {
+        if (!isInstalled['message']) {    // Install plugin, if is not already installed //
            this.selectedPlugins.push(plugin);
            const addPlugin = new SelectedPlugin();
            addPlugin.game_id = this.project?.id;
@@ -116,7 +115,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
     this.projectForm = this.fb.group({
       title: this.fb.control('', Validators.required),
       description: this.fb.control('', Validators.required),
-      use_auth: this.fb.control(''),
+      use_auth: this.fb.control(false, ),
       check_by_email: this.fb.control(''),
       allow_anonymous: this.fb.control('')
     })
@@ -135,13 +134,38 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
       const projectToUpdate = new projectElements();
       projectToUpdate.title = this.projectForm.get('title').value;
       projectToUpdate.description = this.projectForm.get('description').value;
-      this.projectService.updateGame(this.project.id, projectToUpdate).pipe(takeUntil(this.unsubscribe)).subscribe(update => {},
+      this.projectService.updateGame(this.project.id, projectToUpdate).pipe(takeUntil(this.unsubscribe)).subscribe(update => {
+
+          },
           (e: Error) => {
             console.log('Update elements of project: ' + e.message + ' - ' + e.code);
           });
+
+      // create object for game authentication //
+      const gameAuth = new GameAuthenticationModel();
+
+      gameAuth.authentication.enabled = this.projectForm.get('use_auth').value;
+      if (this.projectForm.get('use_auth').value) {
+        if (this.projectForm.get('check_by_email').value) {
+          gameAuth.authentication.providers.push('email');
+        }
+        if (this.projectForm.get('allow_anonymous').value) {
+          gameAuth.authentication.providers.push('anonymous');
+        }
+      }
+
+      // update game authentication in base plugin (name: config) //
+      this.gamePluginDataService.updateBaseApiAuthConfigData(this.project.id, gameAuth).pipe(takeUntil(this.unsubscribe)).subscribe(auth => {
+        console.log(auth.message);
+      },
+          (error: Error) => {
+            console.log(error.displayed_message + ' - ' + error.code);
+          })
     }
+
   }
 
+  // save a selected plugin from list, to db in GamePlugins table //
   addPluginToProject(installedPlugin: SelectedPlugin) {
        this.projectService.addPluginToProject(installedPlugin).pipe(takeUntil(this.unsubscribe)).subscribe(installPlugin => {
              console.log('Plugin added!')
@@ -152,7 +176,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
        )
   }
 
-  // get values from geomakeit main api, config //
+  // get values from geoMakeIt main plugin, (name:config) //
   getGameAuthFromBaseApi() {
     this.gamePluginDataService.getBaseApiAuthConfigData(this.project.id).pipe(takeUntil(this.unsubscribe)).subscribe(gameAuth => {
       if (gameAuth !== null) {
@@ -167,6 +191,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
         })
   }
 
+  // get a list with installed plugins of game, from db (except base plugin)//
   getInstalledPlugins() {
       this.projectService.getInstalledPluginsOfGame(this.project.id).subscribe(plugins => {  // get installed plugins from dataBase //
             this.selectedPlugins = plugins.filter(e => e['id'] !== 1);  // except the basic plugin //
@@ -176,6 +201,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
           })
   }
 
+  // check, before install a new plugin, if is already connected with the game //
   checkPlugin(plugin: Plugin) {
       this.projectService.checkIfPluginIsAlreadyInstalled(this.project.id, plugin.id).pipe(takeUntil(this.unsubscribe)).subscribe(e => {
        this.projectService.isInstalledPlugin = e['message'];

@@ -16,6 +16,7 @@ import { ActivateAccountComponent } from '../user-management/components/activate
 import {AdminGuardService} from './guards/admin-guard.service';
 import {UserGuardService} from './guards/user-guard.service';
 import {PluginDeveloperGuardService} from './guards/plugin-developer-guard.service';
+import { SocialLoginComponent } from './components/social-login/social-login.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {PluginDeveloperGuardService} from './guards/plugin-developer-guard.servi
     ConfirmNewAccountComponent,
       ForgotPasswordComponent,
       RegistrationComponent,
-      ActivateAccountComponent
+      ActivateAccountComponent,
+      SocialLoginComponent
 
   ],
     imports: [
