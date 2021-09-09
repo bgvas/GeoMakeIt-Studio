@@ -35,9 +35,9 @@ export class SocialLoginComponent implements OnInit, OnDestroy  {
           if (this.service.getRoleId() === '1') {
             this.router.navigate(['admin/home'])
           } else  {
-            //window.close();  // close current window //
-            window.open(environment.base_Fe_Url + 'home');
+            window.close();  // close current window //
           }
+          window.open(environment.base_Fe_Url + 'home');
           this.isSpinnerActive = false;
         }
       },
