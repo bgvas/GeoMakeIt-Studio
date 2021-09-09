@@ -33,12 +33,12 @@ export class SocialLoginComponent implements OnInit, OnDestroy  {
           sessionStorage.setItem('token', isAuthenticatedUser.access_token);
           localStorage.setItem('role_id', isAuthenticatedUser.user.role_id);
           if (this.service.getRoleId() === '1') {
+            this.isSpinnerActive = false;
             this.router.navigate(['admin/home'])
-          } else  {
-            window.close();  // close current window //
           }
-          window.open(environment.base_Fe_Url + 'home');
-          this.isSpinnerActive = false;
+            window.open(environment.base_Fe_Url + 'home');
+            this.isSpinnerActive = false;
+            window.close();  // close current window //
         }
       },
           (error: Error) => {
