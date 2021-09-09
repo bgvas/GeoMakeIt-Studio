@@ -67,8 +67,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onGitHubClick(event) {
-      window.close();
+
       window.open(environment.be_Url + 'auth/socialLogin/github');
+
   }
 
 

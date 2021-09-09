@@ -34,29 +34,29 @@
             <div class="modal-body m-2 border  border-dark">
                 <div [formGroup]="zonesForm">
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-lg-4 col-12">
                             <div class="row">
-                                <div class="col-5 h5 font-weight-bold">
+                                <div class="col-lg-5 col-4 h5 font-weight-bold">
                                     Latitude
                                 </div>
-                                <div class="col-7 mat-h5 pt-1 bg-light border border-dark">
+                                <div class="col-lg-7 col-7 mat-h5 pt-1 bg-light border border-dark">
                                     {{selectedPoint?.center.latitude}}
                                 </div>
-                                <div class="col-5 h5 font-weight-bold">
+                                <div class="col-lg-5 col-4 h5 font-weight-bold">
                                     Longitude
                                 </div>
-                                <div class="col-7 mat-h5 pt-1 bg-light border border-dark">
+                                <div class="col-lg-7 col-7 mat-h5 pt-1 bg-light border border-dark">
                                     {{selectedPoint?.center.longitude}}
                                 </div>
-                                <div class="col-5 h5 font-weight-bold">
+                                <div class="col-lg-5 col-4 h5 font-weight-bold">
                                     Radius
                                 </div>
-                                <div class="col-7 mat-h5 pt-1 bg-light border border-dark">
+                                <div class="col-lg-7 col-7 mat-h5 pt-1 bg-light border border-dark">
                                      <input type="number" class="form-control text-center" min="0" step="1" formControlName="radius" value="{{selectedPoint?.radius}}">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-8">
+                        <div class="col-lg-8 col-12">
                             <div class="modal-body border border-dark bg-light">
                                 <mat-form-field>
                                     <input type="text" class="text-dark" matInput placeholder="Title of action-zone" formControlName= "title" value="{{selectedPoint?.title}}">
@@ -70,26 +70,26 @@
                     </div>
                     <hr>
                     <div class="row justify-content-center text-dark mt-2">
-                        <div class="col-2" *ngIf="selectedPoint?.unique_id !== 'zone_regen'">
+                        <div class="col-5 col-lg-2 pb-2" *ngIf="selectedPoint?.unique_id !== 'zone_regen'">
                             Type of Zone
                         </div>
-                        <div class="col-2" *ngIf="selectedPoint?.unique_id !== 'zone_regen'">
+                        <div class="col-7 col-lg-2 pb-2" *ngIf="selectedPoint?.unique_id !== 'zone_regen'">
                             <select class="form-select" formControlName="type_of_zone" [value]="zonesForm.get('type_of_zone').value">
                                 <option class="form-control" value="zone_question">Question Zone</option>
                                 <option class="form-control" value="zone_fight">Fighting Zone</option>
                                 <option class="form-control" value="zone_locked">Locked Zone</option>
                             </select>
                         </div>
-                        <div class="col-2 text-right">
+                        <div class="col-lg-2 col-5 text-right">
                             Color of Zone
                         </div>
-                        <div class="col-2">
+                        <div class="col-lg-2 col-7">
                             <input type="color" value="{{selectedPoint?.fill_color}}"  class="w-100" formControlName="fill_color" >
                         </div>
-                        <div class="col-2 text-right">
+                        <div class="col-lg-2 col-5 text-right">
                             Stroke width
                         </div>
-                        <div class="col-2 text-left">
+                        <div class="col-lg-2 col-4 text-left">
                             <input class="text-center" type="number" style="width: 50px" formControlName="stroke_width" min="0" step="1" value="{{selectedPoint?.stroke_width}}" >
                         </div>
                     </div>
@@ -106,27 +106,29 @@
                                 Actions
                             </button>
                             <div class="collapse border border-secondary rounded shadow" id="actions">
-                                <div class="row mb-2 mt-2">
-                                    <div class="col-4">
+                                <div class="row mb-2 mt-2 justify-content-center">
+                                    <div class="col-lg-4 col-12">
                                         The action begins
                                     </div>
-                                    <div class="col-8">
-                                        <select class="form-select w-75" formControlName="enter_or_exit" [value]="zonesForm.get('enter_or_exit').value">
+                                    <div class="col-lg-7 col-10">
+                                        <select class="form-select w-100" formControlName="enter_or_exit" [value]="zonesForm.get('enter_or_exit').value">
                                             <option class="form-control" value="on_enter">upon entering the zone</option>
                                             <option class="form-control" value="on_exit">when leaving the zone</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-12">
-                                        <button class="btn btn-info rounded-pill text-lowercase pull-right mr-2" (click)="addAction()">add new action</button>
+                                    <div class="col-12 text-lg-right text-center">
+                                        <button class="btn btn-info rounded-pill text-lowercase mr-2" (click)="addAction()">
+                                            add new action
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="row justify-content-center">
-                                    <div class="col-8" >
-                                        <div class="row" *ngFor="let control of actionsArray.controls; index as i">
-                                            <div class="col-11">
-                                                <input class="form-control"  type="text"  [formControl]="control" />
+                                    <div class="col-lg-8 col-12" >
+                                        <div class="row w-100 justify-content-center" *ngFor="let action of actionsArray.controls; index as i">
+                                            <div class="col-lg-11 col-9">
+                                                <input class="form-control"  type="text"  [formControl]="action"/>
                                             </div>
                                             <div class="col-1">
                                                 <button class="btn btn-just-icon text-danger" style="background-color: inherit" (click)="deleteAction(i)">
@@ -152,13 +154,13 @@
                                 Image
                             </button>
                             <div class="collapse border border-secondary rounded shadow" id="image">
-                                <div class="row justify-content-center">
-                                    <div class="col-8">
+                                <div class="row w-100 justify-content-center">
+                                    <div class="col-lg-8 col-8">
                                         <mat-form-field>
                                             <input type="text" matInput class="form-control" placeholder="Address" formControlName="image">
                                         </mat-form-field>
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-lg-2 col-4">
                                         <mat-form-field>
                                             <input type="number" matInput min="0" step="1" class="form-control" placeholder="Width" formControlName="width">
                                         </mat-form-field>
