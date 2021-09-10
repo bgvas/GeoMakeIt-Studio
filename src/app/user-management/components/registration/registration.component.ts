@@ -31,7 +31,7 @@ export class RegistrationComponent implements OnInit {
       fName: this.fb.control('', Validators.required),
       lName: this.fb.control(''),
       email: this.fb.control('', [Validators.required, Validators.email]),
-      password: this.fb.control('', [Validators.required, Validators.pattern('^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$')]),
+      password: this.fb.control('', [Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])*.{8,}$')]),
       confirm: this.fb.control('')
     })
      this.registrationForm.setValidators(passwordMatchValidator('password', 'confirm'));
