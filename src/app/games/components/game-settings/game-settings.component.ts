@@ -12,6 +12,7 @@ import {projectElements} from '../../models/projectElements/project-elements';
 import {Subscription} from 'rxjs/Subscription';
 import {GamePluginDataService} from '../../services/gamePlugin/gamePluginData.service';
 import {GameAuthenticationModel} from '../../models/gameAuthentication/GameAuthenticationModel';
+import {AuthCredentials} from '../../../authentication/Models/auth-credentials';
 
 
 
@@ -179,11 +180,16 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
   // get values from geoMakeIt main plugin, (name:config) //
   getGameAuthFromBaseApi() {
     this.gamePluginDataService.getBaseApiAuthConfigData(this.project.id).pipe(takeUntil(this.unsubscribe)).subscribe(gameAuth => {
-      if (gameAuth !== null) {
+      if (typeof gameAuth.authentication !== 'undefined') {
         this.useAuthentication = gameAuth.authentication.enabled;
         this.projectForm.get('use_auth').setValue(gameAuth.authentication.enabled);
         this.projectForm.get('check_by_email').setValue(gameAuth.authentication.providers.includes('email'));
         this.projectForm.get('allow_anonymous').setValue(gameAuth.authentication.providers.includes('anonymous'));
+      } else {
+        this.useAuthentication = false;
+        this.projectForm.get('use_auth').setValue(false);
+        this.projectForm.get('check_by_email').setValue(false);
+        this.projectForm.get('allow_anonymous').setValue(false);
       }
     },
         (error: Error) => {

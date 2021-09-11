@@ -28,14 +28,15 @@ export class MapComponent implements OnInit {
     const newPoint = new ZonesEditor();
     newPoint.center.latitude = event?.coords.lat;
     newPoint.center.longitude = event?.coords.lng;
-    if (this.points.length === 0) {
+   /* if (typeof this.points.length !== 'undefined') {
       newPoint.unique_id = 'zone_regen';
       newPoint.title = 'Starting point';
       this.isStartingPoint = true;
-    } else {
+    } else {*/
       newPoint.title = 'new Point';
       newPoint.unique_id = 'zone_new_point';
-    }
+    //}
+    console.log(newPoint);
     newPoint.radius = 60; // default radius
     this.points.push(newPoint);
   }
