@@ -31,7 +31,9 @@ export class MapComponent implements OnInit {
     newPoint.title = 'new Point';
     newPoint.unique_id = 'zone_new_point';
     newPoint.radius = 60; // default radius
-    this.points.push(newPoint);
+    if (typeof this.points !== 'undefined') {
+      this.points.push(newPoint);
+    }
   }
 
   clickedMarker(label: string, index: number) {
