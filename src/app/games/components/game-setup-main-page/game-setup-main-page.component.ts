@@ -23,10 +23,10 @@ export class GameSetupMainPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.project = JSON.parse(sessionStorage.getItem('project'));
     this.gamePlugins.getZonesFromDB(this.project.id).pipe(takeUntil(this.unsubscribe)).subscribe(zones => {
-     /* console.log(zones['contents'].length);
-      if (zones['contents'] !== null) {*/
+
+      if (typeof zones['contents']?.length !== 'undefined') {
         this.pointsArray = zones['contents'];
-      //}
+      }
     })
   }
 
@@ -35,8 +35,4 @@ export class GameSetupMainPageComponent implements OnInit, OnDestroy {
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
-
-
-
-
 }

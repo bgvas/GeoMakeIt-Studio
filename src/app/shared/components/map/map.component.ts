@@ -35,7 +35,7 @@ export class MapComponent implements OnInit {
     } else {*/
       newPoint.title = 'new Point';
       newPoint.unique_id = 'zone_new_point';
-    //}
+    // }
     console.log(newPoint);
     newPoint.radius = 60; // default radius
     this.points.push(newPoint);
