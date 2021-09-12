@@ -199,7 +199,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
 
   // get a list with installed plugins of game, from db (except base plugin)//
   getInstalledPlugins() {
-      this.projectService.getInstalledPluginsOfGame(this.project.id).subscribe(plugins => {  // get installed plugins from dataBase //
+      this.projectService.getInstalledPluginsOfGame(this.project?.id).subscribe(plugins => {  // get installed plugins from dataBase //
             this.selectedPlugins = plugins.filter(e => e['id'] !== 1);  // except the basic plugin //
           },
           (e: Error) => {
@@ -209,7 +209,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
 
   // check, before install a new plugin, if is already connected with the game //
   checkPlugin(plugin: Plugin) {
-      this.projectService.checkIfPluginIsAlreadyInstalled(this.project.id, plugin.id).pipe(takeUntil(this.unsubscribe)).subscribe(e => {
+      this.projectService.checkIfPluginIsAlreadyInstalled(this.project?.id, plugin?.id).pipe(takeUntil(this.unsubscribe)).subscribe(e => {
        this.projectService.isInstalledPlugin = e['message'];
       });
   }

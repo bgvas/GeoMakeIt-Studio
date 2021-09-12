@@ -89,7 +89,7 @@ export class GameSetupComponent implements OnInit, OnDestroy {
 
     this.gamePlugins.updateZones(this.project.id, this.zones_array)
         .subscribe(result => {
-              console.log(result)
+              console.log(result?.message)
             },
             (error: Error) => {
               console.log(error.displayed_message);

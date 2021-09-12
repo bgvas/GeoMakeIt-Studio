@@ -30,15 +30,14 @@ export class StepperWizardComponent implements OnInit, OnDestroy {
       this.router.navigate(['home']);
     }
     this.project = this.gameService.object;
-    this.gamePlugins.getZonesFromDB(this.project.id).pipe(takeUntil(this.unsubscribe)).subscribe(zones => {
-      if (zones !== null) {
+    this.gamePlugins.getZonesFromDB(this.project?.id).pipe(takeUntil(this.unsubscribe)).subscribe(zones => {
+      if (typeof zones['contents'] !== 'undefined') {
         this.pointsArray = zones['contents'];
       }
     })
   }
 
   onNext_UpdateZones() {
-    console.log('exit');
     this.updateZones();
   }
 
@@ -90,7 +89,7 @@ export class StepperWizardComponent implements OnInit, OnDestroy {
 
     this.gamePlugins.updateZones(this.project.id, this.zones_array)
         .subscribe(result => {
-              console.log(result)
+              console.log('zones updated')
             },
             (error: Error) => {
               console.log(error.displayed_message);

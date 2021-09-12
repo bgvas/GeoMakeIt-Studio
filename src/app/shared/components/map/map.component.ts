@@ -28,21 +28,13 @@ export class MapComponent implements OnInit {
     const newPoint = new ZonesEditor();
     newPoint.center.latitude = event?.coords.lat;
     newPoint.center.longitude = event?.coords.lng;
-   /* if (typeof this.points.length !== 'undefined') {
-      newPoint.unique_id = 'zone_regen';
-      newPoint.title = 'Starting point';
-      this.isStartingPoint = true;
-    } else {*/
-      newPoint.title = 'new Point';
-      newPoint.unique_id = 'zone_new_point';
-    // }
-    console.log(newPoint);
+    newPoint.title = 'new Point';
+    newPoint.unique_id = 'zone_new_point';
     newPoint.radius = 60; // default radius
     this.points.push(newPoint);
   }
 
   clickedMarker(label: string, index: number) {
-
   }
 
   onDelete(index: number) {

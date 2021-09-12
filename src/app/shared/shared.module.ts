@@ -36,7 +36,6 @@ import { MatSelectModule} from '@angular/material/select';
 import { UserManagementModule} from '../user-management/user-management.module';
 import { StepByStepComponent } from './components/help/step-by-step/step-by-step.component';
 import { RouterModule} from '@angular/router';
-import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
 import {NgApexchartsModule} from 'ng-apexcharts';
 import {PluginModule} from '../plugins/plugin.module';
 import { PluginCardComponent } from '../plugins/components/plugin-card/plugin-card.component';
@@ -72,7 +71,6 @@ import { ColorPickerComponent } from './components/color-picker/color-picker.com
     ProjectCardComponent,
     GeomakeitHelpComponent,
     StepByStepComponent,
-    DonutChartComponent,
     PluginCardComponent,
     NumberToBooleanPipe,
     RoleIdToRoleNamePipe,
@@ -92,7 +90,6 @@ import { ColorPickerComponent } from './components/color-picker/color-picker.com
         FooterBarComponent,
         NotificationsComponent,
         MapComponent,
-        DonutChartComponent,
         NumberToBooleanPipe,
         RoleIdToRoleNamePipe,
         EmailExistsValidatorDirective,

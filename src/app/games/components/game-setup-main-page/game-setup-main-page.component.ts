@@ -21,9 +21,9 @@ export class GameSetupMainPageComponent implements OnInit, OnDestroy {
   constructor(private gamePlugins: GamePluginConfigService) { }
 
   ngOnInit(): void {
+
     this.project = JSON.parse(sessionStorage.getItem('project'));
     this.gamePlugins.getZonesFromDB(this.project.id).pipe(takeUntil(this.unsubscribe)).subscribe(zones => {
-
       if (typeof zones['contents']?.length !== 'undefined') {
         this.pointsArray = zones['contents'];
       }
