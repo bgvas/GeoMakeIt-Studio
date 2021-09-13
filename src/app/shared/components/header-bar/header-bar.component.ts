@@ -13,22 +13,21 @@ import {User} from '../../../user-management/models/user';
   templateUrl: './header-bar.component.html',
   styleUrls: ['./header-bar.component.css']
 })
-export class HeaderBarComponent implements OnInit, OnDestroy, OnChanges {
+export class HeaderBarComponent implements OnInit, OnDestroy{
 
   open: any;
   authenticatedUser: User;
   private unsubscribe = new Subject<void>();
 
-  constructor(private router: Router, private service: FeaturesService, private cd: ChangeDetectorRef) { }
-
-
+  constructor(private router: Router, private service: FeaturesService) { }
 
   ngOnInit(): void {
       this.authenticatedUser = JSON.parse(sessionStorage.getItem('user'));
   }
 
-  ngOnChanges(user) {
+  updateUserFromSocialMediaAuthentication(user) {
     this.authenticatedUser = user;
+    console.log(user);
   }
 
   ngOnDestroy() {
