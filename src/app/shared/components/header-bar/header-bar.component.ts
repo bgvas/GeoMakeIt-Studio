@@ -2,8 +2,9 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FeaturesService} from '../../services/features.service';
 import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {map, takeUntil} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
+import {User} from '../../../user-management/models/user';
 
 
 @Component({
@@ -14,21 +15,19 @@ import {AppService} from '../../../app.service';
 export class HeaderBarComponent implements OnInit, OnDestroy {
 
   open: any;
-  authenticated: any;
+  authenticatedUser: any;
   private unsubscribe = new Subject<void>();
 
   constructor(private router: Router, private service: FeaturesService, private appService: AppService) { }
 
   ngOnInit(): void {
-      this.authenticated = JSON.parse(sessionStorage.getItem('user'));
+      this.service.currentUser().pipe(takeUntil(this.unsubscribe)).subscribe(auth => this.authenticatedUser = auth['user'])
   }
 
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
-
-
 
   onHomeClick() {
     this.router.navigate(['home']);

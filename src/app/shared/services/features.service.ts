@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../../authentication/services/auth.service';
 import {environment} from '../../../environments/environment';
+import {User} from '../../user-management/models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,10 @@ export class FeaturesService {
 
   logout(): Observable<any> {
     return this.authService.logout();
+  }
+
+  currentUser(): Observable<User> {
+    return new Observable((currentUser) => currentUser.next(JSON.parse(sessionStorage.getItem('user'))));
   }
 
 

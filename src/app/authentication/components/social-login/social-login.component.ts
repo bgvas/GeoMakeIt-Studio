@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../../user-management/services/user.service';
 import {AuthService} from '../../services/auth.service';
@@ -6,6 +6,7 @@ import {SocialUser} from '../../Models/socialUser';
 import {Error} from '../../../classes/error/error';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {HeaderBarComponent} from '../../../shared/components/header-bar/header-bar.component';
 
 @Component({
   selector: 'app-social-login',
@@ -16,6 +17,7 @@ export class SocialLoginComponent implements OnInit, OnDestroy  {
 
   isSpinnerActive = false;
   private unsubscribe = new Subject<void>();
+  @ViewChild('HeaderBarComponent') headerBar:  HeaderBarComponent;
 
   constructor(private url: ActivatedRoute, private service: UserService, private router: Router, private authService: AuthService) { }
 
@@ -42,6 +44,7 @@ export class SocialLoginComponent implements OnInit, OnDestroy  {
             this.isSpinnerActive = false;
             this.router.navigate(['admin/home'])
           }
+
             this.router.navigate(['home'])  // else redirect to user panel //
             // window.open(environment.base_Fe_Url + 'home');
             this.isSpinnerActive = false;
