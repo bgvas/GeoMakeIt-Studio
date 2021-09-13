@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FeaturesService} from '../../services/features.service';
 import {Subject} from 'rxjs';
@@ -13,16 +13,31 @@ import {User} from '../../../user-management/models/user';
   templateUrl: './header-bar.component.html',
   styleUrls: ['./header-bar.component.css']
 })
-export class HeaderBarComponent implements OnInit, OnDestroy {
+export class HeaderBarComponent implements OnInit, OnDestroy, OnChanges {
 
   open: any;
   authenticatedUser: User;
+  userFromSocialMedia: any;
   private unsubscribe = new Subject<void>();
 
-  constructor(private router: Router, private service: FeaturesService, private appService: AppService) { }
+  constructor(private router: Router, private service: FeaturesService, private cd: ChangeDetectorRef) { }
+
+  public set userFromSocial(user) {
+   this.userFromSocialMedia = user;
+    this.cd.detectChanges();
+  }
+
+  public get userFromSocial() {
+    return this.userFromSocialMedia;
+  }
+
 
   ngOnInit(): void {
       this.authenticatedUser = JSON.parse(sessionStorage.getItem('user'));
+  }
+
+  ngOnChanges() {
+    this.authenticatedUser = this.userFromSocial;
   }
 
   ngOnDestroy() {

@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {UserService} from '../../../user-management/services/user.service';
 import {AuthService} from '../../services/auth.service';
 import {SocialUser} from '../../Models/socialUser';
@@ -19,6 +19,7 @@ export class SocialLoginComponent implements OnInit, OnDestroy  {
   isSpinnerActive = false;
   private unsubscribe = new Subject<void>();
   @ViewChild('HeaderBarComponent') headerBar: HeaderBarComponent;
+
 
   constructor(private url: ActivatedRoute, private service: UserService, private router: Router, private authService: AuthService) { }
 
@@ -45,11 +46,9 @@ export class SocialLoginComponent implements OnInit, OnDestroy  {
             this.isSpinnerActive = false;
             this.router.navigate(['admin/home'])
           }
-            this.headerBar.ngOnInit();
+            this.headerBar.userFromSocial(isAuthenticatedUser);
             this.router.navigate(['home'])  // else redirect to user panel //
-            // window.open(environment.base_Fe_Url + 'home');
             this.isSpinnerActive = false;
-            // window.close();  // close previous window //
         } else {
           this.isSpinnerActive = false;
           this.router.navigate(['login'])
@@ -61,6 +60,10 @@ export class SocialLoginComponent implements OnInit, OnDestroy  {
             console.log('error in social signin: ' + error.message);
           })
     });
+  }
+
+  reloadHeadBar() {
+
   }
 
   ngOnDestroy() {
