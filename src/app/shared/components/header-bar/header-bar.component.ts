@@ -26,8 +26,7 @@ export class HeaderBarComponent implements OnInit, OnDestroy{
   }
 
   updateUserFromSocialMediaAuthentication(user) {
-    this.authenticatedUser = user;
-    console.log(user);
+    this.authenticatedUser = user || null;
   }
 
   ngOnDestroy() {
