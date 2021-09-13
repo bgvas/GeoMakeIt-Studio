@@ -46,7 +46,7 @@ export class SocialLoginComponent implements OnInit, OnDestroy  {
             this.isSpinnerActive = false;
             this.router.navigate(['admin/home'])
           }
-            this.headerBar.ngOnChanges(isAuthenticatedUser);
+            //this.headerBar.ngOnChanges(isAuthenticatedUser);
             this.router.navigate(['home'])  // else redirect to user panel //
             this.isSpinnerActive = false;
         } else {
