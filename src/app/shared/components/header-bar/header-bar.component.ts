@@ -2,9 +2,10 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FeaturesService} from '../../services/features.service';
 import {Subject} from 'rxjs';
-import {map, takeUntil} from 'rxjs/operators';
+import {takeUntil} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
 import {User} from '../../../user-management/models/user';
+
 
 
 @Component({
@@ -15,13 +16,13 @@ import {User} from '../../../user-management/models/user';
 export class HeaderBarComponent implements OnInit, OnDestroy {
 
   open: any;
-  authenticatedUser: any;
+  authenticatedUser: User;
   private unsubscribe = new Subject<void>();
 
   constructor(private router: Router, private service: FeaturesService, private appService: AppService) { }
 
   ngOnInit(): void {
-      this.service.currentUser().pipe(takeUntil(this.unsubscribe)).subscribe(auth => this.authenticatedUser = auth['user'])
+      this.authenticatedUser = JSON.parse(sessionStorage.getItem('user'));
   }
 
   ngOnDestroy() {

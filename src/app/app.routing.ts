@@ -47,6 +47,10 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
+    path: 'socialLogin',
+    component: SocialLoginComponent
+  },
+  {
     path: 'registration',
     component: RegistrationComponent
   },

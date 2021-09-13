@@ -44,9 +44,7 @@ export class FeaturesService {
     return this.authService.logout();
   }
 
-  currentUser(): Observable<User> {
-    return new Observable((currentUser) => currentUser.next(JSON.parse(sessionStorage.getItem('user'))));
-  }
+
 
 
 }
