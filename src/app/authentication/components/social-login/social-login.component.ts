@@ -6,7 +6,6 @@ import {SocialUser} from '../../Models/socialUser';
 import {Error} from '../../../classes/error/error';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-social-login',
@@ -18,27 +17,38 @@ export class SocialLoginComponent implements OnInit, OnDestroy  {
   isSpinnerActive = false;
   private unsubscribe = new Subject<void>();
 
-  constructor(private activatedRoute: ActivatedRoute, private service: UserService, private router: Router, private authService: AuthService) { }
+  constructor(private url: ActivatedRoute, private service: UserService, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.isSpinnerActive = true;
-    this.activatedRoute.queryParams.pipe(takeUntil(this.unsubscribe)).subscribe(params => {
+
+    // get values from url parameters //
+    this.url.queryParams.pipe(takeUntil(this.unsubscribe)).subscribe(params => {
+
+      // create a user with elements from social-media authentication //
       const socialUser = new SocialUser();
       socialUser.email = params['email'];
       socialUser.token = params['token'];
       socialUser.social = params['social'];
+
+      // authenticate, if user from social-media exists, or redirect to registration //
       this.authService.socialAuthentication(socialUser).pipe(takeUntil(this.unsubscribe)).subscribe(isAuthenticatedUser => {
         if (typeof isAuthenticatedUser !== 'undefined') {
           sessionStorage.setItem('user', JSON.stringify(isAuthenticatedUser));
-          sessionStorage.setItem('token', isAuthenticatedUser.access_token);
-          localStorage.setItem('role_id', isAuthenticatedUser.user.role_id);
-          if (this.service.getRoleId() === '1') {
+          sessionStorage.setItem('token', isAuthenticatedUser?.access_token);
+          localStorage.setItem('role_id', isAuthenticatedUser?.user.role_id);
+
+          if (isAuthenticatedUser?.user.role_id === '1') {  // if user is administrator, redirect to admin panel //
             this.isSpinnerActive = false;
             this.router.navigate(['admin/home'])
           }
-            window.open(environment.base_Fe_Url + 'home');
+            this.router.navigate(['home'])  // else redirect to user panel //
+            // window.open(environment.base_Fe_Url + 'home');
             this.isSpinnerActive = false;
-            window.close();  // close current window //
+            // window.close();  // close previous window //
+        } else {
+          this.isSpinnerActive = false;
+          this.router.navigate(['login'])
         }
       },
           (error: Error) => {

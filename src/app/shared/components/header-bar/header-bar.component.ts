@@ -20,7 +20,6 @@ export class HeaderBarComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private service: FeaturesService, private appService: AppService) { }
 
   ngOnInit(): void {
-    //console.log(this.appService.GetCurrentUser());
       this.authenticated = JSON.parse(sessionStorage.getItem('user'));
   }
 
@@ -30,6 +29,7 @@ export class HeaderBarComponent implements OnInit, OnDestroy {
   }
 
 
+
   onHomeClick() {
     this.router.navigate(['home']);
   }
@@ -37,6 +37,7 @@ export class HeaderBarComponent implements OnInit, OnDestroy {
 
   onLogout() {
     localStorage.clear();
+    sessionStorage.clear();
     this.service.logout().pipe(takeUntil(this.unsubscribe)).subscribe(logoutData => {
     })
     this.router.navigate(['login']);

@@ -43,7 +43,7 @@ export class GamesComponent implements OnInit, OnDestroy {
       this.unsubscribe.complete();
   }
 
-    // onClick delete-button, delete game and display notification
+    // onClickOpenProject delete-button, delete game and display notification
   onDelete(data): void {
       if (data) {
             this.service.deleteGame(this.service.object.id).pipe(takeUntil(this.unsubscribe)).subscribe(deletedGame => {

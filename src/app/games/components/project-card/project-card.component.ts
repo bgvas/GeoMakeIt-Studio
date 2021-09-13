@@ -3,9 +3,8 @@ import {takeUntil} from 'rxjs/operators';
 import {GameService} from '../../services/game.service';
 import {NotificationsComponent} from '../../../shared/components/notifications/notifications.component';
 import {Subject} from 'rxjs';
-import {FeaturesService} from '../../../shared/services/features.service';
-import {formatDate} from '@angular/common';
 import {Router} from '@angular/router';
+import {Game} from '../../models/games/game';
 
 @Component({
   selector: 'app-project-card',
@@ -14,14 +13,13 @@ import {Router} from '@angular/router';
 })
 export class ProjectCardComponent implements OnInit, OnDestroy {
 
-  @Input() project: any;
+  @Input() project: Game;
   @Output() deleted = new EventEmitter();
-  deleteProject: any;
   notification = new NotificationsComponent();
   private unsubscribe = new Subject<void>();
 
 
-  constructor(private service: GameService, private featureService: FeaturesService, private router: Router) { }
+  constructor(private service: GameService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -31,33 +29,21 @@ export class ProjectCardComponent implements OnInit, OnDestroy {
     this.unsubscribe.complete();
   }
 
-  onDelete(project) {
-    if (project) {
-      this.deleteProject = this.featureService.project;
-      this.service.deleteGame(this.deleteProject?.id).pipe(takeUntil(this.unsubscribe)).subscribe(projectDeleted => {
-          this.notification.showNotification('Project deleted!', 'success');
-          this.deleted.emit(project);
+  onDelete(clicked, projectToDelete) {
+    if (clicked) {
+      this.service.deleteGame(projectToDelete?.id).pipe(takeUntil(this.unsubscribe)).subscribe(projectDeleted => {
+          this.notification.showNotification('Project deleted successfully!', 'success');
+          this.deleted.emit(clicked);
         },
             error => {
-              console.log('Deleting project: ' + error.code + ' - ' + error.message);
+              console.log('Deleting project error: ' + error.code + ' - ' + error.message);
               this.notification.showNotification('Can\'t delete project. Something went wrong!', 'danger');
             })
     }
   }
 
-  projectToDelete(app) {
-    this.featureService.project = app;
-  }
-
-  convertToReadableDate(date) {
-    if ( date !== '') {
-      const newDate =  new Date(date);
-      return formatDate(newDate, 'dd/MM/yyyy', 'en-US');
-    }
-  }
-
-  onClick(project) {
-    sessionStorage.setItem('project', JSON.stringify(this.project));
+  onClickOpenProject(project) {
+    sessionStorage.setItem('project', JSON.stringify(project));
     this.router.navigate(['games/setup']);
   }
 }

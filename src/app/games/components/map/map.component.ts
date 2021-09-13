@@ -1,10 +1,7 @@
-import {Component, Input, OnInit, Output, EventEmitter, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter, ViewChild, OnDestroy} from '@angular/core';
 import {ZonesEditor} from '../../../plugins/models/designer-models/zones/ZonesEditor';
-import {PointSetupComponent} from '../point-setup/point-setup.component';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Subject} from 'rxjs';
 
-
-declare var $: any;
 
 @Component({
   selector: 'app-map',
@@ -14,13 +11,13 @@ declare var $: any;
 
 
 
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, OnDestroy  {
 
-  selectedLat: any;
-  selectedLng: any;
+  selectedLat: number;
+  selectedLng: number;
   arrayOfCoordinates: ZonesEditor[];
   marker = 'assets/img/note2.png'
-  isStartingPoint = false;
+  private unsubscribe = new Subject<void>();
 
 
   @Input() points: ZonesEditor[];
@@ -33,11 +30,16 @@ export class MapComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onMapClick(event) {
+  ngOnDestroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
+
+  onMapClick(clickedPoint) {
     this.points = this.points || [];
     const newPoint = new ZonesEditor();
-    newPoint.center.latitude = event?.coords.lat;
-    newPoint.center.longitude = event?.coords.lng;
+    newPoint.center.latitude = clickedPoint?.coords.lat;
+    newPoint.center.longitude = clickedPoint?.coords.lng;
     newPoint.title = 'new Point';
     newPoint.unique_id = 'zone_new_point';
     newPoint.radius = 60; // default radius
@@ -52,13 +54,13 @@ export class MapComponent implements OnInit {
     this.points.splice(index, 1);
   }
 
-  onChangeLocation(event, index) {
-    this.points[index].center.latitude = event?.coords.lat;
-    this.points[index].center.longitude = event?.coords.lng;
+  onChangeLocation(change: any, index: number) {
+    this.points[index].center.latitude = change?.coords.lat;
+    this.points[index].center.longitude = change?.coords.lng;
   }
 
-  onRadiusChange(event: number, index) {
-    this.points[index].radius = Math.round(event);
+  onRadiusChange(changedRadius: number, index: number) {
+    this.points[index].radius = Math.round(changedRadius);
   }
 
 
