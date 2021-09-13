@@ -13,7 +13,7 @@ import {User} from '../../../user-management/models/user';
   templateUrl: './header-bar.component.html',
   styleUrls: ['./header-bar.component.css']
 })
-export class HeaderBarComponent implements OnInit, OnDestroy{
+export class HeaderBarComponent implements OnInit, OnDestroy {
 
   open: any;
   authenticatedUser: User;
@@ -23,10 +23,6 @@ export class HeaderBarComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
       this.authenticatedUser = JSON.parse(sessionStorage.getItem('user'));
-  }
-
-  updateUserFromSocialMediaAuthentication(user) {
-    this.authenticatedUser = user || null;
   }
 
   ngOnDestroy() {

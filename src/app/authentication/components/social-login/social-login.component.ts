@@ -46,8 +46,11 @@ export class SocialLoginComponent implements OnInit, OnDestroy  {
             this.isSpinnerActive = false;
             this.router.navigate(['admin/home'])
           }
-            this.headerBar.updateUserFromSocialMediaAuthentication(isAuthenticatedUser)
-            this.router.navigate(['home'])  // else redirect to user panel //
+            this.router.navigate(['home'])
+              .then(() => {
+                window.location.reload();
+              });
+            // this.router.navigate(['home'])  // else redirect to user panel //
             this.isSpinnerActive = false;
         } else {
           this.isSpinnerActive = false;
@@ -62,9 +65,6 @@ export class SocialLoginComponent implements OnInit, OnDestroy  {
     });
   }
 
-  reloadHeadBar() {
-
-  }
 
   ngOnDestroy() {
     this.unsubscribe.next();
