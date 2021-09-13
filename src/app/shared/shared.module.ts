@@ -16,9 +16,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { ValidationMessagesComponent } from './components/validation-messages/validation-messages.component';
 import {DeclareFormControlsService} from './services/declareFormControls/declare-form-controls.service';
 import {ValidationsService} from './services/validations/validations.service';
-import { AgmCoreModule } from '@agm/core';
-import { HomeComponent } from './components/home-page/home.component';
-import { MapComponent } from './components/map/map.component';
+
+import { HomeComponent } from './components/home-page/home.component'
 import { HeaderBarComponent } from './components/header-bar/header-bar.component';
 import { FooterBarComponent } from './components/footer-bar/footer-bar.component';
 import { ProjectSideBarComponent } from './components/project-side-bar/project-side-bar.component';
@@ -49,6 +48,8 @@ import { ColorPickerComponent } from './components/color-picker/color-picker.com
 
 
 
+
+
 @NgModule({
   declarations: [
     SpinnerComponent,
@@ -62,7 +63,6 @@ import { ColorPickerComponent } from './components/color-picker/color-picker.com
     TooltipInfoCircleComponent,
     ValidationMessagesComponent,
     HomeComponent,
-    MapComponent,
     HeaderBarComponent,
     FooterBarComponent,
     ProjectSideBarComponent,
@@ -89,7 +89,6 @@ import { ColorPickerComponent } from './components/color-picker/color-picker.com
         HeaderBarComponent,
         FooterBarComponent,
         NotificationsComponent,
-        MapComponent,
         NumberToBooleanPipe,
         RoleIdToRoleNamePipe,
         EmailExistsValidatorDirective,
@@ -103,9 +102,7 @@ import { ColorPickerComponent } from './components/color-picker/color-picker.com
         MatButtonToggleModule,
         ReactiveFormsModule,
         MatFormFieldModule,
-        AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyBEckmuR4cwjzfgkK_JqnzLGyViz1AdKps'
-        }),
+
         MatIconModule,
         NgbTooltipModule,
         MatSnackBarModule,

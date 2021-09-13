@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { GameService } from './services/game.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { SharedModule} from '../shared/shared.module';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { PluginModule } from '../plugins/plugin.module';
 import { GamesComponent } from './components/my-games/games.component';
@@ -36,6 +35,9 @@ import { GameMainConfigurationModalComponent } from './components/game-main-conf
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDialogModule} from '@angular/material/dialog';
 import { GameSetupMainPageComponent } from './components/game-setup-main-page/game-setup-main-page.component';
+import {MapComponent} from './components/map/map.component';
+import {SharedModule} from '../shared/shared.module';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
     declarations: [
@@ -53,13 +55,13 @@ import { GameSetupMainPageComponent } from './components/game-setup-main-page/ga
         StepperWizardComponent,
         GameSettingsComponent,
         GameMainConfigurationModalComponent,
-        GameSetupMainPageComponent
+        GameSetupMainPageComponent,
+        MapComponent
     ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
         MatFormFieldModule,
-        SharedModule,
         MatButtonToggleModule,
         PluginModule,
         RouterModule,
@@ -73,10 +75,15 @@ import { GameSetupMainPageComponent } from './components/game-setup-main-page/ga
         MatStepperModule,
         MatButtonModule,
         MatCheckboxModule,
-        MatDialogModule
+        MatDialogModule,
+        SharedModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyBEckmuR4cwjzfgkK_JqnzLGyViz1AdKps'
+        }),
     ],
     exports: [
-        GameSettingsModalComponent
+        GameSettingsModalComponent,
+        PointSetupComponent
     ],
     providers: [
         GameService,

@@ -1,6 +1,7 @@
 import {Component, Input, OnInit, Output, EventEmitter, OnDestroy, ViewChild, ViewChildren} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ZonesEditor} from '../../../plugins/models/designer-models/zones/ZonesEditor';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-point-setup',
@@ -14,15 +15,17 @@ export class PointSetupComponent implements OnInit {
   selectedPoint: ZonesEditor;
   actionsArray = new FormArray([]);
   isStartingPoint = false;
+  closeResult: string;
 
   @Output() pointForDelete = new EventEmitter<number>();
   @Output() returnedPoint = new EventEmitter<ZonesEditor>();
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private modal: NgbModal) { }
 
   ngOnInit(): void {
       this.initializeForm();
   }
+
 
   initializeForm() {
     this.zonesForm = this.fb.group({
@@ -81,8 +84,9 @@ export class PointSetupComponent implements OnInit {
 
 
   onSelect(point: ZonesEditor, index: number) {
+
     point.id = index;
-    this.selectedPoint = point;
+   this.selectedPoint = point;
     this.addValuesToForm(point);
   }
 

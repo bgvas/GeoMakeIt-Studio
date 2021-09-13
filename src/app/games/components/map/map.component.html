@@ -1,4 +1,4 @@
-
+  <div>
     <agm-map
             [latitude]="38.892548108719396"
             [longitude]="22.458088777351076"
@@ -7,6 +7,7 @@
             [zoomControl]="false"
             [mapTypeId]="'terrain'"
             (mapClick)="onMapClick($event)">
+
             <agm-marker
                     *ngFor="let point of points; let i = index"
                     (markerClick)="clickedMarker(point?.title, i)"
@@ -16,16 +17,16 @@
                     [label] = "{color: 'white', fontSize: '14px', fontWeight: 'bold',  text: point?.title}"
                     [iconUrl]="marker"
                     [markerDraggable]="true"
-                    (dragEnd)="onChangeLocation($event, i)">
-
+                    (dragEnd)="onChangeLocation($event, i)"
+                    id="point{{i}}">
                     <agm-info-window>
                         <div class="bg-secondary ml-0 mr-0">
-                            <strong class=" pl-1 text-white text-center font-weight-bold mat-h3">
-                                {{i + 1}} - {{point.title}}
-                                <button *ngIf="point.unique_id !== 'zone_regen'" class = "pr-1 text-white text-center font-weight-bold" type="button" style="background-color: inherit; border: 0;" (click)="onDelete(i)" >
-                                    <mat-icon >delete</mat-icon>
-                                </button>
-                            </strong>
+                                <strong class=" pl-1 text-white text-center font-weight-bold mat-h3">
+                                    {{i + 1}} - {{point.title}}
+                                    <button class = "pr-1 text-white text-center font-weight-bold" type="button" style="background-color: inherit; border: 0;" (click)="onDelete(i)" >
+                                        <mat-icon >delete</mat-icon>
+                                    </button>
+                                </strong>
                         </div>
                     </agm-info-window>
 
@@ -38,3 +39,16 @@
                     </agm-circle>
             </agm-marker>
     </agm-map>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+

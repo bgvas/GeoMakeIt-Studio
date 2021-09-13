@@ -1,7 +1,7 @@
 <!-- Button trigger modal -->
 
-<table class="rounded border shadow" *ngFor="let point of points; let i = index" id="{{i}}">
-    <tr>
+<table class="rounded border shadow">
+    <tr *ngFor="let point of points; let i = index" id="{{i}}">
         <td style="width: 99%">
             <button class="w-100" data-toggle="modal" (click) = "onSelect(point, i)" data-target="#pointSetup" style="border: 0; background-color: inherit">
                 <table class="w-100">
@@ -13,7 +13,7 @@
             </button>
         <td>
         <td style="width: 1%">
-            <button *ngIf="point.unique_id !== 'zone_regen'" class="text-danger" matTooltip="Delete this point" style="background-color: inherit; border: 0" (click)="onDelete(i)">
+            <button class="text-danger" matTooltip="Delete this point" style="background-color: inherit; border: 0" (click)="onDelete(i)">
                 <mat-icon class="h5">
                     delete
                 </mat-icon>
@@ -24,7 +24,7 @@
 
 
 
-<!-- Modal -->
+
 <div class="modal fade" id="pointSetup" tabindex="-1" role="dialog" aria-labelledby="newAction" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content ">
