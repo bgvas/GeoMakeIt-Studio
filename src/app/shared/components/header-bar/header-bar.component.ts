@@ -17,27 +17,18 @@ export class HeaderBarComponent implements OnInit, OnDestroy, OnChanges {
 
   open: any;
   authenticatedUser: User;
-  userFromSocialMedia: any;
   private unsubscribe = new Subject<void>();
 
   constructor(private router: Router, private service: FeaturesService, private cd: ChangeDetectorRef) { }
 
-  public set userFromSocial(user) {
-   this.userFromSocialMedia = user;
-    this.cd.detectChanges();
-  }
-
-  public get userFromSocial() {
-    return this.userFromSocialMedia;
-  }
 
 
   ngOnInit(): void {
       this.authenticatedUser = JSON.parse(sessionStorage.getItem('user'));
   }
 
-  ngOnChanges() {
-    this.authenticatedUser = this.userFromSocial;
+  ngOnChanges(user) {
+    this.authenticatedUser = user;
   }
 
   ngOnDestroy() {
