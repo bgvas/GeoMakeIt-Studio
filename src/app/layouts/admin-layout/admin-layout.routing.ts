@@ -23,7 +23,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'login', redirectTo: '/login'},
     { path: 'resetPassword', component: ResetPasswordComponent},
     { path: 'changeForgotPassword', redirectTo: '/changeForgotPassword'},
-    { path: 'socialLogin', redirectTo: '/socialLogin'},
+    { path: 'socialLogin', component: SocialLoginComponent},
     { path: 'changePassword',   component: ChangePasswordComponent, canActivate: [UserGuard]},
     { path: 'activate_account', component: ActivateAccountComponent}
 ];

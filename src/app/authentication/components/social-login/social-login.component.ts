@@ -6,6 +6,7 @@ import {SocialUser} from '../../Models/socialUser';
 import {Error} from '../../../classes/error/error';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {HeaderBarComponent} from '../../../shared/components/header-bar/header-bar.component';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class SocialLoginComponent implements OnInit, OnDestroy  {
 
   isSpinnerActive = false;
   private unsubscribe = new Subject<void>();
+  @ViewChild('HeaderBarComponent') headerBar: HeaderBarComponent;
 
   constructor(private url: ActivatedRoute, private service: UserService, private router: Router, private authService: AuthService) { }
 
@@ -43,7 +45,7 @@ export class SocialLoginComponent implements OnInit, OnDestroy  {
             this.isSpinnerActive = false;
             this.router.navigate(['admin/home'])
           }
-
+            this.headerBar.ngOnInit();
             this.router.navigate(['home'])  // else redirect to user panel //
             // window.open(environment.base_Fe_Url + 'home');
             this.isSpinnerActive = false;
