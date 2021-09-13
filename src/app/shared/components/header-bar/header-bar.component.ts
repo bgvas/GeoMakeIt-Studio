@@ -16,14 +16,13 @@ import {User} from '../../../user-management/models/user';
 export class HeaderBarComponent implements OnInit, OnDestroy {
 
   open: any;
-  authenticatedUser: User;
+  authenticatedUser: any;
   private unsubscribe = new Subject<void>();
 
   constructor(private router: Router, private service: FeaturesService) { }
 
   ngOnInit(): void {
-      this.authenticatedUser = JSON.parse(sessionStorage.getItem('user'));
-      this.authenticatedUser = this.authenticatedUser['user'];
+      this.authenticatedUser = JSON.parse(sessionStorage.getItem('user'))['user'] || null;
   }
 
   ngOnDestroy() {
