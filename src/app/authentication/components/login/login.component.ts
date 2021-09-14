@@ -49,15 +49,17 @@ export class LoginComponent implements OnInit, OnDestroy {
        sessionStorage.setItem('token', isAuthenticatedUser?.access_token);
        localStorage.setItem('role_id', isAuthenticatedUser?.user.role_id);
        sessionStorage.setItem('user', JSON.stringify(isAuthenticatedUser));
-       if (isAuthenticatedUser?.user.role_id === '1') {
+       if (isAuthenticatedUser['user'].role_id === 1) {
+         this.isSpinnerActive = false;
          this.router.navigate(['admin/home'])
        } else  {
+           this.isSpinnerActive = false;
            this.router.navigate(['home'])
        }
      } else {
+       this.isSpinnerActive = false;
        this.errorLogin = true;
      }
-     this.isSpinnerActive = false;
    },
        (error: Error) => {
        this.router.navigate(['login'])

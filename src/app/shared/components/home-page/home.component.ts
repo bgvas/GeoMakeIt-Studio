@@ -10,6 +10,7 @@ import {AppService} from '../../../app.service';
 import {takeUntil} from 'rxjs/operators';
 
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -27,6 +28,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   private unsubscribe = new Subject<void>();
   projects = [];
 
+    data = ['Hello'].map(function (d) {
+        return { text: d, value: 30};
+    })
+
+
 
   constructor(private gameService: GameService, private pluginService: PluginService, private appService: AppService) { }
 
@@ -41,10 +47,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   }
 
+
+
     ngOnDestroy() {
         this.unsubscribe.next();
         this.unsubscribe.complete();
-    }
+  }
 
   loadListOfProjects() {
 
@@ -119,6 +127,11 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this.loadListOfPlugins();
             }
         }
+    }
+
+
+    onWorkClick(event) {
+
     }
 
 

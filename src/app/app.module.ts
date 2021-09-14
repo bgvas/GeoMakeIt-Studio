@@ -26,6 +26,7 @@ import { GameModule } from './games/game.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminComponent } from './admin/admin.component';
 import {AdminModule} from './admin/admin.module';
+import { AngularD3CloudModule } from 'angular-d3-cloud';
 
 
 
@@ -53,7 +54,8 @@ import {AdminModule} from './admin/admin.module';
         SharedModule,
         GameModule,
         NgbModule,
-        AdminModule
+        AdminModule,
+        AngularD3CloudModule
     ],
     declarations: [
         AppComponent,

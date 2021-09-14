@@ -43,6 +43,8 @@ import { RoleIdToRoleNamePipe } from './pipes/role-id-to-role-name.pipe';
 import { EmailExistsValidatorDirective } from './custom-validators/email-exists-validator.directive';
 import { CustomToolTipComponent } from './components/custom-tool-tip/custom-tool-tip.component';
 import { ColorPickerComponent } from './components/color-picker/color-picker.component';
+import {AngularD3CloudModule} from 'angular-d3-cloud';
+
 
 
 
@@ -113,7 +115,8 @@ import { ColorPickerComponent } from './components/color-picker/color-picker.com
         UserManagementModule,
         RouterModule,
         NgApexchartsModule,
-        PluginModule
+        PluginModule,
+        AngularD3CloudModule
 
     ],
     providers: [

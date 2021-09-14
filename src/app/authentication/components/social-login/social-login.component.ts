@@ -42,7 +42,7 @@ export class SocialLoginComponent implements OnInit, OnDestroy  {
           sessionStorage.setItem('token', isAuthenticatedUser?.access_token);
           localStorage.setItem('role_id', isAuthenticatedUser?.user.role_id);
 
-          if (isAuthenticatedUser?.user.role_id === '1') {  // if user is administrator, redirect to admin panel //
+          if (isAuthenticatedUser?.user.role_id === 1) {  // if user is administrator, redirect to admin panel //
             this.isSpinnerActive = false;
             this.router.navigate(['admin/home'])
           }
@@ -50,7 +50,6 @@ export class SocialLoginComponent implements OnInit, OnDestroy  {
               .then(() => {
                 window.location.reload();
               });
-            // this.router.navigate(['home'])  // else redirect to user panel //
             this.isSpinnerActive = false;
         } else {
           this.isSpinnerActive = false;
