@@ -29,7 +29,7 @@
                         <a role="button" class="text-white" style="background-color: inherit" id="userDropdown" ngbDropdownToggle>User</a>
                         <div ngbDropdownMenu class="bg-white" aria-labelledby="userDropdown">
                             <div class="text-center" *ngIf="authenticatedUser !== null">
-                                <p class="mt-2 h6 text-secondary font-weight-bold" style="text-shadow: 1px 1px black">{{authenticatedUser?.name}}</p>
+                                <p class="mt-2 h6 text-secondary font-weight-bold" style="text-shadow: 1px 1px black">{{authenticatedUser?.user.name}}</p>
                                 <hr>
                             </div>
                             <div class="text-center" *ngIf="authenticatedUser === null">

@@ -22,7 +22,7 @@ export class HeaderBarComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private service: FeaturesService) { }
 
   ngOnInit(): void {
-      this.authenticatedUser = JSON.parse(sessionStorage.getItem('user'))['user'] || null;
+      this.authenticatedUser = JSON.parse(sessionStorage.getItem('user')) || null;
   }
 
   ngOnDestroy() {
