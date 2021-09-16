@@ -17,6 +17,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CreateUserComponent} from './components/user-management/create-user/create-user.component';
 import { ProjectManagementComponent} from './components/project-management/project-management.component';
 import { PluginManagementComponent } from './components/plugin-management/plugin-management.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 
@@ -48,7 +49,8 @@ import { PluginManagementComponent } from './components/plugin-management/plugin
         MatListModule,
         MatFormFieldModule,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        MatTooltipModule
     ],
   providers: [
       AdminService

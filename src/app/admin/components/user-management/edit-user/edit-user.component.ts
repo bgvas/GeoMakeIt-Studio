@@ -3,6 +3,7 @@ import {AdminService} from '../../../services/admin.service';
 import {UserService} from '../../../../user-management/services/user.service';
 import {NotificationsComponent} from '../../../../shared/components/notifications/notifications.component';
 import {Router} from '@angular/router';
+import {FeaturesService} from '../../../../shared/services/features.service';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class EditUserComponent implements OnInit {
   user: any;
   notification = new NotificationsComponent();
 
-  constructor(private service: AdminService, private userService: UserService, private router: Router) { }
+  constructor(private service: AdminService, private userService: UserService, private router: Router, private sharedService: FeaturesService) { }
 
   ngOnInit(): void {
     this.user = this.service.storeObject;
@@ -34,6 +35,11 @@ export class EditUserComponent implements OnInit {
             })
       }
   }
+
+    // send user to deletePopUp, ask for delete //
+    onClickDelete(user) {
+        this.sharedService.project = user;
+    }
 
   onSubmit(form) {
       this.userService.updateUser(form, this.user?.id).subscribe(updated => {

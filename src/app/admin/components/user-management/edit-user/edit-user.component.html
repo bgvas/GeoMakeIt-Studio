@@ -5,7 +5,10 @@
         </div>
         <div class="col-7 text-right">
             <span style="font-weight: bold">Delete User</span>
-            <app-delete-pop-up [element]="user" [deleteItemToolTip]="'user'" (delete)="onDelete($event, user)"></app-delete-pop-up>
+            <a matTooltip="Delete user" class="text-danger" matTooltipClass="h5" data-toggle="modal" (click)="onClickDelete(user)"  [attr.href] ="'#deletePopUpuser'" style="background-color: inherit">
+                <i class="material-icons">delete</i>
+            </a>
+
         </div>
     </div>
     <div class="row justify-content-center">
@@ -16,3 +19,4 @@
 </div>
 
 
+<app-delete-pop-up  [deleteItemToolTip]="'user'" (delete)="onDelete($event, user)"></app-delete-pop-up>
