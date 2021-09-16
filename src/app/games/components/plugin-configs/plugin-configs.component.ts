@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GameService} from '../../services/game.service';
 import {Location} from '@angular/common';
-import {Error} from '../../../classes/error/error'
+import {Error} from '../../../error-handling/error/error'
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 

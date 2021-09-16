@@ -4,7 +4,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {PluginService} from '../../services/plugin.service';
 import {Plugin} from '../../models/plugin';
 import {NotificationsComponent} from '../../../shared/components/notifications/notifications.component';
-import {Error} from '../../../classes/error/error';
+import {Error} from '../../../error-handling/error/error';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
@@ -57,12 +57,12 @@ export class CreatePluginComponent implements OnInit, OnDestroy {
 
   createNewPlugin(plugin): any {
     return this.service.addNewPlugin(plugin).pipe(takeUntil(this.unsubscribe)).subscribe((savedPlugin) => {
-        this.notification.showNotification('Plugin, created successfully', 'success');
+        this.notification.display('Plugin, created successfully', 'success');
         this.isCreatedPlugin.emit(true);
     },
         (error: Error) => {
         console.log('Plugin creation error: ' + error.message + ' - ' + error.code);
-            this.notification.showNotification('Can\'t create new plugin', 'danger');
+            this.notification.display('Can\'t create new plugin', 'danger');
         })
   }
 

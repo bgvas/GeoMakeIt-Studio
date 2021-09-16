@@ -2,9 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {PluginService} from '../../services/plugin.service';
 import {Plugin} from '../../models/plugin';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {formatDate} from '@angular/common';
 import {PluginRelease} from '../../models/available_plugins/plugin-release';
-import {Error} from '../../../classes/error/error';
+import {Error} from '../../../error-handling/error/error';
 import {AppService} from '../../../app.service';
 import {NotificationsComponent} from '../../../shared/components/notifications/notifications.component';
 
@@ -62,12 +61,12 @@ export class EditPluginComponent implements OnInit {
       }
     }
     this.pluginService.updatePluginById(this.plugin.id, pluginToUpdate).subscribe(updatedPlugin => {
-      this.notification.showNotification('Plugin, updated successfully', 'success');
+      this.notification.display('Plugin, updated successfully', 'success');
       this.updated.emit(true);
     },
         (error: Error) => {
           console.log('Error in plugin update: ' + error.message + ' - ' + error.code);
-          this.notification.showNotification('Can\'t update plugin', 'danger');
+          this.notification.display('Can\'t update plugin', 'danger');
         })
   }
 

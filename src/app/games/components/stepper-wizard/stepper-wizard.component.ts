@@ -1,12 +1,13 @@
-import {Component, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GameService} from '../../services/game.service';
 import {Subject} from 'rxjs';
 import {Router} from '@angular/router';
-import {ZonesEditor} from '../../../plugins/models/designer-models/zones/ZonesEditor';
+import {Zones_model} from '../../../plugins/models/designer-models/zones/Zones_model';
 import {GamePluginConfigService} from '../../services/gamePlugin/gamePluginConfig.service';
 import {takeUntil} from 'rxjs/operators';
 import {ZoneObject} from '../../../plugins/models/designer-models/zones/ZoneObject';
-import {Error} from '../../../classes/error/error';
+import {Error} from '../../../error-handling/error/error';
+
 
 
 @Component({
@@ -14,11 +15,12 @@ import {Error} from '../../../classes/error/error';
   templateUrl: './stepper-wizard.component.html',
   styleUrls: ['./stepper-wizard.component.css']
 })
+
 export class StepperWizardComponent implements OnInit, OnDestroy {
 
   sendSubmit: Subject<any> = new Subject<any>();
   project: any;
-  pointsArray = new Array<ZonesEditor>();
+  pointsArray = new Array<Zones_model>();
   private unsubscribe = new Subject<void>();
   zones_array = [];
 
@@ -37,11 +39,13 @@ export class StepperWizardComponent implements OnInit, OnDestroy {
     })
   }
 
-  onNext_UpdateZones() {
+  // on click 'next' button, update zones //
+ /* onNext_UpdateZones() {
     this.updateZones();
-  }
+  }*/
 
   ngOnDestroy() {
+    this.updateZones();
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
@@ -50,13 +54,15 @@ export class StepperWizardComponent implements OnInit, OnDestroy {
      this.sendSubmit.next(true)
   }
 
-  addPoint(point: ZonesEditor) {
+  // add a new point from map //
+  addPoint(point: Zones_model) {
     if (point.center.latitude !== null && point.center.longitude !== null) {
       this.pointsArray.push(point);
     }
   }
 
-  updateArrayOfPoints(point: ZonesEditor) {
+  // update point, after edit in pointSetup //
+  updateArrayOfPoints(point: Zones_model) {
     if (point !== null) {
       this.pointsArray[point.id] = point;
     }
@@ -71,11 +77,13 @@ export class StepperWizardComponent implements OnInit, OnDestroy {
     this.router.navigate(['games/setup']);
   }
 
+  // on component destroy, update zones in DB //
   updateZones() {
+
     for (const newZone of this.pointsArray) {
       const _zone = new ZoneObject();
       _zone.title = newZone.title;
-      _zone.unique_id = newZone.unique_id;
+      _zone.unique_id = newZone.unique_id
       _zone.fill_color = newZone.fill_color;
       _zone.center = newZone.center;
       _zone.on_enter = newZone.on_enter;
@@ -85,15 +93,18 @@ export class StepperWizardComponent implements OnInit, OnDestroy {
       _zone.stroke_width = newZone.stroke_width;
 
       this.zones_array.push(_zone);
-    }
 
-    this.gamePlugins.updateZones(this.project.id, this.zones_array)
-        .subscribe(result => {
-              console.log('zones updated')
+    }
+    this.gamePlugins.updateZones(this.project?.id, this.zones_array)
+        .subscribe(result => {   // can't unsubscribe //
+              if (result !== null) {
+                console.log(result?.displayed_message);
+              }
             },
             (error: Error) => {
-              console.log(error.displayed_message);
-            });
+              if (error !== null) {
+                console.log(error?.message);
+              }});
   }
 
 }

@@ -5,7 +5,7 @@ import {AuthService} from '../../../authentication/services/auth.service';
 import {Router} from '@angular/router';
 import {passwordMatchValidator} from '../../../shared/custom-validators/passwordsMatchValidator';
 import {Subject} from 'rxjs';
-import {Error} from '../../../classes/error/error';
+import {Error} from '../../../error-handling/error/error';
 import {UserService} from '../../services/user.service';
 import {environment} from '../../../../environments/environment';
 

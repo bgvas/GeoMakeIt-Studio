@@ -3,7 +3,7 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {UserService} from '../../../user-management/services/user.service';
 import {AuthService} from '../../services/auth.service';
 import {SocialUser} from '../../Models/socialUser';
-import {Error} from '../../../classes/error/error';
+import {Error} from '../../../error-handling/error/error';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {HeaderBarComponent} from '../../../shared/components/header-bar/header-bar.component';

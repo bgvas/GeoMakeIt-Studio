@@ -5,6 +5,7 @@ import {FeaturesService} from '../../../shared/services/features.service';
 import {Router} from '@angular/router';
 import {PluginService} from '../../services/plugin.service';
 import {takeUntil} from 'rxjs/operators';
+import {GameService} from '../../../games/services/game.service';
 
 @Component({
   selector: 'app-plugin-card',
@@ -15,12 +16,10 @@ export class PluginCardComponent implements OnInit, OnDestroy {
 
   @Input() plugin: any;
   @Output() deleted = new EventEmitter();
-  @Output() updated = new EventEmitter();
-  deletePlugin: any;
   notification = new NotificationsComponent();
   private unsubscribe = new Subject<void>();
 
-  constructor(private service: PluginService, private featureService: FeaturesService, private router: Router) { }
+  constructor(private service: PluginService, private featureService: FeaturesService, private router: Router, private gameService: GameService) { }
 
   ngOnInit(): void {
   }
@@ -30,32 +29,27 @@ export class PluginCardComponent implements OnInit, OnDestroy {
     this.unsubscribe.complete();
   }
 
+  // returning plugin from deletePopUp, if user agree to delete //
   onDelete(plugin) {
-    if (plugin) {
-      this.deletePlugin = this.featureService.plugin;
-      this.service.deletePluginById(this.deletePlugin?.id).pipe(takeUntil(this.unsubscribe)).subscribe(pluginDeleted => {
-        console.log(pluginDeleted);
-        this.deleted.emit(true);
-        this.notification.showNotification('Plugin deleted!', 'success');
+      this.service.deletePluginById(plugin?.id).pipe(takeUntil(this.unsubscribe)).subscribe(pluginDeleted => {
+        this.deleted.emit(plugin);
       },
       error => {
+        this.deleted.emit(false);
         console.log('Deleting plugin: ' + error.code + ' - ' + error.message);
-        this.notification.showNotification('Can\'t delete plugin. Something went wrong!', 'danger');
       })
-    }
   }
 
-  pluginToDelete(pluginToDelete) {
-    this.featureService.plugin = pluginToDelete;
+  // send project to deletePopUp, and ask user if he want to delete //
+  onClickDelete(plugin) {
+    this.featureService.project = null;
+    this.featureService.project = plugin;
+    console.log(this.featureService.project)
   }
 
-  onClickEdit(plugin) {
+  onClickOpen(plugin) {
     this.service.plugin = plugin;
     this.router.navigate(['plugins/setup']);
-  }
-
-  onUpdate(event) {
-    this.updated.emit(true);
   }
 
 }

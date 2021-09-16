@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {GamePluginConfigService} from '../../../services/gamePlugin/gamePluginConfig.service';
 import {RootDesigner} from '../../../models/designers/rootDesignerClass/root-designer';
 import {GamePluginDataService} from '../../../services/gamePlugin/gamePluginData.service';
-import {Error} from '../../../../classes/error/error';
+import {Error} from '../../../../error-handling/error/error';
 
 @Component({
   selector: 'app-configs',

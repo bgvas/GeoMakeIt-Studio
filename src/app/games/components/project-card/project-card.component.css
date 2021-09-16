@@ -4,3 +4,20 @@ label img {
     transition-duration: 0.2s;
     transform-origin: 50% 50%;
 }
+
+.box {
+    width: 300px;
+    height: 120px;
+}
+
+.box:hover {
+    transform: scale(1.1, 1.1);
+}
+
+.scale {
+    transition: all 0.2s ease-in-out;
+}
+
+.scale:hover {
+    transition: all 0.2s ease-in-out;
+}

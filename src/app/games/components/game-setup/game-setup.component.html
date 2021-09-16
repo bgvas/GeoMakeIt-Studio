@@ -37,11 +37,11 @@
                             </tr>
                             <tr>
                                 <td>
-
-                                    <app-point-setup    [points]="pointsArray"
-                                                        (pointForDelete)="onDelete($event)"
-                                                        (returnedPoint) = "updateArrayOfPoints($event)">
-                                    </app-point-setup>
+                                    <app-table-with-selected-points
+                                            [points]="pointsArray"
+                                            (pointToUpdate)="updateArrayOfPoints($event)"
+                                            (pointForDelete)="onDelete($event)">
+                                    </app-table-with-selected-points>
                                 </td>
                             </tr>
                         </table>

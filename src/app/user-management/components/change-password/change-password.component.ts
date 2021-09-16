@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Subject} from 'rxjs';
 import {passwordMatchValidator} from '../../../shared/custom-validators/passwordsMatchValidator';
-import {Error} from '../../../classes/error/error';
+import {Error} from '../../../error-handling/error/error';
 import {User} from '../../models/user';
 import {AppService} from '../../../app.service';
 import {UserService} from '../../services/user.service';
@@ -33,11 +33,11 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
     if (this.changePasswordForm.valid) {
       const details = {'user_id': this.user?.id, 'password': this.changePasswordForm.get('password').value}
       this.userService.changePassword(details).subscribe(changePasswordResult => {
-            this.notification.showNotification('Password updated, successfully', 'success');
+            this.notification.display('Password updated, successfully', 'success');
           },
           (error: Error) => {
             this.errorMessage = error.displayed_message;
-            this.notification.showNotification('Error changing password!', 'danger');
+            this.notification.display('Error changing password!', 'danger');
             console.log('Error while changing password: ' + error.message + ' - ' + error.code);
           })
     }

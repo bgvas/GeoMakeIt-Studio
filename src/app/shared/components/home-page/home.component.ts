@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GameService} from '../../../games/services/game.service';
 import {Subject} from 'rxjs';
 import {Game} from '../../../games/models/games/game';
-import {Error} from '../../../classes/error/error';
+import {Error} from '../../../error-handling/error/error';
 import {NotificationsComponent} from '../notifications/notifications.component';
 import {PluginService} from '../../../plugins/services/plugin.service';
 import {Plugin} from '../../../plugins/models/plugin';
@@ -33,21 +33,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     })
 
 
-
   constructor(private gameService: GameService, private pluginService: PluginService, private appService: AppService) { }
 
   ngOnInit() {
-      this.displaySpinnerForProject = true;
-      this.loadListOfProjects();
 
+      this.loadListOfProjects();
       if (this.isPluginDeveloper()) {
-          this.displaySpinnerForPlugins = true;
           this.loadListOfPlugins();
       }
-
   }
-
-
 
     ngOnDestroy() {
         this.unsubscribe.next();
@@ -55,7 +49,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   loadListOfProjects() {
-
+      this.displaySpinnerForProject = true;
       this.gameService.getAllGamesByUserId(this.appService.GetCurrentUser().id).pipe(takeUntil(this.unsubscribe)).subscribe( projects => {
           this.projectList = projects['games'];
           this.displaySpinnerForProject = false;    // hide spinner
@@ -69,6 +63,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
    loadListOfPlugins() {
+       this.displaySpinnerForPlugins = true;
        this.pluginService.getAllPluginsOfUser(this.appService.GetCurrentUser().id).pipe(takeUntil(this.unsubscribe)).subscribe(projects => {
              this.pluginList = projects['plugins'];
              this.displaySpinnerForPlugins = false;    // hide spinner
@@ -81,11 +76,6 @@ export class HomeComponent implements OnInit, OnDestroy {
        )
    }
 
-  onUpdate(event) {
-      if (event) {
-          this.loadListOfPlugins();
-      }
-  }
 
   onCreateProject(project) {
       if (typeof project !== 'undefined') {
@@ -103,8 +93,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   // the deletion of the project, will be done in Project-Card-Component //
   onDeleteProject(project) {
-    if (typeof project !== 'undefined') {
-       this.projectList.splice(this.projectList.indexOf(project), 1);
+    if (project === false) {
+        this.notification.display('Can\'t delete project. Something went wrong!', 'danger');
+    }  else {
+        this.notification.display('Project deleted successfully!', 'success');
+         this.projectList.splice(this.projectList.indexOf(project), 1);
       if (this.projectList.length === 0) {
           this.projectList = new Array<Game>();
       } else {
@@ -119,7 +112,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     // the deletion of the plugin, will be done in Plugin-Card-Component //
     onDeletePlugin(plugin) {
-        if (typeof plugin !== 'undefined') {
+        if (plugin === false) {
+            this.notification.display('Can\'t delete plugin. Something went wrong!', 'danger');
+        } else {
+            this.notification.display('Plugin deleted!', 'success');
             this.pluginList.splice(this.pluginList.indexOf(plugin), 1);
             if (this.pluginList.length === 0) {
                 this.pluginList = new Array<Plugin>();
@@ -130,9 +126,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
 
-    onWorkClick(event) {
-
-    }
 
 
 }

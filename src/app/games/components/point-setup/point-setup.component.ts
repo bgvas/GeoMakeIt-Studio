@@ -1,38 +1,53 @@
-import {Component, Input, OnInit, Output, EventEmitter, OnDestroy, ViewChild, ViewChildren} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ZonesEditor} from '../../../plugins/models/designer-models/zones/ZonesEditor';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Component, Input, OnInit, Output, EventEmitter, ViewChild, OnDestroy} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Zones_model} from '../../../plugins/models/designer-models/zones/Zones_model';
+import {Observable, Subject} from 'rxjs';
+import {Error} from '../../../error-handling/error/error';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-point-setup',
   templateUrl: './point-setup.component.html',
   styleUrls: ['./point-setup.component.css']
 })
-export class PointSetupComponent implements OnInit {
+export class PointSetupComponent implements OnInit, OnDestroy {
 
-  @Input() points: ZonesEditor[];
+
+  point: Zones_model;
   zonesForm: FormGroup;
-  selectedPoint: ZonesEditor;
   actionsArray = new FormArray([]);
-  isStartingPoint = false;
   closeResult: string;
-
+  private unsubscribe = new Subject<void>();
   @Output() pointForDelete = new EventEmitter<number>();
-  @Output() returnedPoint = new EventEmitter<ZonesEditor>();
+  @Output() returnedPoint = new EventEmitter<Zones_model>();
+  @Input() selectedPoint: Observable<Zones_model>;
 
-  constructor(private fb: FormBuilder, private modal: NgbModal) { }
+
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
       this.initializeForm();
+      this.selectedPoint?.pipe(takeUntil(this.unsubscribe)).subscribe(data => {
+          this.point = data
+          this.addValuesToForm(data);
+      },
+          (error: Error) => {
+                console.log('error from selectedPoint: ' + error.message);
+          })
   }
 
+  ngOnDestroy() {
+     this.unsubscribe.next();
+     this.unsubscribe.complete();
+  }
 
   initializeForm() {
     this.zonesForm = this.fb.group({
             id: this.fb.control(''),
             title: this.fb.control('', Validators.required),
             latitude: this.fb.control(''),
-            type_of_zone: this.fb.control(''),
+            // type_of_zone: this.fb.control(''),
             radius: this.fb.control(''),
             longitude: this.fb.control(''),
             unique_id: this.fb.control(''),
@@ -45,22 +60,19 @@ export class PointSetupComponent implements OnInit {
     });
   }
 
- addAction() {
+
+  addAction() {
       this.actionsArray.push(this.fb.control(''))
- }
+  }
 
- deleteAction(index: number) {
+  deleteAction(index: number) {
       this.actionsArray.removeAt(index);
- }
+  }
 
-  addValuesToForm(point: ZonesEditor) {
+  addValuesToForm(point: Zones_model) {
       this.zonesForm.get('id').setValue(point.id);
       this.zonesForm.get('title').setValue(point.title);
-      if (point.unique_id !== 'zone_regen') {
-          this.zonesForm.get('type_of_zone').setValue(point?.unique_id.substring(0, point?.unique_id.length - 2));
-      } else {
-          this.zonesForm.get('type_of_zone').setValue(point?.unique_id);
-      }
+      this.zonesForm.get('unique_id').setValue(point?.unique_id);
       this.zonesForm.get('stroke_width').setValue(point.stroke_width);
       this.zonesForm.get('latitude').setValue(point.center.latitude);
       this.zonesForm.get('longitude').setValue(point.center.longitude);
@@ -82,16 +94,8 @@ export class PointSetupComponent implements OnInit {
   }
 
 
-
-  onSelect(point: ZonesEditor, index: number) {
-
-    point.id = index;
-   this.selectedPoint = point;
-    this.addValuesToForm(point);
-  }
-
   onDelete(index: number) {
-    this.pointForDelete.emit(index);
+    this.pointForDelete.emit(index); // send this to gameSetup for delete //
   }
 
   onCancel() {
@@ -99,10 +103,10 @@ export class PointSetupComponent implements OnInit {
   }
 
   onSubmit() {
-     const newPoint = new ZonesEditor();
+     const newPoint = new Zones_model();
      newPoint.id = this.zonesForm.get('id').value;
      newPoint.title = this.zonesForm.get('title').value;
-     newPoint.unique_id = this.zonesForm.get('type_of_zone').value;
+     newPoint.unique_id = (this.zonesForm.get('title').value).toString().toLowerCase();
      newPoint.center.longitude = this.zonesForm.get('longitude').value;
      newPoint.center.latitude = this.zonesForm.get('latitude').value;
      newPoint.fill_color = this.zonesForm.get('fill_color').value;
@@ -118,7 +122,7 @@ export class PointSetupComponent implements OnInit {
      newPoint.icon.width = this.zonesForm.get('width').value;
      newPoint.icon.image = this.zonesForm.get('image').value;
 
-     this.returnedPoint.emit(newPoint);
+     this.returnedPoint.emit(newPoint);  // return updated point  //
      this.actionsArray.clear();
   }
 }

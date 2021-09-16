@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {RootDesigner} from '../../models/designers/rootDesignerClass/root-designer';
 import {environment} from '../../../../environments/environment';
-import {ZonesEditor} from '../../../plugins/models/designer-models/zones/ZonesEditor';
+import {Zones_model} from '../../../plugins/models/designer-models/zones/Zones_model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,8 +32,8 @@ export class GamePluginConfigService {
     return this.http.get(url);
   }
 
-  getZonesFromDB(game_id: number): Observable<ZonesEditor[]> {
-    return this.http.get<ZonesEditor[]>(this.gamePlugins_path + 'zones/' + game_id)
+  getZonesFromDB(game_id: number): Observable<Zones_model[]> {
+    return this.http.get<Zones_model[]>(this.gamePlugins_path + 'zones/' + game_id)
   }
 
   updateZones(game_id: number, zones: any): Observable<any> {

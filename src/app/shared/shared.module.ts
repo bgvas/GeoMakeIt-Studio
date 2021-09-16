@@ -2,25 +2,20 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {SpinnerComponent} from './components/spinner/spinner.component';
 import {DeletePopUpComponent} from './components/delete-pop-up/delete-pop-up.component';
-import { ButtonTogglesComponent} from './components/button-toggles/button-toggles.component';
 import {DetailsCardComponent} from './components/details-card/details-card.component';
 import {Error404Component} from './components/error404/error404.component';
-import {IconsComponent} from './components/icons/icons.component';
 import { InputComponent } from './components/input/input.component';
 import {NotificationsComponent} from './components/notifications/notifications.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { TooltipInfoCircleComponent} from './components/tooltip-info-circle/tooltip-info-circle.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { ValidationMessagesComponent } from './components/validation-messages/validation-messages.component';
 import {DeclareFormControlsService} from './services/declareFormControls/declare-form-controls.service';
 import {ValidationsService} from './services/validations/validations.service';
-
 import { HomeComponent } from './components/home-page/home.component'
 import { HeaderBarComponent } from './components/header-bar/header-bar.component';
 import { FooterBarComponent } from './components/footer-bar/footer-bar.component';
-import { ProjectSideBarComponent } from './components/project-side-bar/project-side-bar.component';
 import {MatIconModule} from '@angular/material/icon';
 import {NgbModule, NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
@@ -41,7 +36,6 @@ import { PluginCardComponent } from '../plugins/components/plugin-card/plugin-ca
 import { NumberToBooleanPipe} from './pipes/number-to-boolean.pipe';
 import { RoleIdToRoleNamePipe } from './pipes/role-id-to-role-name.pipe';
 import { EmailExistsValidatorDirective } from './custom-validators/email-exists-validator.directive';
-import { CustomToolTipComponent } from './components/custom-tool-tip/custom-tool-tip.component';
 import { ColorPickerComponent } from './components/color-picker/color-picker.component';
 import {AngularD3CloudModule} from 'angular-d3-cloud';
 
@@ -56,18 +50,14 @@ import {AngularD3CloudModule} from 'angular-d3-cloud';
   declarations: [
     SpinnerComponent,
     DeletePopUpComponent,
-    ButtonTogglesComponent,
     DetailsCardComponent,
     Error404Component,
-    IconsComponent,
     InputComponent,
     NotificationsComponent,
-    TooltipInfoCircleComponent,
     ValidationMessagesComponent,
     HomeComponent,
     HeaderBarComponent,
     FooterBarComponent,
-    ProjectSideBarComponent,
     CreateProjectComponent,
     ImageAsCheckBoxComponent,
     ProjectCardComponent,
@@ -77,7 +67,6 @@ import {AngularD3CloudModule} from 'angular-d3-cloud';
     NumberToBooleanPipe,
     RoleIdToRoleNamePipe,
     EmailExistsValidatorDirective,
-    CustomToolTipComponent,
     ColorPickerComponent
 
 
@@ -85,16 +74,13 @@ import {AngularD3CloudModule} from 'angular-d3-cloud';
     exports: [
         SpinnerComponent,
         DeletePopUpComponent,
-        ButtonTogglesComponent,
         InputComponent,
-        TooltipInfoCircleComponent,
         HeaderBarComponent,
         FooterBarComponent,
         NotificationsComponent,
         NumberToBooleanPipe,
         RoleIdToRoleNamePipe,
         EmailExistsValidatorDirective,
-        CustomToolTipComponent,
         ColorPickerComponent,
         PluginCardComponent
     ],

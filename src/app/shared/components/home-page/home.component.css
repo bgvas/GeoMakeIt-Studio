@@ -23,27 +23,26 @@ div.scrollmenu a:hover {
 }
 
 .wrapper{
-    height: 356px;
+    height: 412px;
     max-width: 96%;
     display: inline-flex;
     overflow-x: auto;
 }
 
 .wrapper .item{
-    padding-right: 20px;
-    max-width: 400px;
-    min-width: 400px;
+    max-width: 350px;
+    min-width: 350px;
 }
 
 .wrapper-sm{
-    height: 330px;
-    max-width: 96%;
+    height: 345px;
+    max-width: 90%;
     display: inline-flex;
     overflow-x: auto;
 }
 
 .wrapper-sm .item{
-    padding-right: 20px;
-    max-width: 250px;
-    min-width: 250px;
+    max-width: 280px;
+    min-width: 280px;
 }
+

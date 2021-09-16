@@ -1,6 +1,6 @@
 
 
-export class ZonesEditor {
+export class Zones_model {
     public id: number;
     public title: string;
     public center: {'latitude': 0, 'longitude': 0};

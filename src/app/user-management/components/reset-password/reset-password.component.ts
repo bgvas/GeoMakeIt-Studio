@@ -3,7 +3,7 @@ import {Subject} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../../authentication/services/auth.service';
 import {takeUntil} from 'rxjs/operators';
-import {Error} from '../../../classes/error/error';
+import {Error} from '../../../error-handling/error/error';
 import {UserService} from '../../services/user.service';
 
 @Component({

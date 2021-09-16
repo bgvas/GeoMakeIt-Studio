@@ -1,9 +1,10 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, AfterViewChecked} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {takeUntil} from 'rxjs/operators';
-import {ZonesEditor} from '../../../plugins/models/designer-models/zones/ZonesEditor';
+import {Zones_model} from '../../../plugins/models/designer-models/zones/Zones_model';
 import {Subject} from 'rxjs';
 import {GamePluginConfigService} from '../../services/gamePlugin/gamePluginConfig.service';
 import {GameSetupComponent} from '../game-setup/game-setup.component';
+
 
 @Component({
   selector: 'app-game-setup-main-page',
@@ -13,10 +14,11 @@ import {GameSetupComponent} from '../game-setup/game-setup.component';
 export class GameSetupMainPageComponent implements OnInit, OnDestroy {
 
   @ViewChild(GameSetupComponent) gameSetup: GameSetupComponent;
-  pointsArray = new Array<ZonesEditor>();
+  pointsArray = new Array<Zones_model>();
   project: any;
   selected: boolean;
   private unsubscribe = new Subject<void>();
+
 
   constructor(private gamePlugins: GamePluginConfigService) { }
 
@@ -29,7 +31,6 @@ export class GameSetupMainPageComponent implements OnInit, OnDestroy {
       }
     })
   }
-
 
   ngOnDestroy() {
     this.unsubscribe.next();

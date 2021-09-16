@@ -7,7 +7,7 @@ import {
 } from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
-import {Error} from './classes/error/error';
+import {Error} from './error-handling/error/error';
 import {Router} from '@angular/router';
 import {AuthService} from './authentication/services/auth.service';
 

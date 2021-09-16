@@ -24,11 +24,11 @@ export class EditUserComponent implements OnInit {
   onDelete(event, user) {
       if (event) {
         this.userService.deleteUser(user.id).subscribe(deleted => {
-          this.notification.showNotification(deleted.displayed_message, 'success')
+          this.notification.display(deleted.displayed_message, 'success')
           this.router.navigate(['admin/users']);
         },
             (error) => {
-              this.notification.showNotification(error.displayed_message, 'danger')
+              this.notification.display(error.displayed_message, 'danger')
               this.router.navigate(['admin/users']);
               console.log('Error in delete-user' + error.message + error.code);
             })
@@ -37,11 +37,11 @@ export class EditUserComponent implements OnInit {
 
   onSubmit(form) {
       this.userService.updateUser(form, this.user?.id).subscribe(updated => {
-        this.notification.showNotification(updated.displayed_message, 'success')
+        this.notification.display(updated.displayed_message, 'success')
         this.router.navigate(['admin/users']);
       },
       (error) => {
-        this.notification.showNotification('Error in update process', 'danger')
+        this.notification.display('Error in update process', 'danger')
         this.router.navigate(['admin/users']);
         console.log('Error in update-user ' + error.message + ' - ' + error.code);
       })

@@ -11,7 +11,6 @@ import {User} from '../../user-management/models/user';
 export class FeaturesService {
 
   aProject: any;
-  aPlugin: any;
   path = environment.be_Url;
 
   constructor(private http: HttpClient, private authService: AuthService) { }
@@ -24,13 +23,13 @@ export class FeaturesService {
     return this.aProject;
   }
 
-  set plugin(plugin) {
+  /*set plugin(plugin) {
     this.aPlugin = plugin;
   }
 
   get plugin(): any {
     return this.aPlugin;
-  }
+  }*/
 
   getHelpFile(): Observable<any> {
     return this.http.get('assets/txt-files/how-to.txt', { responseType: 'text' as 'json'});

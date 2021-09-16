@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Error} from '../classes/error/error';
+import {Error} from './error/error';
 
 @Component({
   selector: 'app-error-handling',

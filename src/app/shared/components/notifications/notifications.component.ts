@@ -10,7 +10,7 @@ export class NotificationsComponent implements OnInit {
 
   constructor() { }
 
-  showNotification(message, notificationType) {
+  display(message, notificationType) {
       const type = ['', 'info', 'success', 'warning', 'danger'];
 
 

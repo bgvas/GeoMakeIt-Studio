@@ -1,13 +1,10 @@
-<a matTooltip="Edit plugin" href="#editPlugin{{plugin.id}}" class="text-dark" matTooltipClass="h5" data-toggle="modal" style="background-color: inherit" >
-    <mat-icon>edit</mat-icon>
-</a>
 
 <!-- Modal -->
-<div class="modal fade " id="editPlugin{{plugin.id}}" tabindex="-1" role="dialog" aria-labelledby="editPlugin" aria-hidden="true">
+<div class="modal fade " id="editPlugin{{plugin?.id}}" tabindex="-1" role="dialog" aria-labelledby="editPlugin" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header m-2 bg-dark border border-dark">
-                <h3 class="modal-title text-white" id="editThisPlugin" style="font-weight: bold">Edit {{plugin.title}}</h3>
+                <h3 class="modal-title text-white" id="editThisPlugin" style="font-weight: bold">Edit {{plugin?.title}}</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -20,7 +17,7 @@
                         </mat-label>
                     </div>
                     <div class="text-left form-control" style="background-color: inherit">
-                        {{plugin.identifier}}
+                        {{plugin?.identifier}}
                     </div>
                 </div>
                 <div class="modal-body m-2 border bg-light" [class.border-warning]="edit"  [class.border-dark]="!edit">

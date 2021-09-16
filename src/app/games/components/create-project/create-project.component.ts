@@ -3,7 +3,7 @@ import {GameService} from '../../services/game.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NotificationsComponent} from '../../../shared/components/notifications/notifications.component';
 import {Game} from '../../models/games/game';
-import {Error} from '../../../classes/error/error';
+import {Error} from '../../../error-handling/error/error';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
@@ -54,10 +54,10 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
       return this.service.createNewGame(newProject).pipe(takeUntil(this.unsubscribe)).subscribe(
           project => {
                 this.project.emit(newProject);
-                this.notification.showNotification('Your project, created successfully', 'success');
+                this.notification.display('Your project, created successfully', 'success');
             },
             (error: Error) => {
-                 this.notification.showNotification(error.displayed_message, 'danger');
+                 this.notification.display(error.displayed_message, 'danger');
                  console.log('Error on create new Project: ' + error.code + ' - ' + error.message);
           }
       )

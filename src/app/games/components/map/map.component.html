@@ -1,16 +1,16 @@
-  <div>
+
     <agm-map
             [latitude]="38.892548108719396"
             [longitude]="22.458088777351076"
             [zoom]="10"
             [disableDefaultUI]="false"
             [zoomControl]="false"
-            [mapTypeId]="'terrain'"
+            [mapTypeId]="'roadmap'"
             (mapClick)="onMapClick($event)">
 
             <agm-marker
                     *ngFor="let point of points; let i = index"
-                    (markerClick)="clickedMarker(point?.title, i)"
+                    (markerClick)="clickedMarker(point, i)"
                     [latitude]="point?.center.latitude"
                     [animation]="'DROP'"
                     [longitude]="point?.center.longitude"
@@ -18,15 +18,65 @@
                     [iconUrl]="marker"
                     [markerDraggable]="true"
                     (dragEnd)="onChangeLocation($event, i)"
-                    id="point{{i}}">
+                    id="point{{i + 1}}">
                     <agm-info-window>
-                        <div class="bg-secondary ml-0 mr-0">
-                                <strong class=" pl-1 text-white text-center font-weight-bold mat-h3">
-                                    {{i + 1}} - {{point.title}}
-                                    <button class = "pr-1 text-white text-center font-weight-bold" type="button" style="background-color: inherit; border: 0;" (click)="onDelete(i)" >
-                                        <mat-icon >delete</mat-icon>
-                                    </button>
-                                </strong>
+                        <div class="w-100 border rounded">
+                            <table class="w-100 m-1">
+                                <tr>
+                                    <td class="text-center">
+                                        <span class="serif-font text-info h4" style="font-weight: bold">
+                                            {{point?.title}}
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <table class="mat-h6 text-center">
+                                        <tr>
+                                            <td style="font-weight: bold">
+                                                latitude:
+                                            </td>
+                                            <td style="color: dimgrey">
+                                                {{point?.center.latitude}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight: bold">
+                                                longitude:
+                                            </td>
+                                            <td style="color: dimgrey">
+                                                {{point?.center.longitude}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight: bold">
+                                                radius:
+                                            </td>
+                                            <td style="color: dimgrey">
+                                                {{point?.radius}} meters
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <button data-toggle="modal"
+                                                        data-target="#PointSetupModal"
+                                                        class = "text-center text-dark font-weight-bold"
+                                                        type="button"
+                                                        style="background-color: inherit; border: 0;">
+                                                    <mat-icon>edit</mat-icon>
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <button class = "text-center text-danger font-weight-bold"
+                                                        type="button"
+                                                        style="background-color: inherit; border: 0;"
+                                                        (click)="onDelete(i)" >
+                                                    <mat-icon>delete</mat-icon>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </tr>
+                            </table>
                         </div>
                     </agm-info-window>
 
@@ -39,7 +89,31 @@
                     </agm-circle>
             </agm-marker>
     </agm-map>
-  </div>
+
+    <!-- modal -->
+    <div class="modal fade" id="PointSetupModal" tabindex="-1" role="dialog" aria-labelledby="pointSetupModalContent" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header m-2 bg-secondary border border-dark">
+                    <h3 class="modal-title  text-white" style="font-weight: bold" id="pointSetupModalContent">
+                        Setup point of action
+                    </h3>
+                </div>
+                <div class="modal-body m-2 border  border-dark">
+                    <app-point-setup
+                            [selectedPoint]="pointToEdit"
+                            (returnedPoint)="onPointReturn($event)">
+                    </app-point-setup>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
 
 
 

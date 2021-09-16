@@ -5,7 +5,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { PluginModule } from '../plugins/plugin.module';
-import { GamesComponent } from './components/my-games/games.component';
 import { RouterModule } from '@angular/router';
 import { PluginConfigsComponent} from './components/plugin-configs/plugin-configs.component';
 import { ConfigsComponent} from './components/plugin-configs/configs/configs.component';
@@ -38,10 +37,10 @@ import { GameSetupMainPageComponent } from './components/game-setup-main-page/ga
 import {MapComponent} from './components/map/map.component';
 import {SharedModule} from '../shared/shared.module';
 import { AgmCoreModule } from '@agm/core';
+import { TableWithSelectedPointsComponent } from './components/table-with-selected-points/table-with-selected-points.component';
 
 @NgModule({
     declarations: [
-        GamesComponent,
         PluginConfigsComponent,
         ConfigsComponent,
         DesignerComponent,
@@ -56,7 +55,8 @@ import { AgmCoreModule } from '@agm/core';
         GameSettingsComponent,
         GameMainConfigurationModalComponent,
         GameSetupMainPageComponent,
-        MapComponent
+        MapComponent,
+        TableWithSelectedPointsComponent
     ],
     imports: [
         CommonModule,

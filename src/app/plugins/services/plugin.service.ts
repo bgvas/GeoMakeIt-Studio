@@ -51,9 +51,9 @@ export class PluginService {
     return this.http.get<Plugin[]>(this.path + '/user/id/' + userId).pipe(retry(3));
   }
 
-  getAllPluginsByUserId(userId): Observable<Plugin[]> {
+  /*getAllPluginsByUserId(userId): Observable<Plugin[]> {
     return this.http.get<Plugin[]>(this.path + '/user/' + userId).pipe(retry(3));
-  }
+  }*/
 
   getReleasesOfPlugin(pluginId): Observable<RootPluginReleases> {
     return this.http.get<RootPluginReleases>(this.path + '/' + pluginId + '/releases').pipe(retry(3));

@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NotificationsComponent} from '../../../shared/components/notifications/notifications.component';
 import {Plugin} from '../../models/plugin';
 import {PluginService} from '../../services/plugin.service';
-import {Error} from '../../../classes/error/error';
+import {Error} from '../../../error-handling/error/error';
 import {PluginRelease} from '../../models/available_plugins/plugin-release';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs';
@@ -46,10 +46,10 @@ export class PluginsComponent implements OnInit, OnDestroy {
           this.service.deletePluginById(this.service.plugin.id).pipe(takeUntil(this.unsubscribe)).subscribe(value => {
               this.pluginReleasesMap.clear();
               this.loadListOfPlugins();
-              this.notification.showNotification('Plugin Deleted!', 'success');
+              this.notification.display('Plugin Deleted!', 'success');
           },
               (error: Error) => {
-                    this.notification.showNotification('Can\'t delete Plugin!', 'danger');
+                    this.notification.display('Can\'t delete Plugin!', 'danger');
                     console.log('Delete plugin: ' + error.message + ' - ' + error.code);
           })
       }

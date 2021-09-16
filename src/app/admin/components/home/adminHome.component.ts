@@ -6,7 +6,7 @@ import {PluginService} from '../../../plugins/services/plugin.service';
 import {interval, Observable, Subject, Subscription} from 'rxjs';
 
 import {delay, map, takeUntil} from 'rxjs/operators';
-import {Error} from '../../../classes/error/error';
+import {Error} from '../../../error-handling/error/error';
 
 
 

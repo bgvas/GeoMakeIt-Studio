@@ -63,7 +63,7 @@ export class AdminLayoutComponent implements OnInit {
 
 
       if(window_width > 767){
-          if($('.fixed-plugin .dropdown').hasClass('show-dropdown')){
+          if($('.fixed-plugin .dropdown').hasClass('display-dropdown')){
               $('.fixed-plugin .dropdown').addClass('open');
           }
 

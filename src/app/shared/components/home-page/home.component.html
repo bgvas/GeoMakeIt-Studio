@@ -37,8 +37,8 @@
                         <div class="text-left text-secondary h4 font-weight-bold" *ngIf="!displaySpinnerForProject &&  projectList?.length === 0">
                             no projects found
                         </div>
-                        <div class="item" *ngFor="let projectFile of projectList; let i = index" id = "project{{i}}">
-                            <app-project-card [project] = "projectFile"  (deleted)="onDeleteProject($event)"></app-project-card>
+                        <div class="item ml-3" *ngFor="let projectFile of projectList; let i = index" id ="project{{i}}">
+                              <app-project-card [project] = "projectFile" (deleted)="onDeleteProject($event)"></app-project-card>
                         </div>
                         <div class="text-left text-secondary h3 font-weight-bold" *ngIf="!displaySpinnerForProject &&  errorFromProjectSubscribe !== null">
                             {{errorFromProjectSubscribe}}
@@ -69,8 +69,8 @@
                             <div class="text-left text-secondary h4 font-weight-bold" *ngIf="!displaySpinnerForPlugins &&  pluginList?.length === 0">
                                 no plugins found
                             </div>
-                             <div class="item" *ngFor="let pluginFile of pluginList; let i = index" id="plugin{{i}}">
-                                 <app-plugin-card [plugin]="pluginFile" (updated)="onUpdate($event)" (deleted)="onDeletePlugin($event)"></app-plugin-card>
+                             <div class="item ml-3" *ngFor="let pluginFile of pluginList; let i = index" id="plugin{{i}}">
+                                 <app-plugin-card [plugin]="pluginFile"  (deleted)="onDeletePlugin($event)"></app-plugin-card>
                              </div>
                             <div class="text-left text-secondary h3 font-weight-bold" *ngIf="!displaySpinnerForPlugins && errorFromPluginSubscribe !== null">
                                 {{errorFromPluginSubscribe}}

@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {UserService} from '../../../user-management/services/user.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {Error} from '../../../classes/error/error';
+import {Error} from '../../../error-handling/error/error';
 
 @Component({
   selector: 'app-user-management',

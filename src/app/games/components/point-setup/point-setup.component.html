@@ -1,37 +1,3 @@
-<!-- Button trigger modal -->
-
-<table class="rounded border shadow">
-    <tr *ngFor="let point of points; let i = index" id="{{i}}">
-        <td style="width: 99%">
-            <button class="w-100" data-toggle="modal" (click) = "onSelect(point, i)" data-target="#pointSetup" style="border: 0; background-color: inherit">
-                <table class="w-100">
-                    <tr>
-                        <td class="mat-h5 text-center" style="width: 1%">{{i + 1 }}</td>
-                        <td class="mat-h5 text-center" style="width: 99%">{{point?.title}}</td>
-                    </tr>
-                </table>
-            </button>
-        <td>
-        <td style="width: 1%">
-            <button class="text-danger" matTooltip="Delete this point" style="background-color: inherit; border: 0" (click)="onDelete(i)">
-                <mat-icon class="h5">
-                    delete
-                </mat-icon>
-            </button>
-        </td>
-    </tr>
-</table>
-
-
-
-
-<div class="modal fade" id="pointSetup" tabindex="-1" role="dialog" aria-labelledby="newAction" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content ">
-            <div class="modal-header m-2 bg-secondary border border-dark">
-                <h3 class="modal-title text-white" id="newAction" style="font-weight: bold">Setup point of action</h3>
-            </div>
-            <div class="modal-body m-2 border  border-dark">
                 <div [formGroup]="zonesForm">
                     <div class="row">
                         <div class="col-lg-4 col-12">
@@ -40,42 +6,42 @@
                                     Latitude
                                 </div>
                                 <div class="col-lg-7 col-7 mat-h5 pt-1 bg-light border border-dark">
-                                    {{selectedPoint?.center.latitude}}
+                                    {{point?.center.latitude}}
                                 </div>
                                 <div class="col-lg-5 col-4 h5 font-weight-bold">
                                     Longitude
                                 </div>
                                 <div class="col-lg-7 col-7 mat-h5 pt-1 bg-light border border-dark">
-                                    {{selectedPoint?.center.longitude}}
+                                    {{point?.center.longitude}}
                                 </div>
                                 <div class="col-lg-5 col-4 h5 font-weight-bold">
                                     Radius
                                 </div>
                                 <div class="col-lg-7 col-7 mat-h5 pt-1 bg-light border border-dark">
-                                     <input type="number" class="form-control text-center" min="0" step="1" formControlName="radius" value="{{selectedPoint?.radius}}">
+                                     <input type="number" class="form-control text-center" min="0" step="1" formControlName="radius" value="{{point?.radius}}">
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-8 col-12">
                             <div class="modal-body border border-dark bg-light">
                                 <mat-form-field>
-                                    <input type="text" class="text-dark" matInput placeholder="Title of action-zone" formControlName= "title" value="{{selectedPoint?.title}}">
+                                    <input type="text" class="text-dark" matInput placeholder="Title of action-zone" formControlName= "title" value="{{point?.title}}">
                                 </mat-form-field>
                                 <div class="text-danger  mat-h5" *ngIf="zonesForm.get('title').invalid && zonesForm.get('title').touched">
                                         Title can't be empty
                                 </div>
                             </div>
-                            <p class="pt-2 text-left text-info" *ngIf="selectedPoint?.unique_id === 'zone_regen'" >This is the starting point of your project</p>
+                            <p class="pt-2 text-left text-info" *ngIf="point?.unique_id === 'zone_regen'" >This is the starting point of your project</p>
                         </div>
                     </div>
                     <hr>
                     <div class="row justify-content-center text-dark mt-2">
-                        <div class="col-5 col-lg-2 pb-2" *ngIf="selectedPoint?.unique_id !== 'zone_regen'">
+                        <div class="col-5 col-lg-2 pb-2">
                             Type of Zone
                         </div>
-                        <div class="col-7 col-lg-2 pb-2" *ngIf="selectedPoint?.unique_id !== 'zone_regen'">
-                            <select class="form-select" formControlName="type_of_zone" [value]="zonesForm.get('type_of_zone').value">
-                                <option class="form-control" value="zone_question">Question Zone</option>
+                        <div class="col-7 col-lg-2 pb-2">
+                            <select class="form-select"><!--formControlName="type_of_zone" [value]="zonesForm.get('type_of_zone').value">-->
+                                <option class="form-control" value="zone_question" selected>Question Zone</option>
                                 <option class="form-control" value="zone_fight">Fighting Zone</option>
                                 <option class="form-control" value="zone_locked">Locked Zone</option>
                             </select>
@@ -84,13 +50,13 @@
                             Color of Zone
                         </div>
                         <div class="col-lg-2 col-7">
-                            <input type="color" value="{{selectedPoint?.fill_color}}"  class="w-100" formControlName="fill_color" >
+                            <input type="color" value="{{point?.fill_color}}" class="w-100" formControlName="fill_color" >
                         </div>
                         <div class="col-lg-2 col-5 text-right">
                             Stroke width
                         </div>
                         <div class="col-lg-2 col-4 text-left">
-                            <input class="text-center" type="number" style="width: 50px" formControlName="stroke_width" min="0" step="1" value="{{selectedPoint?.stroke_width}}" >
+                            <input class="text-center" type="number" style="width: 50px" formControlName="stroke_width" min="0" step="1" value="{{point?.stroke_width}}" >
                         </div>
                     </div>
                     <hr>
@@ -182,7 +148,4 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
+

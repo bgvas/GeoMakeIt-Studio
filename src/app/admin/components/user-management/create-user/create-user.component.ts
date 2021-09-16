@@ -21,11 +21,11 @@ export class CreateUserComponent implements OnInit {
   onSubmit(form: User) {
    form.password = 'test';
    this.userService.newUser(form).subscribe(newUser => {
-      this.notification.showNotification('User created successfully.', 'success');
+      this.notification.display('User created successfully.', 'success');
       this.router.navigate(['admin/users']);
      },
        (error) => {
-          this.notification.showNotification(error.displayed_message, 'danger');
+          this.notification.display(error.displayed_message, 'danger');
           this.router.navigate(['admin/users']);
           console.log(error.message);
        })
