@@ -2,7 +2,7 @@ import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@an
 import {GameService} from '../../services/game.service';
 import {Router} from '@angular/router';
 import {Zones_model} from '../../../plugins/models/designer-models/zones/Zones_model';
-import {GamePluginConfigService} from '../../services/gamePlugin/gamePluginConfig.service';
+import {GamePluginConfigService} from '../../../gamePlugins/services/gamePluginConfig.service';
 import {Subject} from 'rxjs';
 import {Error} from '../../../error-handling/error/error';
 import {ZoneObject} from '../../../plugins/models/designer-models/zones/ZoneObject';

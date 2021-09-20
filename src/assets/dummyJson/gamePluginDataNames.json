@@ -1,0 +1,20 @@
+[
+  {
+    "plugin_id": 2,
+    "plugin_title": "GeoFighting!",
+    "json_file_name": [
+      "quizzes",
+      "questions",
+      "messages",
+      "defaults"
+    ]
+  },
+  {
+    "plugin_id": 3,
+    "plugin_title": "GeoQuiz!",
+    "json_file_name": [
+      "mods",
+      "config"
+    ]
+  }
+]

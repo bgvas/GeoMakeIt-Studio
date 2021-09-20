@@ -27,8 +27,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminComponent } from './admin/admin.component';
 import {AdminModule} from './admin/admin.module';
 import { AngularD3CloudModule } from 'angular-d3-cloud';
-
-
+import {GamePluginsModule} from './gamePlugins/game-plugins.module';
 
 
 @NgModule({
@@ -55,7 +54,8 @@ import { AngularD3CloudModule } from 'angular-d3-cloud';
         GameModule,
         NgbModule,
         AdminModule,
-        AngularD3CloudModule
+        AngularD3CloudModule,
+        GamePluginsModule
     ],
     declarations: [
         AppComponent,

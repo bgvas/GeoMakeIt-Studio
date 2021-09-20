@@ -1,0 +1,11 @@
+.modal-auto-width {
+    max-width: fit-content;
+}
+
+.nav-link.active {
+    background-color: rgba(31,31,31,0.91) ;
+}
+
+.nav-link {
+    color: white;
+}

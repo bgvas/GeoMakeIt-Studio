@@ -3,7 +3,7 @@ import {GameService} from '../../services/game.service';
 import {Subject} from 'rxjs';
 import {Router} from '@angular/router';
 import {Zones_model} from '../../../plugins/models/designer-models/zones/Zones_model';
-import {GamePluginConfigService} from '../../services/gamePlugin/gamePluginConfig.service';
+import {GamePluginConfigService} from '../../../gamePlugins/services/gamePluginConfig.service';
 import {takeUntil} from 'rxjs/operators';
 import {ZoneObject} from '../../../plugins/models/designer-models/zones/ZoneObject';
 import {Error} from '../../../error-handling/error/error';

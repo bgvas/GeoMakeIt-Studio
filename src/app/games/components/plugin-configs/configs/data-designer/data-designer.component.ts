@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, Input, OnInit, AfterContentChecked} from '@angular/core';
 import {RootDesigner} from '../../../../models/designers/rootDesignerClass/root-designer';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {GamePluginConfigService} from '../../../../services/gamePlugin/gamePluginConfig.service';
+import {GamePluginConfigService} from '../../../../../gamePlugins/services/gamePluginConfig.service';
 import {Location} from '@angular/common';
 import {ValidationsService} from '../../../../../shared/services/validations/validations.service';
 import {DeclareFormControlsService} from '../../../../../shared/services/declareFormControls/declare-form-controls.service';

@@ -10,9 +10,8 @@ import {ForgotPasswordComponent} from './user-management/components/forgot-passw
 import {StepByStepComponent} from './shared/components/help/step-by-step/step-by-step.component';
 import {AdminComponent} from './admin/admin.component';
 import {ConfirmNewAccountComponent} from './user-management/components/confirm-new-account/confirm-new-account.component';
-import {ResetPasswordComponent} from './user-management/components/reset-password/reset-password.component';
 import {ChangeForgotPasswordComponent} from './user-management/components/change-forgot-password/change-forgot-password.component';
-import {SocialLoginComponent} from './authentication/components/social-login/social-login.component';
+import {GamePluginsComponent} from './gamePlugins/game-plugins.component';
 
 const routes: Routes = [
   {
@@ -32,6 +31,14 @@ const routes: Routes = [
     children: [{
       path: '',
       loadChildren: './admin/admin.module#AdminModule'
+    }]
+  },
+  {
+    path: 'gamePlugins',
+    component: GamePluginsComponent,
+    children: [{
+      path: '',
+      loadChildren: './gamePlugins/game-plugins.module#GamePluginsModule'
     }]
   },
   {

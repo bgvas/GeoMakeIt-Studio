@@ -14,10 +14,6 @@ import { InformationComponent } from './components/plugin-configs/information/in
 import { StringsComponent } from './components/plugin-configs/strings/strings.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import {MatInputModule} from '@angular/material/input';
-import {GamePluginDataService} from './services/gamePlugin/gamePluginData.service';
-import {GamePluginConfigService} from './services/gamePlugin/gamePluginConfig.service';
-import {AvailablePluginsService} from './services/availbable-plugins/available-plugins.service';
-import {InstalledPluginsService} from './services/instaled-plugins-of-a-game/installed-plugins.service';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {NgbModule, NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
@@ -38,6 +34,8 @@ import {MapComponent} from './components/map/map.component';
 import {SharedModule} from '../shared/shared.module';
 import { AgmCoreModule } from '@agm/core';
 import { TableWithSelectedPointsComponent } from './components/table-with-selected-points/table-with-selected-points.component';
+import {GamePluginsModule} from '../gamePlugins/game-plugins.module';
+
 
 @NgModule({
     declarations: [
@@ -80,17 +78,14 @@ import { TableWithSelectedPointsComponent } from './components/table-with-select
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyBEckmuR4cwjzfgkK_JqnzLGyViz1AdKps'
         }),
+        GamePluginsModule,
     ],
     exports: [
         GameSettingsModalComponent,
         PointSetupComponent
     ],
     providers: [
-        GameService,
-        GamePluginDataService,
-        GamePluginConfigService,
-        AvailablePluginsService,
-        InstalledPluginsService
+        GameService
     ]
 })
 export class GameModule { }

@@ -1,0 +1,45 @@
+
+    <mat-tab-group>
+        <mat-tab *ngFor="let gamePlugin of gamePlugin_DataNames_Array; let x = index" label="{{gamePlugin.plugin_title}}" >
+            <div class="d-flex align-items-start">
+                <div class="nav flex-column nav-pills me-3"  id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <button class="nav-link btn bg-secondary"
+                            *ngFor="let fileName of gamePlugin.json_file_name; let y = index"
+                            id="v-pills-{{fileName}}-tab"
+                            data-bs-toggle="pill"
+                            class=""
+                            (click)="onTabClick(fileName)"
+                            data-bs-target="#v-pills-{{fileName}}"
+                            type="button" role="tab"
+                            aria-controls="v-pills-{{fileName}}">
+                        {{fileName}}
+                    </button>
+                </div>
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active"
+                         id="v-pills-{{tabClick}}"
+                         role="tabpanel"
+                         aria-labelledby="v-pills-{{tabClick}}-tab">
+                        {{tabClick}}
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+
+
+    <div class="row">
+        <div class="col-6 text-left">
+            <button type="submit" class="btn btn-dark" data-dismiss="modal">
+                Save
+            </button>
+        </div>
+        <div class="col-6 text-right">
+            <button type="reset"  class="btn btn-outline-secondary" data-dismiss="modal">
+                Cancel
+            </button>
+        </div>
+    </div>
+
+
+

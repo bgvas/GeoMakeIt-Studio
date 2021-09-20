@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {takeUntil} from 'rxjs/operators';
 import {Zones_model} from '../../../plugins/models/designer-models/zones/Zones_model';
 import {Subject} from 'rxjs';
-import {GamePluginConfigService} from '../../services/gamePlugin/gamePluginConfig.service';
+import {GamePluginConfigService} from '../../../gamePlugins/services/gamePluginConfig.service';
 import {GameSetupComponent} from '../game-setup/game-setup.component';
 
 

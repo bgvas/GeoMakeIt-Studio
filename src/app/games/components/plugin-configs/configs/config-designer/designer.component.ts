@@ -4,8 +4,8 @@ import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {Location} from '@angular/common';
 import {ValidationsService} from '../../../../../shared/services/validations/validations.service';
 import {DeclareFormControlsService} from '../../../../../shared/services/declareFormControls/declare-form-controls.service';
-import {GamePluginConfigService} from '../../../../services/gamePlugin/gamePluginConfig.service';
-import {GamePluginDataService} from '../../../../services/gamePlugin/gamePluginData.service';
+import {GamePluginConfigService} from '../../../../../gamePlugins/services/gamePluginConfig.service';
+import {GamePluginDataService} from '../../../../../gamePlugins/services/gamePluginData.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -36,9 +36,9 @@ export class DesignerComponent implements OnInit, AfterContentChecked, OnDestroy
 
 
   ngOnInit(): void {
-     /*this.designerService.getConfigDesigner().pipe(takeUntil(this.unsubscribe)).subscribe(data => {
+     this.designerService.getDataDefaultDesignerFile().pipe(takeUntil(this.unsubscribe)).subscribe(data => {
          this.designer = data;
-     });*/
+     });
 
      this.dataService.getDataDefaultJsonFile().pipe(takeUntil(this.unsubscribe)).subscribe(data => {
         this.data = data;

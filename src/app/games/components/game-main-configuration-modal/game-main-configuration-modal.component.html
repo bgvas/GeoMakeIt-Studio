@@ -1,13 +1,13 @@
 <!-- Modal -->
 
-<button  class="mat-raised-button bg-dark w-100 text-white" data-toggle="modal" data-target="#game-main-config" >
+<button class="mat-raised-button bg-dark w-100 text-white" data-toggle="modal" data-target="#game-main-config" >
     <div class="row m-2">
         <div class="col-3 text-right pr-0">
-                                <span class="mat-h5">
-                                    <mat-icon class="material-icons-outlined">
-                                        build
-                                    </mat-icon>
-                                </span>
+            <span class="mat-h5">
+                <mat-icon class="material-icons-outlined">
+                    build
+                </mat-icon>
+            </span>
         </div>
         <div class="col-9 text-left mat-h5 text-lowercase">
             Main Configuration
@@ -16,25 +16,13 @@
 </button>
 
 <div class="modal fade" id="game-main-config" tabindex="-1" role="dialog" aria-labelledby="gameMainConfig" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document" style="width: 100%">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content ">
-            <div class="modal-header m-2 bg-secondary border border-dark">
+            <div class="modal-header ml-2 mr-2 mt-2 bg-secondary border border-dark">
                 <h3 class="modal-title text-white" id="settings" style="font-weight: bold">Main configurations of project</h3>
             </div>
-            <div class="modal-body bg-light m-2 border border-dark" style="height: auto; overflow: auto">
-                <app-designer></app-designer>
-            </div>
-            <div class="row mb-2">
-                <div class="col-6 ">
-                    <button type="submit" class="btn btn-dark" data-dismiss="modal">
-                        Save
-                    </button>
-                </div>
-                <div class="col-6">
-                    <button type="reset"  class="btn btn-outline-secondary" data-dismiss="modal">
-                        Cancel
-                    </button>
-                </div>
+            <div class="modal-body bg-light w-100" style="height: auto">
+                   <app-json-files-configuration></app-json-files-configuration>
             </div>
         </div>
     </div>

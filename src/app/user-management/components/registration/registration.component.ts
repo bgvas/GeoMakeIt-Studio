@@ -44,7 +44,7 @@ export class RegistrationComponent implements OnInit {
       newAccount.email = this.registrationForm.get('email').value;
       newAccount.password = this.registrationForm.get('password').value;
       this.service.registration(newAccount).subscribe(data => {
-        this.service._element = {'email': newAccount.email, 'confirm_token': data.confirm_token}; // pass email and token, thru AuthService, to ConfirmController
+        this.service._element = {'email': newAccount.email}; // pass email , thru AuthService, to ConfirmController
         this.router.navigate(['confirm']);
       },
           (error) => {

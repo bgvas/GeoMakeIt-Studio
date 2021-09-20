@@ -10,7 +10,7 @@ import {SelectedPlugin} from '../../../plugins/models/selectedPlugin/selected-pl
 import {GameService} from '../../services/game.service';
 import {projectElements} from '../../models/projectElements/project-elements';
 import {Subscription} from 'rxjs/Subscription';
-import {GamePluginDataService} from '../../services/gamePlugin/gamePluginData.service';
+import {GamePluginDataService} from '../../../gamePlugins/services/gamePluginData.service';
 import {GameAuthenticationModel} from '../../models/gameAuthentication/GameAuthenticationModel';
 
 

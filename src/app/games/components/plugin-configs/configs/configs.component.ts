@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {GamePluginConfigService} from '../../../services/gamePlugin/gamePluginConfig.service';
+import {GamePluginConfigService} from '../../../../gamePlugins/services/gamePluginConfig.service';
 import {RootDesigner} from '../../../models/designers/rootDesignerClass/root-designer';
-import {GamePluginDataService} from '../../../services/gamePlugin/gamePluginData.service';
+import {GamePluginDataService} from '../../../../gamePlugins/services/gamePluginData.service';
 import {Error} from '../../../../error-handling/error/error';
 
 @Component({

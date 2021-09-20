@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {environment} from '../../../../environments/environment';
-import {Zones_model} from '../../../plugins/models/designer-models/zones/Zones_model';
+import {environment} from '../../../environments/environment';
+import {Zones_model} from '../../plugins/models/designer-models/zones/Zones_model';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +38,11 @@ export class GamePluginConfigService {
 
   updateZones(game_id: number, zones: any): Observable<any> {
     return this.http.post(this.gamePlugins_path + 'zones/update/' + game_id , zones);
+  }
+
+  getDataDefaultDesignerFile(): any {
+    const url = 'assets/dummyJson/defaults_config_designer.json';
+    return this.http.get(url);
   }
 
 
