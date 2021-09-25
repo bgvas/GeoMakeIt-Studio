@@ -78,7 +78,7 @@ export class DesignerComponent implements OnInit, AfterContentChecked, OnDestroy
   }
 
   onSubmit(): void {
-      if(this.dataForm?.valid) {
+      if (this.dataForm?.valid) {
           console.log(this.dataForm.value);
       }
   }

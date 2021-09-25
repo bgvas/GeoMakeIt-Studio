@@ -1,0 +1,39 @@
+<div [formGroup]="formDataGroup">
+    <div formGroupName="{{nameOfGroup}}">
+        <div *ngIf="type?.includes('array')">
+            <app-type-array-field
+                    [tooltip]="tooltip"
+                    [placeholder]="placeholder"
+                    [validations]="validations"
+                    [nameOfFormControl]="nameOfFormControl"
+                    (returnedValueOfControl) = "getResults($event)"
+                    [value]="value"
+                    [type]="type">
+            </app-type-array-field>
+        </div>
+        <div *ngIf="type === 'integer' || type === 'text' || type === 'double' || type === 'float'">
+            <app-type-input-field
+                    [tooltip]="tooltip"
+                    [placeholder]="placeholder"
+                    [validations]="validations"
+                    [nameOfFormControl]="nameOfFormControl"
+                    (returnedValueOfControl) = "getResults($event)"
+                    [value]="value"
+                    [type]="type">
+            </app-type-input-field>
+        </div>
+        <div *ngIf="type === 'select' || type === 'check' || type === 'radio' || type === 'boolean'">
+            <app-type-select-and-check-field
+                    [tooltip]="tooltip"
+                    [placeholder]="placeholder"
+                    [items]="items"
+                    [validations]="validations"
+                    [nameOfFormControl]="nameOfFormControl"
+                    (returnedValueOfControl) = "getResults($event)"
+                    [value]="value"
+                    [type]="type">
+            </app-type-select-and-check-field>
+        </div>
+    </div>
+</div>
+

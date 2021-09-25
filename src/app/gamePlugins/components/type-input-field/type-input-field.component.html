@@ -1,0 +1,71 @@
+<div [formGroup]="form">
+        <div ngSwitch="{{type}}">
+            <div *ngSwitchCase="'text'">
+                <input type="text"
+                       value="{{value}}"
+                       class="form-control"
+                       formControlName="{{nameOfFormControl}}"
+                       (change)="onChange($event)"
+                       ngbTooltip="{{tooltip}}"
+                       placeholder="{{placeholder}}">
+                <div *ngIf="form.get(nameOfFormControl).touched && form.get(nameOfFormControl).invalid">
+                     <app-validation-messages
+                         [formName]="form"
+                         [controlName]="nameOfFormControl"
+                         [validation]="validations">
+                     </app-validation-messages>
+                </div>
+            </div>
+            <div *ngSwitchCase="'float'">
+                <input type="number"
+                       value="{{value}}"
+                       step="0.1"
+                       formControlName="{{nameOfFormControl}}"
+                       (change)="onChange($event)"
+                       class="form-control"
+                       ngbTooltip="{{tooltip}}"
+                       placeholder="{{placeholder}}">
+                <div *ngIf="form.get(nameOfFormControl).touched && form.get(nameOfFormControl).invalid">
+                    <app-validation-messages
+                        [formName]="form"
+                        [controlName]="nameOfFormControl"
+                        [validation]="validations">
+                    </app-validation-messages>
+                </div>
+            </div>
+            <div *ngSwitchCase="'double'">
+                <input type="number"
+                       value="{{value}}"
+                       step="0.01"
+                       formControlName="{{nameOfFormControl}}"
+                       (change)="onChange($event)"
+                       class="form-control"
+                       ngbTooltip="{{tooltip}}"
+                       placeholder="{{placeholder}}">
+                <div *ngIf="form.get(nameOfFormControl).touched && form.get(nameOfFormControl).invalid">
+                    <app-validation-messages
+                        [formName]="form"
+                        [controlName]="nameOfFormControl"
+                        [validation]="validations">
+                    </app-validation-messages>
+                </div>
+            </div>
+            <div *ngSwitchCase="'integer'">
+                <input type="number"
+                       value="{{value}}"
+                       step="1"
+                       formControlName="{{nameOfFormControl}}"
+                       (change)="onChange($event)"
+                       class="form-control"
+                       ngbTooltip="{{tooltip}}"
+                       placeholder="{{placeholder}}">
+                <div *ngIf="form.get(nameOfFormControl).touched && form.get(nameOfFormControl).invalid">
+                    <app-validation-messages
+                        [formName]="form"
+                        [controlName]="nameOfFormControl"
+                        [validation]="validations">
+                    </app-validation-messages>
+                </div>
+            </div>
+        </div>
+</div>

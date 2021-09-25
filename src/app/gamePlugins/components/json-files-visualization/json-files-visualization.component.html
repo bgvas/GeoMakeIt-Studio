@@ -1,0 +1,66 @@
+<div *ngIf="dataFile === ''">
+    - no configuration menu -
+</div>
+<div class="container-fluid pb-3" *ngIf="dataFile !== '' && isLoading === false">
+   <div class="row w-100">
+       <div class="col-12 h2 pt-1 mb-0 serif-font" style="text-decoration: underline">
+           {{designerFile?.page_title}}
+       </div>
+       <div class="col-12 h3">
+           {{designerFile?.page_description}}
+       </div>
+       <div class="col-12">
+           <div class="row bg-white rounded shadow mt-2" *ngFor="let designerItem of designerFile?.designer | keyvalue; let y = index">
+               <div  style="overflow-scrolling: auto">
+                   <div class="col-12 h4 pt-2 font-weight-bold" ngbTooltip="{{designerItem?.value['tooltip']}}">
+                       <div class="border border-info rounded bg-secondary text-white">
+                           {{designerItem?.value['title']}}
+                       </div>
+                   </div>
+                   <div class="col-12 mat-h4" *ngFor="let designerComponentItem of designerItem?.value['components'] | keyvalue: asIsOrderInPipe">
+                       <div>
+                           <div class="row m-2">
+                               <div class="col-6 text-left">
+                                   {{stringAfterDot(designerComponentItem?.key) | removeUnderscores}}
+                               </div>
+                               <div class="col-6">
+                                   <!-- display input fields from JsonDataFiles-->
+                                   <app-designer-type-of-fields
+                                        [validations]="designerComponentItem?.value?.validation"
+                                        [type]="designerComponentItem?.value?.type"
+                                        [formDataGroup]="dataForm"
+                                        [nameOfFormControl] = "stringAfterDot(designerComponentItem?.key)"
+                                        [nameOfGroup] = "stringBeforeDot(designerComponentItem?.key)"
+                                        [items]="designerComponentItem?.value?.items"
+                                        [tooltip]="designerComponentItem?.value?.tooltip"
+                                        [placeholder]="designerComponentItem?.value?.placeholder"
+                                        (formResults)="getResults($event, stringBeforeDot(designerComponentItem?.key), stringAfterDot(designerComponentItem?.key))"
+                                        [value]="jsonDataFile[stringBeforeDot(designerComponentItem?.key)][stringAfterDot(designerComponentItem?.key)]">
+                                   </app-designer-type-of-fields>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+       <div>
+           <button class="m-2 w-100 btn bg-secondary" type="button" (click)="onSubmit()" [disabled]="dataForm.invalid">
+               Save
+           </button>
+       </div>
+       <div *ngIf="dataForm.invalid">
+           <mat-error>
+               There is an error. Please check your inputs.
+           </mat-error>
+       </div>
+   </div>
+</div>
+<div *ngIf="isLoading && dataFile !== ''">
+    <p>
+        <app-spinner [visible]="isLoading"></app-spinner>
+    </p>
+    <p>
+        Loading...
+    </p>
+</div>

@@ -8,10 +8,10 @@ import {FormArray, FormControl, FormGroup} from '@angular/forms';
 })
 export class ValidationMessagesComponent implements OnInit {
 
-  @Input() formName: FormGroup;
-  @Input() groupName: string;
-  @Input() controlName: string;
-  @Input() validation: any;
+  @Input() formName?: FormGroup;
+  @Input() groupName?: string;
+  @Input() controlName?: any;
+  @Input() validation?: any;
 
 
   constructor() { }
@@ -24,8 +24,8 @@ export class ValidationMessagesComponent implements OnInit {
     return Array.isArray(obj);
   }
 
-  isEmpty(obj): boolean{
-    return ((obj as FormArray).length === 0);
+  isEmpty(obj): boolean {
+    return ((obj as FormArray)?.length === 0);
   }
 
 }

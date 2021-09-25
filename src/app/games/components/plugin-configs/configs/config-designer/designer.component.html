@@ -11,10 +11,10 @@
                     <div *ngIf="!designer?.page_title" class="text-center">
                         <p>
                             <span class="text-center  h4" style="font-weight: bold">
-                                {{designer.page_title}}
+                                {{designer?.page_title}}
                             </span>
                         </p>
-                        <span *ngIf="!designer.page_description" class="text-center">
+                        <span *ngIf="!designer?.page_description" class="text-center">
                             {{designer.page_description}}
                         </span>
                     </div>
@@ -23,9 +23,9 @@
                             <div *ngIf = "y === i">
                                 <div class="row mt-4">
                                     <div class="col-12 bg-secondary p-2 text-white">
-                                            {{designerResult.value['title']}}
+                                            {{designerResult?.value['title']}}
                                             <button  class="btn btn-outline-secondary" type="button" style="width: 100%" data-toggle="collapse" [attr.data-target]="'#tab' + i" aria-expanded="false" [attr.aria-controls]="'tab' + i">
-                                                {{designerResult.value['title']}}
+                                                {{designerResult?.value['title']}}
                                             </button>
                                     </div>
                                 </div>
@@ -36,19 +36,19 @@
                                                 <div *ngFor="let designerItem of designer?.designer[y].components | keyvalue; let z = index">
                                                     <div  class="row">
                                                         <div class="col-6">
-                                                            <div class="p-2" matTooltip="{{designerItem.value['tooltip']}}">
-                                                               {{removeUnderscore(removeStringBeforeDot(designerItem.key)) | titlecase}}
+                                                            <div class="p-2" matTooltip="{{designerItem?.value['tooltip']}}">
+                                                               {{removeUnderscore(removeStringBeforeDot(designerItem?.key)) | titlecase}}
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
-                                                            {{declareValidators(designerItem.value['validation'], dataResult.key, removeStringBeforeDot(designerItem.key))}}
+                                                            {{declareValidators(designerItem?.value['validation'], dataResult?.key, removeStringBeforeDot(designerItem?.key))}}
                                                             <app-input [formName]="dataForm"
-                                                                       [value] = dataResult.value[removeStringBeforeDot(designerItem.key)]
-                                                                       [groupName] = "dataResult.key"
-                                                                       [type] = "designerItem.value['type']"
-                                                                       [placeholder] = "designerItem.value['placeholder']"
-                                                                       [validation]="designerItem.value['validation']"
-                                                                       [controlName]="removeStringBeforeDot(designerItem.key)">
+                                                                       [value] = dataResult?.value[removeStringBeforeDot(designerItem?.key)]
+                                                                       [groupName] = "dataResult?.key"
+                                                                       [type] = "designerItem?.value['type']"
+                                                                       [placeholder] = "designerItem?.value['placeholder']"
+                                                                       [validation]="designerItem?.value['validation']"
+                                                                       [controlName]="removeStringBeforeDot(designerItem?.key)">
                                                             </app-input>
                                                         </div>
                                                     </div>

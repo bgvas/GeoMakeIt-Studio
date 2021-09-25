@@ -1,0 +1,29 @@
+{
+  "questions":{
+    "allowed_wrong_answers_per_question":0,
+    "reward_on_correct":["aaa","bbb"],
+    "reward_on_wrong":[]
+  },
+  "quizzes":{
+    "next_question_delay":3,
+    "ratio_for_success":1,
+    "reward_on_success":[],
+    "reward_on_failure":[]
+  },
+  "timer":{
+  "enabled":true,
+  "default_time":30
+  },
+  "hinting":{
+  "enabled":true,
+  "wrong_answers_to_show_hint":1
+  },
+  "multiple_choice_view":{
+    "answers_per_line":3
+  },
+  "fill_view":{
+    "case_insensitive":true,
+    "normalize_spaces":true,
+    "can_answer_blank":false
+  }
+}

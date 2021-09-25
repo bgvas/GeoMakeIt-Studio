@@ -29,13 +29,15 @@ export class InputComponent implements OnInit {
   ngOnInit() {
 
     this.formName.addControl(this.groupName, new FormGroup({}));
-    // add values to FormArray //
-    if (this.type.includes('array') || this.type.includes('map')) {
+    // This initialize,  a new formArray //
+    if (this.type.includes('array')) {
         (this.formName.get(this.groupName) as FormGroup).addControl(this.controlName, new FormArray([]));
+        // add values to formArray //
         this.arrayValues = this.value;
-    }
+    } else {
     // This initialize,  a new formControl //
     (this.formName.get(this.groupName) as FormGroup).addControl(this.controlName, new FormControl(''));
+ }
 
   }
 
@@ -69,10 +71,6 @@ export class InputComponent implements OnInit {
     }
     (this.formName.get(groupName).get(controlName) as FormArray).push(new FormControl(''));
     this.arrayValues.push('');
-  }
-
-  getCoordinates(event) {
-    console.log(event[0] + ' - ' + event[1]);
   }
 
 

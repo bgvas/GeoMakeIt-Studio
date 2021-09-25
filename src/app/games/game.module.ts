@@ -37,6 +37,7 @@ import { TableWithSelectedPointsComponent } from './components/table-with-select
 import {GamePluginsModule} from '../gamePlugins/game-plugins.module';
 
 
+
 @NgModule({
     declarations: [
         PluginConfigsComponent,
@@ -75,14 +76,16 @@ import {GamePluginsModule} from '../gamePlugins/game-plugins.module';
         MatCheckboxModule,
         MatDialogModule,
         SharedModule,
+        GamePluginsModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyBEckmuR4cwjzfgkK_JqnzLGyViz1AdKps'
-        }),
-        GamePluginsModule,
+        })
+
     ],
     exports: [
         GameSettingsModalComponent,
-        PointSetupComponent
+        PointSetupComponent,
+        DesignerComponent
     ],
     providers: [
         GameService

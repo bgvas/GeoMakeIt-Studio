@@ -1,0 +1,20 @@
+<div [formGroup]="form">
+    <div ngSwitch="{{type}}">
+        <div *ngSwitchCase="'boolean'">
+            <table class="w-25">
+                <tr>
+                    <td>No</td>
+                    <td>
+                        <mat-slide-toggle
+                                checked="{{value}}"
+                                (change)="onChange($event)"
+                                formControlName="{{nameOfFormControl}}"
+                                style="transform: scale(1.1)">
+                        </mat-slide-toggle>
+                    </td>
+                    <td>Yes</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

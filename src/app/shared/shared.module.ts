@@ -38,6 +38,8 @@ import { RoleIdToRoleNamePipe } from './pipes/role-id-to-role-name.pipe';
 import { EmailExistsValidatorDirective } from './custom-validators/email-exists-validator.directive';
 import { ColorPickerComponent } from './components/color-picker/color-picker.component';
 import {AngularD3CloudModule} from 'angular-d3-cloud';
+import { RemoveUnderscoresPipe } from './components/pipes/remove-underscores.pipe';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 
@@ -67,7 +69,8 @@ import {AngularD3CloudModule} from 'angular-d3-cloud';
     NumberToBooleanPipe,
     RoleIdToRoleNamePipe,
     EmailExistsValidatorDirective,
-    ColorPickerComponent
+    ColorPickerComponent,
+    RemoveUnderscoresPipe
 
 
 ],
@@ -82,7 +85,9 @@ import {AngularD3CloudModule} from 'angular-d3-cloud';
         RoleIdToRoleNamePipe,
         EmailExistsValidatorDirective,
         ColorPickerComponent,
-        PluginCardComponent
+        PluginCardComponent,
+        RemoveUnderscoresPipe,
+        ValidationMessagesComponent
     ],
     imports: [
         CommonModule,
@@ -102,7 +107,8 @@ import {AngularD3CloudModule} from 'angular-d3-cloud';
         RouterModule,
         NgApexchartsModule,
         PluginModule,
-        AngularD3CloudModule
+        AngularD3CloudModule,
+        MatCheckboxModule
 
     ],
     providers: [

@@ -1,17 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import {GamePluginDataNamesModel} from '../../models/game-plugin-data-names-model';
+import {Component, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {GamePluginsService} from '../../services/game-plugins.service';
+import {GamePluginAllDataFilesModel} from '../../models/game-plugin-all-data-files-model';
+import {Error} from '../../../error-handling/error/error';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-json-files-configuration',
   templateUrl: './json-files-configuration.component.html',
   styleUrls: ['./json-files-configuration.component.css']
 })
-export class JsonFilesConfigurationComponent implements OnInit {
+export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
 
-  gamePlugin_DataNames_Array: GamePluginDataNamesModel[];
+  gamePluginsArray?: GamePluginAllDataFilesModel[];
   names = new Array<string>();
-  tabClick: number;
+  jsonFile?: any;
+  nameOfJsonFile?: string;
+  message?: string;
+  private unsubscribe = new Subject<void>();
 
 
   constructor(private gamePluginService: GamePluginsService) { }
@@ -20,14 +27,46 @@ export class JsonFilesConfigurationComponent implements OnInit {
     this.load_Button_FileTitles()
   }
 
-  load_Button_FileTitles() {
-    this.gamePluginService.getGamePluginDataJsonFiles(1).subscribe(name => {
-      this.gamePlugin_DataNames_Array = name
-    })
+
+  ngOnDestroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
-  onTabClick(filename) {
-    this.tabClick = filename;
+  load_Button_FileTitles() {
+
+    const gameId = (JSON.parse(sessionStorage.getItem('project'))['id']) || 0;
+    this.gamePluginService?.getAllJsonContentByGameId(gameId)
+        .pipe(takeUntil(this.unsubscribe))
+        .subscribe(name => {
+      this.gamePluginsArray = name.data
+    },
+        (error: Error) => {
+          console.log(error.message)
+        })
+  }
+
+  onButtonClick(file) {
+    this.jsonFile = file;
+    this.nameOfJsonFile = file.key;
+  }
+
+  getForm(form: FormGroup, plugin_id: number) {
+    const gameId = (JSON.parse(sessionStorage.getItem('project'))['id']) || 0;
+
+    const contentFile = {
+      'game_id': gameId,
+      'plugin_id': plugin_id,
+      'name': this.nameOfJsonFile,
+      'content': form.getRawValue()
+    }
+
+    console.log(contentFile)
+  }
+
+
+  clearContentOnTabChange() {
+    this.jsonFile = '';
   }
 
 }

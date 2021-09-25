@@ -1,0 +1,14 @@
+{
+  "page_title":"Messages Editor",
+  "page_description":"You can add/edit/remove your messages",
+  "designer_type":"config",
+  "file":"messages",
+  "designer": {
+    "0": {
+      "title": "Messages Group",
+      "tooltip": "....",
+      "components": {}
+    }
+
+  }
+}

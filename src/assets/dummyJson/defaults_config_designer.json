@@ -1,36 +1,48 @@
 {
-  "designer_type": "config",
-  "file": "defaults",
+  "page_title":"Defaults Editor",
+  "page_description":"Your default settings",
+  "designer_type":"config",
+  "file":"defaults",
   "designer": {
     "0": {
       "title": "Questions Group",
-      "tooltip": "Just an example tooltip",
+      "tooltip": "Create and handle your questions",
       "components": {
         "questions.allowed_wrong_answers_per_question": {
           "type": "integer",
           "validation": [
-            {"Required": true},
-            {"Max": 121},
-            {"Min": 90}
+            {
+              "Required": true
+            },
+            {
+              "Max": 121
+            },
+            {
+              "Min": 90
+            }
           ],
-          "tooltip": "......."
+          "tooltip": ""
         },
         "questions.reward_on_correct": {
           "type": "arrayOfStrings",
           "items": [
-            "plugin_identifier::command <parameters and flags"
+            "plugin_identifier::command <parameters and flags>"
           ],
           "validation": [
-            {"Required": true}
+            {
+              "Required": true
+            }
           ]
         },
         "questions.reward_on_wrong": {
           "type": "arrayOfCommands",
           "items": [
-            "plugin_identifier::command <parameters and flags"
+            "plugin_identifier::command <parameters and flags>"
           ],
           "validation": [
-            {"Required": true}
+            {
+              "Required": true
+            }
           ]
         }
       }
@@ -42,7 +54,9 @@
         "quizzes.next_question_delay": {
           "type": "integer",
           "validation": [
-            {"Required": true}
+            {
+              "Required": true
+            }
           ],
           "tooltip": ".......",
           "placeholder": "type an integer"
@@ -50,7 +64,9 @@
         "quizzes.ratio_for_success": {
           "type": "float",
           "validation": [
-            {"Required": true}
+            {
+              "Required": true
+            }
           ]
         },
         "quizzes.reward_on_success": {
@@ -59,48 +75,108 @@
             "plugin_identifier::command <parameters and flags>"
           ],
           "validation": [
-            {"Required": true}
+            {
+              "Required": true
+            }
           ]
         },
         "quizzes.reward_on_failure": {
           "type": "integer",
           "validation": [
-            {"Required": true}
+            {
+              "Required": true
+            }
           ]
         }
       }
     },
     "2": {
-      "title": "Fights Group",
+      "title": "Timer Group",
+      "tooltip": "Setup timer",
+      "components": {
+        "timer.enabled": {
+          "type": "boolean",
+          "validation": [],
+          "tooltip": ".......",
+          "placeholder": ""
+        },
+        "timer.default_time": {
+          "type": "integer",
+          "validation": []
+        }
+      }
+    },
+    "3": {
+      "title": "Multiple choice view Group",
+      "tooltip": "-----",
+      "components": {
+        "multiple_choice_view.answers_per_line": {
+          "type": "integer",
+          "validation": [],
+          "tooltip": ".......",
+          "placeholder": "type an integer"
+        }
+      }
+    },
+    "4": {
+      "title": "Fill view Group",
       "tooltip": "Just an example tooltip",
       "components": {
-        "fight.date_of_fight": {
+        "fill_view.case_insensitive": {
+          "type": "boolean",
+          "validation": [
+            {
+              "Required": true
+            }
+          ],
+          "tooltip": ".......",
+          "placeholder": "Case insensitive"
+        },
+        "fill_view.normalize_specs": {
+          "type": "boolean",
+          "validation": [
+            {
+              "Required": true
+            }
+          ],
+          "tooltip": ".......",
+          "placeholder": "Normalize specs"
+        },
+        "fill_view.can_answer_blank": {
+          "type": "boolean",
+          "validation": [
+            {
+              "Required": true
+            }
+          ],
+          "tooltip": ".......",
+          "placeholder": "Can answer blank"
+        }
+      }
+    },
+    "5": {
+      "title": "Hinting Group",
+      "tooltip": "Just an example tooltip",
+      "components": {
+        "hinting.enabled": {
+          "type": "boolean",
+          "validation": [
+            {
+              "Required": true
+            }
+          ],
+          "tooltip": ".......",
+          "placeholder": "Enabled"
+        },
+        "hinting.wrong_answers_to_show_hint": {
           "type": "integer",
           "validation": [
-            {"Required": true}
+            {
+              "Required": true
+            }
           ],
-          "tooltip": "choose date"
-        },
-        "fight.ratio_for_success": {
-          "type": "float",
-          "validation": [
-            {"Required": true}
-          ]
-        },
-        "fight.reward_on_success": {
-          "type": "arrayOfIntegers",
-          "validation": [
-            {"Required": true}
-          ],
-          "items": [
-            "plugin_identifier::command <parameters and flags>"
-          ]
-        },
-        "fight.reward_on_failure": {
-          "type": "integer",
-          "validation": [
-            {"Required": true}
-          ]
+          "tooltip": ".......",
+          "placeholder": "Wrong answers to show hint"
         }
       }
     }
