@@ -46,6 +46,7 @@ export class TypeArrayFieldComponent implements OnInit{
   // pass form to jsonFilesVisualization
   onChange(event) {
     if (event) {
+      console.log(this.form.value)
       // send signal to JsonFileVisualization that this form is valid or invalid and the changed value //
       this.returnedValueOfControl.emit([this.form.get(this.nameOfFormControl).value, this.form.controls[this.nameOfFormControl].valid]);
     }
@@ -57,10 +58,12 @@ export class TypeArrayFieldComponent implements OnInit{
       // send signal to JsonFileVisualization that this form is valid or invalid  //
       this.returnedValueOfControl.emit([[], this.form.controls[this.nameOfFormControl].valid]);
     }
+    this.onChange(true);
   }
 
   addArrayItem(): void {
     (this.form.get(this.nameOfFormControl) as FormArray).push(new FormControl(''));
+    this.onChange(true);
   }
 
 }
