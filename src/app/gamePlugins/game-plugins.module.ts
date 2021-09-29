@@ -21,6 +21,9 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {NumberPickerModule} from 'ng-number-picker';
+import {MatSelectModule} from '@angular/material/select';
+import {MatButtonModule} from '@angular/material/button';
+import {ReturningResultsService} from './services/returning-results.service';
 
 
 
@@ -46,7 +49,9 @@ import {NumberPickerModule} from 'ng-number-picker';
         ReactiveFormsModule,
         MatIconModule,
         MatSlideToggleModule,
-        NumberPickerModule
+        NumberPickerModule,
+        MatSelectModule,
+        MatButtonModule
     ],
     exports: [
         JsonFilesConfigurationComponent
@@ -54,6 +59,7 @@ import {NumberPickerModule} from 'ng-number-picker';
   providers: [
       GamePluginsService,
       GamePluginDataService,
-      GamePluginConfigService]
+      GamePluginConfigService,
+      ReturningResultsService]
 })
 export class GamePluginsModule { }

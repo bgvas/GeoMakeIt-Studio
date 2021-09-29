@@ -6,7 +6,7 @@ import {GamePluginConfigService} from '../../../gamePlugins/services/gamePluginC
 import {Subject} from 'rxjs';
 import {Error} from '../../../error-handling/error/error';
 import {ZoneObject} from '../../../plugins/models/designer-models/zones/ZoneObject';
-import {takeUntil} from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-game-setup',
@@ -29,7 +29,6 @@ export class GameSetupComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy() {
-    this.updateZones();
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
@@ -43,13 +42,16 @@ export class GameSetupComponent implements OnInit, OnDestroy {
 
   onDelete(index: number) {
     this.pointsArray.splice(index, 1);
+    this.updateZones();
   }
 
   // update after pointSetup //
   updateArrayOfPoints(point: Zones_model) {
     if (point !== null) {
       this.pointsArray[point.id] = point;
+      this.updateZones();
     }
+
   }
 
   // on click open stepper wizard //
@@ -61,30 +63,36 @@ export class GameSetupComponent implements OnInit, OnDestroy {
   // on window destroy, update records in DB //
   updateZones() {
 
-    for (const newZone of this.pointsArray) {
-      const _zone = new ZoneObject();
-      _zone.title = newZone.title;
-      _zone.unique_id = newZone.unique_id
-      _zone.fill_color = newZone.fill_color;
-      _zone.center = newZone.center;
-      _zone.on_enter = newZone.on_enter;
-      _zone.on_exit = newZone.on_exit;
-      _zone.icon = newZone.icon;
-      _zone.radius = newZone.radius;
-      _zone.stroke_width = newZone.stroke_width;
+     if(typeof this.pointsArray !== 'undefined') {
+       this.zones_array = [];
+         for (const newZone of this.pointsArray) {
+           const _zone = new ZoneObject();
+           _zone.title = newZone.title;
+           _zone.unique_id = newZone.unique_id
+           _zone.fill_color = newZone.fill_color;
+           _zone.center = newZone.center;
+           _zone.on_enter = newZone.on_enter;
+           _zone.on_exit = newZone.on_exit;
+           _zone.icon = newZone.icon;
+           _zone.radius = newZone.radius;
+           _zone.stroke_width = newZone.stroke_width;
 
-      this.zones_array.push(_zone);
+           this.zones_array.push(_zone);
 
-    }
-    this.gamePlugins.updateZones(this.project.id, this.zones_array)
-        .subscribe(result => {
-              if (result !== null) {
-                console.log(result?.displayed_message);
-              }
-            },
-            (error: Error) => {
-           if (error !== null) {
-             console.log(error?.message);
-           }});
+         }
+         this.gamePlugins.updateZones(this.project.id, this.zones_array)
+             .subscribe(result => {
+                   if (result !== null) {
+                     console.log(result?.displayed_message);
+                   }
+                 },
+                 (error: Error) => {
+                   if (error !== null) {
+                     console.log(error?.message);
+                   }
+                 });
+     } else {
+       console.log('can\'t update zones');
+     }
   }
 }

@@ -5,13 +5,16 @@
   "file": "questions",
   "designer": {
     "0": {
-      "title": "Questions Group",
+      "title": "Question Group",
       "tooltip": "Just an example tooltip",
       "components": {
         "question": {
-          "type": "textbox",
-          "validation": "required|string|min:5|max:80",
-          "tooltip": "The question that the user will have to answer"
+          "type": "textBox",
+          "validation": [
+            {"Required" :  true}
+          ],
+          "tooltip": "The question that the user will have to answer",
+          "placeholder": "Type a question"
         },
         "question_type": {
           "type": "dropdown",
@@ -22,24 +25,34 @@
             "multiple_choice_all",
             "fill_in_the_blank"
           ],
-          "validation": "required|..."
+          "validation": [],
+          "tooltip": "Select type of question"
         },
         "possible_answers": {
-          "type": "string_array",
-          "validation": "visible_if:this.question_type,(multiple_choice, multiple_choice_any, multiple_choice_all)"
+          "type": "arrayOfStrings",
+          "validation": [
+            {"Required" :  true}
+          ]
         },
         "correct_answer": {
+          "type": "integer",
           "tooltip": "The unique id of a possible answer",
           "placeholder": "0",
-          "validation": "required_if:this.question_type,(multiple_choice, multiple_choice_any, multiple_choice_all)"
-        },
+          "validation": [
+            {"Required" :  true}
+          ]
+        }
       }
     },
     "1": {
+      "title": "Image Group",
+      "tooltip": "Just an example tooltip",
       "components": {
         "image": {
           "type": "image",
-          "validation": "...."
+          "tooltip": "...",
+          "placeholder": "...",
+          "validation": []
         }
       }
     }

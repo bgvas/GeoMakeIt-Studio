@@ -45,7 +45,6 @@ export class StepperWizardComponent implements OnInit, OnDestroy {
   }*/
 
   ngOnDestroy() {
-    this.updateZones();
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
@@ -65,12 +64,14 @@ export class StepperWizardComponent implements OnInit, OnDestroy {
   updateArrayOfPoints(point: Zones_model) {
     if (point !== null) {
       this.pointsArray[point.id] = point;
+      this.updateZones();
     }
-  }
 
+  }
 
   onDelete(index: number) {
     this.pointsArray.splice(index, 1);
+    this.updateZones();
   }
 
   onExit() {
@@ -80,31 +81,37 @@ export class StepperWizardComponent implements OnInit, OnDestroy {
   // on component destroy, update zones in DB //
   updateZones() {
 
-    for (const newZone of this.pointsArray) {
-      const _zone = new ZoneObject();
-      _zone.title = newZone.title;
-      _zone.unique_id = newZone.unique_id
-      _zone.fill_color = newZone.fill_color;
-      _zone.center = newZone.center;
-      _zone.on_enter = newZone.on_enter;
-      _zone.on_exit = newZone.on_exit;
-      _zone.icon = newZone.icon;
-      _zone.radius = newZone.radius;
-      _zone.stroke_width = newZone.stroke_width;
+      this.zones_array = [];
+      if(typeof this.pointsArray !== 'undefined') {
+          for (const newZone of this.pointsArray) {
+            const _zone = new ZoneObject();
+            _zone.title = newZone.title;
+            _zone.unique_id = newZone.unique_id
+            _zone.fill_color = newZone.fill_color;
+            _zone.center = newZone.center;
+            _zone.on_enter = newZone.on_enter;
+            _zone.on_exit = newZone.on_exit;
+            _zone.icon = newZone.icon;
+            _zone.radius = newZone.radius;
+            _zone.stroke_width = newZone.stroke_width;
 
-      this.zones_array.push(_zone);
+            this.zones_array.push(_zone);
 
-    }
-    this.gamePlugins.updateZones(this.project?.id, this.zones_array)
-        .subscribe(result => {   // can't unsubscribe //
-              if (result !== null) {
-                console.log(result?.displayed_message);
-              }
-            },
-            (error: Error) => {
-              if (error !== null) {
-                console.log(error?.message);
-              }});
+          }
+          this.gamePlugins.updateZones(this.project?.id, this.zones_array)
+              .subscribe(result => {   // can't unsubscribe //
+                    if (result !== null) {
+                      console.log(result?.displayed_message);
+                    }
+                  },
+                  (error: Error) => {
+                    if (error !== null) {
+                      console.log(error?.message);
+                    }
+                  });
+      } else {
+        console.log('Can\'t update zones');
+      }
   }
 
 }

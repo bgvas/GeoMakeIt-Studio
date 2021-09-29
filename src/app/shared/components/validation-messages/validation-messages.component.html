@@ -12,32 +12,28 @@
                 </div>
             </div>
             <div *ngIf="validator?.key === 'Max'">
-               <div *ngIf="formName?.get(controlName)?.value > validator?.value &&
-                            formName?.get(controlName)?.touched">
+               <div *ngIf="formName?.get(controlName)?.value > validator?.value">
                    <mat-error>
                        Value can't be greater than {{validator?.value}}
                    </mat-error>
                </div>
            </div>
            <div *ngIf="validator?.key === 'Min'">
-               <div *ngIf="formName?.get(controlName)?.value < validator?.value &&
-                            formName?.get(controlName)?.touched">
+               <div *ngIf="formName?.get(controlName)?.value < validator?.value">
                    <mat-error>
                        Value can't be lower than {{validator?.value}}
                    </mat-error>
                </div>
            </div>
            <div *ngIf="validator?.key === 'Regular Expression'">
-               <div *ngIf="formName?.get(controlName)?.errors &&
-                            formName?.get(controlName)?.touched">
+               <div *ngIf="formName?.get(controlName)?.errors">
                    <mat-error>
                        Not a valid input
                    </mat-error>
                </div>
            </div>
            <div *ngIf="validator?.key === 'Email'">
-               <div *ngIf="formName?.get(controlName)?.errors &&
-                            formName?.get(controlName)?.touched">
+               <div *ngIf="formName?.get(controlName)?.errors">
                    <mat-error>
                        Not a valid Email address
                    </mat-error>

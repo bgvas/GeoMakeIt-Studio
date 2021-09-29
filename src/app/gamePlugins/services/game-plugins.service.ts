@@ -3,7 +3,8 @@ import {Observable} from 'rxjs';
 import {GamePluginDataNamesModel} from '../models/game-plugin-data-names-model';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
-import {ConfigDesignerModel} from '../models/config-designer-model';
+import {designerModel} from '../models/designer-model';
+import {file} from 'googleapis/build/src/apis/file';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,8 @@ export class GamePluginsService {
     return this.http.get(this.url + 'pluginsByGameId.json')
   }
 
-  getConfigDesignerFile(name: string): Observable<ConfigDesignerModel> {
-    return this.http.get<ConfigDesignerModel>(this.url + name );
+  getDesignerFile(name: string, designer_type: string): Observable<designerModel> {
+    const fileName = name + '_' + designer_type + '_designer.json';
+    return this.http.get<designerModel>(this.url + fileName);
   }
 }

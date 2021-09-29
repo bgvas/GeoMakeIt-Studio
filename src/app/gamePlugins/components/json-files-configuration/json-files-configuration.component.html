@@ -1,7 +1,13 @@
-
-    <mat-tab-group (selectedTabChange)="clearContentOnTabChange()">
+<div *ngIf="errorMessage !== '' || gamePluginsArray?.length === 0">
+    <mat-error>
+        {{errorMessage}}
+    </mat-error>
+</div>
+{{errorMessage}}
+<div *ngIf="errorMessage === ''">
+    <mat-tab-group (selectedTabChange)="clearContentOnTabChange()" >
         <mat-tab *ngFor="let gamePlugin of gamePluginsArray; let x = index" label="{{gamePlugin?.plugin_name}}" >
-            <div class="row d-flex w-100 ml-1 bg-light">
+            <div class="row w-100 justify-content-center d-flex bg-light">
                 <div class="col-3 nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                         <div *ngFor="let jsonFiles of gamePlugin?.contents">
                             <button class="btn bg-secondary border border-dark w-100 text-white m-2 p-2"
@@ -15,7 +21,7 @@
                             </button>
                         </div>
                 </div>
-                <div class="col-9 tab-content" id="v-pills-tabContent" style="height: 500px">
+                <div class="col-9 tab-content" id="v-pills-tabContent" style="height: 550px; overflow-y: auto">
                     <div class="tab-pane fade show active"
                          id="v-pills-{{nameOfJsonFile}}"
                          role="tabpanel">
@@ -29,18 +35,13 @@
         </mat-tab>
     </mat-tab-group>
     <hr>
-    <div class="row">
-        <div class="col-6 text-left">
-            <button type="submit" class="btn btn-dark" data-dismiss="modal">
-                Save
-            </button>
-        </div>
-        <div class="col-6 text-right">
-            <button type="reset"  class="btn btn-outline-secondary" data-dismiss="modal">
-                Cancel
+    <div class="row justify-content-center">
+        <div class="col-4 text-right">
+            <button type="reset"  class="btn btn-outline-secondary w-100 " data-dismiss="modal">
+                Back
             </button>
         </div>
     </div>
-
+</div>
 
 

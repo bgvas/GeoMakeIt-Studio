@@ -17,7 +17,7 @@ export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
   names = new Array<string>();
   jsonFile?: any;
   nameOfJsonFile?: string;
-  message?: string;
+  errorMessage = '';
   private unsubscribe = new Subject<void>();
 
 
@@ -34,7 +34,6 @@ export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
   }
 
   load_Button_FileTitles() {
-
     const gameId = (JSON.parse(sessionStorage.getItem('project'))['id']) || 0;
     this.gamePluginService?.getAllJsonContentByGameId(gameId)
         .pipe(takeUntil(this.unsubscribe))
@@ -42,7 +41,8 @@ export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
       this.gamePluginsArray = name.data
     },
         (error: Error) => {
-          console.log(error.message)
+          this.errorMessage = 'No plugins found'
+          console.log(error?.message)
         })
   }
 
@@ -58,7 +58,7 @@ export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
       'game_id': gameId,
       'plugin_id': plugin_id,
       'name': this.nameOfJsonFile,
-      'content': form.getRawValue()
+      'content': form?.value
     }
 
     console.log(contentFile)

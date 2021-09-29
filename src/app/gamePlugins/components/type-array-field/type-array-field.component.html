@@ -2,17 +2,26 @@
     <div [ngSwitch]="type">
         <!-- First case -->
         <div *ngSwitchCase="'arrayOfCommands'">
-            <div class="w-100 text-right border border-dark" formArrayName="{{nameOfFormControl}}" >
+            <div class="w-100 text-right border rounded border-dark" formArrayName="{{nameOfFormControl}}" >
                 <button class="btn mr-1 btn-info" (click)="addArrayItem()">Add</button>
                 <div class="pb-2" *ngFor="let valueFromArray of formArrayData.controls; let x = index" >
                     <div class="row justify-content-center">
-                        <div class="col-10" >
+                        <div class="col-1 text-right">
+                            <button mat-mini-fab style="width: 80%"  color="disabled" disabled>
+                                {{x + 1}}
+                            </button>
+                        </div>
+                        <div class="col-10">
                             <input
                                     (change)="onChange($event)"
                                     formControlName="{{x}}"
                                     class="form-control"
                                     type="text"
+                                    #field
                                     value="{{valueFromArray}}">
+                            <p class="text-danger" *ngIf="field?.value === ''">
+                                can't be empty
+                            </p>
                         </div>
                         <div class="col-1">
                             <a role="button" class="text-danger"  (click)="deleteArrayItem(x)">
@@ -22,7 +31,7 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="form.get(nameOfFormControl).touched && form.get(nameOfFormControl).invalid">
+            <div *ngIf="form.get(nameOfFormControl).invalid">
                 <app-validation-messages
                         [validation]="validations"
                         [controlName]="nameOfFormControl"
@@ -33,17 +42,26 @@
 
         <!-- Second case -->
         <div *ngSwitchCase="'arrayOfStrings'">
-            <div class="w-100 text-right border border-dark" formArrayName="{{nameOfFormControl}}" >
+            <div class="w-100 text-right border rounded border-dark" formArrayName="{{nameOfFormControl}}" >
                 <button class="btn mr-1 btn-info" (click)="addArrayItem()">Add</button>
                 <div class="pb-2" *ngFor="let valueFromArray of formArrayData.controls; let x = index" >
                     <div class="row justify-content-center">
+                        <div class="col-1 text-right">
+                            <button mat-mini-fab style="width: 80%"  color="disabled" disabled>
+                                {{x + 1}}
+                            </button>
+                        </div>
                         <div class="col-10">
                             <input
                                     (change)="onChange($event)"
                                     formControlName="{{x}}"
                                     class="form-control"
                                     type="text"
+                                    #field
                                     value="{{valueFromArray}}">
+                            <p class="text-danger" *ngIf="field?.value === ''">
+                                can't be empty
+                            </p>
                         </div>
                         <div class="col-1">
                             <a role="button" class="text-danger"  (click)="deleteArrayItem(x)">
@@ -64,10 +82,15 @@
 
         <!-- Third case -->
         <div *ngSwitchCase="'arrayOfIntegers'">
-            <div class="w-100 text-right border border-dark" formArrayName="{{nameOfFormControl}}" >
+            <div class="w-100 text-right border rounded border-dark" formArrayName="{{nameOfFormControl}}" >
                 <button class="btn mr-1 btn-info" (click)="addArrayItem()">Add</button>
                 <div class="pb-2" *ngFor="let valueFromArray of formArrayData.controls; let x = index" >
                     <div class="row justify-content-center">
+                        <div class="col-1 text-right">
+                            <button mat-mini-fab style="width: 80%"  color="disabled" disabled>
+                                {{x + 1}}
+                            </button>
+                        </div>
                         <div class="col-10" >
                             <input
                                     (change)="onChange($event)"
@@ -75,7 +98,11 @@
                                     class="form-control"
                                     type="number"
                                     step="1"
+                                    #field
                                     value="{{valueFromArray}}">
+                            <p class="text-danger" *ngIf="field?.value === ''">
+                                can't be empty
+                            </p>
                         </div>
                         <div class="col-1">
                             <a role="button" class="text-danger"  (click)="deleteArrayItem(x)">
@@ -85,7 +112,7 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="form.get(nameOfFormControl).touched && form.get(nameOfFormControl).invalid">
+            <div *ngIf="form.get(nameOfFormControl).invalid">
                 <app-validation-messages
                         [validation]="validations"
                         [controlName]="nameOfFormControl"
@@ -95,10 +122,15 @@
         </div>
         <!-- Fourth case -->
         <div *ngSwitchCase="'arrayOfFloats'">
-            <div class="w-100 text-right border border-dark" formArrayName="{{nameOfFormControl}}" >
+            <div class="w-100 text-right border rounded border-dark" formArrayName="{{nameOfFormControl}}" >
                 <button class="btn mr-1 btn-info" (click)="addArrayItem()">Add</button>
                 <div class="pb-2" *ngFor="let valueFromArray of formArrayData.controls; let x = index" >
                     <div class="row justify-content-center">
+                        <div class="col-1 text-right">
+                            <button mat-mini-fab style="width: 80%"  color="disabled" disabled>
+                                {{x + 1}}
+                            </button>
+                        </div>
                         <div class="col-10" >
                             <input
                                     (change)="onChange($event)"
@@ -106,7 +138,11 @@
                                     class="form-control"
                                     type="number"
                                     step="0.1"
+                                    #field
                                     value="{{valueFromArray}}">
+                            <p class="text-danger" *ngIf="field?.value === ''">
+                                can't be empty
+                            </p>
                         </div>
                         <div class="col-1">
                             <a role="button" class="text-danger"  (click)="deleteArrayItem(x)">
@@ -116,7 +152,7 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="form.get(nameOfFormControl).touched && form.get(nameOfFormControl).invalid">
+            <div *ngIf="form.get(nameOfFormControl).invalid">
                 <app-validation-messages
                         [validation]="validations"
                         [controlName]="nameOfFormControl"
@@ -126,18 +162,27 @@
         </div>
         <!-- Sixth case -->
         <div *ngSwitchCase="'arrayOfDoubles'">
-            <div class="w-100 text-right border border-dark" formArrayName="{{nameOfFormControl}}" >
+            <div class="w-100 text-right border rounded border-dark" formArrayName="{{nameOfFormControl}}" >
                 <button class="btn mr-1 btn-info" (click)="addArrayItem()">Add</button>
                 <div class="pb-2" *ngFor="let valueFromArray of formArrayData.controls; let x = index" >
                     <div class="row justify-content-center">
                         <div class="col-10" >
+                            <div class="col-1 text-right">
+                                <button mat-mini-fab style="width: 80%"  color="disabled" disabled>
+                                    {{x + 1}}
+                                </button>
+                            </div>
                             <input
                                     (change)="onChange($event)"
                                     formControlName="{{x}}"
                                     class="form-control"
                                     type="number"
                                     step="0.01"
+                                    #field
                                     value="{{valueFromArray}}">
+                            <p class="text-danger" *ngIf="field?.value === ''">
+                                can't be empty
+                            </p>
                         </div>
                         <div class="col-1">
                             <a role="button" class="text-danger"  (click)="deleteArrayItem(x)">
@@ -147,7 +192,7 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="form.get(nameOfFormControl).touched && form.get(nameOfFormControl).invalid">
+            <div *ngIf="form.get(nameOfFormControl).invalid">
                 <app-validation-messages
                         [validation]="validations"
                         [controlName]="nameOfFormControl"

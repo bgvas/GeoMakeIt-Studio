@@ -3,12 +3,12 @@
             <div *ngSwitchCase="'text'">
                 <input type="text"
                        value="{{value}}"
-                       class="form-control"
+                       class="form-control rounded"
                        formControlName="{{nameOfFormControl}}"
                        (change)="onChange($event)"
                        ngbTooltip="{{tooltip}}"
                        placeholder="{{placeholder}}">
-                <div *ngIf="form.get(nameOfFormControl).touched && form.get(nameOfFormControl).invalid">
+                <div *ngIf="form.get(nameOfFormControl).invalid">
                      <app-validation-messages
                          [formName]="form"
                          [controlName]="nameOfFormControl"
@@ -16,55 +16,96 @@
                      </app-validation-messages>
                 </div>
             </div>
-            <div *ngSwitchCase="'float'">
-                <input type="number"
+            <div *ngSwitchCase="'textBox'">
+                <textarea
                        value="{{value}}"
-                       step="0.1"
+                       class="form-control rounded p-2 border border-dark"
                        formControlName="{{nameOfFormControl}}"
                        (change)="onChange($event)"
-                       class="form-control"
                        ngbTooltip="{{tooltip}}"
                        placeholder="{{placeholder}}">
-                <div *ngIf="form.get(nameOfFormControl).touched && form.get(nameOfFormControl).invalid">
+                </textarea>
+                <div *ngIf="form.get(nameOfFormControl).invalid">
                     <app-validation-messages
-                        [formName]="form"
-                        [controlName]="nameOfFormControl"
-                        [validation]="validations">
+                            [formName]="form"
+                            [controlName]="nameOfFormControl"
+                            [validation]="validations">
                     </app-validation-messages>
+                </div>
+            </div>
+            <div *ngSwitchCase="'float'">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="rounded border border-info" style="width: 100%; align-items: center">
+                            <input type="number"
+                                   value="{{value}}"
+                                   step="0.1"
+                                   formControlName="{{nameOfFormControl}}"
+                                   (change)="onChange($event)"
+                                   class="w-100 font-weight-bold text-center">
+                            <!-- ngbTooltip="{{tooltip}}"
+                             placeholder="{{placeholder}}">-->
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <div *ngIf="form.get(nameOfFormControl).invalid">
+                            <app-validation-messages
+                                    [formName]="form"
+                                    [controlName]="nameOfFormControl"
+                                    [validation]="validations">
+                            </app-validation-messages>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div *ngSwitchCase="'double'">
-                <input type="number"
-                       value="{{value}}"
-                       step="0.01"
-                       formControlName="{{nameOfFormControl}}"
-                       (change)="onChange($event)"
-                       class="form-control"
-                       ngbTooltip="{{tooltip}}"
-                       placeholder="{{placeholder}}">
-                <div *ngIf="form.get(nameOfFormControl).touched && form.get(nameOfFormControl).invalid">
-                    <app-validation-messages
-                        [formName]="form"
-                        [controlName]="nameOfFormControl"
-                        [validation]="validations">
-                    </app-validation-messages>
+                <div class="row">
+                    <div class="col-3">
+                        <div class="rounded border border-info" style="width: 100%; align-items: center">
+                            <input type="number"
+                                   value="{{value}}"
+                                   step="0.01"
+                                   formControlName="{{nameOfFormControl}}"
+                                   (change)="onChange($event)"
+                                   class="w-100 font-weight-bold text-center">
+                            <!-- ngbTooltip="{{tooltip}}"
+                             placeholder="{{placeholder}}">-->
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <div *ngIf="form.get(nameOfFormControl).invalid">
+                            <app-validation-messages
+                                    [formName]="form"
+                                    [controlName]="nameOfFormControl"
+                                    [validation]="validations">
+                            </app-validation-messages>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div *ngSwitchCase="'integer'">
-                <input type="number"
-                       value="{{value}}"
-                       step="1"
-                       formControlName="{{nameOfFormControl}}"
-                       (change)="onChange($event)"
-                       class="form-control"
-                       ngbTooltip="{{tooltip}}"
-                       placeholder="{{placeholder}}">
-                <div *ngIf="form.get(nameOfFormControl).touched && form.get(nameOfFormControl).invalid">
-                    <app-validation-messages
-                        [formName]="form"
-                        [controlName]="nameOfFormControl"
-                        [validation]="validations">
-                    </app-validation-messages>
+                <div class="row">
+                    <div class="col-3">
+                        <div class="rounded border border-info" style="width: 100%; align-items: center">
+                            <input type="number"
+                                   value="{{value}}"
+                                   step="1"
+                                   formControlName="{{nameOfFormControl}}"
+                                   (change)="onChange($event)"
+                                   class="w-100 font-weight-bold text-center">
+                                  <!-- ngbTooltip="{{tooltip}}"
+                                   placeholder="{{placeholder}}">-->
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <div *ngIf="form.get(nameOfFormControl).invalid">
+                            <app-validation-messages
+                                    [formName]="form"
+                                    [controlName]="nameOfFormControl"
+                                    [validation]="validations">
+                            </app-validation-messages>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

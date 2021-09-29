@@ -30,12 +30,13 @@ export class TypeSelectAndCheckFieldComponent implements OnInit {
     this.form = this.fb.group({});
     this.form.addControl(this.nameOfFormControl, this.fb.control('', this.validationService.set(this.validations)))
     this.form.get(this.nameOfFormControl).setValue(this.value);
+    this.returnedValueOfControl.emit([this.value, true])
   }
 
   // pass value to jsonFilesVisualization
   onChange(event) {
     if (event) {
-     this.returnedValueOfControl.emit(event.checked);
+     this.returnedValueOfControl.emit([this.form.get(this.nameOfFormControl).value, true]);
     }
   }
 

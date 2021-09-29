@@ -1,6 +1,5 @@
 import {
   AfterContentChecked,
-  AfterViewChecked,
   ChangeDetectorRef,
   Component,
   EventEmitter,
@@ -12,19 +11,15 @@ import {
   SimpleChanges
 } from '@angular/core';
 import {GamePluginsService} from '../../services/game-plugins.service';
-import {Observable, Subject} from 'rxjs';
-import {ConfigDesignerModel} from '../../models/config-designer-model';
-import {RootDesigner} from '../../../games/models/designers/rootDesignerClass/root-designer';
-import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {Location} from '@angular/common';
+import {Subject} from 'rxjs';
+import {designerModel} from '../../models/designer-model';
+import {Form, FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {ValidationsService} from '../../../shared/services/validations/validations.service';
-import {DeclareFormControlsService} from '../../../shared/services/declareFormControls/declare-form-controls.service';
-import {GamePluginConfigService} from '../../services/gamePluginConfig.service';
-import {GamePluginDataService} from '../../services/gamePluginData.service';
 import {takeUntil} from 'rxjs/operators';
-import {Routes} from '@angular/router';
 import {Error} from '../../../error-handling/error/error';
 import {isArray} from 'rxjs/internal-compatibility';
+import {fromArray} from 'rxjs-compat/observable/fromArray';
+import {ReturningResultsService} from '../../services/returning-results.service';
 
 
 @Component({
@@ -38,33 +33,47 @@ export class JsonFilesVisualizationComponent implements OnInit, OnChanges, OnDes
   @Input() dataFile?: any;
   @Output() formResults = new EventEmitter<FormGroup>();
   jsonDataFile?: any;
-  designerFile?: ConfigDesignerModel;
+  designerFile?: designerModel;
   dataForm?: FormGroup;
+  arrayForTypeDataFiles = new Array<any>();
   isLoading: boolean;
+  changesAreSaved = true;
+  designer_type: string;
   private unsubscribe = new Subject<void>();
 
-  constructor(private gamePluginService: GamePluginsService, private fb: FormBuilder , private changeDetector: ChangeDetectorRef) {
+  constructor(private gamePluginService: GamePluginsService, private fb: FormBuilder ,
+              private validationService: ValidationsService, private changeDetector: ChangeDetectorRef,
+              private returningResultsService: ReturningResultsService) {
   }
 
-  // while button clicked in main configuration screen, select the specific designer //
+  // while button clicked in main configuration screen, selecting the specific designer //
   ngOnChanges(changes: SimpleChanges) {
     this.isLoading = true;
-      this.jsonDataFile = this.dataFile?.value;   // this is the data file //
-    if(typeof this.dataFile?.key !== 'undefined')
-      this.gamePluginService?.getConfigDesignerFile(this.dataFile?.key + '_config_designer.json')
-          .pipe(takeUntil(this.unsubscribe))
-          .subscribe(selectedDesigner => {
-        this.designerFile = selectedDesigner;  // this is the designer file //
-            this.isLoading = false;
-            this.initializeForm();
-            this.addControlsToForm();
-      },
-              (error: Error) => {
-                this.isLoading = false;
-                  console.log(error?.message)
-              })
-  }
+    this.jsonDataFile = this.dataFile?.value?.content || null;   // this is the data-file //
+    this.initializeForm();
+    this.designer_type = this.dataFile?.value?.designer_type || null;   // declare the type of designer
 
+      if (typeof this.dataFile?.key !== null) {
+        this.gamePluginService?.getDesignerFile(this.dataFile?.key , this.dataFile?.value?.designer_type) // (name of file, designer type) //
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(selectedDesigner => {
+              this.arrayForTypeDataFiles = [];
+                  this.designerFile = selectedDesigner;  // this is the designer file //
+                  this.isLoading = false;
+                  if(this.designer_type === 'config') {
+                    this.addControlsToConfigTypeForm();
+                  }
+                  if(this.designer_type === 'data') {
+                    this.createArrayForTypeDatafile(this.dataFile?.value?.content)
+                    this.addControlsToDataTypeForm();
+                  }
+                },
+                (error: Error) => {
+                  this.isLoading = false;
+                  console.log(error?.message)
+                })
+      }
+  }
 
 
   ngOnInit(): void {
@@ -82,7 +91,7 @@ export class JsonFilesVisualizationComponent implements OnInit, OnChanges, OnDes
 
   // setting-up form //
   initializeForm(): void {
-    this.dataForm = this.fb.group({ })
+      this.dataForm = this.fb.group({ })
   }
 
   isObject(obj): boolean {
@@ -96,21 +105,45 @@ export class JsonFilesVisualizationComponent implements OnInit, OnChanges, OnDes
 
   onSubmit(): void {
     console.log(this.dataForm.controls)
+    this.formResults.emit(this.dataForm)
+    this.changesAreSaved = true;
   }
 
-  addControlsToForm() {
+
+  addControlsToConfigTypeForm() {
     for (const field in this.jsonDataFile ) {
       this.dataForm.addControl(field , this.fb.group({}));
       for (const fieldItem in this.jsonDataFile[field]) {
         if (typeof this.jsonDataFile[field][fieldItem] !== 'object') {
-          (this.dataForm.get(field) as FormGroup).addControl(fieldItem, this.fb.control(this.jsonDataFile[field][fieldItem]))
+          (this.dataForm.get(field) as FormGroup)
+              .addControl(fieldItem, this.fb.control(this.jsonDataFile[field][fieldItem], this.validationService.set(['Required'])))
         }
-        if (typeof this.jsonDataFile[field][fieldItem] === 'object' && Array.isArray(this.jsonDataFile[field][fieldItem])) {
-          (this.dataForm.get(field) as FormGroup).addControl(fieldItem, this.fb.array([this.fb.control(this.jsonDataFile[field][fieldItem])]))
+        if (typeof this.jsonDataFile[field][fieldItem] === 'object' && isArray(this.jsonDataFile[field][fieldItem])) {
+          (this.dataForm.get(field) as FormGroup)
+              .addControl(fieldItem, this.fb.array([this.fb.control(this.jsonDataFile[field][fieldItem])]))
         }
       }
     }
   }
+
+  addControlsToDataTypeForm() {
+      for (const title in this.jsonDataFile) {
+          this.dataForm.addControl(title, this.fb.array([]))
+          for (const item in this.jsonDataFile[title]) {
+              const newGroup = new FormGroup({});
+              for(const value in this.jsonDataFile[title][item]) {
+                  if (isArray(this.jsonDataFile[title][item][value])) {
+                    newGroup.addControl(value, this.fb.array([this.fb.control(this.jsonDataFile[title][item][value])]))
+                  } else {
+                    newGroup.addControl(value, this.fb.control(this.jsonDataFile[title][item][value], this.validationService.set(['Required'])))
+                  }
+              }
+            (this.dataForm.get(title) as FormArray).push(newGroup)
+          }
+      }
+
+  }
+
 
   stringAfterDot(str): string {
     if (str === '') {
@@ -130,23 +163,83 @@ export class JsonFilesVisualizationComponent implements OnInit, OnChanges, OnDes
     }
   }
 
+  stringBeforeUnderscore(str): string {
+    if (str === '') {
+      return str;
+    } else {
+      const index = str.indexOf('_');
+      return str.substring(0, index);
+    }
+  }
+
   isEmpty(value): boolean {
     return (value.length === 0);
   }
 
-  /*onCancel(): void {
-    this.location.back();
-  }*/
-
-
-
+  // get values and forms from typeOfField components //
   getResults(value, formGroup, formControl) {
 
-      if (isArray(value)) {
-        (this.dataForm.get(formGroup).get(formControl) as FormArray).setValue([this.fb.control(value)]);
-      } else {
-      //this.dataForm.get(formGroup).get(formControl).setValue(this.fb.control(value));
+      console.log(this.dataForm.value);
+
+
+     // this.returningResultsService.get(this.dataForm, formGroup, formControl, value, this.designer_type, this.dataFile?.key);
+    if(this.designer_type === 'config') {
+        if (isArray(value[0])) {
+            (this.dataForm?.get(formGroup)?.get(formControl) as FormArray)?.setValue([this.fb.control(value[0])]);
+            if (!value[1]) {    // if returned control is invalid, set as invalid the whole form //
+              (this.dataForm?.get(formGroup)?.get(formControl) as FormControl)?.setErrors({'invalid': true});
+            } else {    // if returned control is valid, remove validation errors from form //
+              (this.dataForm?.get(formGroup)?.get(formControl) as FormControl)?.clearValidators()
+            }
+        } else {
+            this.dataForm?.get(formGroup)?.get(formControl)?.setValue(value[0]);
+            if (!value[1]) {
+                (this.dataForm?.get(formGroup)?.get(formControl) as FormControl)?.setErrors({'invalid': true});
+            } else {
+                (this.dataForm?.get(formGroup)?.get(formControl) as FormControl)?.clearValidators()
+            }
+        }
+    } else if (this.designer_type === 'data') {
+        if (isArray(value[0])) {
+            (((this.dataForm?.get(this.dataFile?.key) as FormArray)?.at(formGroup) as FormGroup)?.
+                  get(formControl) as FormArray)?.setValue([this.fb.control(value[0])]);
+            if (!value[1]) {
+              (((this.dataForm?.get(this.dataFile?.key) as FormArray)?.at(formGroup) as FormGroup)?.
+                  get(formControl) as FormControl)?.setErrors({'invalid': true});
+            } else {
+              (((this.dataForm?.get(this.dataFile?.key) as FormArray)?.at(formGroup) as FormGroup)?.
+                  get(formControl) as FormControl)?.clearValidators();
+            }
+        } else {
+             ((this.dataForm?.get(this.dataFile?.key) as FormArray)?.at(formGroup) as FormGroup)?.
+                  get(formControl)?.setValue(value[0]);
+             if (!value[1]) {
+               (((this.dataForm?.get(this.dataFile?.key) as FormArray)?.at(formGroup) as FormGroup)?.
+                    get(formControl) as FormControl)?.setErrors({'invalid': true});
+             } else {
+               (((this.dataForm?.get(this.dataFile?.key) as FormArray)?.at(formGroup) as FormGroup)?.
+                    get(formControl) as FormControl)?.clearValidators();
+             }
+        }
+    }
+
+    console.log(this.dataForm.value)
+
+      this.changesAreSaved = false;
+  }
+
+  createArrayForTypeDatafile(dataFile) {
+     for(const items in dataFile) {
+       for(const item in dataFile[items]) {
+         this.arrayForTypeDataFiles.push(dataFile[items][item])
+       }
      }
-    this.formResults.emit(this.dataForm);
+  }
+
+
+
+  addNewItemToTypeDataFile(designerFile) {
+
+
   }
 }

@@ -1,11 +1,7 @@
 import {Component, Input, OnInit, Output, EventEmitter, ViewChild, OnDestroy, ViewChildren, QueryList} from '@angular/core';
 import {Zones_model} from '../../../plugins/models/designer-models/zones/Zones_model';
 import {Subject} from 'rxjs';
-import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {AgmInfoWindow, AgmMarker} from '@agm/core';
 import {GameSetupComponent} from '../game-setup/game-setup.component';
-import {Game} from '../../models/games/game';
-
 
 
 @Component({
@@ -26,7 +22,7 @@ export class MapComponent implements OnInit, OnDestroy  {
   @Output() ChangeLocation = new EventEmitter<any>();
   @Output() pointToEdit = new EventEmitter<Zones_model>();
   @Output() returnedPoint = new EventEmitter<Zones_model>();
-
+  @Output() pointForDelete = new EventEmitter<number>();
 
 
   constructor() {}
@@ -53,6 +49,7 @@ export class MapComponent implements OnInit, OnDestroy  {
 
   // on marker click //
   clickedMarker(point: Zones_model, index: number) {
+    console.log(point, index)
     point.id = index;
     this.pointToEdit.emit(point); // send selected point to pointSetup //
   }
@@ -60,7 +57,11 @@ export class MapComponent implements OnInit, OnDestroy  {
   // delete a map point //
   onDelete(index: number) {
     this.points = this.points || [];
-    this.points.splice(index, 1);
+    console.log(this.points[index])
+    if(this.points?.length > 0) {
+      this.points.splice(index, 1);
+      this.pointForDelete.emit(index)
+    }
   }
 
   // on change location, update point //

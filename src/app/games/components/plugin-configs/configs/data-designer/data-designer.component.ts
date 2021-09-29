@@ -1,10 +1,11 @@
-import {ChangeDetectorRef, Component, Input, OnInit, AfterContentChecked} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit, AfterContentChecked, ViewChild, ElementRef} from '@angular/core';
 import {RootDesigner} from '../../../../models/designers/rootDesignerClass/root-designer';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {GamePluginConfigService} from '../../../../../gamePlugins/services/gamePluginConfig.service';
 import {Location} from '@angular/common';
 import {ValidationsService} from '../../../../../shared/services/validations/validations.service';
 import {DeclareFormControlsService} from '../../../../../shared/services/declareFormControls/declare-form-controls.service';
+
 
 @Component({
   selector: 'app-data-designer',
@@ -16,6 +17,7 @@ export class DataDesignerComponent implements OnInit, AfterContentChecked {
 
   @Input() dataDesigner: any;
   @Input() dataFile: any;
+
 
   editor: RootDesigner;
   data: any;

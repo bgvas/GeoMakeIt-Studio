@@ -50,6 +50,7 @@
                 <app-map
                         [points] = "pointsArray"
                         (coordinates)="addPoint($event)"
+                        (pointForDelete)="onDelete($event)"
                         (returnedPoint)="updateArrayOfPoints($event)">
                 </app-map>
             </div>

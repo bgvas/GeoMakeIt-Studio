@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {ValidationsService} from '../../../shared/services/validations/validations.service';
 import {fromArray} from 'rxjs-compat/observable/fromArray';
@@ -8,7 +8,7 @@ import {fromArray} from 'rxjs-compat/observable/fromArray';
   templateUrl: './type-array-field.component.html',
   styleUrls: ['./type-array-field.component.css']
 })
-export class TypeArrayFieldComponent implements OnInit {
+export class TypeArrayFieldComponent implements OnInit{
 
   @Input() type?: string;
   @Input() tooltip?: string;
@@ -20,6 +20,7 @@ export class TypeArrayFieldComponent implements OnInit {
   @Input() dataForm?: FormGroup;
   @Input() items?: any[];
   @Output() returnedValueOfControl = new EventEmitter<any>();
+
 
   form: FormGroup;
 
@@ -34,6 +35,8 @@ export class TypeArrayFieldComponent implements OnInit {
     for(const item of this.value) {
       (this.form.get(this.nameOfFormControl) as FormArray).push(this.fb.control(item));
     }
+    // send signal to JsonFileVisualization that this form is valid or invalid //
+    this.returnedValueOfControl.emit([this.value, this.form.controls[this.nameOfFormControl].valid]);
   }
 
   get formArrayData() {
@@ -43,12 +46,17 @@ export class TypeArrayFieldComponent implements OnInit {
   // pass form to jsonFilesVisualization
   onChange(event) {
     if (event) {
-      this.returnedValueOfControl.emit(this.form.get(this.nameOfFormControl).value);
+      // send signal to JsonFileVisualization that this form is valid or invalid and the changed value //
+      this.returnedValueOfControl.emit([this.form.get(this.nameOfFormControl).value, this.form.controls[this.nameOfFormControl].valid]);
     }
   }
 
   deleteArrayItem(i): void {
     (this.form.get(this.nameOfFormControl) as FormArray).removeAt(i);
+    if((this.form.get(this.nameOfFormControl) as FormArray).length === 0) {
+      // send signal to JsonFileVisualization that this form is valid or invalid  //
+      this.returnedValueOfControl.emit([[], this.form.controls[this.nameOfFormControl].valid]);
+    }
   }
 
   addArrayItem(): void {

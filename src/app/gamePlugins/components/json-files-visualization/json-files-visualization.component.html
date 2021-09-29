@@ -1,41 +1,92 @@
-<div *ngIf="dataFile === ''">
+<div *ngIf="jsonDataFile === null">
     - no configuration menu -
 </div>
-<div class="container-fluid pb-3" *ngIf="dataFile !== '' && isLoading === false">
-   <div class="row w-100">
-       <div class="col-12 h2 pt-1 mb-0 serif-font" style="text-decoration: underline">
-           {{designerFile?.page_title}}
-       </div>
-       <div class="col-12 h3">
-           {{designerFile?.page_description}}
-       </div>
-       <div class="col-12">
-           <div class="row bg-white rounded shadow mt-2" *ngFor="let designerItem of designerFile?.designer | keyvalue; let y = index">
-               <div  style="overflow-scrolling: auto">
+<div *ngIf="jsonDataFile !== null">
+    <div class="container-fluid pb-3" *ngIf="dataFile !== '' && isLoading === false">
+       <div class="row w-100">
+           <div class="col-12 h2 pt-1 mb-0 serif-font" style="text-decoration: underline">
+               {{designerFile?.page_title}}
+           </div>
+           <div class="col-12 h3">
+               {{designerFile?.page_description}}
+           </div>
+           <div class="col-12" *ngIf="changesAreSaved && dataForm.valid">
+               <span class="text-success font-weight-bold">
+                   Changes are saved <mat-icon>check</mat-icon>
+               </span>
+           </div>
+           <div class="col-12" *ngIf="!changesAreSaved && dataForm.valid">
+               <span class="text-warning font-weight-bold">
+                   * Please save your changes *
+               </span>
+           </div>
+           <!-- ui for config-designer  -->
+           <div class="col-12" *ngIf="designer_type === 'config'">
+               <div class="row bg-white border border-dark rounded shadow mt-2"  *ngFor="let designerItem of designerFile?.designer | keyvalue; let y = index">
                    <div class="col-12 h4 pt-2 font-weight-bold" ngbTooltip="{{designerItem?.value['tooltip']}}">
                        <div class="border border-info rounded bg-secondary text-white">
                            {{designerItem?.value['title']}}
                        </div>
                    </div>
                    <div class="col-12 mat-h4" *ngFor="let designerComponentItem of designerItem?.value['components'] | keyvalue: asIsOrderInPipe">
+                       <div class="row m-2 justify-content-center">
+                           <div class="col-3 pl-2 text-left rounded shadow form-control">
+                               {{stringAfterDot(designerComponentItem?.key) | removeUnderscores}}
+                           </div>
+                           <div class="col-8" >
+                               <!-- display input fields from JsonDataFiles-->
+                               <app-designer-type-of-fields
+                                       [validations]="designerComponentItem?.value?.validation"
+                                       [type]="designerComponentItem?.value?.type"
+                                       [formDataGroup]="dataForm"
+                                       [nameOfFormControl] = "stringAfterDot(designerComponentItem?.key)"
+                                       [nameOfGroup] = "stringBeforeDot(designerComponentItem?.key)"
+                                       [items]="designerComponentItem?.value?.items"
+                                       [tooltip]="designerComponentItem?.value?.tooltip"
+                                       [placeholder]="designerComponentItem?.value?.placeholder"
+                                       (formResults)="getResults($event, stringBeforeDot(designerComponentItem?.key), stringAfterDot(designerComponentItem?.key))"
+                                       [value]="jsonDataFile[stringBeforeDot(designerComponentItem?.key)][stringAfterDot(designerComponentItem?.key)]">
+                               </app-designer-type-of-fields>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+           <!--  ui for data-designer      -->
+           <div class="col-12" *ngIf="designer_type === 'data'">
+               <div class="text-right">
+                   <button class="btn btn-info text-lowercase" style="width: 15%" (click)="addNewItemToTypeDataFile(designerFile)">
+                       add new
+                   </button>
+               </div>
+               <div class="row mb-2 p-2 bg-white border border-dark shadow rounded" *ngFor="let dataItem of arrayForTypeDataFiles | keyvalue; let x = index">
+                   <div class="bg-secondary border border-info mat-h1 text-white rounded">
                        <div>
-                           <div class="row m-2">
-                               <div class="col-6 text-left">
-                                   {{stringAfterDot(designerComponentItem?.key) | removeUnderscores}}
+                           {{dataFile?.key + ' - ' + (x + 1) | titlecase}}
+                       </div>
+                   </div>
+                   <div *ngFor="let designerItem of designerFile?.designer | keyvalue; let y = index">
+                       <p class="text-left mat-h3 text-info" style="text-decoration: underline; text-shadow: 1px 1px black;">
+                           {{designerItem.value['title']}}
+                       </p>
+                       <div *ngFor="let componentItem of designerItem.value['components'] | keyvalue:asIsOrderInPipe">
+                           <div class="row justify-content-center">
+                               <div class="col-3 m-2 pl-2 form-control rounded shadow text-left">
+                                   {{componentItem.key | removeUnderscores}}
                                </div>
-                               <div class="col-6">
+                               <div class="col-8 m-2">
                                    <!-- display input fields from JsonDataFiles-->
                                    <app-designer-type-of-fields
-                                        [validations]="designerComponentItem?.value?.validation"
-                                        [type]="designerComponentItem?.value?.type"
-                                        [formDataGroup]="dataForm"
-                                        [nameOfFormControl] = "stringAfterDot(designerComponentItem?.key)"
-                                        [nameOfGroup] = "stringBeforeDot(designerComponentItem?.key)"
-                                        [items]="designerComponentItem?.value?.items"
-                                        [tooltip]="designerComponentItem?.value?.tooltip"
-                                        [placeholder]="designerComponentItem?.value?.placeholder"
-                                        (formResults)="getResults($event, stringBeforeDot(designerComponentItem?.key), stringAfterDot(designerComponentItem?.key))"
-                                        [value]="jsonDataFile[stringBeforeDot(designerComponentItem?.key)][stringAfterDot(designerComponentItem?.key)]">
+                                           [validations]="componentItem?.value?.validation"
+                                           [type]="componentItem?.value?.type"
+                                           [formDataGroup]="dataForm"
+                                           [nameOfFormControl] = "componentItem?.key"
+                                           [nameOfGroup] = "'group'"
+                                           [items]="componentItem?.value?.items"
+                                           [tooltip]="componentItem?.value?.tooltip"
+                                           [placeholder]="componentItem?.value?.placeholder"
+                                           (formResults)="getResults($event, x, componentItem?.key)"
+                                           [value]="dataItem.value[componentItem.key]">
                                    </app-designer-type-of-fields>
                                </div>
                            </div>
@@ -43,24 +94,28 @@
                    </div>
                </div>
            </div>
+           <div>
+               <span class="text-success font-weight-bold" *ngIf="changesAreSaved">
+                   Changes are saved <mat-icon>check</mat-icon>
+               </span>
+               <button class="btn bg-secondary border border-black rounded mt-4 mb-2 w-25" type="button" (click)="onSubmit()" *ngIf="!changesAreSaved" [disabled]="dataForm.invalid">
+                  <span class="text-white font-weight-bold" *ngIf="!changesAreSaved">* Please click to save your inputs *</span>
+                   <span class="" *ngIf="changesAreSaved">Save <mat-icon>check</mat-icon></span>
+               </button>
+           </div>
+           <div *ngIf="dataForm.invalid">
+               <mat-error>
+                   There are some errors. Please check your inputs.
+               </mat-error>
+           </div>
        </div>
-       <div>
-           <button class="m-2 w-100 btn bg-secondary" type="button" (click)="onSubmit()" [disabled]="dataForm.invalid">
-               Save
-           </button>
-       </div>
-       <div *ngIf="dataForm.invalid">
-           <mat-error>
-               There is an error. Please check your inputs.
-           </mat-error>
-       </div>
-   </div>
-</div>
-<div *ngIf="isLoading && dataFile !== ''">
-    <p>
-        <app-spinner [visible]="isLoading"></app-spinner>
-    </p>
-    <p>
-        Loading...
-    </p>
+    </div>
+    <div class="bg-white border h2 mt-5 border-info shadow rounded text-info " *ngIf="isLoading && dataFile !== ''">
+        <p>
+            <app-spinner [visible]="isLoading"></app-spinner>
+        </p>
+        <p>
+            Creating menus....
+        </p>
+    </div>
 </div>

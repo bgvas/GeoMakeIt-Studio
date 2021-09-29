@@ -21,7 +21,7 @@ export class ValidationsService {
                 if (validator === 'Min') {
                     validators.push(Validators.min((validations[values])[validator]));
                 }
-                if (validator === 'Regular Expression') {
+                if (validator === 'Regular expression') {
                     validators.push(Validators.pattern((validations[values])[validator]));
                 }
                 if (validator === 'Email') {
@@ -31,4 +31,5 @@ export class ValidationsService {
       }
       return validators;
   }
+
 }

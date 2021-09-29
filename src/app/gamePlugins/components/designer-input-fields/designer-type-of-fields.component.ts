@@ -23,12 +23,33 @@ export class DesignerTypeOfFieldsComponent implements OnInit, OnChanges {
   @Output() formResults = new EventEmitter<any>();
   arrayValues = [];
 
+  form: FormGroup;
+
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
 
+    //console.log(this.formDataGroup.value)
 
-    this.formDataGroup = this.fb.group({
+    this.form = this.fb.group({
+      [this.nameOfGroup]: this.fb.group({})
+    });
+
+    // This initialize,  a new formArray //
+    if (this.type.includes('array')) {
+      (this.form.get(this.nameOfGroup) as FormGroup)
+          .addControl(this.nameOfFormControl, this.fb.array([this.fb.control(this.value)]))
+      // add values to array //
+      this.arrayValues = this.value;
+    } else {
+      // This initialize,  a new formControl //
+      (this.form.get(this.nameOfGroup) as FormGroup).addControl(this.nameOfFormControl, this.fb.control(this.value));
+      // add values to control //
+      (this.form.get(this.nameOfGroup).get(this.nameOfFormControl) as FormControl).setValue(this.value)
+    }
+
+
+    /*this.formDataGroup = this.fb.group({
       [this.nameOfGroup]: this.fb.group({})
     });
 
@@ -40,11 +61,10 @@ export class DesignerTypeOfFieldsComponent implements OnInit, OnChanges {
       this.arrayValues = this.value;
     } else {
       // This initialize,  a new formControl //
-      (this.formDataGroup.get(this.nameOfGroup) as FormGroup)
-          .addControl(this.nameOfFormControl, this.fb.control(this.value))
-     /* // add values to control //
-      (this.formDataGroup.get(this.nameOfGroup).get(this.nameOfFormControl) as FormControl).setValue(this.value)*/
-    }
+      (this.formDataGroup.get(this.nameOfGroup) as FormGroup).addControl(this.nameOfFormControl, this.fb.control(this.value));
+      // add values to control //
+      (this.formDataGroup.get(this.nameOfGroup).get(this.nameOfFormControl) as FormControl).setValue(this.value)
+    }*/
   }
 
 
@@ -58,15 +78,16 @@ export class DesignerTypeOfFieldsComponent implements OnInit, OnChanges {
     return (Array.isArray(obj));
   }
 
-  // get returned results from designerTypeOfFields and update form controls //
+  // get returned results from TypeOfFields and update form controls //
   getResults(value) {
     if (Array.isArray(value)) {
-      (this.formDataGroup.get(this.nameOfGroup).get(this.nameOfFormControl) as FormArray).setValue([this.fb.control(value)])
+      (this.form.get(this.nameOfGroup).get(this.nameOfFormControl) as FormArray).setValue([this.fb.control(value)])
     } else {
-      (this.formDataGroup.get(this.nameOfGroup).get(this.nameOfFormControl) as FormControl).setValue(this.value)
+      (this.form.get(this.nameOfGroup).get(this.nameOfFormControl) as FormControl).setValue(this.value)
     }
     this.formResults.emit(value)
-   // this.formResults.emit(this.formDataGroup.get(this.nameOfGroup).get(this.nameOfFormControl).value)
+    //console.log(this.formDataGroup.get(this.nameOfGroup).get(this.nameOfFormControl).value)
+    //this.formResults.emit(this.formDataGroup.get(this.nameOfGroup).get(this.nameOfFormControl).value)
   }
 
 

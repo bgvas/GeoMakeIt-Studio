@@ -1,5 +1,5 @@
 
-export class ConfigDesignerModel {
+export class designerModel {
     
     public page_title = '';
     public page_description = '';

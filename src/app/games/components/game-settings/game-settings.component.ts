@@ -4,7 +4,7 @@ import {PluginService} from '../../../plugins/services/plugin.service';
 import {Plugin} from '../../../plugins/models/plugin';
 import {Error} from '../../../error-handling/error/error';
 import {Observable, Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {map, takeUntil} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SelectedPlugin} from '../../../plugins/models/selectedPlugin/selected-plugin';
 import {GameService} from '../../services/game.service';
@@ -197,8 +197,8 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
 
   // get a list with installed plugins of game, from db (except base plugin)//
   getInstalledPlugins() {
-      this.projectService.getInstalledPluginsOfGame(this.project?.id).subscribe(plugins => {  // get installed plugins from dataBase //
-            this.selectedPlugins = plugins.filter(e => e['id'] !== 1);  // except the basic plugin //
+      this.projectService.getInstalledPluginsOfGame(this.project?.id).pipe(map(allPlugins => allPlugins.filter(e => e['id'] !== 1))).subscribe(plugins => {  // get installed plugins from dataBase //
+            this.selectedPlugins = plugins;  // except the basic plugin //
           },
           (e: Error) => {
             console.log('Plugins of game: ' + e.message + ' - ' + e.code)
@@ -212,14 +212,17 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
       });
   }
 
+  // use auth to game //
   use_auth(event) {
       this.useAuthentication = event.checked;
   }
 
+  // auth for game by email //
   checkByEmail(event) {
     this.check_by_email = event.checked;
   }
 
+  // auth for game without details //
   anonymous_auth(event) {
     this.allow_anonymous = event.checked;
   }

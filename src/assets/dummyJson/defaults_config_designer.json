@@ -81,7 +81,10 @@
           ]
         },
         "quizzes.reward_on_failure": {
-          "type": "integer",
+          "type": "arrayOfCommands",
+          "items": [
+            "plugin_identifier::command <parameters and flags>"
+          ],
           "validation": [
             {
               "Required": true
@@ -102,7 +105,11 @@
         },
         "timer.default_time": {
           "type": "integer",
-          "validation": []
+          "validation": [
+            {
+              "Required": true
+            }
+          ]
         }
       }
     },
@@ -112,7 +119,11 @@
       "components": {
         "multiple_choice_view.answers_per_line": {
           "type": "integer",
-          "validation": [],
+          "validation": [
+            {
+              "Required": true
+            }
+          ],
           "tooltip": ".......",
           "placeholder": "type an integer"
         }
@@ -132,7 +143,7 @@
           "tooltip": ".......",
           "placeholder": "Case insensitive"
         },
-        "fill_view.normalize_specs": {
+        "fill_view.normalize_spaces": {
           "type": "boolean",
           "validation": [
             {
