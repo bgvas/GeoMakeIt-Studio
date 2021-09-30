@@ -41,6 +41,14 @@
           "validation": [
             {"Required" :  true}
           ]
+        },
+        "multiple_correct_answers": {
+          "type": "arrayOfIntegers",
+          "tooltip": "The id's of a all possible answers",
+          "placeholder": "0",
+          "validation": [
+            {"Required" :  true}
+          ]
         }
       }
     },

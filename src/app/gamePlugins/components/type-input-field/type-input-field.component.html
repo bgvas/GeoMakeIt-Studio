@@ -1,12 +1,11 @@
 <div [formGroup]="form">
         <div ngSwitch="{{type}}">
-            <div *ngSwitchCase="'text'">
+            <div *ngSwitchCase="'string'">
                 <input type="text"
                        value="{{value}}"
                        class="form-control rounded"
                        formControlName="{{nameOfFormControl}}"
                        (change)="onChange($event)"
-                       ngbTooltip="{{tooltip}}"
                        placeholder="{{placeholder}}">
                 <div *ngIf="form.get(nameOfFormControl).invalid">
                      <app-validation-messages
@@ -22,7 +21,6 @@
                        class="form-control pl-2 border border-dark rounded"
                        formControlName="{{nameOfFormControl}}"
                        (change)="onChange($event)"
-                       ngbTooltip="{{tooltip}}"
                        placeholder="{{placeholder}}">
                 <div *ngIf="form.get(nameOfFormControl).invalid">
                     <app-validation-messages
@@ -35,10 +33,11 @@
             <div *ngSwitchCase="'textBox'">
                 <textarea
                        value="{{value}}"
-                       class="form-control rounded p-2 border border-dark"
+                       cols="1"
+                       rows="4"
+                       class="form-control  rounded p-2 border border-dark"
                        formControlName="{{nameOfFormControl}}"
                        (change)="onChange($event)"
-                       ngbTooltip="{{tooltip}}"
                        placeholder="{{placeholder}}">
                 </textarea>
                 <div *ngIf="form.get(nameOfFormControl).invalid">
@@ -60,8 +59,6 @@
                                    formControlName="{{nameOfFormControl}}"
                                    (change)="onChange($event)"
                                    class="w-100 font-weight-bold text-center">
-                            <!-- ngbTooltip="{{tooltip}}"
-                             placeholder="{{placeholder}}">-->
                         </div>
                     </div>
                     <div class="col-9">
@@ -86,8 +83,6 @@
                                    formControlName="{{nameOfFormControl}}"
                                    (change)="onChange($event)"
                                    class="w-100 font-weight-bold text-center">
-                            <!-- ngbTooltip="{{tooltip}}"
-                             placeholder="{{placeholder}}">-->
                         </div>
                     </div>
                     <div class="col-9">
@@ -112,8 +107,6 @@
                                    formControlName="{{nameOfFormControl}}"
                                    (change)="onChange($event)"
                                    class="w-100 font-weight-bold text-center">
-                                  <!-- ngbTooltip="{{tooltip}}"
-                                   placeholder="{{placeholder}}">-->
                         </div>
                     </div>
                     <div class="col-9">

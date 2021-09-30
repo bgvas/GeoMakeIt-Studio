@@ -45,10 +45,12 @@
           "messages": {
             "designer_type": "config",
             "content": {
-              "question_on_correct_answer": "Your answer was correct!",
-              "question_on_wrong_answer": "Unfortunately, you failed to answer this one.",
-              "timer_out_of_time": "You've run out of time!",
-              "fill_view_answer": "Answer!"
+              "messages": {
+                "question_on_correct_answer": "Your answer was correct!",
+                "question_on_wrong_answer": "Unfortunately, you failed to answer this one.",
+                "timer_out_of_time": "You've run out of time!",
+                "fill_view_answer": "Answer!"
+              }
             }
           }
         },
@@ -95,7 +97,7 @@
                     "42",
                     "None of the above"
                   ],
-                  "correct_answer": [
+                  "multiple_correct_answers": [
                     1,
                     2
                   ],
@@ -152,7 +154,7 @@
                 }
               ]
             }
-        }
+          }
         }
       ]
     },

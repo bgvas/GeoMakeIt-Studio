@@ -7,8 +7,48 @@
     "0": {
       "title": "Messages Group",
       "tooltip": "....",
-      "components": {}
+      "components": {
+        "messages.question_on_correct_answer": {
+          "type": "string",
+          "validation": [
+            {
+              "Required": true
+            }
+          ],
+          "tooltip": "",
+          "placeholder": ""
+        },
+        "messages.question_on_wrong_answer": {
+          "type": "string",
+          "validation": [
+            {
+              "Required": true
+            }
+          ],
+          "tooltip": "",
+          "placeholder": ""
+        },
+        "messages.timer_out_of_time": {
+          "type": "string",
+          "validation": [
+            {
+              "Required": true
+            }
+          ],
+          "tooltip": "",
+          "placeholder": ""
+        },
+        "messages.fill_view_answer": {
+          "type": "string",
+          "validation": [
+            {
+              "Required": true
+            }
+          ],
+          "tooltip": "",
+          "placeholder": ""
+        }
+      }
     }
-
   }
 }

@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GamePluginsService} from '../../services/game-plugins.service';
 import {GamePluginAllDataFilesModel} from '../../models/game-plugin-all-data-files-model';
 import {Error} from '../../../error-handling/error/error';

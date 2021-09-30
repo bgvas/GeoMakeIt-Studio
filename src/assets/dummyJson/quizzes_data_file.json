@@ -1,0 +1,83 @@
+{
+  "question_1":{
+    "question":"When you mix red and blue paint, what color does it make?",
+    "question_type":"multiple_choice",
+    "possible_answers":[
+      "Aqua","Purple","Green","Magenta","Orange","White","Brown"
+    ],
+    "correct_answer":1,
+    "image":"@drawable\/geoquiz_palette"
+  },
+  "question_2":{
+    "question":"Which American company was the first to reach 1$ Trillion?",
+    "question_type":"multiple_choice",
+    "possible_answers":[
+      "Microsoft","GeoMakeIt!","Apple","Samsung","Xiaomi"
+    ],
+    "correct_answer":2,
+    "allowed_wrong_answers":1,
+    "image":"@drawable\/geoquiz_money"
+  },
+  "question_3":{
+    "question":"What is the meaning to life the universe and everything?",
+    "question_type":"multiple_choice_all",
+    "possible_answers":[
+      "Happiness","*","42","None of the above"
+    ],
+    "correct_answer":[1,2],
+    "allowed_wrong_answers":1,
+    "image":"@drawable\/geomakeit_icon_question_mark",
+    "hint":"'The Hitchhiker's Guide to the Galaxy' quote?"
+  },
+  "question_4":{
+    "question":"If you have cryophobia, what are you afraid of? ",
+    "question_type":"multiple_choice",
+    "possible_answers":[
+      "Crying","Ice \/ Cold","Being sad","None of the above"
+    ],
+    "correct_answer":1,
+    "image":"@drawable\/geoquiz_scared"
+  },
+  "question_5":{
+    "question":"What is 7 cubed?'",
+    "question_type":"fill",
+    "correct_answer":"343",
+    "case_insensitive":true,
+    "normalize_spaces":true,
+    "allowed_wrong_answers":2,
+    "hint":"3_3",
+    "timer":60,
+    "image":"@drawable\/geomakeit_icon_question_mark"
+  },
+  "question_6":{
+    "question":"In Computer Science, what does this image represent?",
+    "question_type":"multiple_choice",
+    "possible_answers":[
+      "AND Gate","OR Gate","XOR Gate","NOR Gate"
+    ],
+    "correct_answer":0,
+    "image":"@drawable\/geoquiz_and_gate"
+  },
+  "question_7":{
+    "question":"In Computer Science, what does this image represent?",
+    "question_type":"multiple_choice",
+    "possible_answers":[
+      "32 Bit MIPS Processor","Colorful boxes","Database Design","Decision Diagram"
+    ],
+    "correct_answer":0,
+    "allowed_wrong_answers":1,
+    "message_on_correct_answer":"Congratulations! You passed!",
+    "message_on_wrong_answer":"Someone needs to study more.",
+    "image":"@drawable\/geoquiz_mips"
+  },
+  "question_8":{
+    "question":"Which is the latest video coding standard?",
+    "question_type":"multiple_choice",
+    "possible_answers":[
+      "Theora","H261","AV1","VVC","MPEG-1"
+    ],
+    "correct_answer":3,
+    "allowed_wrong_answers":1,
+    "image":"@drawable\/geoquiz_video"
+  }
+}

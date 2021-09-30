@@ -1,0 +1,33 @@
+{
+  "page_title": "Quizzes Editor",
+  "page_description": "You can add/edit/remove your quizzes in here",
+  "designer_type": "data",
+  "file": "quizzes",
+  "designer": {
+    "0": {
+      "title": "Quiz Group",
+      "tooltip": "Just an example tooltip",
+      "components": {
+        "questions": {
+          "type": "arrayOfStrings",
+          "validation": [
+            {"Required" :  true}
+          ],
+          "tooltip": "example tooltip",
+          "placeholder": "example"
+        },
+        "next_question_delay": {
+          "type": "integer",
+          "validation": [ {"Required" :  true}],
+          "tooltip": "type an integer"
+        },
+        "reward_on_success": {
+          "type": "arrayOfStrings",
+          "validation": [
+            {"Required" :  true}
+          ]
+        }
+      }
+    }
+  }
+}
