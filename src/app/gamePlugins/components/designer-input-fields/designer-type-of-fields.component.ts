@@ -2,6 +2,7 @@ import {ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Ou
 import {Form, FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {ValidationsService} from '../../../shared/services/validations/validations.service';
 import {json} from 'express';
+import {isArray} from 'rxjs/internal-compatibility';
 
 @Component({
   selector: 'app-designer-type-of-fields',
@@ -37,57 +38,37 @@ export class DesignerTypeOfFieldsComponent implements OnInit, OnChanges {
 
     // This initialize,  a new formArray //
     if (this.type.includes('array')) {
+      if(typeof this.value === 'undefined') {
+        this.value = [];
+      }
       (this.form.get(this.nameOfGroup) as FormGroup)
           .addControl(this.nameOfFormControl, this.fb.array([this.fb.control(this.value)]))
-      // add values to array //
-      this.arrayValues = this.value;
     } else {
+      if(typeof this.value === 'undefined') {
+        this.value = '';
+      }
       // This initialize,  a new formControl //
       (this.form.get(this.nameOfGroup) as FormGroup).addControl(this.nameOfFormControl, this.fb.control(this.value));
       // add values to control //
-      (this.form.get(this.nameOfGroup).get(this.nameOfFormControl) as FormControl).setValue(this.value)
+     (this.form.get(this.nameOfGroup).get(this.nameOfFormControl) as FormControl).setValue(this.value)
     }
-
-
-    /*this.formDataGroup = this.fb.group({
-      [this.nameOfGroup]: this.fb.group({})
-    });
-
-    // This initialize,  a new formArray //
-    if (this.type.includes('array')) {
-      (this.formDataGroup.get(this.nameOfGroup) as FormGroup)
-          .addControl(this.nameOfFormControl, this.fb.array([this.fb.control(this.value)]))
-      // add values to array //
-      this.arrayValues = this.value;
-    } else {
-      // This initialize,  a new formControl //
-      (this.formDataGroup.get(this.nameOfGroup) as FormGroup).addControl(this.nameOfFormControl, this.fb.control(this.value));
-      // add values to control //
-      (this.formDataGroup.get(this.nameOfGroup).get(this.nameOfFormControl) as FormControl).setValue(this.value)
-    }*/
   }
 
 
 
   ngOnChanges(changes: SimpleChanges) {
-
-     //this.formResults.emit(this.formDataGroup.value)
   }
 
-  isArray(obj): boolean {
-    return (Array.isArray(obj));
-  }
 
   // get returned results from TypeOfFields and update form controls //
   getResults(value) {
-    if (Array.isArray(value)) {
-      (this.form.get(this.nameOfGroup).get(this.nameOfFormControl) as FormArray).setValue([this.fb.control(value)])
+    if (isArray(value[0])) {
+      (this.form.get(this.nameOfGroup).get(this.nameOfFormControl) as FormArray).setValue([this.fb.control(value[0])])
     } else {
-      (this.form.get(this.nameOfGroup).get(this.nameOfFormControl) as FormControl).setValue(this.value)
+      this.form.get(this.nameOfGroup).get(this.nameOfFormControl).setValue(value[0])
     }
+
     this.formResults.emit(value)
-    //console.log(this.formDataGroup.get(this.nameOfGroup).get(this.nameOfFormControl).value)
-    //this.formResults.emit(this.formDataGroup.get(this.nameOfGroup).get(this.nameOfFormControl).value)
   }
 
 

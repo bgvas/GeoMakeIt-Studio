@@ -28,9 +28,11 @@ export class TypeInputFieldComponent implements OnInit {
 
     // initialize form //
     this.form = this.fb.group({});
+    if(typeof this.value === 'undefined') {
+      this.value = '';
+    }
     this.form.addControl(this.nameOfFormControl, this.fb.control('', this.validationService.set(this.validations)))
     this.form.get(this.nameOfFormControl).setValue(this.value);
-    this.returnedValueOfControl.emit([this.value, this.form.controls[this.nameOfFormControl].valid]);
   }
 
   // pass value and the condition of form(valid, invalid), to jsonFilesVisualization

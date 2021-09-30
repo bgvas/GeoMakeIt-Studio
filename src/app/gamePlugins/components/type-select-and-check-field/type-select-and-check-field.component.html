@@ -18,7 +18,7 @@
         </div>
         <div *ngSwitchCase="'dropdown'">
             <select class="form-select rounded" formControlName="{{nameOfFormControl}}" (change)="onChange($event)">
-                    <option *ngFor="let item of items" [value]="item" class="form-control rounded">{{item | removeUnderscores}}</option>
+                    <option *ngFor="let item of items" [value]="item"  class="form-control rounded">{{item | removeUnderscores}}</option>
             </select>
         </div>
     </div>

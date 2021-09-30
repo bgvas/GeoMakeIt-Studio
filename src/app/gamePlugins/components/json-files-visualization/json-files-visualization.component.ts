@@ -20,6 +20,7 @@ import {Error} from '../../../error-handling/error/error';
 import {isArray} from 'rxjs/internal-compatibility';
 import {fromArray} from 'rxjs-compat/observable/fromArray';
 import {ReturningResultsService} from '../../services/returning-results.service';
+import {newArray} from '@angular/compiler/src/util';
 
 
 @Component({
@@ -53,7 +54,7 @@ export class JsonFilesVisualizationComponent implements OnInit, OnChanges, OnDes
     this.initializeForm();
     this.designer_type = this.dataFile?.value?.designer_type || null;   // declare the type of designer
 
-      if (typeof this.dataFile?.key !== null) {
+      if (this.dataFile?.key !== null) {
         this.gamePluginService?.getDesignerFile(this.dataFile?.key , this.dataFile?.value?.designer_type) // (name of file, designer type) //
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(selectedDesigner => {
@@ -84,7 +85,7 @@ export class JsonFilesVisualizationComponent implements OnInit, OnChanges, OnDes
     this.unsubscribe.complete();
   }
 
-  // wait child, to detect form changes first //
+  // detect form changes //
   ngAfterContentChecked(): void {
     this.changeDetector.detectChanges()
   }
@@ -94,17 +95,12 @@ export class JsonFilesVisualizationComponent implements OnInit, OnChanges, OnDes
       this.dataForm = this.fb.group({ })
   }
 
-  isObject(obj): boolean {
-    return (obj instanceof Object);
-  }
-
   // make the sorting in ngFor, like in JSON-file
   asIsOrderInPipe(a, b): any {
     return 1;
   }
 
   onSubmit(): void {
-    console.log(this.dataForm.controls)
     this.formResults.emit(this.dataForm)
     this.changesAreSaved = true;
   }
@@ -141,7 +137,6 @@ export class JsonFilesVisualizationComponent implements OnInit, OnChanges, OnDes
             (this.dataForm.get(title) as FormArray).push(newGroup)
           }
       }
-
   }
 
 
@@ -172,60 +167,10 @@ export class JsonFilesVisualizationComponent implements OnInit, OnChanges, OnDes
     }
   }
 
-  isEmpty(value): boolean {
-    return (value.length === 0);
-  }
-
-  // get values and forms from typeOfField components //
+  // get changed values from typeOfFields components //
   getResults(value, formGroup, formControl) {
-
-      console.log(this.dataForm.value);
-
-
-     // this.returningResultsService.get(this.dataForm, formGroup, formControl, value, this.designer_type, this.dataFile?.key);
-    if(this.designer_type === 'config') {
-        if (isArray(value[0])) {
-            (this.dataForm?.get(formGroup)?.get(formControl) as FormArray)?.setValue([this.fb.control(value[0])]);
-            if (!value[1]) {    // if returned control is invalid, set as invalid the whole form //
-              (this.dataForm?.get(formGroup)?.get(formControl) as FormControl)?.setErrors({'invalid': true});
-            } else {    // if returned control is valid, remove validation errors from form //
-              (this.dataForm?.get(formGroup)?.get(formControl) as FormControl)?.clearValidators()
-            }
-        } else {
-            this.dataForm?.get(formGroup)?.get(formControl)?.setValue(value[0]);
-            if (!value[1]) {
-                (this.dataForm?.get(formGroup)?.get(formControl) as FormControl)?.setErrors({'invalid': true});
-            } else {
-                (this.dataForm?.get(formGroup)?.get(formControl) as FormControl)?.clearValidators()
-            }
-        }
-    } else if (this.designer_type === 'data') {
-        if (isArray(value[0])) {
-            (((this.dataForm?.get(this.dataFile?.key) as FormArray)?.at(formGroup) as FormGroup)?.
-                  get(formControl) as FormArray)?.setValue([this.fb.control(value[0])]);
-            if (!value[1]) {
-              (((this.dataForm?.get(this.dataFile?.key) as FormArray)?.at(formGroup) as FormGroup)?.
-                  get(formControl) as FormControl)?.setErrors({'invalid': true});
-            } else {
-              (((this.dataForm?.get(this.dataFile?.key) as FormArray)?.at(formGroup) as FormGroup)?.
-                  get(formControl) as FormControl)?.clearValidators();
-            }
-        } else {
-             ((this.dataForm?.get(this.dataFile?.key) as FormArray)?.at(formGroup) as FormGroup)?.
-                  get(formControl)?.setValue(value[0]);
-             if (!value[1]) {
-               (((this.dataForm?.get(this.dataFile?.key) as FormArray)?.at(formGroup) as FormGroup)?.
-                    get(formControl) as FormControl)?.setErrors({'invalid': true});
-             } else {
-               (((this.dataForm?.get(this.dataFile?.key) as FormArray)?.at(formGroup) as FormGroup)?.
-                    get(formControl) as FormControl)?.clearValidators();
-             }
-        }
-    }
-
-    console.log(this.dataForm.value)
-
-      this.changesAreSaved = false;
+    this.dataForm = this.returningResultsService.get(this.dataForm, formGroup, formControl, value, this.designer_type, this.dataFile?.key);
+    this.changesAreSaved = false;   // when receive values changes, ask from user to save
   }
 
   createArrayForTypeDatafile(dataFile) {
@@ -237,9 +182,21 @@ export class JsonFilesVisualizationComponent implements OnInit, OnChanges, OnDes
   }
 
 
+  addNewItemToTypeDataFile() {
+      const component = this.designerFile?.designer;
+      const newGroup = new FormGroup({})
+      for(const item in component) {
+        for (const title in component[item].components) {
+        if ((component[item].components)[title].type.includes('array') ) {
+            newGroup.addControl(title, this.fb.array(['']))
+        } else {
+            newGroup.addControl(title, this.fb.control(''))
+          }
+        }
 
-  addNewItemToTypeDataFile(designerFile) {
-
-
+      }
+    (this.dataForm.get(this.designerFile?.file) as FormArray).push(newGroup)
+      this.arrayForTypeDataFiles.push({});
   }
+
 }

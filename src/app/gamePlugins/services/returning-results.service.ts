@@ -12,12 +12,11 @@ export class ReturningResultsService {
 
 
   public get(form: FormGroup, formGroup: any, control: string, value: any, designer_type: string, dataFileTitle: string) {
-    console.log(form);
+
     if(designer_type === 'config') {
       if (isArray(value[0])) {
-        // if returned control is invalid, set as invalid the whole form //
-
         (form?.get(formGroup)?.get(control) as FormArray)?.setValue([this.fb.control(value[0])]);
+        // if returned control is invalid, set as invalid the whole form //
         if (!value[1]) {
           (form?.get(formGroup)?.get(control) as FormControl)?.setErrors({'invalid': true});
           // if returned control is valid, remove validation errors from form //
@@ -36,8 +35,8 @@ export class ReturningResultsService {
       }
     } else if (designer_type === 'data') {
       if (isArray(value[0])) {
-        (((form?.get(dataFileTitle) as FormArray)?.at(formGroup) as FormGroup)?.
-        get(control) as FormArray)?.setValue([this.fb.control(value[0])]);
+        // set changed values to form //
+       ((form?.get(dataFileTitle) as FormArray).at(formGroup).get(control) as FormArray).at(0).setValue(value[0]);
         // if returned control is invalid, set as invalid the whole form //
         if (!value[1]) {
           (((form?.get(dataFileTitle) as FormArray)?.at(formGroup) as FormGroup)?.
@@ -61,7 +60,6 @@ export class ReturningResultsService {
         }
       }
     }
-
     return form;
   }
 

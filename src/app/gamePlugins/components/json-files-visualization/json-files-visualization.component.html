@@ -31,7 +31,7 @@
                    <div class="col-12 mat-h4" *ngFor="let designerComponentItem of designerItem?.value['components'] | keyvalue: asIsOrderInPipe">
                        <div class="row m-2 justify-content-center">
                            <div class="col-3 pl-2 text-left rounded shadow form-control">
-                               {{stringAfterDot(designerComponentItem?.key) | removeUnderscores}}
+                               {{stringAfterDot(designerComponentItem?.key) | removeUnderscores | titlecase}}
                            </div>
                            <div class="col-8" >
                                <!-- display input fields from JsonDataFiles-->
@@ -54,16 +54,19 @@
            </div>
            <!--  ui for data-designer      -->
            <div class="col-12" *ngIf="designer_type === 'data'">
+               <div class="h3 mb-2">
+                   {{designerFile?.file | titlecase}} List
+               </div>
                <div class="text-right">
-                   <button class="btn btn-info text-lowercase" style="width: 15%" (click)="addNewItemToTypeDataFile(designerFile)">
+                   <button class="btn btn-info text-lowercase" style="width: 15%" (click)="addNewItemToTypeDataFile()">
                        add new
                    </button>
                </div>
                <div class="row mb-2 p-2 bg-white border border-dark shadow rounded" *ngFor="let dataItem of arrayForTypeDataFiles | keyvalue; let x = index">
-                   <div class="bg-secondary border border-info mat-h1 text-white rounded">
-                       <div>
-                           {{dataFile?.key + ' - ' + (x + 1) | titlecase}}
-                       </div>
+                   <div class="text-right">
+                       <button mat-fab class="h3 border border-info rounded-circle font-weight-bold text-dark" color="disabled" disabled>
+                           {{(x + 1)}}
+                       </button>
                    </div>
                    <div *ngFor="let designerItem of designerFile?.designer | keyvalue; let y = index">
                        <p class="text-left mat-h3 text-info" style="text-decoration: underline; text-shadow: 1px 1px black;">
@@ -72,7 +75,7 @@
                        <div *ngFor="let componentItem of designerItem.value['components'] | keyvalue:asIsOrderInPipe">
                            <div class="row justify-content-center">
                                <div class="col-3 m-2 pl-2 form-control rounded shadow text-left">
-                                   {{componentItem.key | removeUnderscores}}
+                                   {{componentItem.key | removeUnderscores | titlecase}}
                                </div>
                                <div class="col-8 m-2">
                                    <!-- display input fields from JsonDataFiles-->
@@ -86,7 +89,7 @@
                                            [tooltip]="componentItem?.value?.tooltip"
                                            [placeholder]="componentItem?.value?.placeholder"
                                            (formResults)="getResults($event, x, componentItem?.key)"
-                                           [value]="dataItem.value[componentItem.key]">
+                                           [value]="dataItem?.value[componentItem.key]">
                                    </app-designer-type-of-fields>
                                </div>
                            </div>

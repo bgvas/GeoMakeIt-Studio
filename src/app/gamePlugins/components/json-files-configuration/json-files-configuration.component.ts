@@ -58,7 +58,7 @@ export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
       'game_id': gameId,
       'plugin_id': plugin_id,
       'name': this.nameOfJsonFile,
-      'content': form?.value
+      'content': form.value
     }
 
     console.log(contentFile)
