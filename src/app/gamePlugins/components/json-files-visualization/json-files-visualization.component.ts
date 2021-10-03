@@ -2,7 +2,7 @@ import { AfterContentChecked, ChangeDetectorRef, Component, EventEmitter, Input,
     Output, SimpleChanges } from '@angular/core';
 import {GamePluginsService} from '../../services/game-plugins.service';
 import {Subject} from 'rxjs';
-import {designerModel} from '../../models/designer-model';
+import {DesignerModel} from '../../models/designer-model';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ValidationsService} from '../../../shared/services/validations/validations.service';
 import {takeUntil} from 'rxjs/operators';
@@ -16,13 +16,13 @@ import {ReturningResultsService} from '../../services/returning-results.service'
   templateUrl: './json-files-visualization.component.html',
   styleUrls: ['./json-files-visualization.component.css']
 })
-export class JsonFilesVisualizationComponent implements OnInit, OnChanges, OnDestroy, AfterContentChecked {
+export class JsonFilesVisualizationComponent implements OnInit, OnChanges, OnDestroy {
 
 
   @Input() dataFile?: any;
   @Output() formResults = new EventEmitter<FormGroup>();
   jsonDataFile?: any;
-  designerFile?: designerModel;
+  designerFile?: DesignerModel;
   dataForm?: FormGroup;
   arrayForTypeDataFiles = new Array<any>();
   isLoading: boolean;
@@ -38,11 +38,13 @@ export class JsonFilesVisualizationComponent implements OnInit, OnChanges, OnDes
   // while button clicked in main configuration screen, selecting the specific designer //
   ngOnChanges(changes: SimpleChanges): void {
     this.isLoading = true;
-    this.jsonDataFile = this.dataFile?.value?.content || null;   // this is the data-file //
+
+    if (typeof this.dataFile?.value !== 'undefined') {
+        this.jsonDataFile = this.dataFile?.value?.content;
+    }
+
     this.initializeForm();
     this.designer_type = this.dataFile?.value?.designer_type || null;   // declare the type of designer
-
-      if (this.dataFile?.key !== null) {
         this.gamePluginService?.getDesignerFile(this.dataFile?.key , this.dataFile?.value?.designer_type) // (name of file, designer type)//
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(selectedDesigner => {
@@ -50,18 +52,17 @@ export class JsonFilesVisualizationComponent implements OnInit, OnChanges, OnDes
                   this.designerFile = selectedDesigner;  // this is the designer file //
                   this.isLoading = false;
                   if (this.designer_type === 'config') {
-                    this.gamePluginService.addControlsToConfigTypeForm(this.dataForm, this.jsonDataFile);
+                    this.gamePluginService.addControlsToConfigTypeForm(this.dataForm, this.jsonDataFile, this.designerFile);
                   }
                   if (this.designer_type === 'data') {
-                    this.createArrayForTypeDatafile(this.dataFile?.value?.content)
-                    this.gamePluginService.addControlsToDataTypeForm(this.dataForm, this.jsonDataFile);
+                  /*  this.createArrayForTypeDatafile(this.dataFile?.value?.content)
+                    this.gamePluginService.addControlsToDataTypeForm(this.dataForm, this.jsonDataFile, this.designerFile);*/
                   }
             },
                 (error: Error) => {
                   this.isLoading = false;
                   console.log(error?.message)
             })
-      }
   }
 
 
@@ -74,9 +75,9 @@ export class JsonFilesVisualizationComponent implements OnInit, OnChanges, OnDes
   }
 
   // detect form changes //
-  ngAfterContentChecked(): void {
+ /* ngAfterContentChecked(): void {
     this.changeDetector.detectChanges()
-  }
+  }*/
 
   // setting-up form //
   initializeForm(): void {
@@ -141,27 +142,39 @@ export class JsonFilesVisualizationComponent implements OnInit, OnChanges, OnDes
       for(const item in component) {
           for (const title in component[item].components) {
               if ((component[item].components)[title].type.includes('array') ) {
-                  newGroup.addControl(title, this.fb.array(['']))
+                  newGroup.addControl(title, this.fb.array([]))
               } else {
                   newGroup.addControl(title, this.fb.control(''))
               }
           }
       }
+      if((this.dataForm.get(this.designerFile?.file) as FormArray) === null) {
+          this.dataForm.addControl(this.designerFile.file, new FormArray([]));
+      }
      // add a new control into form //
-    (this.dataForm.get(this.designerFile?.file) as FormArray).push(newGroup)
-    // add a new record into array //
-    this.arrayForTypeDataFiles.push({});
+     (this.dataForm.get(this.designerFile?.file) as FormArray).push(newGroup)
+     // add a new record into array //
+     this.arrayForTypeDataFiles.push({});
   }
 
   deleteItem(index: number) {
      // remove record from array //
       this.arrayForTypeDataFiles.splice(index, 1);
       // remove control from Form //
-      for (const title in this.jsonDataFile) {
+     // for (const title in this.jsonDataFile) {
+      console.log(index);
         (this.dataForm.get(this.designerFile?.file) as FormArray).removeAt(index);
-      }
+      //}
       if((this.dataForm.get(this.designerFile.file) as FormArray)?.length === 0) {
           this.changesAreSaved = null;
+      }
+  }
+
+  sendData(dataFile, componentItemTitle) {
+      if(Object.keys(dataFile)?.length > 0 ) {
+          return dataFile[this.stringBeforeDot(componentItemTitle)][this.stringAfterDot(componentItemTitle)];
+      } else {
+          return '';
       }
   }
 

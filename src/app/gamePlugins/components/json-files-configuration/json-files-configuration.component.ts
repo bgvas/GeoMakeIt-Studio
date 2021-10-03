@@ -5,6 +5,7 @@ import {Error} from '../../../error-handling/error/error';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {FormGroup} from '@angular/forms';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-json-files-configuration',
@@ -21,7 +22,12 @@ export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
   private unsubscribe = new Subject<void>();
 
 
-  constructor(private gamePluginService: GamePluginsService) { }
+  constructor(private gamePluginService: GamePluginsService) {
+    this.gamePluginService.getUpdate().pipe(takeUntil(this.unsubscribe)).subscribe(actionSignal => {
+      this.load_Button_FileTitles();
+      console.log('updated');
+    })
+  }
 
   ngOnInit(): void {
     this.load_Button_FileTitles()
@@ -38,7 +44,7 @@ export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
     this.gamePluginService?.getAllJsonContentByGameId(gameId)
         .pipe(takeUntil(this.unsubscribe))
         .subscribe(name => {
-      this.gamePluginsArray = name.data
+      this.gamePluginsArray = name?.data
     },
         (error: Error) => {
           this.errorMessage = 'No plugins found'
@@ -47,8 +53,9 @@ export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
   }
 
   onButtonClick(file) {
+    console.log(file);
     this.jsonFile = file;
-    this.nameOfJsonFile = file.key;
+    this.nameOfJsonFile = file?.key;
   }
 
   getForm(form: FormGroup, plugin_id: number) {
@@ -58,7 +65,7 @@ export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
       'game_id': gameId,
       'plugin_id': plugin_id,
       'name': this.nameOfJsonFile,
-      'content': form.value
+      'content': form?.value
     }
 
     console.log(contentFile)

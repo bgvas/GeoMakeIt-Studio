@@ -44,14 +44,7 @@
         {
           "messages": {
             "designer_type": "config",
-            "content": {
-              "messages": {
-                "question_on_correct_answer": "Your answer was correct!",
-                "question_on_wrong_answer": "Unfortunately, you failed to answer this one.",
-                "timer_out_of_time": "You've run out of time!",
-                "fill_view_answer": "Answer!"
-              }
-            }
+            "content": { }
           }
         },
         {
@@ -111,49 +104,7 @@
         {
           "quizzes": {
             "designer_type": "data",
-            "content": {
-              "quiz": [
-                {
-                  "questions": [
-                    "question_1",
-                    "question_2"
-                  ],
-                  "next_question_delay": 1,
-                  "reward_on_success": [
-                    "geomakeit::zone erase zone_question_1"
-                  ]
-                },
-                {
-                  "questions": [
-                    "question_3",
-                    "question_4"
-                  ],
-                  "next_question_delay": 1,
-                  "reward_on_success": [
-                    "geomakeit::zone erase zone_question_2"
-                  ]
-                },
-                {
-                  "questions": [
-                    "question_5",
-                    "question_6"
-                  ],
-                  "next_question_delay": 1,
-                  "reward_on_success": [
-                    "geomakeit::zone erase zone_question_3"
-                  ]
-                },
-                {
-                  "questions": [
-                    "question_7"
-                  ],
-                  "next_question_delay": 1,
-                  "reward_on_success": [
-                    "geomakeit::zone erase zone_question_4"
-                  ]
-                }
-              ]
-            }
+            "content": {}
           }
         }
       ]

@@ -12,6 +12,7 @@ import {projectElements} from '../../models/projectElements/project-elements';
 import {Subscription} from 'rxjs/Subscription';
 import {GamePluginDataService} from '../../../gamePlugins/services/gamePluginData.service';
 import {GameAuthenticationModel} from '../../models/gameAuthentication/GameAuthenticationModel';
+import {GamePluginsService} from '../../../gamePlugins/services/game-plugins.service';
 
 
 
@@ -39,7 +40,11 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
   private submitEvent: Subscription;
 
 
-  constructor(private pluginService: PluginService, private fb: FormBuilder, private projectService: GameService, private gamePluginDataService: GamePluginDataService) { }
+
+
+  constructor(private pluginService: PluginService, private fb: FormBuilder,
+              private projectService: GameService, private gamePluginDataService: GamePluginDataService,
+              private gamePluginService: GamePluginsService) { }
 
   ngOnInit(): void {
 
@@ -90,6 +95,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
            addPlugin.plugin_id = plugin?.id;
            addPlugin.enabled = true;
            this.addPluginToProject(addPlugin);
+           this.gamePluginService.sendUpdate(true);
         }
       })
     }
@@ -101,6 +107,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
           this.selectedPlugins.splice(this.selectedPlugins.indexOf(plugin), 1);
           this.projectService.deleteInstalledPluginFromGame(this.project.id, plugin.id).pipe(takeUntil(this.unsubscribe)).subscribe(deletePlugin => {
             console.log(deletePlugin);
+            this.gamePluginService.sendUpdate(true);
           },
               (error: Error) => {
                   console.log('Error in delete plugin from game: ' + error.message + error.code);

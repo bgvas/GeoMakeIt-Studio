@@ -44,7 +44,7 @@
                                        [items]="designerComponentItem?.value?.items"
                                        [placeholder]="designerComponentItem?.value?.placeholder"
                                        (formResults)="getResults($event, stringBeforeDot(designerComponentItem?.key), stringAfterDot(designerComponentItem?.key))"
-                                       [value]="jsonDataFile[stringBeforeDot(designerComponentItem?.key)][stringAfterDot(designerComponentItem?.key)]">
+                                       [value]="sendData(jsonDataFile, designerComponentItem?.key)"><!--&lt;!&ndash;jsonDataFile[stringBeforeDot(designerComponentItem?.key)][stringAfterDot(designerComponentItem?.key)]">&ndash;&gt;-->
                                </app-designer-type-of-fields>
                            </div>
                        </div>

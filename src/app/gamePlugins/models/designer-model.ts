@@ -1,5 +1,5 @@
 
-export class designerModel {
+export class DesignerModel {
     
     public page_title = '';
     public page_description = '';
