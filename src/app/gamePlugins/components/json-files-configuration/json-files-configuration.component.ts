@@ -53,7 +53,6 @@ export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
   }
 
   onButtonClick(file) {
-    console.log(file);
     this.jsonFile = file;
     this.nameOfJsonFile = file?.key;
   }
@@ -68,7 +67,11 @@ export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
       'content': form?.value
     }
 
-    console.log(contentFile)
+    this.gamePluginService.saveUpdatedPlugins(contentFile, gameId)
+        .pipe(takeUntil(this.unsubscribe))
+        .subscribe(result => {
+          console.log(result);
+    })
   }
 
 

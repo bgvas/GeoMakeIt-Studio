@@ -2,33 +2,38 @@ import { Injectable } from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {DesignerModel} from '../models/designer-model';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {isArray} from 'rxjs/internal-compatibility';
 import {ValidationsService} from '../../shared/services/validations/validations.service';
 import {Designer} from '../../games/models/designers/designer/designer';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GamePluginsService {
 
-  private url = 'assets/dummyJson/'
+  private url1 = 'assets/dummyJson/';
+  private url = environment.be_Url + 'gamePlugins/';
   private signalForUpdate = new Subject<any>(); // need to create a subject
 
   constructor(private http: HttpClient, private fb: FormBuilder, private validationService: ValidationsService) { }
 
 
   getAllJsonContentByGameId(gameId: number): Observable<any> {
-    return this.http.get(this.url + 'pluginsByGameId.json')
+    return this.http.get(this.url + 'installed/contents/' + gameId);
   }
 
   getDesignerFile(name: string, designer_type: string): Observable<DesignerModel> {
     if (typeof name !== 'undefined') {
-      const fileName = name + '_' + designer_type + '_designer.json';
-      return this.http.get<DesignerModel>(this.url + fileName);
+      return this.http.get<DesignerModel>(this.url + 'designer/' + name);
     } else {
       return new Observable<DesignerModel>();
     }
+  }
+
+  saveUpdatedPlugins(form: any, game_id: number): Observable<any> {
+    return this.http.put(this.url + 'installed/update/' + game_id, form);
   }
 
   stringAfterDot(str): string {
@@ -57,33 +62,37 @@ export class GamePluginsService {
    * @param dataFile
    * @param designerFile
    */
-  addControlsToConfigTypeForm(form: FormGroup, dataFile: any,  designerFile: DesignerModel): FormGroup {
-    const designer = designerFile?.designer;
-    for(const items in designer) {
-       for(const componentItem in designer[items]?.components) {
-           const componentItemTitle = this.stringBeforeDot(componentItem);        // this will be the name of group //
-           const controlTitle = this.stringAfterDot(componentItem);               // this will be the name of control //
-           form.addControl(componentItemTitle, this.fb.group({}));
-           const controlType = designer[items]?.components[componentItem]?.type;      // this will be the type of control //
-           if(controlType.includes('array')) {
-             (form.get(componentItemTitle) as FormGroup).addControl(controlTitle, this.fb.array([]));
-             if(Object.keys(dataFile)?.length > 0) {              // check if dataFile has values to add to form //
-               const data = (dataFile[componentItemTitle][controlTitle]);
-               for(const value of data) {             // iterate and add values to formArray //
-                 ((form.get(componentItemTitle) as FormGroup).get(controlTitle) as FormArray).push(this.fb.control(value));
-               }
-             }
-           } else {
-             if(Object.keys(dataFile)?.length > 0) {
-               const data = (dataFile[componentItemTitle][controlTitle]);
-               (form.get(componentItemTitle) as FormGroup).addControl(controlTitle, this.fb.control(data));
-             } else {     // if there is no data values, just add the control //
-               (form.get(componentItemTitle) as FormGroup).addControl(controlTitle, this.fb.control(''));
-             }
-           }
-       }
-     }
-    return form;
+  addControlsToConfigTypeForm(form: FormGroup, dataFile: any,  designerFile: DesignerModel): any {
+    try {
+      const designer = designerFile?.designer || {};
+      for (const items in designer) {
+        for (const componentItem in designer[items]?.components) {
+          const componentItemTitle = this.stringBeforeDot(componentItem);        // this will be the name of group //
+          const controlTitle = this.stringAfterDot(componentItem);               // this will be the name of control //
+          form.addControl(componentItemTitle, this.fb.group({}));
+          const controlType = designer[items]?.components[componentItem]?.type;      // this will be the type of control //
+          if (controlType.includes('array')) {
+            (form.get(componentItemTitle) as FormGroup).addControl(controlTitle, this.fb.array([]));
+            if (Object.keys(dataFile)?.length > 0) {              // check if dataFile has values to add to form //
+              const data = (dataFile[componentItemTitle][controlTitle]);
+              for (const value of data) {             // iterate and add values to formArray //
+                ((form.get(componentItemTitle) as FormGroup).get(controlTitle) as FormArray).push(this.fb.control(value));
+              }
+            }
+          } else {
+            if (Object.keys(dataFile)?.length > 0) {
+              const data = (dataFile[componentItemTitle][controlTitle]);
+              (form.get(componentItemTitle) as FormGroup).addControl(controlTitle, this.fb.control(data));
+            } else {     // if there is no data values, just add the control //
+              (form.get(componentItemTitle) as FormGroup).addControl(controlTitle, this.fb.control(''));
+            }
+          }
+        }
+      }
+      return form;
+    } catch (error: any) {
+      return false;
+    }
   }
 
 
@@ -96,43 +105,46 @@ export class GamePluginsService {
    * @param designer
    */
   addControlsToDataTypeForm(form: FormGroup, dataFile: any, designer: DesignerModel): FormGroup {
-    //console.log(designerFile.file);
-  /*  form.addControl(designer?.file, this.fb.array([]));
-    const designerItems = designer?.designer;
-    const dataContents = dataFile[designer?.file];
-    for(const index in designerItems) {
-     const newGroup = this.fb.group({});
-     for(const componentItemTitle in  designerItems[index].components) {
-      for(const item in dataContents) {
 
-         const value = dataContents[item][componentItemTitle];
-         const typeOfControl = designerItems[index].components[componentItemTitle].type;
-         if(typeOfControl.includes('array')) {
-           newGroup.addControl(componentItemTitle, this.fb.array(value));
-         } else {
-           newGroup.addControl(componentItemTitle, this.fb.control(value));
-         }
-         console.log(dataFile['questions'][componentItemTitle])
+    form.addControl(designer?.file, this.fb.array([]));
+    const designerItems = designer?.designer || {};
+    const dataContents = dataFile[designer?.file];
+    const arrayOfControls = [];
+
+    for (const itemName in designerItems) {
+      for (const componentItem in designerItems[itemName].components) {
+         const controlType = (designerItems[itemName].components[componentItem].type);
+         const controlName = componentItem;
+         arrayOfControls.push({'name': controlName, 'type': controlType});
       }
-     }
-      (form.get(designer?.file) as FormArray).push(newGroup);
-    }*/
-    /*for (const title in dataFile) {
-      form.addControl(title, this.fb.array([]))
-      for (const item in dataFile[title]) {
-        const newGroup = new FormGroup({});
-        for(const value in dataFile[title][item]) {
-          if (isArray(dataFile[title][item][value])) {
-            newGroup.addControl(value, this.fb.array([this.fb.control(dataFile[title][item][value])]))
-          } else {
-            newGroup.addControl(value, this.fb.control(dataFile[title][item][value], this.validationService.set(['Required'])))
+    }
+
+    for (const groupName in dataContents) {
+      const newGroup = this.fb.group({});
+      for(const control of arrayOfControls) {
+        const values = dataContents[groupName][control.name];
+        if (control.type.includes('array')) {
+          newGroup.addControl(control.name, this.fb.array([]));
+          if (typeof values !== 'undefined') {
+              (newGroup.get(control.name) as FormArray).clear();
+              for (const value of values) {
+                (newGroup.get(control.name) as FormArray).push(this.fb.control(value));
+              }
+          }
+        } else {
+          newGroup.addControl(control.name, this.fb.control(''));
+          if(typeof values !== 'undefined') {
+            newGroup.get(control.name).setValue(values);
           }
         }
-        (form.get(title) as FormArray).push(newGroup)
       }
-    }*/
+      (form.get(designer?.file) as FormArray).push(newGroup);
+    }
+
     return form;
   }
+
+
 
   sendUpdate(message: boolean) { // the component that wants to update something, calls this fn
     this.signalForUpdate.next({ signal: message }); // next() will feed the value in Subject

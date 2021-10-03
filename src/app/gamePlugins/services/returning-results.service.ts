@@ -37,19 +37,18 @@ export class ReturningResultsService {
         }
       }
     } else if (designer_type === 'data') {
-     /* if (isArray(value[0])) {
+      if (isArray(value[0])) {
 
-       /!*if(typeof ((form?.get(dataFileTitle) as FormArray)?.at(formGroup)?.get(control) as FormArray) !== 'undefined' ||
+       if(typeof ((form?.get(dataFileTitle) as FormArray)?.at(formGroup)?.get(control) as FormArray) !== 'undefined' ||
          ((form?.get(dataFileTitle) as FormArray)?.at(formGroup)?.get(control) as FormArray) !== null ||
          typeof ((form?.get(dataFileTitle) as FormArray)?.at(formGroup)?.get(control) as FormArray)?.value !== 'undefined') {
-         ((form?.get(dataFileTitle) as FormArray)?.at(formGroup)?.get(control) as FormArray).clear();
-       }*!/
-       /!* for(const item of value[0]) {
-          ((form?.get(dataFileTitle) as FormArray)?.at(formGroup)?.get(control) as FormArray)?.push(this.fb.control(item));
-       }*!/
 
-        console.log(typeof ((form?.get(dataFileTitle) as FormArray)?.at(formGroup)?.get(control) as FormArray)?.value);
-        //((form?.get(dataFileTitle) as FormArray).at(0)?.get(control) as FormArray).push(this.fb.control(item));
+         ((form?.get(dataFileTitle) as FormArray)?.at(formGroup)?.get(control) as FormArray).clear();
+       }
+        for(const item of value[0]) {
+          ((form?.get(dataFileTitle) as FormArray)?.at(formGroup)?.get(control) as FormArray)?.push(this.fb.control(item));
+       }
+
        ((form?.get(dataFileTitle) as FormArray).at(formGroup).get(control) as FormArray).setValue(value[0]);
         // if returned control is invalid, set as invalid the whole form //
         if (!value[1]) {
@@ -72,7 +71,7 @@ export class ReturningResultsService {
           (((form?.get(dataFileTitle) as FormArray)?.at(formGroup) as FormGroup)?.
           get(control) as FormControl)?.clearValidators();
         }
-      }*/
+      }
     }
     return form;
   }

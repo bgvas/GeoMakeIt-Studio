@@ -27,6 +27,7 @@ export class JsonFilesVisualizationComponent implements OnInit, OnChanges, OnDes
   arrayForTypeDataFiles = new Array<any>();
   isLoading: boolean;
   changesAreSaved = true;
+  errorMessage = '';
   designer_type: string;
   private unsubscribe = new Subject<void>();
 
@@ -49,19 +50,25 @@ export class JsonFilesVisualizationComponent implements OnInit, OnChanges, OnDes
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(selectedDesigner => {
                 this.arrayForTypeDataFiles = [];
-                  this.designerFile = selectedDesigner;  // this is the designer file //
-                  this.isLoading = false;
-                  if (this.designer_type === 'config') {
-                    this.gamePluginService.addControlsToConfigTypeForm(this.dataForm, this.jsonDataFile, this.designerFile);
-                  }
-                  if (this.designer_type === 'data') {
-                  /*  this.createArrayForTypeDatafile(this.dataFile?.value?.content)
-                    this.gamePluginService.addControlsToDataTypeForm(this.dataForm, this.jsonDataFile, this.designerFile);*/
-                  }
+                this.designerFile = selectedDesigner;  // this is the designer file //
+                if (typeof this.designerFile !== 'undefined') {
+                    this.isLoading = false;
+                    if (this.designer_type === 'config') {
+                        if (!this.gamePluginService.addControlsToConfigTypeForm(this.dataForm, this.jsonDataFile, this.designerFile)) {
+                            this.errorMessage = 'Error in menu creation';
+                            this.ngOnDestroy();
+                        }
+                    }
+                    if (this.designer_type === 'data') {
+                        this.gamePluginService.addControlsToDataTypeForm(this.dataForm, this.jsonDataFile, this.designerFile);
+                        this.createArrayForTypeDatafile(this.dataFile?.value?.content)
+                    }
+                } else {
+                    this.designerFile = null;
+                }
             },
                 (error: Error) => {
                   this.isLoading = false;
-                  console.log(error?.message)
             })
   }
 
@@ -161,10 +168,7 @@ export class JsonFilesVisualizationComponent implements OnInit, OnChanges, OnDes
      // remove record from array //
       this.arrayForTypeDataFiles.splice(index, 1);
       // remove control from Form //
-     // for (const title in this.jsonDataFile) {
-      console.log(index);
-        (this.dataForm.get(this.designerFile?.file) as FormArray).removeAt(index);
-      //}
+      (this.dataForm.get(this.designerFile?.file) as FormArray).removeAt(index);
       if((this.dataForm.get(this.designerFile.file) as FormArray)?.length === 0) {
           this.changesAreSaved = null;
       }
