@@ -12,14 +12,23 @@
                                     id="v-pills-{{file.key}}-tab"
                                     data-bs-toggle="pill"
                                     (click)="onButtonClick(file)"
-                                    data-bs-target="#v-pills-{{file.key}}"
+                                    [attr.data-bs-target]="'#v-pills-' + file.key"
                                     role="tab">
                                 {{file.key}}
                             </button>
                         </div>
                 </div>
                 <div class="col-9 tab-content" id="v-pills-tabContent" style="height: 550px; overflow-y: auto">
+                    <div class="bg-white border h2 mt-5 border-info shadow rounded text-info " *ngIf="isLoading">
+                        <p>
+                            <app-spinner [visible]="isLoading"></app-spinner>
+                        </p>
+                        <p>
+                            Creating menus....
+                        </p>
+                    </div>
                     <div class="tab-pane fade show active"
+                         *ngIf="!isLoading"
                          id="v-pills-{{nameOfJsonFile}}"
                          role="tabpanel">
                         <app-json-files-visualization

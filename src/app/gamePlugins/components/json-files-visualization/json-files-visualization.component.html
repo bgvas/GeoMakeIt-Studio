@@ -1,7 +1,10 @@
-<div *ngIf="designerFile === null">
+<div *ngIf="errorMessage !== ''" class="text-danger">
+    {{errorMessage}}
+</div>
+<div *ngIf="designerFile?.file === null && errorMessage === ''">
     - no configuration menu -
 </div>
-<div *ngIf="designerFile !== null">
+<div *ngIf="designerFile !== null && errorMessage === ''">
     <div class="container-fluid pb-3" *ngIf="dataFile !== '' && isLoading === false">
        <div class="row w-100">
            <div class="col-12 h2 pt-1 mb-0 serif-font" style="text-decoration: underline">
@@ -120,13 +123,5 @@
                </mat-error>
            </div>
        </div>
-    </div>
-    <div class="bg-white border h2 mt-5 border-info shadow rounded text-info " *ngIf="isLoading && dataFile !== ''">
-        <p>
-            <app-spinner [visible]="isLoading"></app-spinner>
-        </p>
-        <p>
-            Creating menus....
-        </p>
     </div>
 </div>

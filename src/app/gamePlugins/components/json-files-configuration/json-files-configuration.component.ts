@@ -19,6 +19,7 @@ export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
   jsonFile?: any;
   nameOfJsonFile?: string;
   errorMessage = '';
+  isLoading = false;
   private unsubscribe = new Subject<void>();
 
 
@@ -33,40 +34,41 @@ export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
     this.load_Button_FileTitles()
   }
 
-
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
 
   load_Button_FileTitles() {
+    this.isLoading = true;
     const gameId = (JSON.parse(sessionStorage.getItem('project'))['id']) || 0;
     this.gamePluginService?.getAllJsonContentByGameId(gameId)
         .pipe(takeUntil(this.unsubscribe))
         .subscribe(name => {
+          this.isLoading = false;
       this.gamePluginsArray = name?.data
     },
         (error: Error) => {
+          this.isLoading = false;
           this.errorMessage = 'No plugins found'
           console.log(error?.message)
         })
   }
 
   onButtonClick(file) {
+    this.load_Button_FileTitles();
     this.jsonFile = file;
     this.nameOfJsonFile = file?.key;
   }
 
   getForm(form: FormGroup, plugin_id: number) {
     const gameId = (JSON.parse(sessionStorage.getItem('project'))['id']) || 0;
-
     const contentFile = {
       'game_id': gameId,
       'plugin_id': plugin_id,
       'name': this.nameOfJsonFile,
       'content': form?.value
     }
-
     this.gamePluginService.saveUpdatedPlugins(contentFile, gameId)
         .pipe(takeUntil(this.unsubscribe))
         .subscribe(result => {

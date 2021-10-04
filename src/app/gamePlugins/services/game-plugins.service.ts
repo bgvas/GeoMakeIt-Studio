@@ -54,6 +54,15 @@ export class GamePluginsService {
     }
   }
 
+  stringBeforeUnderscore(str): string {
+    if (str === '') {
+      return str;
+    } else {
+      const index = str.indexOf('_');
+      return str.substring(0, index);
+    }
+  }
+
   /**
    * In this function we will declare form controls and we will add to form values from data file
    * this is only for JSON files with config-type design

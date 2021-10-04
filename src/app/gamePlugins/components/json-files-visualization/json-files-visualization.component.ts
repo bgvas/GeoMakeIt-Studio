@@ -43,7 +43,6 @@ export class JsonFilesVisualizationComponent implements OnInit, OnChanges, OnDes
     if (typeof this.dataFile?.value !== 'undefined') {
         this.jsonDataFile = this.dataFile?.value?.content;
     }
-
     this.initializeForm();
     this.designer_type = this.dataFile?.value?.designer_type || null;   // declare the type of designer
         this.gamePluginService?.getDesignerFile(this.dataFile?.key , this.dataFile?.value?.designer_type) // (name of file, designer type)//
@@ -68,6 +67,7 @@ export class JsonFilesVisualizationComponent implements OnInit, OnChanges, OnDes
                 }
             },
                 (error: Error) => {
+                this.errorMessage = 'Error. Can\'t create configuration menus';
                   this.isLoading = false;
             })
   }
@@ -102,30 +102,15 @@ export class JsonFilesVisualizationComponent implements OnInit, OnChanges, OnDes
   }
 
   stringAfterDot(str): string {
-    if (str === '') {
-      return str;
-    } else {
-      const index = str.indexOf('.') + 1;
-      return str.substring(index, (str.length));
-    }
+      return this.gamePluginService.stringAfterDot(str);
   }
 
   stringBeforeDot(str): string {
-    if (str === '') {
-      return str;
-    } else {
-      const index = str.indexOf('.');
-      return str.substring(0, index);
-    }
+      return this.gamePluginService.stringBeforeDot(str);
   }
 
   stringBeforeUnderscore(str): string {
-    if (str === '') {
-      return str;
-    } else {
-      const index = str.indexOf('_');
-      return str.substring(0, index);
-    }
+      return this.gamePluginService.stringBeforeUnderscore(str);
   }
 
   // get changed values from typeOfFields components //
