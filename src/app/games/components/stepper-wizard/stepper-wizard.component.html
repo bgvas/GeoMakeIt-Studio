@@ -102,19 +102,19 @@
     <mat-step>
         <ng-template matStepLabel>Setup Main configuration</ng-template>
         <div class="row">
-            <div class="col-2 text-right">
+            <div class="col-1 text-right">
                 <button mat-button matStepperPrevious class="btn bg-secondary shadow border border-success">
                     Back
                 </button>
             </div>
-            <div class="col-8 text-center font-weight-bold">
+            <div class="col-10 text-center font-weight-bold">
                 <p class="h2">Main configuration of your project.</p>
                 <p class="h4">From here, you can control the functionality of application.</p>
                 <div class="h-75 overflow-auto">
-                    <app-designer></app-designer> <!-- display UI with JSON-files, from plugins -->
+                    <app-json-files-configuration></app-json-files-configuration> <!-- display UI with JSON-files, from plugins -->
                 </div>
             </div>
-            <div class="col-2 text-left">
+            <div class="col-1 text-left">
                 <button class="btn bg-secondary shadow border border-success" mat-button matStepperNext>
                     Next
                 </button>
