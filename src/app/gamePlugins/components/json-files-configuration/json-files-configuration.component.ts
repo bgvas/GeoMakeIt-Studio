@@ -6,6 +6,7 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
+import {NotificationsComponent} from '../../../shared/components/notifications/notifications.component';
 
 @Component({
   selector: 'app-json-files-configuration',
@@ -19,7 +20,6 @@ export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
   jsonFile?: any;
   nameOfJsonFile?: string;
   errorMessage = '';
-  isLoading = false;
   private unsubscribe = new Subject<void>();
 
 
@@ -27,7 +27,11 @@ export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
     this.gamePluginService.getUpdate().pipe(takeUntil(this.unsubscribe)).subscribe(actionSignal => {
       this.load_Button_FileTitles();
       console.log('updated');
-    })
+    },
+        (error: Error) => {
+          this.errorMessage = error.displayed_message
+          console.log('error in constructor: ' + error.message);
+        })
   }
 
   ngOnInit(): void {
@@ -40,16 +44,13 @@ export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
   }
 
   load_Button_FileTitles() {
-    this.isLoading = true;
     const gameId = (JSON.parse(sessionStorage.getItem('project'))['id']) || 0;
     this.gamePluginService?.getAllJsonContentByGameId(gameId)
         .pipe(takeUntil(this.unsubscribe))
         .subscribe(name => {
-          this.isLoading = false;
       this.gamePluginsArray = name?.data
     },
         (error: Error) => {
-          this.isLoading = false;
           this.errorMessage = 'No plugins found'
           console.log(error?.message)
         })
@@ -61,7 +62,7 @@ export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
     this.nameOfJsonFile = file?.key;
   }
 
-  getForm(form: FormGroup, plugin_id: number) {
+  saveUpdatedJsonFiles(form: FormGroup, plugin_id: number) {
     const gameId = (JSON.parse(sessionStorage.getItem('project'))['id']) || 0;
     const contentFile = {
       'game_id': gameId,
@@ -72,8 +73,12 @@ export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
     this.gamePluginService.saveUpdatedPlugins(contentFile, gameId)
         .pipe(takeUntil(this.unsubscribe))
         .subscribe(result => {
-          console.log(result);
-    })
+              console.log('File updated successfully!');
+    },
+            (error: Error) => {
+             this.errorMessage = 'Error while updating file';
+              console.log('Error while updating file');
+            })
   }
 
 

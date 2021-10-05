@@ -38,10 +38,10 @@ export class JsonFilesVisualizationComponent implements OnInit, OnChanges, OnDes
 
   // while button clicked in main configuration screen, selecting the specific designer //
   ngOnChanges(changes: SimpleChanges): void {
-    this.isLoading = true;
 
     if (typeof this.dataFile?.value !== 'undefined') {
         this.jsonDataFile = this.dataFile?.value?.content;
+        this.isLoading = true;
     }
     this.initializeForm();
     this.designer_type = this.dataFile?.value?.designer_type || null;   // declare the type of designer

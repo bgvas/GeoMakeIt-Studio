@@ -1,8 +1,8 @@
 <div *ngIf="errorMessage !== ''">
   {{errorMessage}}
 </div>
-<div *ngIf="errorMessage === '' && gamePluginsArray?.length > 0">
-    <mat-tab-group (selectedTabChange)="clearContentOnTabChange()" >
+<div *ngIf="errorMessage === '' && gamePluginsArray">
+    <mat-tab-group (selectedTabChange)="clearContentOnTabChange()" animationDuration="0ms">
         <mat-tab *ngFor="let gamePlugin of gamePluginsArray; let x = index" label="{{gamePlugin?.plugin_name}}" >
             <div class="row w-100 justify-content-center d-flex bg-light">
                 <div class="col-3 nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -19,21 +19,12 @@
                         </div>
                 </div>
                 <div class="col-9 tab-content" id="v-pills-tabContent" style="height: 550px; overflow-y: auto">
-                    <div class="bg-white border h2 mt-5 border-info shadow rounded text-info " *ngIf="isLoading">
-                        <p>
-                            <app-spinner [visible]="isLoading"></app-spinner>
-                        </p>
-                        <p>
-                            Creating menus....
-                        </p>
-                    </div>
                     <div class="tab-pane fade show active"
-                         *ngIf="!isLoading"
                          id="v-pills-{{nameOfJsonFile}}"
                          role="tabpanel">
                         <app-json-files-visualization
                                 [dataFile]="jsonFile"
-                                (formResults)="getForm($event, gamePlugin?.plugin_id)">
+                                (formResults)="saveUpdatedJsonFiles($event, gamePlugin?.plugin_id)">
                         </app-json-files-visualization>
                     </div>
                 </div>
