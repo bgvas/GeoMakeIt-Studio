@@ -45,18 +45,15 @@ export class JsonFilesVisualizationComponent implements OnInit, OnChanges, OnDes
     }
     this.initializeForm();
     this.designer_type = this.dataFile?.value?.designer_type || null;   // declare the type of designer
-        this.gamePluginService?.getDesignerFile(this.dataFile?.key , this.dataFile?.value?.designer_type) // (name of file, designer type)//
+        this.gamePluginService?.getDesignerFile(this.dataFile?.key) // (name of data file)//
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(selectedDesigner => {
-                this.arrayForTypeDataFiles = [];
+                console.log('designer');
                 this.designerFile = selectedDesigner;  // this is the designer file //
                 if (typeof this.designerFile !== 'undefined') {
                     this.isLoading = false;
                     if (this.designer_type === 'config') {
-                        if (!this.gamePluginService.addControlsToConfigTypeForm(this.dataForm, this.jsonDataFile, this.designerFile)) {
-                            this.errorMessage = 'Error in menu creation';
-                            this.ngOnDestroy();
-                        }
+                        this.gamePluginService.addControlsToConfigTypeForm(this.dataForm, this.jsonDataFile, this.designerFile)
                     }
                     if (this.designer_type === 'data') {
                         this.gamePluginService.addControlsToDataTypeForm(this.dataForm, this.jsonDataFile, this.designerFile);
@@ -81,10 +78,6 @@ export class JsonFilesVisualizationComponent implements OnInit, OnChanges, OnDes
     this.unsubscribe.complete();
   }
 
-  // detect form changes //
- /* ngAfterContentChecked(): void {
-    this.changeDetector.detectChanges()
-  }*/
 
   // setting-up form //
   initializeForm(): void {

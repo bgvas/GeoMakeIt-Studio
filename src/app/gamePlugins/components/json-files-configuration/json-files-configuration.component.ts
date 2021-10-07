@@ -2,11 +2,10 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GamePluginsService} from '../../services/game-plugins.service';
 import {GamePluginAllDataFilesModel} from '../../models/game-plugin-all-data-files-model';
 import {Error} from '../../../error-handling/error/error';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Observable, Subject} from 'rxjs';
+import {take, takeUntil} from 'rxjs/operators';
 import {FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
-import {NotificationsComponent} from '../../../shared/components/notifications/notifications.component';
 
 @Component({
   selector: 'app-json-files-configuration',
@@ -20,6 +19,7 @@ export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
   jsonFile?: any;
   nameOfJsonFile?: string;
   errorMessage = '';
+  refreshDataFile$: Subscription;
   private unsubscribe = new Subject<void>();
 
 
@@ -41,12 +41,18 @@ export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
+    console.log('exit')
   }
+
+  onExit() {
+    this.refreshDataFile$.unsubscribe();
+}
+
 
   load_Button_FileTitles() {
     const gameId = (JSON.parse(sessionStorage.getItem('project'))['id']) || 0;
     this.gamePluginService?.getAllJsonContentByGameId(gameId)
-        .pipe(takeUntil(this.unsubscribe))
+        .pipe(take(1))
         .subscribe(name => {
       this.gamePluginsArray = name?.data
     },
@@ -56,10 +62,13 @@ export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
         })
   }
 
-  onButtonClick(file) {
-    this.load_Button_FileTitles();
-    this.jsonFile = file;
-    this.nameOfJsonFile = file?.key;
+  onButtonClick(plugin_id: number, name: string) {
+    const gameId = (JSON.parse(sessionStorage.getItem('project'))['id']) || 0;
+    this.refreshDataFile$ = this.gamePluginService.getJsonContentByGameIdPluginIdAndName(gameId, plugin_id, name)
+        .pipe(takeUntil(this.unsubscribe)).subscribe(file => {
+            this.jsonFile = file;
+            this.nameOfJsonFile = name;
+    })
   }
 
   saveUpdatedJsonFiles(form: FormGroup, plugin_id: number) {
@@ -74,11 +83,12 @@ export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.unsubscribe))
         .subscribe(result => {
               console.log('File updated successfully!');
+              this.load_Button_FileTitles();
     },
-            (error: Error) => {
-             this.errorMessage = 'Error while updating file';
-              console.log('Error while updating file');
-            })
+        (error: Error) => {
+         this.errorMessage = 'Error while updating file';
+          console.log('Error while updating file');
+        })
   }
 
 

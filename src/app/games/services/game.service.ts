@@ -68,7 +68,6 @@ export class GameService {
    }));
  }
 
-
  // Install plugin to project //
  addPluginToProject(plugin: SelectedPlugin): Observable<any> {
    return this.http.post<any>(this.path + '/addPlugin', [plugin]);

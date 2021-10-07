@@ -24,13 +24,18 @@ export class GamePluginsService {
     return this.http.get(this.url + 'installed/contents/' + gameId);
   }
 
-  getDesignerFile(name: string, designer_type: string): Observable<DesignerModel> {
+  getDesignerFile(name: string): Observable<DesignerModel> {
+    console.log(name);
     if (typeof name !== 'undefined') {
       return this.http.get<DesignerModel>(this.url + 'designer/' + name);
     } else {
       return new Observable<DesignerModel>();
     }
   }
+
+  getJsonContentByGameIdPluginIdAndName(gameId: number, pluginId: number, name: string): Observable<any> {
+    return this.http.get(this.url + 'installed/contentByName/' + gameId + '/' + pluginId + '/' + name);
+}
 
   saveUpdatedPlugins(form: any, game_id: number): Observable<any> {
     return this.http.put(this.url + 'installed/update/' + game_id, form);

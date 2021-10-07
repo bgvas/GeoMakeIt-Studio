@@ -1,6 +1,6 @@
 <div [formGroup]="form">
-    <div formGroupName="{{nameOfGroup}}">
-        <div *ngIf="type?.includes('array')">
+    <div class="row" formGroupName="{{nameOfGroup}}">
+        <div class="col-12" *ngIf="type?.includes('array')">
             <app-type-array-field
                     [tooltip]="tooltip"
                     [placeholder]="placeholder"
@@ -11,7 +11,7 @@
                     [type]="type">
             </app-type-array-field>
         </div>
-        <div *ngIf="
+        <div class="col-12" *ngIf="
                 type === 'integer' || type === 'string'
                 || type === 'double' || type === 'float'
                 || type === 'textBox' || type === 'image'">
@@ -25,7 +25,7 @@
                     [type]="type">
             </app-type-input-field>
         </div>
-        <div *ngIf="
+        <div class="col-12" *ngIf="
                 type === 'dropdown' || type === 'check'
                 || type === 'radio' || type === 'boolean'">
             <app-type-select-and-check-field

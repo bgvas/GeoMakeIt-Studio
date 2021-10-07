@@ -65,19 +65,19 @@
         <div id="addActions" class="collapse text-dark shadow w-100" >
             <div class="border">
                 <div class="row">
-                    <div class="col-2">Index</div>
-                    <div class="col-3">Title</div>
-                    <div class="col-4">Short description</div>
-                    <div class="col-1">Info</div>
-                    <div class="col-2">Select</div>
+                    <div class="col-xl-2 col-4">Index</div>
+                    <div class="col-xl-3 col-4">Title</div>
+                    <div class="col-4 d-none d-lg-block">Short description</div>
+                    <div class="col-1 d-none d-lg-block">Info</div>
+                    <div class="col-xl-2 col-4">Select</div>
                 </div>
             </div>
             <div class="w-100" style="height: 50px" *ngFor="let plugin of availablePlugins; let i = index" [class.bg-light]="i % 2 === 0">
                 <div class="row mat-h4 text-lowercase" id="plugin{{plugin.id}}">
-                    <div class="col-2">{{i+1}}</div>
-                    <div class="col-3">{{plugin?.title}}</div>
-                    <div class="col-4">{{plugin?.short_description}}</div>
-                    <div class="col-1">
+                    <div class="col-xl-2 col-4">{{i+1}}</div>
+                    <div class="col-xl-3 col-4">{{plugin?.title}}</div>
+                    <div class="col-4 d-none d-lg-block">{{plugin?.short_description}}</div>
+                    <div class="col-1 d-none d-lg-block">
 
                         <!-- display in modal, details about selected plugin -->
                         <button data-toggle="modal" [attr.data-target]="'#pluginInfo' + i" style="border: 0; background-color: inherit">
@@ -102,7 +102,7 @@
                         </div>
 
                     </div>
-                    <div class="col-2">
+                    <div class="col-xl-2 col-4">
                         <button class="btn btn-info btn-just-icon" type="button" (click)="onAddPlugin(plugin)">
                             +
                         </button>
@@ -126,18 +126,18 @@
         <div id="selectedActions" class="collapse w-100 shadow ">
             <div class="border">
                 <div class="row">
-                    <div class="col-2">Index</div>
-                    <div class="col-3">Title</div>
-                    <div class="col-5">Short description</div>
-                    <div class="col-2">Remove</div>
+                    <div class="col-xl-2 col-4">Index</div>
+                    <div class="col-xl-3 col-4">Title</div>
+                    <div class="col-5  d-none d-lg-block">Short description</div>
+                    <div class="col-xl-2 col-4">Remove</div>
                 </div>
             </div>
             <div class="w-100" style="height: 50px" *ngFor="let selectedPlugin of selectedPlugins; let i = index" [class.bg-light]="i % 2 === 0">
                 <div class="row mat-h4 text-lowercase" id="plugin{{selectedPlugin.id}}">
-                    <div class="col-2">{{i+1}}</div>
-                    <div class="col-3">{{selectedPlugin?.title}}</div>
-                    <div class="col-5">{{selectedPlugin?.short_description}}</div>
-                    <div class="col-2">
+                    <div class="col-xl-2 col-4">{{i+1}}</div>
+                    <div class="col-xl-3 col-4">{{selectedPlugin?.title}}</div>
+                    <div class="col-5  d-none d-lg-block">{{selectedPlugin?.short_description}}</div>
+                    <div class="col-xl-2 col-4">
                         <button class="btn btn-danger btn-just-icon" type="button" (click)="onRemovePlugin(selectedPlugin)">
                             -
                         </button>
@@ -148,12 +148,12 @@
     </div>
 </div>
 <div class="row mb-2" *ngIf="isModal">  <!-- Available only if coming from modal. In Step-By-Step will not displayed-->
-    <div class="col-6 text-left">
+    <div class="col-6   text-left">
         <button type="submit" class="btn btn-dark" data-dismiss="modal" (click)="onSubmit()">
             Save
         </button>
     </div>
-    <div class="col-6 text-right">
+    <div class="col-6  text-right">
         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
             Cancel
         </button>

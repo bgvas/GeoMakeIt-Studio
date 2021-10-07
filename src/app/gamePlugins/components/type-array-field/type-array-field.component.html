@@ -45,7 +45,7 @@
             <div class="w-100 text-right border rounded border-dark" formArrayName="{{nameOfFormControl}}" >
                 <button class="btn mr-1 btn-info" (click)="addArrayItem()">Add</button>
                 <div class="pb-2" *ngFor="let valueFromArray of formArrayData.controls; let x = index" >
-                    <div class="row justify-content-center">
+                    <div class="row w-auto justify-content-center">
                         <div class="col-1 text-right">
                             <button mat-mini-fab style="width: 80%"  color="disabled" disabled>
                                 {{x + 1}}
