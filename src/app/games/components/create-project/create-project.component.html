@@ -9,12 +9,12 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form [formGroup]="createProjectForm">
+            <form [formGroup]="projectForm">
                 <div class="modal-body m-2 border bg-light border border-dark">
                    <mat-form-field>
                         <input type="text" class="text-dark" matInput placeholder="Title" formControlName="title">
                    </mat-form-field>
-                    <div class="text-danger" *ngIf="createProjectForm.get('title').getError('required') && createProjectForm.get('title').touched">
+                    <div class="text-danger" *ngIf="projectForm.get('title').getError('required') && projectForm.get('title').touched">
                         <mat-error class="mat-h5">
                             Title can't be empty
                         </mat-error>
@@ -24,13 +24,13 @@
                     <mat-form-field>
                         <input type="text" class="text-dark" matInput placeholder="Description" formControlName="description">
                     </mat-form-field>
-                    <div class="text-danger" *ngIf="createProjectForm.get('description').getError('required') && createProjectForm.get('description').touched">
+                    <div class="text-danger" *ngIf="projectForm.get('description').getError('required') && projectForm.get('description').touched">
                         <mat-error class="mat-h5">
                             Description can't be empty
                         </mat-error>
                     </div>
                 </div>
-                <div class="modal-body m-2 border bg-light border border-dark">
+               <!-- <div class="modal-body m-2 border bg-light border border-dark">
                    <div class="row mb-2">
                        <div class="col-12 text-left mb-1 text-dark" style="font-weight: bold">
                            Category
@@ -65,15 +65,25 @@
                             <app-image-as-check-box (template)="selectedTemplate($event)" [title]="'Battle quiz'" [imageUrl]="'assets/img/battle-quiz.jpg'"></app-image-as-check-box>
                         </div>
                     </div>
-                </div>
-                <div class="text-danger" *ngIf="createProjectForm.invalid && createProjectForm.touched">
+                </div>-->
+                <div class="text-danger" *ngIf="projectForm.invalid && projectForm.touched">
                     <mat-error>
                         Your form is not valid. Please check!
                     </mat-error>
                 </div>
                 <div class="modal-footer w-100 text-center">
-                    <button type="reset" class="btn btn-outline-secondary" data-dismiss="modal" (click)="onCancel()">Cancel</button>
-                    <button type="submit" class="btn btn-dark" [disabled]="createProjectForm.invalid" (click)="onSubmit()" data-dismiss="modal">Save Project</button>
+                    <div class="row w-100">
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-dark" [disabled]="projectForm.invalid" (click)="onSubmit()" data-dismiss="modal">
+                                Save
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <button type="reset" class="btn btn-outline-secondary" data-dismiss="modal" (click)="onCancel()">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

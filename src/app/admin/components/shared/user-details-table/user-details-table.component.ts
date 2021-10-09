@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {UserService} from '../../../../user-management/services/user.service';
 
 
+
 @Component({
   selector: 'app-user-details-table',
   templateUrl: './user-details-table.component.html',

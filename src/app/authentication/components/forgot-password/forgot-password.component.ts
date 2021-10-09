@@ -1,11 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from '../../../authentication/services/auth.service';
 import {Error} from '../../../error-handling/error/error';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {Router} from '@angular/router';
-import {UserService} from '../../services/user.service';
+import {UserService} from '../../../user-management/services/user.service';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -20,7 +19,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   sendEmailLoadSpinner: boolean;
   private unsubscribe = new Subject<void>();
 
-  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) { }
+  constructor(private fb: FormBuilder, private userService: UserService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -39,9 +38,9 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
 
   onClick() {
     this.sendEmailLoadSpinner = true;
-    this.userService.resetPasswordEmail(this.passwordForm.get('email').value).pipe(takeUntil(this.unsubscribe)).subscribe(emailResult => {
+    this.authService.request_password_reset(this.passwordForm.get('email').value).pipe(takeUntil(this.unsubscribe)).subscribe(emailResult => {
       this.emailSend = true;
-      this.result = emailResult.displayed_message;
+      this.result = emailResult?.message;
       this.sendEmailLoadSpinner = false;
     },
         (error: Error) => {

@@ -15,20 +15,30 @@ import {json} from 'express';
 export class PluginService {
 
   path = environment.be_Url + 'plugins';
-  _plugin: any;
+  _plugin: Plugin;
   pluginReleases = new Array<PluginRelease>();
   currentUser = JSON.parse(sessionStorage.getItem('user'));
 
   constructor(private http: HttpClient) { }
 
 
-  set plugin(aPlugin) {
-    this._plugin = aPlugin;
+  set plugin(_plugin: Plugin) {
+    this._plugin = _plugin;
   }
 
-  get plugin(): any {
+  get plugin(): Plugin {
     return this._plugin;
   }
+
+  getAllPluginsOfUser(): Observable<RootPlugins> {
+    return this.http.get<RootPlugins>(this.path).pipe(retry(3));
+  }
+
+  checkIfIdentifierExists(identifier: string): Observable<any> {
+    return this.http.post<any>(this.path + '/check-identifier', {'identifier': identifier}).pipe(retry(3));
+  }
+
+  /* tested */
 
   pluginReleasesById(pluginId): PluginRelease[] {
     this.getReleasesOfPlugin(pluginId).subscribe(releases => {
@@ -46,14 +56,6 @@ export class PluginService {
       return plugins['plugin'].length;
     }))
   }
-
-  getAllPluginsOfUser(userId): Observable<Plugin[]> {
-    return this.http.get<Plugin[]>(this.path + '/user/id/' + userId).pipe(retry(3));
-  }
-
-  /*getAllPluginsByUserId(userId): Observable<Plugin[]> {
-    return this.http.get<Plugin[]>(this.path + '/user/' + userId).pipe(retry(3));
-  }*/
 
   getReleasesOfPlugin(pluginId): Observable<RootPluginReleases> {
     return this.http.get<RootPluginReleases>(this.path + '/' + pluginId + '/releases').pipe(retry(3));
@@ -81,9 +83,7 @@ export class PluginService {
     return this.http.delete<any>(this.path + '/delete/' + pluginId).pipe(retry(3));
   }
 
-  checkIfIdentifierExists(identifier: any): Observable<any> {
-    return this.http.post<any>(this.path + '/check/identifier', {'identifier': identifier}).pipe(retry(3));
-  }
+
 
 
 }

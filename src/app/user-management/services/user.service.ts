@@ -12,7 +12,7 @@ import {Response} from '../../shared/models/Response';
 })
 export class UserService {
 
-  _element: any;
+  _save_temporary: any;
   path = environment.be_Url + 'users';
   authPath = environment.be_Url + 'auth';
 
@@ -23,21 +23,12 @@ export class UserService {
     return this.http.get<User>(path);
   }
 
-  /*putUserProfile(userId, userProfileToUpdate: User): Observable<any> {
-    const path = 'assets/dummyJson/userProfile.json';
-    return this.http.put(path, userProfileToUpdate);
-  }*/
-
-  set element(element: any) {
-    this._element = element;
+  set save_temporary(element: any) {
+    this._save_temporary = element;
   }
 
-  get element() {
-    return this._element;
-  }
-  
-  getRoleId(): any {
-    return localStorage.getItem('role_id');
+  get save_temporary() {
+    return this._save_temporary;
   }
 
   getAllUsers(): Observable<User> {
@@ -56,11 +47,11 @@ export class UserService {
     return this.http.post(this.path + '/new', [user]);
   }
 
-  checkIfEmailExists(email): Observable<any> {
-    return this.http.post(this.path + '/check/email', {'email': email});
+  checkIfEmailExists(email): Observable<boolean> {
+    return this.http.post<boolean>(this.authPath + '/check-email', {'email': email});
   }
 
-  registration(request: User): Observable<any> {
+  /*registration(request: User): Observable<any> {
     return this.http.post(this.authPath + '/registration', request);
   }
 
@@ -72,7 +63,7 @@ export class UserService {
     return this.http.post(this.authPath + '/activateAccount', token);
   }
 
-  resetPasswordEmail(email: string): Observable<any> {
+  request_password_reset(email: string): Observable<any> {
     return this.http.post(this.authPath + '/resetPassword', {'email': email});
   }
 
@@ -82,7 +73,7 @@ export class UserService {
 
   changePassword(details: ChangeUsersPassword): Observable<Response> {
     return this.http.post<Response>(this.authPath + '/changePassword', details);
-  }
+  }*/
 
  }
 

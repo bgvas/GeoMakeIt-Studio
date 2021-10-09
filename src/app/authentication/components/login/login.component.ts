@@ -6,6 +6,7 @@ import {UserService} from '../../../user-management/services/user.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {environment} from '../../../../environments/environment';
+import {RoleService} from '../../../user-management/services/role.service';
 
 
 @Component({
@@ -18,13 +19,17 @@ export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   errorLogin: boolean;
   isSpinnerActive: boolean;
-  messages: string = null;
+  successMessages = '';
+  errorMessages = '';
   private unsubscribe = new Subject<void>();
 
-  constructor(private fb: FormBuilder, private service: AuthService, private router: Router, private userService: UserService) { }
+
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router,
+              private userService: UserService, private roleService: RoleService) { }
 
   ngOnInit(): void {
-    this.messages = this.service?.element; // display notification messages for user //
+    this.successMessages = this.authService.successMessage;
+    this.errorMessages = this.authService.errorMessage;
     this.initializeForm();
   }
 
@@ -42,14 +47,18 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   // get credentials from form and check user. Then redirect by role //
   onSubmit() {
-   this.messages = null;
+   //this.messages = null;
    this.isSpinnerActive = true;
-   this.service.login(this.loginForm.value).pipe(takeUntil(this.unsubscribe)).subscribe(isAuthenticatedUser => {
+
+   this.authService.login(this.loginForm.value).pipe(takeUntil(this.unsubscribe)).subscribe(isAuthenticatedUser => {
      if (typeof isAuthenticatedUser !== 'undefined') {
+
+       const authUser = isAuthenticatedUser.user;
        sessionStorage.setItem('token', isAuthenticatedUser?.access_token);
-       localStorage.setItem('role_id', isAuthenticatedUser?.user.role_id);
-       sessionStorage.setItem('user', JSON.stringify(isAuthenticatedUser));
-       if (isAuthenticatedUser['user'].role_id === 1) {
+       localStorage.setItem('role_id', String(this.roleService?.getMainRole(authUser?.roles)));
+       sessionStorage.setItem('user', JSON.stringify(authUser));
+
+       if (this.roleService.getMainRole(authUser?.roles) === 1) {
          this.isSpinnerActive = false;
          this.router.navigate(['admin/home'])
        } else  {

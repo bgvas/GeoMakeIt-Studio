@@ -16,7 +16,6 @@ import {AdminLayoutModule} from './layouts/admin-layout/admin-layout.module';
 import { TabGroupComponent } from './templateTools/tab-group/tab-group.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import {GlobalHttpInterceptor} from './global-http.interceptor';
-import { ErrorHandlingComponent } from './error-handling/error-handling.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { UserManagementModule } from './user-management/user-management.module';
 import { AuthenticationModule} from './authentication/authentication.module';
@@ -61,7 +60,6 @@ import {GamePluginsModule} from './gamePlugins/game-plugins.module';
         AppComponent,
         AdminLayoutComponent,
         TabGroupComponent,
-        ErrorHandlingComponent,
         AdminComponent
     ],
     providers: [{

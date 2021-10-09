@@ -4,6 +4,7 @@ import {UserService} from '../../../../user-management/services/user.service';
 import {NotificationsComponent} from '../../../../shared/components/notifications/notifications.component';
 import {Router} from '@angular/router';
 
+
 @Component({
   selector: 'app-create-user',
   templateUrl: './create-user.component.html',

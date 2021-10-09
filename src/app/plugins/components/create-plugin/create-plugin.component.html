@@ -51,32 +51,42 @@
                 </div>
                 <div class="modal-body m-2 border bg-light border border-dark">
                     <mat-form-field>
-                        <input type="text" class="text-dark" matInput placeholder="Short Description" formControlName="short_description">
+                        <input type="text" class="text-dark" matInput placeholder="Slogan" formControlName="slogan">
                     </mat-form-field>
-                    <div class="text-danger" *ngIf="createPluginForm.get('short_description').invalid && createPluginForm.get('short_description').touched">
+                   <!-- <div class="text-danger" *ngIf="createPluginForm.get('slogan').invalid && createPluginForm.get('slogan').touched">
                         <mat-error class="mat-h5">
                             Short description can't be empty
                         </mat-error>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="modal-body m-2 border bg-light border border-dark">
                     <mat-form-field>
                         <input type="text" class="text-dark" matInput placeholder="Description" formControlName="description">
                     </mat-form-field>
-                    <div class="text-danger" *ngIf="createPluginForm.get('description').invalid && createPluginForm.get('description').touched">
+                    <!--<div class="text-danger" *ngIf="createPluginForm.get('description').invalid && createPluginForm.get('description').touched">
                         <mat-error class="mat-h5">
                             Description can't be empty
                         </mat-error>
-                    </div>
+                    </div>-->
                 </div>
-                <div class="text-danger pl-2" *ngIf="createPluginForm.invalid && createPluginForm.touched">
+                <div class="text-danger text-center pl-2" *ngIf="createPluginForm.invalid && createPluginForm.touched">
                     <mat-error>
-                        There are some errors in your form. Check again!
+                        There are some errors in your form. Please Check again!
                     </mat-error>
                 </div>
-                <div class="modal-footer">
-                    <button type="reset" class="btn btn-outline-secondary" data-dismiss="modal" (click)="onCancel()">Cancel</button>
-                    <button type="submit" class="btn btn-dark" [disabled]="createPluginForm.invalid" (click)="onSubmit()" data-dismiss="modal">Save Plugin</button>
+                <div class="modal-footer w-100 text-center">
+                    <div class="row w-100">
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-dark" [disabled]="createPluginForm.invalid" (click)="onSubmit()" data-dismiss="modal">
+                                Save
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <button type="reset" class="btn btn-outline-secondary" data-dismiss="modal" (click)="onCancel()">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

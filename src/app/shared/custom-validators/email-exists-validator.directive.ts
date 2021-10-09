@@ -4,6 +4,7 @@ import {UserService} from '../../user-management/services/user.service';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
+
 @Directive({
   selector: '[appEmailExists]',
   providers: [{provide: NG_ASYNC_VALIDATORS, useExisting: EmailExistsValidatorDirective, multi: true}]
@@ -13,7 +14,7 @@ export class EmailExistsValidatorDirective implements AsyncValidator {
   constructor(private userService: UserService) { }
 
   validate (control: AbstractControl): Observable<ValidationErrors | null> {
-    return this.userService.checkIfEmailExists(control.value).pipe(map(
+    return this.userService.checkIfEmailExists(control?.value).pipe(map(
         email => {
           return email['exists'] ? {'emailExists': true} : null;
         }

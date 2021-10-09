@@ -6,7 +6,7 @@ import {
   HttpInterceptor, HttpErrorResponse
 } from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {catchError} from 'rxjs/operators';
+import {catchError, take} from 'rxjs/operators';
 import {Error} from './error-handling/error/error';
 import {Router} from '@angular/router';
 import {AuthService} from './authentication/services/auth.service';
@@ -32,8 +32,14 @@ export class GlobalHttpInterceptor implements HttpInterceptor {
     return next.handle(this.requestWithAuth).pipe(
     catchError((error: HttpErrorResponse) => {
       if (error.status === 401) {  // if user is not authenticated, redirect to login form
+        this.auth.temporary_save = 'Unauthorized User.'
         this.router.navigate(['login'])
-        this.auth.logout();
+        this.auth.logout().pipe(take(1)).subscribe();
+      }
+      if (error.status >= 500) {
+        this.auth.temporary_save = 'General Error. Try again later or contact the administrator.'
+        this.router.navigate(['login'])
+        this.auth.logout().pipe(take(1)).subscribe();
       }
       const errorMessage =  new Error();
       errorMessage.message = error.error.message;

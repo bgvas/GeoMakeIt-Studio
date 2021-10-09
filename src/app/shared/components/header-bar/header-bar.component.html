@@ -1,53 +1,63 @@
-<nav class="navbar navbar-dark bg-dark fixed-top mr-0">
-    <div class="row w-100">
-        <div class="col-lg-7 col-xl-9 col-5">
-            <img src="assets/img/geomakeit_logo.png" width="200" alt="GeoMakeIt">
-        </div>
-        <div class="col-lg-5 col-xl-3 col-12 text-white justify-content-center align-items-center" style="display: flex">
-            <div class="row w-100">
-                <div class="col-2">
-                    <a role="button" style="background-color: inherit" (click)="onHomeClick()">Home</a>
-                </div>
-                <div class="col-4">
-                    <div ngbDropdown class="text-center">
-                        <a role="button" class="text-white" style="background-color: inherit" id="helpDropdown" ngbDropdownToggle>Help</a>
-                        <div ngbDropdownMenu  class="bg-white dropdown-menu-sm-left" aria-labelledby="helpDropdown">
-                            <button ngbDropdownItem style="width: 95%"  data-toggle="modal" data-target="#helpTag">
-                               Help info
-                            </button>
-                            <button ngbDropdownItem style="width: 95%" routerLinkActive="active" routerLink="/guide">
-                                Step by Step guide
-                            </button>
-                            <button ngbDropdownItem style="width: 95%">
-                                About GeoMakeIt Studio
-                            </button>
+<nav class="navbar navbar-dark bg-dark fixed-top">
+    <div class="container-fluid w-100 justify-content-center">
+        <div class="row w-100">
+            <div class="col-lg-6 col-12 text-lg-left text-center">
+                <img src="assets/img/geomakeit_logo.png" width="200" alt="GeoMakeIt">
+                <span class="text-light serif-font mat-h4">
+                    Studio
+                </span>
+            </div>
+            <div class="col-lg-6  col-12 text-white text-center align-items-center">
+                <div class="row">
+                    <div class="col-4 text-center">
+                        <a role="button" class="h6 text-white" style="background-color: inherit" (click)="onHomeClick()">
+                           <mat-icon>home</mat-icon>Home
+                        </a>
+                    </div>
+                    <div class="col-4 text-center">
+                        <div ngbDropdown class="dropdown-menu-sm-left">
+                            <a role="button" class="h6 text-white" style="background-color: inherit" id="userDropdown" ngbDropdownToggle>
+                                <mat-icon>account_circle</mat-icon>User
+                            </a>
+                            <div ngbDropdownMenu class="bg-white" aria-labelledby="userDropdown">
+                                <div class="text-center" *ngIf="authenticatedUser !== null">
+                                    <p class="mt-2 h6 text-secondary font-weight-bold" style="text-shadow: 1px 1px black">{{authenticatedUser?.name}}</p>
+                                    <hr>
+                                </div>
+                                <div class="text-center" *ngIf="authenticatedUser === null">
+                                    <p class="mt-2 h6 text-secondary font-weight-bold" style="text-shadow: 1px 1px black">- no user -</p>
+                                    <hr>
+                                </div>
+                                <button ngbDropdownItem style="width: 95%" data-toggle="modal" data-target="#userProfile">
+                                    Profile
+                                </button>
+                                <button ngbDropdownItem style="width: 95%" data-toggle="modal" data-target="#changePassword">
+                                    Change Password
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-6">
-                    <div ngbDropdown class="dropdown-menu-sm-left">
-                        <a role="button" class="text-white" style="background-color: inherit" id="userDropdown" ngbDropdownToggle>User</a>
-                        <div ngbDropdownMenu class="bg-white" aria-labelledby="userDropdown">
-                            <div class="text-center" *ngIf="authenticatedUser !== null">
-                                <p class="mt-2 h6 text-secondary font-weight-bold" style="text-shadow: 1px 1px black">{{authenticatedUser?.user.name}}</p>
-                                <hr>
-                            </div>
-                            <div class="text-center" *ngIf="authenticatedUser === null">
-                                <p class="mt-2 h6 text-secondary font-weight-bold" style="text-shadow: 1px 1px black">- no user -</p>
-                                <hr>
-                            </div>
-                            <button ngbDropdownItem style="width: 95%" data-toggle="modal" data-target="#userProfile">
-                               Profile
-                            </button>
-                            <button ngbDropdownItem style="width: 95%" data-toggle="modal" data-target="#changePassword">
-                                Change Password
-                            </button>
-                            <button ngbDropdownItem style="width: 95%" (click) = "onLogout()">
-                                Logout
-                            </button>
-                        </div>
+                    <div class="col-4 text-center">
+                        <a role="button" class="h6 text-white" style="background-color: inherit" (click) = "onLogout()">
+                            <mat-icon>logout</mat-icon>Logout
+                        </a>
                     </div>
+                    <!--<div class="col-6">
+                        <div ngbDropdown class="text-center">
+                            <a role="button" class="text-white" style="background-color: inherit" id="helpDropdown" ngbDropdownToggle>Help</a>
+                            <div ngbDropdownMenu  class="bg-white dropdown-menu-sm-left" aria-labelledby="helpDropdown">
+                                <button ngbDropdownItem style="width: 95%"  data-toggle="modal" data-target="#helpTag">
+                                    Help info
+                                </button>
+                                <button ngbDropdownItem style="width: 95%" routerLinkActive="active" routerLink="/guide">
+                                    Step by Step guide
+                                </button>
+                                <button ngbDropdownItem style="width: 95%">
+                                    About GeoMakeIt Studio
+                                </button>
+                            </div>
+                        </div>
+                    </div>-->
                 </div>
             </div>
         </div>

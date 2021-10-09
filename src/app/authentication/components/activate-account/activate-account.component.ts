@@ -3,8 +3,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Error} from '../../../error-handling/error/error';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {UserService} from '../../services/user.service';
-import {AuthService} from '../../../authentication/services/auth.service';
+import {UserService} from '../../../user-management/services/user.service';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-activate-account',
@@ -22,12 +22,12 @@ export class ActivateAccountComponent implements OnInit, OnDestroy {
 
       ngOnInit(): void {
         this.activatedRoute.queryParams.pipe(takeUntil(this.unsubscribe)).subscribe(params => {
-          this.service.activateAccount({'token': params['token']}).pipe(takeUntil(this.unsubscribe)).subscribe(userActivated => {
-                this.authService.element = userActivated['displayed_message'];
+          this.authService.activateAccount({'token': params['token']}).pipe(takeUntil(this.unsubscribe)).subscribe(userActivated => {
+                this.authService.temporary_save = userActivated['displayed_message'];
                 this.router.navigate(['login']);
               },
               (error: Error) => {
-                this.service.element = error.displayed_message;
+                this.service.save_temporary = error.displayed_message;
                 console.log('Error in user activation: ' + error.message);
                 this.router.navigate(['login']);
               })

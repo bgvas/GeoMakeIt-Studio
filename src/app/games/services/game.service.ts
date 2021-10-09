@@ -45,13 +45,13 @@ export class GameService {
   }
 
 
- getAllGamesByUserId(userId): Observable<Game[]> {
-     return this.http.get<Game[]>(this.path + '/user/id/' + userId);
+ getAllGamesByUser(): Observable<GameRoot> {
+     return this.http.get<GameRoot>(this.path).pipe(retry(3));;
  }
 
  // Post-HTTP request //
- createNewGame(newGame: Game): Observable<Game> {
-   return this.http.post<Game>(this.path + '/new', [newGame]);
+ createNewGame(newGame: Game): Observable<any> {
+   return this.http.post<any>(this.path, newGame);
 
  }
 

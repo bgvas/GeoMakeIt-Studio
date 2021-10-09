@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import {UserService} from '../../services/user.service';
 import {takeUntil} from 'rxjs/operators';
 
+
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',

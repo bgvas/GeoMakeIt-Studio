@@ -5,12 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import {Error404Component} from './shared/components/error404/error404.component';
 import {LoginComponent} from './authentication/components/login/login.component';
-import {RegistrationComponent} from './user-management/components/registration/registration.component';
-import {ForgotPasswordComponent} from './user-management/components/forgot-password/forgot-password.component';
+import {RegistrationComponent} from './authentication/components/registration/registration.component';
+import {ForgotPasswordComponent} from './authentication/components/forgot-password/forgot-password.component';
 import {StepByStepComponent} from './shared/components/help/step-by-step/step-by-step.component';
 import {AdminComponent} from './admin/admin.component';
-import {ConfirmNewAccountComponent} from './user-management/components/confirm-new-account/confirm-new-account.component';
-import {ChangeForgotPasswordComponent} from './user-management/components/change-forgot-password/change-forgot-password.component';
+import {RegistrationResultsComponent} from './authentication/components/registration-results/registration-results.component';
+import {ChangeForgotPasswordComponent} from './authentication/components/change-forgot-password/change-forgot-password.component';
 import {GamePluginsComponent} from './gamePlugins/game-plugins.component';
 
 const routes: Routes = [
@@ -58,15 +58,15 @@ const routes: Routes = [
     component: RegistrationComponent
   },
   {
-    path: 'confirm',
-    component: ConfirmNewAccountComponent
+    path: 'registration_result',
+    component: RegistrationResultsComponent
   },
   {
-    path: 'forgotPassword',
+    path: 'forgot_password',
     component: ForgotPasswordComponent
   },
   {
-    path: 'changeForgotPassword',
+    path: 'change_forgotten_password',
     component: ChangeForgotPasswordComponent
   },
   {

@@ -1,12 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {User} from '../../models/user';
-import {AuthService} from '../../../authentication/services/auth.service';
+import {User} from '../../../user-management/models/user';
+import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {passwordMatchValidator} from '../../../shared/custom-validators/passwordsMatchValidator';
 import {Subject} from 'rxjs';
 import {Error} from '../../../error-handling/error/error';
-import {UserService} from '../../services/user.service';
+import {UserService} from '../../../user-management/services/user.service';
 import {environment} from '../../../../environments/environment';
 
 @Component({
@@ -21,10 +21,10 @@ export class ChangeForgotPasswordComponent implements OnInit, OnDestroy {
   errorMessage: string;
   private unsubscribe = new Subject<void>();
 
-  constructor(private userService: UserService, private router: Router, private fb: FormBuilder) { }
+  constructor(private userService: UserService, private router: Router, private fb: FormBuilder, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.user = this.userService.element;
+    this.user = this.userService.save_temporary;
     console.log(this.user);
     this.initializeForm();
   }
@@ -36,7 +36,7 @@ export class ChangeForgotPasswordComponent implements OnInit, OnDestroy {
   onSubmit() {
       if (this.changePasswordForm.valid) {
         const details = {'user_id': this.user[0].id, 'password': this.changePasswordForm.get('password').value}
-        this.userService.changePassword(details).subscribe(changePasswordResult => {
+        this.authService.changePassword(details).subscribe(changePasswordResult => {
           this.router.navigate(['login']);
         },
             (error: Error) => {

@@ -10,7 +10,7 @@ export class AppService {
   constructor(private http: HttpClient) {
   }
 
-  GetCurrentUser( ) {
-  return <User>JSON.parse(sessionStorage.getItem('user'))['user'];
+  currentUser( ): User {
+  return JSON.parse(sessionStorage.getItem('user'));
   }
 }

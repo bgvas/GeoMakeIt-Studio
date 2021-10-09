@@ -42,9 +42,9 @@
                 </div>
                 <div class="modal-body m-2 border bg-light" [class.border-warning]="edit"  [class.border-dark]="!edit">
                     <mat-form-field>
-                        <input type="text" class="text-dark" matInput placeholder="Short Description" formControlName="short_description" [disabled]="edit">
+                        <input type="text" class="text-dark" matInput placeholder="slogan" formControlName="slogan" [disabled]="edit">
                     </mat-form-field>
-                    <div class="text-danger" *ngIf="edit && pluginForm.get('short_description').getError('required') && pluginForm.get('short_description').touched">
+                    <div class="text-danger" *ngIf="edit && pluginForm.get('slogan').getError('required') && pluginForm.get('slogan').touched">
                         <mat-error class="mat-h5">
                             Short Description can't be empty
                         </mat-error>

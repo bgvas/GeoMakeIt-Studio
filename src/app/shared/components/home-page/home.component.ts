@@ -8,6 +8,7 @@ import {PluginService} from '../../../plugins/services/plugin.service';
 import {Plugin} from '../../../plugins/models/plugin';
 import {AppService} from '../../../app.service';
 import {takeUntil} from 'rxjs/operators';
+import {ErrorResponseModel} from '../../../error-handling/error_response_model';
 
 
 
@@ -26,11 +27,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   errorFromPluginSubscribe: any;
   notification = new NotificationsComponent();
   private unsubscribe = new Subject<void>();
-  projects = [];
-
-    data = ['Hello'].map(function (d) {
-        return { text: d, value: 30};
-    })
 
 
   constructor(private gameService: GameService, private pluginService: PluginService, private appService: AppService) { }
@@ -50,13 +46,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   loadListOfProjects() {
       this.displaySpinnerForProject = true;
-      this.gameService.getAllGamesByUserId(this.appService.GetCurrentUser().id).pipe(takeUntil(this.unsubscribe)).subscribe( projects => {
-          this.projectList = projects['games'];
+      this.gameService.getAllGamesByUser().pipe(takeUntil(this.unsubscribe)).subscribe(projects => {
+          this.projectList = projects?.data || [];
           this.displaySpinnerForProject = false;    // hide spinner
       },
-          (error: Error) => {
-              console.log('List of Projects: ' + error.code + ' - ' + error.message);
-              this.errorFromProjectSubscribe = error.displayed_message;
+          (error: ErrorResponseModel) => {
+              console.log(error.message + ' - ' + error.errors);
+              this.errorFromProjectSubscribe = error.message;
               this.displaySpinnerForProject = false;    // hide spinner
           }
       )
@@ -64,13 +60,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
    loadListOfPlugins() {
        this.displaySpinnerForPlugins = true;
-       this.pluginService.getAllPluginsOfUser(this.appService.GetCurrentUser().id).pipe(takeUntil(this.unsubscribe)).subscribe(projects => {
-             this.pluginList = projects['plugins'];
+       this.pluginService?.getAllPluginsOfUser().pipe(takeUntil(this.unsubscribe)).subscribe(plugins => {
+             this.pluginList = plugins.data || [];
              this.displaySpinnerForPlugins = false;    // hide spinner
           },
-           (error: Error) => {
-                   console.log('List of Plugins: ' + error.code + ' - ' + error.message);
-                   this.errorFromPluginSubscribe = error.displayed_message;
+           (error: ErrorResponseModel) => {
+                   console.log(error.message + ' - ' + error.errors);
+                   this.errorFromPluginSubscribe = error.message;
                    this.displaySpinnerForPlugins = false;    // hide spinner
            }
        )

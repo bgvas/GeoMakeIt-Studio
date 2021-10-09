@@ -1,18 +1,14 @@
-<div class="container-fluid pt-3 h-auto">
+<div class="container-fluid pt-3">
     <div class="row justify-content-center">
-        <div class="col-xl-6 col-12 text-left">
+        <!-- My projects -->
+        <div class="col-lg-6 col-12 text-lg-left text-center">
             <h2 class="text-secondary mt-2" style="font-weight: bold; text-shadow: 2px 2px black;">
                 My Projects
             </h2>
         </div>
-        <div class="col-xl-4 col-12 text-center text-xl-right" >
+        <div class="col-lg-6 col-12 text-lg-right text-center">
             <button type="button" class="h5 mt-3 text-center" style="width: 200px" mat-raised-button color="primary" data-toggle="modal" data-target="#newProject">
-               Create new Project
-            </button>
-        </div>
-        <div class="col-xl-2 col-12 text-center text-lg-right"  >
-            <button *ngIf="isPluginDeveloper()" type="button" style="width: 200px" class="h5 mt-3 text-center" mat-raised-button color="accent" data-toggle="modal" data-target="#newPlugin">
-                Create new Plugin
+                Create new Project
             </button>
         </div>
         <div class="col-12 mt-2">
@@ -21,16 +17,13 @@
                 <span class="mt-2" style="font-weight: bold">Loading....</span>
             </div>
             <div class="row align-items-center justify-content-center">
-                <div class="col-xl-1 col-12 d-none d-lg-block">
+                <div class="col-lg-1 col-12 d-none d-lg-block" *ngIf="projectList?.length > 0">
                     <button  mat-fab color="primary" class="h1" style="font-weight: bold" matTooltip="create new project" matTooltipClass="h5" data-toggle="modal" data-target="#newProject">
                         +
                     </button>
                 </div>
-                <div class="col-xl-11 col-12">
-                    <div class="wrapper">
-                        <div class="text-left text-secondary h4 font-weight-bold" *ngIf="!displaySpinnerForProject &&  projectList?.length === 0">
-                            no projects found
-                        </div>
+                <div class="col-lg-11 col-12">
+                    <div class="wrapper" *ngIf="projectList?.length > 0">
                         <div class="item" *ngFor="let projectFile of projectList; let i = index" id ="project{{i}}">
                               <app-project-card [project] = "projectFile" (deleted)="onDeleteProject($event)"></app-project-card>
                         </div>
@@ -38,38 +31,50 @@
                             {{errorFromProjectSubscribe}}
                         </div>
                     </div>
+                    <div class="text-center mt-5 mb-5 text-secondary h3 font-weight-bold" *ngIf="!displaySpinnerForProject &&  projectList?.length === 0">
+                        <p class="mb-5">no projects found</p>
+                        <hr>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-12 text-left" *ngIf="isPluginDeveloper()">
-            <div class="row">
-                <div class="col-12">
-                    <h2 class="text-secondary" style="font-weight: bold;  text-shadow: 2px 2px black;">
+
+        <!--  My Plugins -->
+        <div class="col-12 text-left"> <!--*ngIf="isPluginDeveloper()">-->
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-6 text-lg-left text-center">
+                    <h2 class="text-secondary mt-2" style="font-weight: bold; text-shadow: 2px 2px black;">
                         My Plugins
                     </h2>
                 </div>
-            </div>
-            <div class="row">
-                <div class="text-center" *ngIf="displaySpinnerForPlugins">
-                    <app-spinner [visible]="displaySpinnerForPlugins" ></app-spinner>
-                    <span class="mt-2" style="font-weight: bold">Loading....</span>
+                <div class="col-lg-6 text-lg-right col-12 text-center">
+                    <button  type="button" style="width: 200px" class="h5 mt-3 text-center" mat-raised-button color="accent" data-toggle="modal" data-target="#newPlugin">
+                        Create new Plugin
+                    </button>
                 </div>
-                <div class="row justify-content-center align-items-center">
-                    <div class="col-xl-1 col-12 d-none d-lg-block">
-                        <button  mat-fab color="accent" class="h1" style="font-weight: bold" matTooltip="create new plugin" matTooltipClass="h5" data-toggle="modal" data-target="#newPlugin">
-                            +
-                        </button>
+                <div class="col-12 mt-2">
+                    <div class="text-center" *ngIf="displaySpinnerForPlugins">
+                        <app-spinner [visible]="displaySpinnerForPlugins"></app-spinner>
+                        <span class="mt-2" style="font-weight: bold">Loading....</span>
                     </div>
-                    <div class="col-xl-11 col-12">
-                        <div class="wrapper-sm">
-                            <div class="text-left text-secondary h4 font-weight-bold" *ngIf="!displaySpinnerForPlugins &&  pluginList?.length === 0">
-                                no plugins found
+                    <div class="row align-items-center justify-content-center" >
+                        <div class="col-lg-1 col-12 d-none d-lg-block" *ngIf="pluginList?.length > 0">
+                            <button  mat-fab color="accent" class="h1" style="font-weight: bold" matTooltip="create new plugin" matTooltipClass="h5" data-toggle="modal" data-target="#newPlugin">
+                                +
+                            </button>
+                        </div>
+                        <div class="col-lg-11 col-12">
+                            <div class="text-center h3 mt-5 mb-5 text-secondary font-weight-bold" *ngIf="!displaySpinnerForPlugins &&  pluginList?.length === 0">
+                                <p class="mb-5">no plugins found</p>
+                                <hr>
                             </div>
-                             <div class="item" *ngFor="let pluginFile of pluginList; let i = index" id="plugin{{i}}">
-                                 <app-plugin-card [plugin]="pluginFile"  (deleted)="onDeletePlugin($event)"></app-plugin-card>
-                             </div>
-                            <div class="text-left text-secondary h3 font-weight-bold" *ngIf="!displaySpinnerForPlugins && errorFromPluginSubscribe !== null">
-                                {{errorFromPluginSubscribe}}
+                            <div class="wrapper">
+                                <div class="item" *ngFor="let pluginFile of pluginList; let i = index" id ="plugin{{i}}">
+                                    <app-plugin-card [plugin]="pluginFile" (deleted)="onDeletePlugin($event)"></app-plugin-card>
+                                </div>
+                                <div class="text-left text-secondary h3 font-weight-bold" *ngIf="!displaySpinnerForPlugins &&  errorFromPluginSubscribe !== null">
+                                    {{errorFromPluginSubscribe}}
+                                </div>
                             </div>
                         </div>
                     </div>

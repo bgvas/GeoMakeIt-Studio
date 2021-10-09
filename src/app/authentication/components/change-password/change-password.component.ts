@@ -3,11 +3,12 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Subject} from 'rxjs';
 import {passwordMatchValidator} from '../../../shared/custom-validators/passwordsMatchValidator';
 import {Error} from '../../../error-handling/error/error';
-import {User} from '../../models/user';
+import {User} from '../../../user-management/models/user';
 import {AppService} from '../../../app.service';
-import {UserService} from '../../services/user.service';
+import {UserService} from '../../../user-management/services/user.service';
 import {NotificationsComponent} from '../../../shared/components/notifications/notifications.component';
 import {environment} from '../../../../environments/environment';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-change-password',
@@ -22,17 +23,17 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
   errorMessage: string;
   notification = new NotificationsComponent();
 
-  constructor(private fb: FormBuilder, private appService: AppService, private userService: UserService) { }
+  constructor(private fb: FormBuilder, private authService: AuthService, private appService: AppService, private userService: UserService) { }
 
   ngOnInit(): void {
     this.initializeForm();
-    this.user = this.appService.GetCurrentUser();
+    this.user = this.appService.currentUser();
   }
 
   onSubmit() {
     if (this.changePasswordForm.valid) {
       const details = {'user_id': this.user?.id, 'password': this.changePasswordForm.get('password').value}
-      this.userService.changePassword(details).subscribe(changePasswordResult => {
+      this.authService.changePassword(details).subscribe(changePasswordResult => {
             this.notification.display('Password updated, successfully', 'success');
           },
           (error: Error) => {

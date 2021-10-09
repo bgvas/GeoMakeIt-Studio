@@ -38,8 +38,8 @@ export class EditPluginComponent implements OnInit {
     this.pluginForm = this.fb.group({
       title: this.fb.control({value: this.plugin.title, disabled: true}, Validators.required),
       description: this.fb.control({value: this.plugin.description, disabled: true}, Validators.required),
-      short_description: this.fb.control({value: this.plugin.short_description, disabled: true}, Validators.required),
-      user_id: this.fb.control(this.appService.GetCurrentUser().id),
+      slogan: this.fb.control({value: this.plugin.slogan, disabled: true}, Validators.required),
+      user_id: this.fb.control(this.appService.currentUser().id),
       plugin_source: this.fb.control('')
     })
   }

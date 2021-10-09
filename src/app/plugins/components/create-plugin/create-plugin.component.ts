@@ -8,6 +8,7 @@ import {Error} from '../../../error-handling/error/error';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
+import {ErrorResponseModel} from '../../../error-handling/error_response_model';
 
 
 
@@ -20,7 +21,7 @@ import {AppService} from '../../../app.service';
 export class CreatePluginComponent implements OnInit, OnDestroy {
 
   @Output() isCreatedPlugin = new EventEmitter<boolean>();
-  createPluginForm: FormGroup;
+  createPluginForm?: FormGroup;
   notification = new NotificationsComponent();
   private unsubscribe = new Subject<void>();
 
@@ -43,9 +44,9 @@ export class CreatePluginComponent implements OnInit, OnDestroy {
             Validators.maxLength(32),
             Validators.pattern('^[a-z]{1}[a-z0-9_]{2,31}$')]),
       title: this.fb.control('', Validators.required),
-      user_id: this.fb.control(this.appService.GetCurrentUser().id),
-      short_description: this.fb.control('', Validators.required),
-      description: this.fb.control('', Validators.required)
+      user_id: this.fb.control(this.appService.currentUser()?.id),
+      slogan: this.fb.control(''),
+      description: this.fb.control('')
     })
   }
 
@@ -56,12 +57,12 @@ export class CreatePluginComponent implements OnInit, OnDestroy {
   }
 
   createNewPlugin(plugin): any {
-    return this.service.addNewPlugin(plugin).pipe(takeUntil(this.unsubscribe)).subscribe((savedPlugin) => {
-        this.notification.display('Plugin, created successfully', 'success');
+    return this.service.addNewPlugin(plugin).pipe(takeUntil(this.unsubscribe)).subscribe(savedPlugin => {
+        this.notification.display(savedPlugin.message, 'success');
         this.isCreatedPlugin.emit(true);
     },
-        (error: Error) => {
-        console.log('Plugin creation error: ' + error.message + ' - ' + error.code);
+        (error: ErrorResponseModel) => {
+        console.log(error.message + ' - ' + error.errors);
             this.notification.display('Can\'t create new plugin', 'danger');
         })
   }
