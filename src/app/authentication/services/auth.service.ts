@@ -5,8 +5,9 @@ import {AuthCredentials} from '../Models/auth-credentials';
 import {environment} from '../../../environments/environment';
 import {ChangeUsersPassword} from '../../user-management/models/change-users-password';
 import {Response} from '../../shared/models/Response';
-import {AuthenticatedUserModel} from '../Models/authenticated_user_model';
+import {AuthenticatedUserModel} from '../Models/authenticated-user-model';
 import {UserRegistrationModel} from '../Models/user_registration_model';
+import {ActivateAccountRequestModel} from '../Models/activate-account-request-model';
 
 
 @Injectable({
@@ -15,8 +16,8 @@ import {UserRegistrationModel} from '../Models/user_registration_model';
 export class AuthService {
 
   _temporary_save: any;
-  _successMessage: string;
-  _errorMessage: string;
+  _successMessage: any;
+  _errorMessage: any;
   private path = environment.be_Url + 'auth';
   constructor(private http: HttpClient) { }
 
@@ -41,14 +42,37 @@ export class AuthService {
       return this.http.post(this.path + '/password/reset-request', {'email': email});
   }
 
+  logout(): Observable<any> {
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
+    localStorage.removeItem('role');
+    return this.http.get(this.path + '/logout');
+  }
+
+  activateAccount(activateUser: ActivateAccountRequestModel): Observable<any> {
+    return this.http.post(this.path + '/activate-account', activateUser);
+  }
+
+  set successMessage(message: any) {
+    this._successMessage = message;
+  }
+
+  get successMessage(): any {
+    return this._successMessage;
+  }
+
+  set errorMessage(message: any) {
+    this._errorMessage = message;
+  }
+
+  get errorMessage(): any {
+    return this._errorMessage;
+  }
+
   /* Tested ^^^^^ */
 
   socialAuthentication(userSocial): Observable<any> {
     return this.http.post(this.path + '/socialLogin', userSocial);
-  }
-
-  activateAccount(token: any): Observable<any> {
-    return this.http.post(this.path + '/activateAccount', token);
   }
 
   confirmPasswordReset(token: any): Observable<any> {
@@ -58,27 +82,4 @@ export class AuthService {
   changePassword(details: ChangeUsersPassword): Observable<Response> {
       return this.http.post<Response>(this.path + '/confirmPasswordReset', details);
   }
-
-    logout(): Observable<any> {
-      sessionStorage.removeItem('token');
-      sessionStorage.removeItem('user');
-      localStorage.removeItem('role');
-      return this.http.get(this.path + '/logout');
-    }
-
-    set successMessage(message: string) {
-      this._successMessage = message;
-    }
-
-    get successMessage(): string {
-      return this._successMessage;
-    }
-
-    set errorMessage(message: string) {
-        this._errorMessage = message;
-    }
-
-    get errorMessage(): string {
-        return this._errorMessage;
-    }
 }

@@ -8,10 +8,10 @@ export class RoleService {
   private roles = new Map<number, string>();
 
   public constructor() {
-    this.roles.set(1, 'super admin').set(2, 'plugin developer').set(3, 'game author');
+    this.roles.set(1, 'super_admin').set(2, 'plugin_developer').set(3, 'game_author');
   }
 
-  public getRoleTitle(key: number) {
+  public getRoleTitle(key: number): string {
     return this.roles.get(key);
   }
 

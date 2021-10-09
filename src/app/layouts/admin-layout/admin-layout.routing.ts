@@ -5,7 +5,7 @@ import {StepperWizardComponent} from '../../games/components/stepper-wizard/step
 import {UserGuardService as UserGuard} from '../../authentication/guards/user-guard.service';
 import {ActivateAccountComponent} from '../../authentication/components/activate-account/activate-account.component';
 import {ChangePasswordComponent} from '../../authentication/components/change-password/change-password.component';
-import {ResetPasswordComponent} from '../../authentication/components/reset-password/reset-password.component';
+import {ChangeForgotPasswordComponent} from '../../authentication/components/change-forgot-password/change-forgot-password.component';
 import {GameSetupMainPageComponent} from '../../games/components/game-setup-main-page/game-setup-main-page.component';
 import {SocialLoginComponent} from '../../authentication/components/social-login/social-login.component';
 
@@ -21,7 +21,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'forgot_password',   redirectTo: '/forgot_password'},
     { path: 'games/setup', component: GameSetupMainPageComponent, canActivate: [UserGuard]},
     { path: 'login', redirectTo: '/login'},
-    { path: 'reset_password', component: ResetPasswordComponent},
+    { path: 'reset_password', component: ChangeForgotPasswordComponent},
     { path: 'change_forgotten_password', redirectTo: '/change_forgotten_password'},
     { path: 'social_login', component: SocialLoginComponent},
     { path: 'change_password',   component: ChangePasswordComponent, canActivate: [UserGuard]},

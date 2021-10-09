@@ -5,6 +5,8 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {UserService} from '../../../user-management/services/user.service';
 import {AuthService} from '../../services/auth.service';
+import {ErrorResponseModel} from '../../../error-handling/error_response_model';
+import {ActivateAccountRequestModel} from '../../Models/activate-account-request-model';
 
 @Component({
   selector: 'app-activate-account',
@@ -22,14 +24,17 @@ export class ActivateAccountComponent implements OnInit, OnDestroy {
 
       ngOnInit(): void {
         this.activatedRoute.queryParams.pipe(takeUntil(this.unsubscribe)).subscribe(params => {
-          this.authService.activateAccount({'token': params['token']}).pipe(takeUntil(this.unsubscribe)).subscribe(userActivated => {
-                this.authService.temporary_save = userActivated['displayed_message'];
-                this.router.navigate(['login']);
+          const activateAccount = new ActivateAccountRequestModel();
+          activateAccount.token = params['token']
+          activateAccount.email = params['email']
+          this.authService.activateAccount(activateAccount).pipe(takeUntil(this.unsubscribe)).subscribe(userActivated => {
+              this.authService.successMessage = userActivated;
+              this.router.navigate(['login']);
               },
-              (error: Error) => {
-                this.service.save_temporary = error.displayed_message;
-                console.log('Error in user activation: ' + error.message);
-                this.router.navigate(['login']);
+              (error: ErrorResponseModel) => {
+                this.authService.errorMessage = error.message;
+                console.log(error.message , error.errors);
+               // this.router.navigate(['login']);
               })
         });
       }

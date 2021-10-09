@@ -10,7 +10,6 @@ import {ForgotPasswordComponent} from './authentication/components/forgot-passwo
 import {StepByStepComponent} from './shared/components/help/step-by-step/step-by-step.component';
 import {AdminComponent} from './admin/admin.component';
 import {RegistrationResultsComponent} from './authentication/components/registration-results/registration-results.component';
-import {ChangeForgotPasswordComponent} from './authentication/components/change-forgot-password/change-forgot-password.component';
 import {GamePluginsComponent} from './gamePlugins/game-plugins.component';
 
 const routes: Routes = [
@@ -64,10 +63,6 @@ const routes: Routes = [
   {
     path: 'forgot_password',
     component: ForgotPasswordComponent
-  },
-  {
-    path: 'change_forgotten_password',
-    component: ChangeForgotPasswordComponent
   },
   {
     path: 'guide',

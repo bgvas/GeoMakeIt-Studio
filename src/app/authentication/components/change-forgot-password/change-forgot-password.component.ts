@@ -1,13 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {User} from '../../../user-management/models/user';
-import {AuthService} from '../../services/auth.service';
-import {Router} from '@angular/router';
-import {passwordMatchValidator} from '../../../shared/custom-validators/passwordsMatchValidator';
 import {Subject} from 'rxjs';
-import {Error} from '../../../error-handling/error/error';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AuthService} from '../../services/auth.service';
+import {takeUntil} from 'rxjs/operators';
 import {UserService} from '../../../user-management/services/user.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {environment} from '../../../../environments/environment';
+import {passwordMatchValidator} from '../../../shared/custom-validators/passwordsMatchValidator';
+import {User} from '../../../user-management/models/user';
+import {ErrorResponseModel} from '../../../error-handling/error_response_model';
 
 @Component({
   selector: 'app-change-forgot-password',
@@ -16,34 +17,30 @@ import {environment} from '../../../../environments/environment';
 })
 export class ChangeForgotPasswordComponent implements OnInit, OnDestroy {
 
+  private unsubscribe = new Subject<void>();
+  token?: string;
   changePasswordForm: FormGroup;
   user: User;
-  errorMessage: string;
-  private unsubscribe = new Subject<void>();
+  errorMessage?: string;
 
-  constructor(private userService: UserService, private router: Router, private fb: FormBuilder, private authService: AuthService) { }
+  constructor(private activatedRoute: ActivatedRoute, private authService: AuthService,
+              private userService: UserService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.user = this.userService.save_temporary;
-    console.log(this.user);
     this.initializeForm();
-  }
-
-  onCancel() {
-    this.router.navigate(['login']);
-  }
-
-  onSubmit() {
-      if (this.changePasswordForm.valid) {
-        const details = {'user_id': this.user[0].id, 'password': this.changePasswordForm.get('password').value}
-        this.authService.changePassword(details).subscribe(changePasswordResult => {
-          this.router.navigate(['login']);
-        },
-            (error: Error) => {
-              this.errorMessage = error.displayed_message;
-              console.log('Error while changing password: ' + error.message + ' - ' + error.code);
-            })
-      }
+    // take values from url query parameters //
+    this.activatedRoute.queryParams.pipe(takeUntil(this.unsubscribe)).subscribe(params => {
+      /*this.authService.confirmPasswordReset({'token': params['token']}).pipe(takeUntil(this.unsubscribe)).subscribe(result => {
+            this.service.save_temporary = result.user;
+            this.router.navigate(['change_forgotten_password']);
+          },
+          (error: Error) => {
+            this.service.save_temporary = error.displayed_message;
+            console.log('Error in user activation: ' + error.message);
+            this.router.navigate(['login']);
+          })*/
+    });
   }
 
   initializeForm () {
@@ -54,10 +51,26 @@ export class ChangeForgotPasswordComponent implements OnInit, OnDestroy {
     this.changePasswordForm.setValidators(passwordMatchValidator('password', 'confirm'));
   }
 
+  onSubmit() {
+    if (this.changePasswordForm.valid) {
+      const details = {'user_id': this.user[0].id, 'password': this.changePasswordForm.get('password').value}
+      this.authService.changePassword(details).subscribe(changePasswordResult => {
+            this.router.navigate(['login']);
+          },
+          (error: ErrorResponseModel) => {
+            this.errorMessage = null;
+            console.log(error.message + ' - ' + error.errors);
+          })
+    }
+  }
+
+  onCancel() {
+    this.router.navigate(['login']);
+  }
+
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
-
 
 }

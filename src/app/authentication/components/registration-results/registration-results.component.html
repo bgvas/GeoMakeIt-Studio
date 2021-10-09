@@ -11,10 +11,10 @@
                         </div>
                         <div class="card-body h5 text-center">
                             <p class="h3 serif-font" style="text-decoration: underline">Registration Results</p>
-                            <p class="text-info" *ngIf="registrationSucceedMessage !== null">
+                            <p class="text-info" *ngIf="registrationSucceedMessage !== ''">
                                 {{registrationSucceedMessage}}
                             </p>
-                            <p class="text-danger" *ngIf="registrationErrorMessage !== null">
+                            <p class="text-danger" *ngIf="registrationErrorMessage !== ''">
                                 {{registrationErrorMessage}}
                             </p>
                         </div>

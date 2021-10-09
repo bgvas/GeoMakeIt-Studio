@@ -28,8 +28,8 @@ export class LoginComponent implements OnInit, OnDestroy {
               private userService: UserService, private roleService: RoleService) { }
 
   ngOnInit(): void {
-    this.successMessages = this.authService.successMessage;
-    this.errorMessages = this.authService.errorMessage;
+    this.successMessages = this.authService.successMessage?.message || null;
+    this.errorMessages = this.authService.errorMessage?.message || null;
     this.initializeForm();
   }
 
@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   // get credentials from form and check user. Then redirect by role //
   onSubmit() {
-   //this.messages = null;
    this.isSpinnerActive = true;
 
    this.authService.login(this.loginForm.value).pipe(takeUntil(this.unsubscribe)).subscribe(isAuthenticatedUser => {
