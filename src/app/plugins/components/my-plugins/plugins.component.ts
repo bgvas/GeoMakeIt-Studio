@@ -56,7 +56,7 @@ export class PluginsComponent implements OnInit, OnDestroy {
   }
 
   loadListOfPlugins() {
-      this.service.getAllPluginsOfUser().pipe(takeUntil(this.unsubscribe)).subscribe(projects => {
+      this.service.getAllPluginsOfUser(this.appService.currentUser().id).pipe(takeUntil(this.unsubscribe)).subscribe(projects => {
           this.showSpinner = false;
           if (projects['plugins'].length > 0) {
               for (const plugin of projects['plugins']) {

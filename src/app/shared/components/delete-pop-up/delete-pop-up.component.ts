@@ -34,7 +34,7 @@ export class DeletePopUpComponent implements OnInit, OnDestroy {
   }
 
   onDelete(): void {
-     this.delete.emit(this.sharedService.project);
+     this.delete.emit(this.sharedService.temporary_save);
   }
 
 }

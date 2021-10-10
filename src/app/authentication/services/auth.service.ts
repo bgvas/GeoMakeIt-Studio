@@ -8,6 +8,8 @@ import {Response} from '../../shared/models/Response';
 import {AuthenticatedUserModel} from '../Models/authenticated-user-model';
 import {UserRegistrationModel} from '../Models/user_registration_model';
 import {ActivateAccountRequestModel} from '../Models/activate-account-request-model';
+import {ChangePasswordRequestModel} from '../../shared/models/change-password-request-model';
+import {ChangeForgotPasswordRequestModel} from '../Models/change-forgot-password-request-model';
 
 
 @Injectable({
@@ -45,12 +47,21 @@ export class AuthService {
   logout(): Observable<any> {
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('user');
+    sessionStorage.removeItem('project');
     localStorage.removeItem('role');
     return this.http.get(this.path + '/logout');
   }
 
   activateAccount(activateUser: ActivateAccountRequestModel): Observable<any> {
     return this.http.post(this.path + '/activate-account', activateUser);
+  }
+
+  changeForgottenPassword(details: ChangeForgotPasswordRequestModel): Observable<any> {
+    return this.http.post<any>(this.path + '/password/reset', details);
+  }
+
+  changePassword(details: ChangePasswordRequestModel): Observable<any> {
+    return this.http.post<Response>(this.path + '/password/change', details);
   }
 
   set successMessage(message: any) {
@@ -75,11 +86,4 @@ export class AuthService {
     return this.http.post(this.path + '/socialLogin', userSocial);
   }
 
-  confirmPasswordReset(token: any): Observable<any> {
-     return this.http.post(this.path + '/confirmPasswordReset', token);
-  }
-
-  changePassword(details: ChangeUsersPassword): Observable<Response> {
-      return this.http.post<Response>(this.path + '/confirmPasswordReset', details);
-  }
 }

@@ -18,22 +18,20 @@ import {UserGuardService} from './guards/user-guard.service';
 import {PluginDeveloperGuardService} from './guards/plugin-developer-guard.service';
 import { SocialLoginComponent } from './components/social-login/social-login.component';
 import { ChangeForgotPasswordComponent } from './components/change-forgot-password/change-forgot-password.component';
-import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 
 
 @NgModule({
-  declarations: [
-    LoginComponent,
-    RegistrationResultsComponent,
-      ForgotPasswordComponent,
-      RegistrationComponent,
-      ActivateAccountComponent,
-      SocialLoginComponent,
-      ChangeForgotPasswordComponent,
-      ChangePasswordComponent
+    declarations: [
+        LoginComponent,
+        RegistrationResultsComponent,
+        ForgotPasswordComponent,
+        RegistrationComponent,
+        ActivateAccountComponent,
+        SocialLoginComponent,
+        ChangeForgotPasswordComponent
 
-  ],
+    ],
     imports: [
         CommonModule,
         AuthenticationRoutingModule,
@@ -43,12 +41,13 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
         SharedModule,
         MatInputModule
     ],
-  providers: [
-      AuthService,
-      CanActivateRouteService,
-      AdminGuardService,
-      UserGuardService,
-      PluginDeveloperGuardService
-  ]
+    exports: [],
+    providers: [
+        AuthService,
+        CanActivateRouteService,
+        AdminGuardService,
+        UserGuardService,
+        PluginDeveloperGuardService
+    ]
 })
 export class AuthenticationModule { }

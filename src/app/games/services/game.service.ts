@@ -5,9 +5,10 @@ import {GameRoot} from '../models/games/game-root';
 import {environment} from '../../../environments/environment';
 import {Game} from '../models/games/game';
 import {projectElements} from '../models/projectElements/project-elements';
-import {map, retry, tap} from 'rxjs/operators';
+import {map, retry, take, takeUntil, tap} from 'rxjs/operators';
 import {SelectedPlugin} from '../../plugins/models/selectedPlugin/selected-plugin';
 import {Plugin} from '../../plugins/models/plugin';
+import {RootGameRelease} from '../models/game-release/root-game-release';
 
 
 @Injectable({
@@ -16,20 +17,53 @@ import {Plugin} from '../../plugins/models/plugin';
 export class GameService {
 
   _object: any;
-  path = environment.be_Url + 'games';
+  pathGame = environment.be_Url + 'games';
+  pathGameReleases = environment.be_Url + 'game-releases';
+  filter = '?filter[]=';
   checkPlugin: any;
   _refreshProjectsList$ = new Subject<void>();
 
 
   constructor(private http: HttpClient) { }
 
+    // Post-HTTP request //
+    createNewGame(newGame: Game): Observable<any> {
+        return this.http.post<any>(this.pathGame, newGame);
+
+    }
+
+    getAllGamesByUser(id: number): Observable<GameRoot> {
+        return this.http.get<GameRoot>(this.pathGame + this.filter + 'user_id=' + id).pipe(retry(3));
+    }
+
+    // Delete-HTTP request //
+    deleteGame(id: number): Observable<any> {
+        return this.http.delete(this.pathGame + '/' + id).pipe(tap(() => {
+            this._refreshProjectsList$.next();
+        }));
+    }
+
+    getAllGames(): Observable<GameRoot> {
+        return this.http.get<GameRoot>(this.pathGame).pipe(retry(3));
+    }
+
+    // get values from this general-use plugin //
+    get save_temporary(): any {
+        return this._object;
+    }
+
+    // set values to this general-use plugin //
+    set save_temporary(data) {
+        this._object = data;
+    }
+
+    /* tested ^^^^ */
+
+
+
   // Get-Http request //
   getGameById(id): Observable<Game> {
-    return this.http.get<Game>(this.path + '/id/' + id);
-  }
-
-  getAllGames(): Observable<Game[]> {
-    return this.http.get<Game[]>(this.path + '/all').pipe(retry(3));
+    return this.http.get<Game>(this.pathGame + '/id/' + id);
   }
 
   getAllActiveGames(): Observable<Game[]> {
@@ -45,59 +79,34 @@ export class GameService {
   }
 
 
- getAllGamesByUser(): Observable<GameRoot> {
-     return this.http.get<GameRoot>(this.path).pipe(retry(3));;
- }
-
- // Post-HTTP request //
- createNewGame(newGame: Game): Observable<any> {
-   return this.http.post<any>(this.path, newGame);
-
- }
-
-
- // Update project title and description
+ // Update temporary_save title and description
  updateGame(id, gameChanges: projectElements): Observable<any> {
-   return this.http.put(this.path + '/update/' + id, gameChanges);
+   return this.http.put(this.pathGame + '/update/' + id, gameChanges);
  }
 
- // Delete-HTTP request //
- deleteGame(id: number): Observable<any> {
-   return this.http.delete(this.path + '/delete/' + id).pipe(tap(() => {
-       this._refreshProjectsList$.next();
-   }));
- }
 
- // Install plugin to project //
+ // Install plugin to temporary_save //
  addPluginToProject(plugin: SelectedPlugin): Observable<any> {
-   return this.http.post<any>(this.path + '/addPlugin', [plugin]);
+   return this.http.post<any>(this.pathGame + '/addPlugin', [plugin]);
  }
 
  deleteInstalledPluginFromGame(gameId: number, pluginId: number): Observable<any> {
-  return this.http.delete(this.path + '/' + gameId + '/removePlugin/' + pluginId);
+  return this.http.delete(this.pathGame + '/' + gameId + '/removePlugin/' + pluginId);
  }
 
  getInstalledPluginsOfGame(gameId: number): Observable<Plugin[]> {
-    return this.http.get<Plugin[]>(this.path + '/plugins/' + gameId);
+    return this.http.get<Plugin[]>(this.pathGame + '/plugins/' + gameId);
   }
 
-  getGameRelease(gameId: number): Observable<GameRoot> {
-    return this.http.get<GameRoot>(this.path + '/' + gameId + '/releases')
+  getAllGameReleases(id: number): Observable<RootGameRelease> {
+    return this.http.get<RootGameRelease>(this.pathGameReleases + this.filter + 'game_id=' + id)
   }
 
-  checkIfPluginIsAlreadyInstalled(gameId: number, pluginId: number){
-      return this.http.get(this.path + '/' + gameId + '/plugin/' + pluginId);
+  checkIfPluginIsAlreadyInstalled(gameId: number, pluginId: number) {
+      return this.http.get(this.pathGame + '/' + gameId + '/plugin/' + pluginId);
   }
 
-  // get values from this general-use plugin //
-  get object(): any {
-    return this._object;
-  }
 
-  // set values to this general-use plugin //
-  set object(data) {
-    this._object = data;
-  }
 
   set isInstalledPlugin(installed: boolean) {
       this.checkPlugin = installed;

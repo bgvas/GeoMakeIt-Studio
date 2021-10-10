@@ -1,42 +1,45 @@
 
     <div class="box item scale">
-        <div class="card mb-3 border border-secondary shadow" style="width: 90%" >
-            <img src="assets/img/mapimage.jpg" width="100%"  alt="Logo of project" class="rounded-top" >
-            <div class="card-body" style="height: 160px">
-                <h5 class="card-title text-secondary" style="font-weight: bold; text-shadow: 1px 1px black;">
-                    {{project?.title}}
-                </h5>
-                <div class="row">
-                    <div class="col-10 text-right">
-                        <a matTooltip="Edit project" role="button" class="text-dark" matTooltipClass="h5" style="background-color: inherit" (click)="onClickOpenProject(project)">
-                            <mat-icon>edit</mat-icon>
-                        </a>
-                    </div>
-                    <div class="text-right col-2">
-                        <a matTooltip="Delete project" class="text-danger" matTooltipClass="h5" data-toggle="modal" (click)="onClickDeleteProject(project)"  [attr.href] ="'#deletePopUpproject'" style="background-color: inherit">
-                            <i class="material-icons">delete</i>
-                        </a>
+        <div class="card border border-secondary shadow">
+            <img src="assets/img/mapimage.jpg" width="100%"  alt="Logo of temporary_save" class="rounded-top">
+            <div class="card-body" style="height: 180px">
+                <div class="card-title">
+                    <div class="row justify-content-center">
+                        <div class="col-10 mat-h3 serif-font text-secondary" style="font-weight: bold; max-width: 300px; text-shadow: 1px 1px black">
+                            {{project?.title}}
+                        </div>
+                        <div class="col-2 text-right">
+                            <a matTooltip="Edit temporary_save" role="button" class="text-dark" matTooltipClass="h5" style="background-color: inherit" (click)="onClickOpenProject(project)">
+                                <mat-icon>tune</mat-icon>
+                            </a>
+                            <a matTooltip="Delete temporary_save" role="button" class="text-danger" matTooltipClass="h5" data-toggle="modal" (click)="onClickDeleteProject(project)"  [attr.href] ="'#deletePopUpProject'" style="background-color: inherit">
+                                <i class="material-icons">delete</i>
+                            </a>
+                        </div>
+                        <div class="col-12 mat-h5 text-secondary">
+                            {{project?.description}}
+                        </div>
                     </div>
                 </div>
-                <p class="card-text mb-0" >
-                    <small style="font-weight: bold">
-                        {{project?.description}}
-                    </small>
-                </p>
-                <p class="card-text mb-0">
-                    <small class="text-muted text-gray">
-                        <span style="font-weight: bold">Created at:</span> {{project?.created_at | date: 'dd/MM/yy'}}
-                    </small>
-                </p>
-                <p class="card-text mb-0">
-                    <small class="text-muted text-gray" *ngIf="project?.updated_at !== null">
-                        <span style="font-weight: bold">Update at:</span> {{project?.updated_at | date: 'dd/MM/yy'}}
-                    </small>
-                </p>
+                <div class="row border border-secondary rounded shadow ">
+                    <div class="col-12">
+                        <mat-form-field>
+                            <mat-label>Release</mat-label>
+                            <mat-select [(value)]="defaultSelected">
+                                <mat-option class="text-secondary" [value]="defaultSelected" *ngIf="gameReleasesArray?.length === 0">
+                                    {{defaultSelected.name}}
+                                </mat-option>
+                                <mat-option *ngFor="let gameRelease of gameReleasesArray" [value]="gameRelease">
+                                    {{gameRelease?.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- modal -->
-    <app-delete-pop-up (delete)="onDelete($event)" [deleteItemToolTip]="'project'"></app-delete-pop-up>
+    <app-delete-pop-up (delete)="onDelete($event)" [deleteItemToolTip]="'Project'"></app-delete-pop-up>
 

@@ -40,12 +40,7 @@ import { ColorPickerComponent } from './components/color-picker/color-picker.com
 import {AngularD3CloudModule} from 'angular-d3-cloud';
 import { RemoveUnderscoresPipe } from './components/pipes/remove-underscores.pipe';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-
-
-
-
-
-
+import {ChangePasswordComponent} from './components/change-password/change-password.component';
 
 
 @NgModule({
@@ -70,7 +65,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     RoleIdToRoleNamePipe,
     EmailExistsValidatorDirective,
     ColorPickerComponent,
-    RemoveUnderscoresPipe
+    RemoveUnderscoresPipe,
+    ChangePasswordComponent
 
 
 ],

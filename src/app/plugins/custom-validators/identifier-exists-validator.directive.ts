@@ -3,6 +3,7 @@ import {AbstractControl, AsyncValidator, NG_ASYNC_VALIDATORS, ValidationErrors} 
 import {Observable} from 'rxjs';
 import {map, take} from 'rxjs/operators';
 import {PluginService} from '../services/plugin.service';
+import {CheckPluginIdentifierRequestModel} from '../models/check-plugin-identifier-request-model';
 
 @Directive({
   selector: '[appIdentifierExists]',
@@ -14,7 +15,9 @@ export class IdentifierExistsValidatorDirective implements AsyncValidator {
   constructor(private pluginService: PluginService) { }
 
   validate (control: AbstractControl): Observable<ValidationErrors | null> {
-    return this.pluginService.checkIfIdentifierExists(control.value).pipe(take(1)).pipe(map(
+    const newIdentifier = new CheckPluginIdentifierRequestModel();
+    newIdentifier.identifier = control.value;
+    return this.pluginService.checkIfIdentifierExists(newIdentifier).pipe(take(1)).pipe(map(
         identifier => {
           return identifier['exists'] ? {'identifierExists': true} : null;
         }

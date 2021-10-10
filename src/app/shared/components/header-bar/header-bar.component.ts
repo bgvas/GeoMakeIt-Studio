@@ -4,7 +4,7 @@ import {FeaturesService} from '../../services/features.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
-
+import {ChangePasswordComponent} from '../change-password/change-password.component';
 
 
 @Component({

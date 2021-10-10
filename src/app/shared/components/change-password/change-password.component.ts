@@ -1,14 +1,16 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Subject} from 'rxjs';
-import {passwordMatchValidator} from '../../../shared/custom-validators/passwordsMatchValidator';
+import {passwordMatchValidator} from '../../custom-validators/passwordsMatchValidator';
 import {Error} from '../../../error-handling/error/error';
 import {User} from '../../../user-management/models/user';
 import {AppService} from '../../../app.service';
 import {UserService} from '../../../user-management/services/user.service';
-import {NotificationsComponent} from '../../../shared/components/notifications/notifications.component';
+import {NotificationsComponent} from '../notifications/notifications.component';
 import {environment} from '../../../../environments/environment';
-import {AuthService} from '../../services/auth.service';
+import {AuthService} from '../../../authentication/services/auth.service';
+import {ChangePasswordRequestModel} from '../../models/change-password-request-model';
+import {ErrorResponseModel} from '../../../error-handling/error_response_model';
 
 @Component({
   selector: 'app-change-password',
@@ -32,14 +34,17 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (this.changePasswordForm.valid) {
-      const details = {'user_id': this.user?.id, 'password': this.changePasswordForm.get('password').value}
+      const details = new ChangePasswordRequestModel();
+      details.password = this.changePasswordForm.get('password').value;
+      details.password_confirmation = this.changePasswordForm.get('confirm').value;
+
       this.authService.changePassword(details).subscribe(changePasswordResult => {
-            this.notification.display('Password updated, successfully', 'success');
+            this.notification.display('Password updated, successfully.', 'success');
           },
-          (error: Error) => {
-            this.errorMessage = error.displayed_message;
-            this.notification.display('Error changing password!', 'danger');
-            console.log('Error while changing password: ' + error.message + ' - ' + error.code);
+          (error: ErrorResponseModel) => {
+            this.notification.display('Can\'t change password!', 'danger');
+            console.log(error.message);
+            console.log(error.errors);
           })
     }
   }

@@ -22,10 +22,10 @@ export class PluginConfigsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.showSpinner = true;
-      if (this.service.object instanceof Object) {
-        this.plugin = this.service.object.plugin;
-          console.log('Game: ' + this.service.object.game?.id);
-          this.service.getGameById(this.service.object.game?.id).pipe(takeUntil(this.unsubscribe)).subscribe(data => {
+      if (this.service.save_temporary instanceof Object) {
+        this.plugin = this.service.save_temporary.plugin;
+          console.log('Game: ' + this.service.save_temporary.game?.id);
+          this.service.getGameById(this.service.save_temporary.game?.id).pipe(takeUntil(this.unsubscribe)).subscribe(data => {
             this.showSpinner = false;
             this.game = data;
           },

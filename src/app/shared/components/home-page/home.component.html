@@ -18,7 +18,7 @@
             </div>
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-1 col-12 d-none d-lg-block" *ngIf="projectList?.length > 0">
-                    <button  mat-fab color="primary" class="h1" style="font-weight: bold" matTooltip="create new project" matTooltipClass="h5" data-toggle="modal" data-target="#newProject">
+                    <button  mat-fab color="primary" class="h1" style="font-weight: bold" matTooltip="create new temporary_save" matTooltipClass="h5" data-toggle="modal" data-target="#newProject">
                         +
                     </button>
                 </div>
@@ -40,7 +40,7 @@
         </div>
 
         <!--  My Plugins -->
-        <div class="col-12 text-left"> <!--*ngIf="isPluginDeveloper()">-->
+        <div class="col-12 text-left" *ngIf="isPluginDeveloper()">
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-6 text-lg-left text-center">
                     <h2 class="text-secondary mt-2" style="font-weight: bold; text-shadow: 2px 2px black;">

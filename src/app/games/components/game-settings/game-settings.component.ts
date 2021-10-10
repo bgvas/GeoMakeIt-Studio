@@ -49,7 +49,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
   ngOnInit(): void {
 
     this.getInstalledPlugins();
-    this.logo = 'assets/img/logo-icon.png'; // default logo for new project //
+    this.logo = 'assets/img/logo-icon.png'; // default logo for new temporary_save //
     this.pluginService.getAllPlugins().pipe(takeUntil(this.unsubscribe)).subscribe(projects => {
       this.availablePlugins = projects['plugin'].filter((e: Plugin) => e.id !== 1); // display all available plugins except basic Plugin//
         },
@@ -144,7 +144,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
 
           },
           (e: Error) => {
-            console.log('Update elements of project: ' + e.message + ' - ' + e.code);
+            console.log('Update elements of temporary_save: ' + e.message + ' - ' + e.code);
           });
 
       // create object for game authentication //

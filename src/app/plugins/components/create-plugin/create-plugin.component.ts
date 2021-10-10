@@ -29,6 +29,7 @@ export class CreatePluginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initializeForm();
+    this.createPluginForm.reset();
   }
 
   ngOnDestroy() {
@@ -57,9 +58,10 @@ export class CreatePluginComponent implements OnInit, OnDestroy {
   }
 
   createNewPlugin(plugin): any {
-    return this.service.addNewPlugin(plugin).pipe(takeUntil(this.unsubscribe)).subscribe(savedPlugin => {
+    return this.service.createNewPlugin(plugin).pipe(takeUntil(this.unsubscribe)).subscribe(savedPlugin => {
         this.notification.display(savedPlugin.message, 'success');
         this.isCreatedPlugin.emit(true);
+        this.createPluginForm.reset();
     },
         (error: ErrorResponseModel) => {
         console.log(error.message + ' - ' + error.errors);

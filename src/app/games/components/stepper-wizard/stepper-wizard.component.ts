@@ -28,10 +28,10 @@ export class StepperWizardComponent implements OnInit, OnDestroy {
   constructor(private gameService: GameService, private router: Router, private gamePlugins: GamePluginConfigService) { }
 
   ngOnInit(): void {
-    if (typeof this.gameService.object === 'undefined') {
+    if (typeof this.gameService.save_temporary === 'undefined') {
       this.router.navigate(['home']);
     }
-    this.project = this.gameService.object;
+    this.project = this.gameService.save_temporary;
     this.gamePlugins.getZonesFromDB(this.project?.id).pipe(takeUntil(this.unsubscribe)).subscribe(zones => {
       if (typeof zones['contents'] !== 'undefined') {
         this.pointsArray = zones['contents'];

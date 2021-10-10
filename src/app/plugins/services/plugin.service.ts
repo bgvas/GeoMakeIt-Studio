@@ -8,6 +8,7 @@ import {RootPluginReleases} from '../models/available_plugins/root-plugin-releas
 import {PluginRelease} from '../models/available_plugins/plugin-release';
 import {delayWhen, map, retry, retryWhen} from 'rxjs/operators';
 import {json} from 'express';
+import {CheckPluginIdentifierRequestModel} from '../models/check-plugin-identifier-request-model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ import {json} from 'express';
 export class PluginService {
 
   path = environment.be_Url + 'plugins';
+  filter = '?filter[]=user_id=';
   _plugin: Plugin;
   pluginReleases = new Array<PluginRelease>();
   currentUser = JSON.parse(sessionStorage.getItem('user'));
@@ -30,12 +32,12 @@ export class PluginService {
     return this._plugin;
   }
 
-  getAllPluginsOfUser(): Observable<RootPlugins> {
-    return this.http.get<RootPlugins>(this.path).pipe(retry(3));
+  getAllPluginsOfUser(id: number): Observable<RootPlugins> {
+    return this.http.get<RootPlugins>(this.path + this.filter + id).pipe(retry(3));
   }
 
-  checkIfIdentifierExists(identifier: string): Observable<any> {
-    return this.http.post<any>(this.path + '/check-identifier', {'identifier': identifier}).pipe(retry(3));
+  checkIfIdentifierExists(identifier: CheckPluginIdentifierRequestModel): Observable<any> {
+    return this.http.post<any>(this.path + '/check-identifier', identifier).pipe(retry(3));
   }
 
   /* tested */
@@ -75,8 +77,8 @@ export class PluginService {
     return this.http.put<any>(this.path + '/update/' + pluginId, updatedPlugin).pipe(retry(3));
   }
 
-  addNewPlugin(newPlugin): Observable<any> {
-    return this.http.post<any>(this.path + '/new', [newPlugin]).pipe(retry(3));
+  createNewPlugin(newPlugin: Plugin): Observable<any> {
+    return this.http.post<any>(this.path, newPlugin).pipe(retry(3));
   }
 
   deletePluginById(pluginId: number): Observable<any> {

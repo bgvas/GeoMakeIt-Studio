@@ -55,10 +55,10 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
       return this.service.createNewGame(newProject).pipe(takeUntil(this.unsubscribe)).subscribe(
           createdProject => {
                 this.project.emit(newProject);
-                this.notification.display(createdProject.message, 'success');
+                this.notification.display('Created successfully', 'success');
             },
             (error: ErrorResponseModel) => {
-                 this.notification.display('Can\'t create new project', 'danger');
+                 this.notification.display('Can\'t create new temporary_save', 'danger');
                  console.log(error.message + ' - ' + error.errors);
           }
       )

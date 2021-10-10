@@ -39,7 +39,7 @@ export class EditUserComponent implements OnInit {
 
     // send user to deletePopUp, ask for delete //
     onClickDelete(user) {
-        this.sharedService.project = user;
+        this.sharedService.temporary_save = user;
     }
 
   onSubmit(form) {

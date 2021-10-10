@@ -18,14 +18,31 @@
                                     </a>
                                 </div>
                             </div>
+                            <!-- SignIn with Social networks -->
+                            <div class="row mt-1 justify-content-center">
+                                <div class="col-8 mat-h5 border border-white rounded">
+                                    <a role="button" class="text-light h3" (click)="onGitHubClick($event)">
+                                        <div class="row">
+                                            <div class="col-2 text-center">
+                                                <span class="fa fa-github"></span>
+                                            </div>
+                                            <div class="col-10 text-center">
+                                                <span class="h5 text-lowercase">Sign in with Github</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-6 col-12">
                             <div class="row form-group">
                                 <div class="col-12">
-                                    <h1 class="text-white">Login</h1>
+                                    <h3 class="text-white serif-font">
+                                        Login
+                                    </h3>
                                 </div>
                                 <div class="col-12">
-                                    <input class="form-control h5 text-white" type="text" placeholder="Email" formControlName="email">
+                                    <input class="form-control pl-1 h5 text-white rounded" type="text" placeholder="Email" formControlName="email">
                                     <mat-error *ngIf="loginForm.get('email').touched && loginForm.get('email').getError('required')">
                                         Email is required
                                     </mat-error>
@@ -33,7 +50,7 @@
                             </div>
                             <div class="row form-group">
                                 <div class="col-12">
-                                    <input class="form-control h5 text-white" type="password" placeholder="Password" formControlName="password">
+                                    <input class="form-control pl-1 h5 text-white rounded" type="password" placeholder="Password" formControlName="password">
                                     <mat-error *ngIf="loginForm.get('password').touched && loginForm.get('password').getError('required')">
                                         Password is required
                                     </mat-error>
@@ -44,16 +61,16 @@
                             </div>
                             <div class="row justify-content-center">
                                 <div class="col-12">
-                                    <button type="submit" class="btn btn-info w-75" style="width: 40%" (click)="onSubmit()" [disabled]="loginForm.invalid">
+                                    <button type="submit" class="btn rounded btn-info w-75" style="width: 40%" (click)="onSubmit()" [disabled]="loginForm.invalid">
                                         login
                                     </button>
                                 </div>
-                                <div class="col-6 mat-h5 m-2 border border-white">
+                                <!--<div class="col-6 mat-h5 m-2 border border-white">
                                     <a role="button" class="text-light" (click)="onGitHubClick($event)">
                                         <span class="fa fa-github"></span>
                                         <span class="text-lowercase"> SignIn with Github </span>
                                     </a>
-                                </div>
+                                </div>-->
                                 <div class="col-12 text-center">
                                     <a routerLinkActive="active" routerLink="/forgot_password" style="color: white; font-size: small; text-decoration: underline">
                                         Forgot your password?
@@ -69,7 +86,7 @@
                 <div class="col-12 h5 font-weight-bold text-info" *ngIf="successMessages !== null && errorMessages === null">
                     {{successMessages}}
                 </div>
-                <div class="col-12 h5 font-weight-bold text-info" *ngIf="successMessages === null && errorMessages !== null">
+                <div class="col-12 h5 font-weight-bold text-danger" *ngIf="successMessages === null && errorMessages !== null">
                     {{errorMessages}}
                 </div>
                 <div class="col-12 h3 text-warning" style="text-shadow: 2px 2px grey; font-weight: bolder">

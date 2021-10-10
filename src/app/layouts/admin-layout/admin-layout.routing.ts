@@ -4,7 +4,7 @@ import { UserProfileComponent } from '../../user-management/components/user-prof
 import {StepperWizardComponent} from '../../games/components/stepper-wizard/stepper-wizard.component';
 import {UserGuardService as UserGuard} from '../../authentication/guards/user-guard.service';
 import {ActivateAccountComponent} from '../../authentication/components/activate-account/activate-account.component';
-import {ChangePasswordComponent} from '../../authentication/components/change-password/change-password.component';
+import {ChangePasswordComponent} from '../../shared/components/change-password/change-password.component';
 import {ChangeForgotPasswordComponent} from '../../authentication/components/change-forgot-password/change-forgot-password.component';
 import {GameSetupMainPageComponent} from '../../games/components/game-setup-main-page/game-setup-main-page.component';
 import {SocialLoginComponent} from '../../authentication/components/social-login/social-login.component';

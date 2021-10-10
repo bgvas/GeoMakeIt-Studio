@@ -27,12 +27,15 @@ export class ActivateAccountComponent implements OnInit, OnDestroy {
           const activateAccount = new ActivateAccountRequestModel();
           activateAccount.token = params['token']
           activateAccount.email = params['email']
-          this.authService.activateAccount(activateAccount).pipe(takeUntil(this.unsubscribe)).subscribe(userActivated => {
-              this.authService.successMessage = userActivated;
+
+            this.authService.activateAccount(activateAccount).pipe(takeUntil(this.unsubscribe)).subscribe(userActivated => {
+              this.authService.errorMessage = null;
+              this.authService.successMessage = userActivated.message;
               this.router.navigate(['login']);
               },
               (error: ErrorResponseModel) => {
-                this.authService.errorMessage = error.message;
+                this.authService.successMessage = null;
+                this.authService.errorMessage = 'Can\'t activate this user';
                 console.log(error.message , error.errors);
                // this.router.navigate(['login']);
               })

@@ -40,11 +40,11 @@ export class PluginCardComponent implements OnInit, OnDestroy {
       })
   }
 
-  // send project to deletePopUp, and ask user if he want to delete //
+  // send temporary_save to deletePopUp, and ask user if he want to delete //
   onClickDelete(plugin) {
-    this.featureService.project = null;
-    this.featureService.project = plugin;
-    console.log(this.featureService.project)
+    this.featureService.temporary_save = null;
+    this.featureService.temporary_save = plugin;
+    console.log(this.featureService.temporary_save)
   }
 
   onClickOpen(plugin) {

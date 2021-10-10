@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   loadListOfProjects() {
       this.displaySpinnerForProject = true;
-      this.gameService.getAllGamesByUser().pipe(takeUntil(this.unsubscribe)).subscribe(projects => {
+      this.gameService.getAllGamesByUser(this.appService.currentUser().id).pipe(takeUntil(this.unsubscribe)).subscribe(projects => {
           this.projectList = projects?.data || [];
           this.displaySpinnerForProject = false;    // hide spinner
       },
@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
    loadListOfPlugins() {
        this.displaySpinnerForPlugins = true;
-       this.pluginService?.getAllPluginsOfUser().pipe(takeUntil(this.unsubscribe)).subscribe(plugins => {
+       this.pluginService?.getAllPluginsOfUser(this.appService.currentUser().id).pipe(takeUntil(this.unsubscribe)).subscribe(plugins => {
              this.pluginList = plugins.data || [];
              this.displaySpinnerForPlugins = false;    // hide spinner
           },
@@ -73,28 +73,28 @@ export class HomeComponent implements OnInit, OnDestroy {
    }
 
 
-  onCreateProject(project) {
-      if (typeof project !== 'undefined') {
-          this.projectList.push(project);
+  onCreateProject(newProject) {
+      if (typeof newProject !== 'undefined') {
+          this.projectList.push(newProject);
           this.loadListOfProjects();
       }
   }
 
-  onCreatePlugin(plugin) {
-      if (typeof plugin !== 'undefined') {
-          this.pluginList.push(plugin);
+  onCreatePlugin(newPlugin) {
+      if (typeof newPlugin !== 'undefined') {
+          this.pluginList.push(newPlugin);
           this.loadListOfPlugins();
       }
   }
 
-  // the deletion of the project, will be done in Project-Card-Component //
-  onDeleteProject(project) {
-    if (project === false) {
+  // the deletion of the temporary_save, will be done in Project-Card-Component //
+  onDeleteProject(deletedProject: any) {
+    if (!deletedProject) {
         this.notification.display('Can\'t delete project. Something went wrong!', 'danger');
     }  else {
         this.notification.display('Project deleted successfully!', 'success');
-         this.projectList.splice(this.projectList.indexOf(project), 1);
-      if (this.projectList.length === 0) {
+         this.projectList.splice(this.projectList.indexOf(deletedProject), 1);
+      if (this.projectList?.length === 0) {
           this.projectList = new Array<Game>();
       } else {
           this.loadListOfProjects();
@@ -103,16 +103,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   isPluginDeveloper(): boolean {
-      return (localStorage.getItem('role_id') === '3');
+      return (localStorage.getItem('role_id') === '2');
   }
 
     // the deletion of the plugin, will be done in Plugin-Card-Component //
-    onDeletePlugin(plugin) {
-        if (plugin === false) {
+    onDeletePlugin(deletedPlugin: any) {
+        if (!deletedPlugin) {
             this.notification.display('Can\'t delete plugin. Something went wrong!', 'danger');
         } else {
-            this.notification.display('Plugin deleted!', 'success');
-            this.pluginList.splice(this.pluginList.indexOf(plugin), 1);
+            this.notification.display('Plugin deleted successfully!', 'success');
+            this.pluginList.splice(this.pluginList.indexOf(deletedPlugin), 1);
             if (this.pluginList.length === 0) {
                 this.pluginList = new Array<Plugin>();
             } else {

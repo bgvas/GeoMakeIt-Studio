@@ -56,7 +56,7 @@ export class GameSetupComponent implements OnInit, OnDestroy {
 
   // on click open stepper wizard //
   onClickOpenStepper() {
-    this.service.object = this.project;
+    this.service.save_temporary = this.project;
     this.router.navigate(['stepper'])
   }
 

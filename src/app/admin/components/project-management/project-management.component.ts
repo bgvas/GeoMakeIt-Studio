@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Game} from '../../../games/models/games/game';
 import {HttpClient} from '@angular/common/http';
 import {GameService} from '../../../games/services/game.service';
+import {GameRoot} from '../../../games/models/games/game-root';
 
 
 @Component({
@@ -22,8 +23,8 @@ export class ProjectManagementComponent implements OnInit {
   }
 
   getAllProjects() {
-    this.projectsService.getAllGames().subscribe((projects: Game[]) => {
-      this.projectsList = projects['games'];
+    this.projectsService.getAllGames().subscribe((projects: GameRoot) => {
+      this.projectsList = projects.data;
       this.loadProjectsSpinner = false;
     },
         error => {

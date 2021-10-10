@@ -15,11 +15,11 @@ export class FeaturesService {
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
-  set project(project) {
+  set temporary_save(project) {
     this.aProject = project;
   }
 
-  get project(): any {
+  get temporary_save(): any {
     return this.aProject;
   }
 
