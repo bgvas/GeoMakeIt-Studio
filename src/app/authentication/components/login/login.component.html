@@ -1,7 +1,7 @@
 
     <div class="container-fluid">
         <div class="row justify-content-center text-center">
-            <div class="col-lg-6 col-12 mt-lg-5 p-4 mt-4 bg-dark border rounded-lg shadow border-danger">
+            <div class="col-lg-6 col-12 mt-lg-5 p-4 mt-4 bg-dark rounded-lg border shadow border-danger">
                 <form [formGroup]="loginForm">
                     <div class="row">
                         <div class="col-md-6 col-12 mt-3">
@@ -23,11 +23,11 @@
                                 <div class="col-8 mat-h5 border border-white rounded">
                                     <a role="button" class="text-light h3" (click)="onGitHubClick($event)">
                                         <div class="row">
-                                            <div class="col-2 text-center">
+                                            <div class="col-2 text-center border">
                                                 <span class="fa fa-github"></span>
                                             </div>
-                                            <div class="col-10 text-center">
-                                                <span class="h5 text-lowercase">Sign in with Github</span>
+                                            <div class="col-10 text-center border">
+                                                <span class="h5 text-lowercase" style="font-weight: bold">Sign in with Github</span>
                                             </div>
                                         </div>
                                     </a>
@@ -73,7 +73,7 @@
                                 </div>-->
                                 <div class="col-12 text-center">
                                     <a routerLinkActive="active" routerLink="/forgot_password" style="color: white; font-size: small; text-decoration: underline">
-                                        Forgot your password?
+                                        Forgot password?
                                     </a>
                                 </div>
                             </div>

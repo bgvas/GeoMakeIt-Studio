@@ -51,13 +51,40 @@
             <!-- Basic settings modal -->
             <div class="row" matTooltip="Click to handle settings of this temporary_save" matTooltipClass="h5">
                 <div class="col-12 pr-3 mb-2" style="font-weight: bold; text-align: center">
-                    <app-game-settings-modal [project]="project"></app-game-settings-modal>
+                    <!--<app-game-settings-modal [project]="project"></app-game-settings-modal>-->
+                    <button  class="mat-raised-button bg-dark w-100 text-white" (click)="openGameSettings()">
+                        <div class="row m-2">
+                            <div class="col-3 text-right pr-0">
+                                <span class="mat-h5">
+                                    <mat-icon class="material-icons-outlined">
+                                        settings
+                                    </mat-icon>
+                                </span>
+                            </div>
+                            <div class="col-9 text-left mat-h5 text-lowercase">
+                                Basic Settings
+                            </div>
+                        </div>
+                    </button>
                 </div>
             </div>
             <!-- Main Configuration modal-->
             <div class="row" matTooltip="Click to handle settings of this temporary_save" matTooltipClass="h5">
                 <div class="col-12 pr-3 mb-2" style="font-weight: bold; text-align: center">
-                    <app-game-main-configuration-modal></app-game-main-configuration-modal>
+                    <button class="mat-raised-button bg-dark w-100 text-white" data-toggle="modal" data-target="#game-main-config" (click)="onMainConfigurationClick()">
+                        <div class="row m-2">
+                            <div class="col-3 text-right pr-0">
+                                <span class="mat-h5">
+                                    <mat-icon class="material-icons-outlined">
+                                        build
+                                    </mat-icon>
+                                </span>
+                            </div>
+                            <div class="col-9 text-left mat-h5 text-lowercase">
+                                Main Configuration
+                            </div>
+                        </div>
+                    </button>
                 </div>
             </div>
             <!-- Game info modal-->
@@ -68,7 +95,7 @@
             </div>
             <!-- Stepper wizard screen-->
             <div class="row">
-                <div class="col-12 pr-3" style="font-weight: bold; text-align: center">
+                <div class="col-12 pr-3 " style="font-weight: bold; text-align: center">
                     <button class="btn btn-white shadow rounded-lg w-100"  (click)="onClickOpenStepper()">
                         <div class="col-12 text-center">
                             <img src="assets/img/wizard-image.png" width="60" alt="Image for step by step wizard">

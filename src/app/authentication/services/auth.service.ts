@@ -45,10 +45,8 @@ export class AuthService {
   }
 
   logout(): Observable<any> {
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('user');
-    sessionStorage.removeItem('project');
-    localStorage.removeItem('role');
+    sessionStorage.clear();
+    localStorage.clear();
     return this.http.get(this.path + '/logout');
   }
 

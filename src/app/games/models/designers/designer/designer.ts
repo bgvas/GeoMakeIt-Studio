@@ -1,5 +1,3 @@
-import {ComponentsModule} from '../../../../templateTools/components/components.module';
-import {Component} from '../component/component';
 import {DesignerItem} from '../designerItem/designer-item';
 
 export interface Designer {

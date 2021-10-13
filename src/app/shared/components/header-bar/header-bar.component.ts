@@ -2,9 +2,10 @@ import {ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit} from 
 import {Router} from '@angular/router';
 import {FeaturesService} from '../../services/features.service';
 import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {take, takeUntil} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
 import {ChangePasswordComponent} from '../change-password/change-password.component';
+import {AuthService} from '../../../authentication/services/auth.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class HeaderBarComponent implements OnInit, OnDestroy {
   authenticatedUser: any;
   private unsubscribe = new Subject<void>();
 
-  constructor(private router: Router, private service: FeaturesService, private appService: AppService) { }
+  constructor(private router: Router, private service: FeaturesService, private authService: AuthService, private appService: AppService) { }
 
   ngOnInit(): void {
       this.authenticatedUser = this.appService.currentUser();
@@ -37,7 +38,7 @@ export class HeaderBarComponent implements OnInit, OnDestroy {
   onLogout() {
     localStorage.clear();
     sessionStorage.clear();
-    this.service.logout().pipe(takeUntil(this.unsubscribe)).subscribe(logoutData => {
+    this.authService.logout().pipe(take(1)).subscribe(logoutData => {
     })
     this.router.navigate(['login']);
   }

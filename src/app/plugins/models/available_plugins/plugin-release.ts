@@ -6,7 +6,10 @@ export class PluginRelease {
     public status: string;
     public rejection_reason: string;
     public file: string;
+    public size: number;
     public installs: number;
     public plugin_id: number;
     public release_no: number;
+    public created_at: string;
+    public updated_at: string;
 }

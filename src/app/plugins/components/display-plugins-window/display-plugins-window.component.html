@@ -1,0 +1,24 @@
+    <div class="row pt-0 m-2 h-auto mb-4 border shadow bg-light border-dark justify-content-center">
+        <div class="col-12 h4 text-center" style="font-weight: bold">
+            {{titleOfWindow}}
+        </div>
+        <div class="col-12 h5" *ngIf="!isSelectedPlugins">
+           <!-- <app-paginator class="bg-light"></app-paginator>-->
+        </div>
+        <div class="col-12" *ngFor="let plugin of pluginsArray">
+            <app-plugin-card-for-game-settings
+                                               (removePlugin)="onRemovePlugin($event)"
+                                               [releaseToDisplay]="plugin"
+                                               (selectedPluginRelease)="onSelectPlugin($event)"
+                                               [selected]="isSelectedPlugins"
+                                               [pluginToDisplay] = plugin>
+            </app-plugin-card-for-game-settings>
+        </div>
+        <div class="col-12 disabled text-center" *ngIf="pluginsArray?.length === 0 && isSelectedPlugins">
+            - no plugins -
+        </div>
+        <div class="col-12 disabled text-center" *ngIf="pluginsArray?.length === 0 && !isSelectedPlugins">
+            - not available plugins -
+        </div>
+    </div>
+

@@ -1,7 +1,7 @@
 
-    <div class="box item scale">
-        <div class="card border border-secondary shadow">
-            <img src="assets/img/mapimage.jpg" width="100%"  alt="Logo of temporary_save" class="rounded-top">
+    <div class="box-lg item scale">
+        <div class="card border border-secondary shadow" style="border-radius: 25px">
+            <img src="assets/img/mapimage.jpg" width="100%"  alt="Logo of temporary_save" style="border-top-left-radius: 25px; border-top-right-radius: 25px">
             <div class="card-body" style="height: 180px">
                 <div class="card-title">
                     <div class="row justify-content-center">
@@ -9,10 +9,10 @@
                             {{project?.title}}
                         </div>
                         <div class="col-2 text-right">
-                            <a matTooltip="Edit temporary_save" role="button" class="text-dark" matTooltipClass="h5" style="background-color: inherit" (click)="onClickOpenProject(project)">
+                            <a matTooltip="Edit project" role="button" class="text-dark" matTooltipClass="h5" style="background-color: inherit" (click)="onClickOpenProject(project)">
                                 <mat-icon>tune</mat-icon>
                             </a>
-                            <a matTooltip="Delete temporary_save" role="button" class="text-danger" matTooltipClass="h5" data-toggle="modal" (click)="onClickDeleteProject(project)"  [attr.href] ="'#deletePopUpProject'" style="background-color: inherit">
+                            <a matTooltip="Delete project" role="button" class="text-danger" matTooltipClass="h5" data-toggle="modal" (click)="onClickDeleteProject(project)"  [attr.href] ="'#deletePopUpProject'" style="background-color: inherit">
                                 <i class="material-icons">delete</i>
                             </a>
                         </div>
@@ -21,15 +21,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="row border border-secondary rounded shadow ">
+                <div class="row border border-secondary shadow" style="border-radius: 15px">
                     <div class="col-12">
                         <mat-form-field>
                             <mat-label>Release</mat-label>
-                            <mat-select [(value)]="defaultSelected">
-                                <mat-option class="text-secondary" [value]="defaultSelected" *ngIf="gameReleasesArray?.length === 0">
-                                    {{defaultSelected.name}}
+                            <mat-select class="text-center" [(value)]="default_selected_game_release" (selectionChange)="onSelectRelease($event)">
+                                <mat-option class="text-secondary" [value]="default_selected_game_release" *ngIf="gameReleasesArray?.length === 0">
+                                    {{default_selected_game_release.name}}
                                 </mat-option>
-                                <mat-option *ngFor="let gameRelease of gameReleasesArray" [value]="gameRelease">
+                                <mat-option class="text-dark font-weight-bold" *ngFor="let gameRelease of gameReleasesArray" [value]="gameRelease">
                                     {{gameRelease?.name}}
                                 </mat-option>
                             </mat-select>

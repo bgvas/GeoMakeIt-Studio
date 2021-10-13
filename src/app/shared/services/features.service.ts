@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../../authentication/services/auth.service';
 import {environment} from '../../../environments/environment';
 import {User} from '../../user-management/models/user';
+import {take} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -39,9 +40,6 @@ export class FeaturesService {
     return this.http.get('assets/dummyJson/stepByStep-images.json');
   }
 
-  logout(): Observable<any> {
-    return this.authService.logout();
-  }
 
 
 

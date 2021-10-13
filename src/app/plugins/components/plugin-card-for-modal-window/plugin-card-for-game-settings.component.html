@@ -1,0 +1,48 @@
+<div class="text-danger text-center" *ngIf="errorMessage !== null">
+    {{errorMessage}}
+</div>
+<div class="col-12 mb-2 p-2 border rounded border-secondary shadow bg-white" *ngIf="errorMessage === null && selectedPlugin !== null">
+    <div class="row">
+        <!--<div class="col-lg-1 d-none d-lg-block text-center">
+            <img src="assets/img/plugin.jpg" width="110" height="65" alt="logo of plugin">
+        </div>-->
+        <div class="col-lg-8 col-12 text-center">
+            <div class="row">
+                <div class="col-12 mb-0 h4 text-dark text-center" style="font-weight: bold">
+                    {{pluginToDisplay?.title || selectedPlugin?.title}}
+                </div>
+                <div class="col-12 mb-0 mat-h6 disabled text-center" *ngIf="!selected">
+                    By: {{creator?.name}} -
+                    Created at: {{selectedRelease?.created_at | date}} -
+                    Updated at: {{selectedRelease?.updated_at | date}}
+                </div>
+                <div class="col-12 mb-0 mat-h6 text-dark text-center font-weight-bold" *ngIf="!selected">
+                    Size: {{(selectedRelease?.size)/1000}} mb -
+                    Installs: {{selectedRelease?.installs}}
+                </div>
+                <div class="col-12 mb-0 mat-h6 text-dark text-center font-weight-bold">
+                    {{pluginToDisplay?.description}}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-9 text-center">
+            <mat-form-field *ngIf="!selected">
+                <mat-label>Release</mat-label>
+                <mat-select class="text-center" [(value)]="defaultRelease" (selectionChange)="onSelect($event)">
+                    <mat-option class="text-dark font-weight-bold" *ngFor="let pluginRelease of pluginReleasesList" [value]="pluginRelease">
+                        {{pluginRelease?.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <p class="mat-h4" *ngIf="selected && errorMessage === null">Release: {{releaseToDisplay?.name}}</p>
+        </div>
+        <div class="col-lg-1 col-3">
+            <button *ngIf="!selected" class="btn btn-just-icon rounded-circle mt-2" [class.btn-success]="isSelected" (click)="onClickAdd()">
+                <mat-icon>add</mat-icon>
+            </button>
+            <button *ngIf="selected" class="btn btn-just-icon bg-danger rounded-circle mt-2" (click)="onRemove(releaseToDisplay)">
+                <mat-icon>remove</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

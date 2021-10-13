@@ -9,6 +9,7 @@ import {PluginRelease} from '../models/available_plugins/plugin-release';
 import {delayWhen, map, retry, retryWhen} from 'rxjs/operators';
 import {json} from 'express';
 import {CheckPluginIdentifierRequestModel} from '../models/check-plugin-identifier-request-model';
+import {Plugins} from 'protractor/built/plugins';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,10 @@ import {CheckPluginIdentifierRequestModel} from '../models/check-plugin-identifi
 export class PluginService {
 
   path = environment.be_Url + 'plugins';
+  pathReleases = environment.be_Url + 'plugin-releases';
   filter = '?filter[]=user_id=';
   _plugin: Plugin;
+  _temporary_object: any;
   pluginReleases = new Array<PluginRelease>();
   currentUser = JSON.parse(sessionStorage.getItem('user'));
 
@@ -40,6 +43,10 @@ export class PluginService {
     return this.http.post<any>(this.path + '/check-identifier', identifier).pipe(retry(3));
   }
 
+  getAllPlugins(): Observable<RootPlugins> {
+    return this.http.get<RootPlugins>(this.path).pipe(retry(3));
+  }
+
   /* tested */
 
   pluginReleasesById(pluginId): PluginRelease[] {
@@ -48,10 +55,16 @@ export class PluginService {
     })
     return this.pluginReleases;
   }
-
-  getAllPlugins(): Observable<Plugin[]> {
-    return this.http.get<Plugin[]>(this.path + '/all').pipe(retry(3));
+  
+  getPluginReleasesById(pluginId): Observable<RootPluginReleases> {
+    return this.http.get<RootPluginReleases>(this.pathReleases + '?filter[]=plugin_id=' + pluginId)
   }
+
+  getPluginById(pluginId: number): Observable<Plugin> {
+    return this.http.get<Plugin>(this.path + '/' + pluginId);
+  }
+
+
 
   getNumberOfAvailablePlugins(): Observable<number> {
     return this.getAllPlugins().pipe(map(plugins => {
@@ -83,6 +96,16 @@ export class PluginService {
 
   deletePluginById(pluginId: number): Observable<any> {
     return this.http.delete<any>(this.path + '/delete/' + pluginId).pipe(retry(3));
+  }
+
+
+
+  get temporary_save() {
+    return this._temporary_object;
+  }
+
+  set temporary_save(temp: any) {
+    this._temporary_object = temp;
   }
 
 

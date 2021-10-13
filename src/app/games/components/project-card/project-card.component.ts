@@ -8,6 +8,7 @@ import {Game} from '../../models/games/game';
 import {FeaturesService} from '../../../shared/services/features.service';
 import {ErrorResponseModel} from '../../../error-handling/error_response_model';
 import {GameRelease} from '../../models/game-release/game-release';
+import {PluginRelease} from '../../../plugins/models/available_plugins/plugin-release';
 
 @Component({
   selector: 'app-project-card',
@@ -18,10 +19,11 @@ export class ProjectCardComponent implements OnInit, OnDestroy {
 
   @Input() project?: Game;
   @Output() deleted = new EventEmitter();
+  gameRelease: GameRelease;
   notification = new NotificationsComponent();
   private unsubscribe = new Subject<void>();
   gameReleasesArray = new Array<GameRelease>();
-  defaultSelected = new GameRelease();
+  default_selected_game_release = new GameRelease();
 
 
   constructor(private service: GameService, private router: Router, private sharedService: FeaturesService) { }
@@ -29,10 +31,13 @@ export class ProjectCardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
       this.service.getAllGameReleases(this.project?.id).pipe(takeUntil(this.unsubscribe)).subscribe(releases => {
           this.gameReleasesArray = releases.data;
+
           if(this.gameReleasesArray.length === 0) {
-            this.defaultSelected.name = 'no releases';
+            this.default_selected_game_release.name = 'create your first release';
+            this.gameRelease = null;
           } else {
-            this.defaultSelected = this.gameReleasesArray[this.gameReleasesArray.length - 1] ;
+            this.default_selected_game_release = releases.data[releases.data.length - 1];
+            this.gameRelease = this.default_selected_game_release;
           }
       })
   }
@@ -40,7 +45,6 @@ export class ProjectCardComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
-    sessionStorage.removeItem('project');
   }
 
   // returning temporary_save from deletePopUp, if user agree to delete //
@@ -59,9 +63,16 @@ export class ProjectCardComponent implements OnInit, OnDestroy {
       this.sharedService.temporary_save = projectToDelete;
   }
 
+  onSelectRelease(release) {
+      this.gameRelease = release.value;
+  }
+
   // open temporary_save for setup //
-  onClickOpenProject(project) {
+  onClickOpenProject(project: Game) {
     sessionStorage.setItem('project', JSON.stringify(project));
+    if(this.gameRelease !== null) {
+        localStorage.setItem('release', JSON.stringify(this.gameRelease));
+    }
     this.router.navigate(['games/setup']);
   }
 }

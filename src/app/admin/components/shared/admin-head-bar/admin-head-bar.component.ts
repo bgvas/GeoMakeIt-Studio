@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../../../authentication/services/auth.service';
 import {Router} from '@angular/router';
+import {take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-admin-head-bar',
@@ -15,7 +16,7 @@ export class AdminHeadBarComponent implements OnInit {
   }
 
   logout() {
-    this.auth.logout();
+    this.auth.logout().pipe(take(1)).subscribe();
     this.router.navigate(['login']);
   }
 }

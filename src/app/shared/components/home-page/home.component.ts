@@ -32,7 +32,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private gameService: GameService, private pluginService: PluginService, private appService: AppService) { }
 
   ngOnInit() {
-
+      sessionStorage.removeItem('project');
+      localStorage.removeItem('release');
       this.loadListOfProjects();
       if (this.isPluginDeveloper()) {
           this.loadListOfPlugins();

@@ -29,8 +29,8 @@ export class PluginManagementComponent implements OnInit, OnDestroy {
   }
 
   loadAllPlugins() {
-    this.pluginService.getAllPlugins().pipe(takeUntil(this.unsubscribe)).subscribe((allPlugins: Plugin[]) => {
-          this.pluginsList = allPlugins['plugin'];
+    this.pluginService.getAllPlugins().pipe(takeUntil(this.unsubscribe)).subscribe(allPlugins => {
+          this.pluginsList = allPlugins.data;
           this.pluginsLoadSpinner = false;
     },
         (error: Error) => {

@@ -37,7 +37,7 @@ export class GlobalHttpInterceptor implements HttpInterceptor {
         this.auth.logout().pipe(take(1)).subscribe();
       }
       if (error.status >= 500) {
-        this.auth.temporary_save = 'General Error. Try again later or contact the administrator.'
+        this.auth.errorMessage = 'General Error. Try again later or contact the administrator.'
         this.router.navigate(['login'])
         this.auth.logout().pipe(take(1)).subscribe();
       }

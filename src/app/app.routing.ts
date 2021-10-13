@@ -11,6 +11,7 @@ import {StepByStepComponent} from './shared/components/help/step-by-step/step-by
 import {AdminComponent} from './admin/admin.component';
 import {RegistrationResultsComponent} from './authentication/components/registration-results/registration-results.component';
 import {GamePluginsComponent} from './gamePlugins/game-plugins.component';
+import {GameSettingsComponent} from './games/components/game-settings/game-settings.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,10 @@ const routes: Routes = [
   {
     path: 'registration',
     component: RegistrationComponent
+  },
+  {
+    path: 'game-settings',
+    component: GameSettingsComponent
   },
   {
     path: 'registration_result',

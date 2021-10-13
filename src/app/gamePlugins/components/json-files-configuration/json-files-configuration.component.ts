@@ -6,6 +6,8 @@ import {Observable, Subject} from 'rxjs';
 import {take, takeUntil} from 'rxjs/operators';
 import {FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
+import {Router} from '@angular/router';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-json-files-configuration',
@@ -14,7 +16,7 @@ import {Subscription} from 'rxjs/Subscription';
 })
 export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
 
-  gamePluginsArray?: GamePluginAllDataFilesModel[];
+  gamePluginsArray = Array<GamePluginAllDataFilesModel>();
   names = new Array<string>();
   jsonFile?: any;
   nameOfJsonFile?: string;
@@ -23,15 +25,15 @@ export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
   private unsubscribe = new Subject<void>();
 
 
-  constructor(private gamePluginService: GamePluginsService) {
-    this.gamePluginService.getUpdate().pipe(takeUntil(this.unsubscribe)).subscribe(actionSignal => {
+  constructor(private gamePluginService: GamePluginsService, private router: Router, private location: Location) {
+    /*this.gamePluginService.getUpdate().pipe(takeUntil(this.unsubscribe)).subscribe(actionSignal => {
       this.load_Button_FileTitles();
       console.log('updated');
     },
         (error: Error) => {
           this.errorMessage = error.displayed_message
           console.log('error in constructor: ' + error.message);
-        })
+        })*/
   }
 
   ngOnInit(): void {
@@ -41,12 +43,11 @@ export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
-    console.log('exit')
   }
 
   onExit() {
-    this.refreshDataFile$.unsubscribe();
-}
+      this.router.navigate(['games/setup']);
+  }
 
 
   load_Button_FileTitles() {

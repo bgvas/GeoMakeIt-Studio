@@ -19,14 +19,13 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {NgbModule, NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 import { GameSetupComponent } from './components/game-setup/game-setup.component';
 import { PointSetupComponent } from './components/point-setup/point-setup.component';
-import { GameSettingsModalComponent } from './components/game-settings-modal/game-settings-modal.component';
 import { GameInfoComponent } from './components/game-info/game-info.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatStepperModule} from '@angular/material/stepper';
 import {StepperWizardComponent} from './components/stepper-wizard/stepper-wizard.component';
 import {MatButtonModule} from '@angular/material/button';
 import { GameSettingsComponent } from './components/game-settings/game-settings.component';
-import { GameMainConfigurationModalComponent } from './components/game-main-configuration-modal/game-main-configuration-modal.component';
+import { GameMainConfigurationComponent } from './components/game-main-configuration/game-main-configuration.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDialogModule} from '@angular/material/dialog';
 import { GameSetupMainPageComponent } from './components/game-setup-main-page/game-setup-main-page.component';
@@ -35,6 +34,8 @@ import {SharedModule} from '../shared/shared.module';
 import { AgmCoreModule } from '@agm/core';
 import { TableWithSelectedPointsComponent } from './components/table-with-selected-points/table-with-selected-points.component';
 import {GamePluginsModule} from '../gamePlugins/game-plugins.module';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 
 
@@ -48,11 +49,10 @@ import {GamePluginsModule} from '../gamePlugins/game-plugins.module';
         StringsComponent,
         GameSetupComponent,
         PointSetupComponent,
-        GameSettingsModalComponent,
         GameInfoComponent,
         StepperWizardComponent,
         GameSettingsComponent,
-        GameMainConfigurationModalComponent,
+        GameMainConfigurationComponent,
         GameSetupMainPageComponent,
         MapComponent,
         TableWithSelectedPointsComponent
@@ -79,11 +79,12 @@ import {GamePluginsModule} from '../gamePlugins/game-plugins.module';
         GamePluginsModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyBEckmuR4cwjzfgkK_JqnzLGyViz1AdKps'
-        })
+        }),
+        DragDropModule,
+        MatSlideToggleModule
 
     ],
     exports: [
-        GameSettingsModalComponent,
         PointSetupComponent,
         DesignerComponent
     ],

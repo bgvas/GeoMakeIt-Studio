@@ -4,7 +4,7 @@ import {Observable, Subject} from 'rxjs';
 import {GameRoot} from '../models/games/game-root';
 import {environment} from '../../../environments/environment';
 import {Game} from '../models/games/game';
-import {projectElements} from '../models/projectElements/project-elements';
+import {ProjectUpdateModel} from '../models/projectElements/project-update-model';
 import {map, retry, take, takeUntil, tap} from 'rxjs/operators';
 import {SelectedPlugin} from '../../plugins/models/selectedPlugin/selected-plugin';
 import {Plugin} from '../../plugins/models/plugin';
@@ -29,7 +29,6 @@ export class GameService {
     // Post-HTTP request //
     createNewGame(newGame: Game): Observable<any> {
         return this.http.post<any>(this.pathGame, newGame);
-
     }
 
     getAllGamesByUser(id: number): Observable<GameRoot> {
@@ -80,8 +79,8 @@ export class GameService {
 
 
  // Update temporary_save title and description
- updateGame(id, gameChanges: projectElements): Observable<any> {
-   return this.http.put(this.pathGame + '/update/' + id, gameChanges);
+ updateGame(id: number, gameChanges: ProjectUpdateModel): Observable<Game> {
+   return this.http.put<Game>(this.pathGame + '/' + id, gameChanges);
  }
 
 
@@ -94,8 +93,8 @@ export class GameService {
   return this.http.delete(this.pathGame + '/' + gameId + '/removePlugin/' + pluginId);
  }
 
- getInstalledPluginsOfGame(gameId: number): Observable<Plugin[]> {
-    return this.http.get<Plugin[]>(this.pathGame + '/plugins/' + gameId);
+ getInstalledPluginsOfGame(id: number): Observable<Plugin[]> {
+    return this.http.get<Plugin[]>(this.pathGame + '/' + id + '/plugins');
   }
 
   getAllGameReleases(id: number): Observable<RootGameRelease> {

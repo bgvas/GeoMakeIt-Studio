@@ -6,6 +6,8 @@ import {GamePluginConfigService} from '../../../gamePlugins/services/gamePluginC
 import {Subject} from 'rxjs';
 import {Error} from '../../../error-handling/error/error';
 import {ZoneObject} from '../../../plugins/models/designer-models/zones/ZoneObject';
+import {GameRelease} from '../../models/game-release/game-release';
+import {Game} from '../../models/games/game';
 
 
 @Component({
@@ -16,8 +18,9 @@ import {ZoneObject} from '../../../plugins/models/designer-models/zones/ZoneObje
 export class GameSetupComponent implements OnInit, OnDestroy {
 
   @Input() pointsArray: Zones_model[];
-  project: any;
+  project?: Game;
   selected: boolean;
+  projectRelease?: GameRelease;
   zones_array = [];
   private unsubscribe = new Subject<void>();
 
@@ -25,6 +28,7 @@ export class GameSetupComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.project = JSON.parse(sessionStorage.getItem('project'));
+    this.projectRelease = JSON.parse(localStorage.getItem('release')) || null;
   }
 
 
@@ -38,6 +42,10 @@ export class GameSetupComponent implements OnInit, OnDestroy {
     if (point.center.longitude !== null && point.center.latitude !== null) {
       this.pointsArray.push(point);
     }
+  }
+
+  openGameSettings() {
+    this.router.navigate(['games/setup/settings'])
   }
 
   onDelete(index: number) {
@@ -94,5 +102,9 @@ export class GameSetupComponent implements OnInit, OnDestroy {
      } else {
        console.log('can\'t update zones');
      }
+  }
+
+  onMainConfigurationClick() {
+    this.router.navigate(['games/setup/main-configurations'])
   }
 }

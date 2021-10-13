@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CreatePluginComponent} from './components/create-plugin/create-plugin.component';
 import { PluginsComponent} from './components/my-plugins/plugins.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -15,14 +14,20 @@ import { MatTooltipModule} from '@angular/material/tooltip';
 import { EditPluginComponent } from './components/edit-plugin/edit-plugin.component';
 import {IdentifierExistsValidatorDirective} from './custom-validators/identifier-exists-validator.directive';
 import {MatDialogModule} from '@angular/material/dialog';
+import { DisplayPluginsWindowComponent } from './components/display-plugins-window/display-plugins-window.component';
+import {SharedModule} from '../shared/shared.module';
+import {MatSelectModule} from '@angular/material/select';
+import { PluginCardForGameSettingsComponent } from './components/plugin-card-for-modal-window/plugin-card-for-game-settings.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
 @NgModule({
     declarations: [
-        CreatePluginComponent,
         PluginsComponent,
         EditPluginComponent,
-        IdentifierExistsValidatorDirective
+        IdentifierExistsValidatorDirective,
+        DisplayPluginsWindowComponent,
+        PluginCardForGameSettingsComponent
     ],
     imports: [
         CommonModule,
@@ -35,12 +40,15 @@ import {MatDialogModule} from '@angular/material/dialog';
         MatButtonToggleModule,
         MatInputModule,
         MatTooltipModule,
-        MatDialogModule
+        MatDialogModule,
+        SharedModule,
+        MatSelectModule,
+        DragDropModule
     ],
     exports: [
-        CreatePluginComponent,
         EditPluginComponent,
-        IdentifierExistsValidatorDirective
+        IdentifierExistsValidatorDirective,
+        DisplayPluginsWindowComponent
     ],
     providers: [
         PluginService

@@ -23,6 +23,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {FeaturesService} from './services/features.service';
 import { CreateProjectComponent } from '../games/components/create-project/create-project.component';
+import {CreatePluginComponent} from '../plugins/components/create-plugin/create-plugin.component';
 import { ImageAsCheckBoxComponent } from './components/image-as-check-box/image-as-check-box.component';
 import { ProjectCardComponent } from '../games/components/project-card/project-card.component';
 import { GeomakeitHelpComponent } from './components/help/geomakeit-help/geomakeit-help.component';
@@ -31,7 +32,6 @@ import { UserManagementModule} from '../user-management/user-management.module';
 import { StepByStepComponent } from './components/help/step-by-step/step-by-step.component';
 import { RouterModule} from '@angular/router';
 import {NgApexchartsModule} from 'ng-apexcharts';
-import {PluginModule} from '../plugins/plugin.module';
 import { PluginCardComponent } from '../plugins/components/plugin-card/plugin-card.component';
 import { NumberToBooleanPipe} from './pipes/number-to-boolean.pipe';
 import { RoleIdToRoleNamePipe } from './pipes/role-id-to-role-name.pipe';
@@ -41,7 +41,8 @@ import {AngularD3CloudModule} from 'angular-d3-cloud';
 import { RemoveUnderscoresPipe } from './components/pipes/remove-underscores.pipe';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {ChangePasswordComponent} from './components/change-password/change-password.component';
-
+import { PaginatorComponent } from './components/paginator/paginator.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -66,9 +67,9 @@ import {ChangePasswordComponent} from './components/change-password/change-passw
     EmailExistsValidatorDirective,
     ColorPickerComponent,
     RemoveUnderscoresPipe,
-    ChangePasswordComponent
-
-
+    ChangePasswordComponent,
+    PaginatorComponent,
+    CreatePluginComponent
 ],
     exports: [
         SpinnerComponent,
@@ -83,7 +84,8 @@ import {ChangePasswordComponent} from './components/change-password/change-passw
         ColorPickerComponent,
         PluginCardComponent,
         RemoveUnderscoresPipe,
-        ValidationMessagesComponent
+        ValidationMessagesComponent,
+        PaginatorComponent
     ],
     imports: [
         CommonModule,
@@ -91,7 +93,6 @@ import {ChangePasswordComponent} from './components/change-password/change-passw
         MatButtonToggleModule,
         ReactiveFormsModule,
         MatFormFieldModule,
-
         MatIconModule,
         NgbTooltipModule,
         MatSnackBarModule,
@@ -102,9 +103,9 @@ import {ChangePasswordComponent} from './components/change-password/change-passw
         UserManagementModule,
         RouterModule,
         NgApexchartsModule,
-        PluginModule,
         AngularD3CloudModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatPaginatorModule
 
     ],
     providers: [

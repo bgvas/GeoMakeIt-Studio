@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing';
-import { ComponentsModule } from './templateTools/components/components.module';
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import {MatInputModule} from '@angular/material/input';
@@ -13,7 +12,6 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {AdminLayoutModule} from './layouts/admin-layout/admin-layout.module';
-import { TabGroupComponent } from './templateTools/tab-group/tab-group.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import {GlobalHttpInterceptor} from './global-http.interceptor';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -35,7 +33,6 @@ import {GamePluginsModule} from './gamePlugins/game-plugins.module';
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        ComponentsModule,
         RouterModule,
         AppRoutingModule,
         MaterialFileInputModule,
@@ -59,7 +56,6 @@ import {GamePluginsModule} from './gamePlugins/game-plugins.module';
     declarations: [
         AppComponent,
         AdminLayoutComponent,
-        TabGroupComponent,
         AdminComponent
     ],
     providers: [{

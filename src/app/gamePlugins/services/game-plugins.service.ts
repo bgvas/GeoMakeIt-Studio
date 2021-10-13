@@ -7,6 +7,8 @@ import {isArray} from 'rxjs/internal-compatibility';
 import {ValidationsService} from '../../shared/services/validations/validations.service';
 import {Designer} from '../../games/models/designers/designer/designer';
 import {environment} from '../../../environments/environment';
+import {User} from '../../user-management/models/user';
+import {pluginReleasePostRequestModel} from '../../plugins/models/plugin-release-post-request-model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,18 +16,28 @@ import {environment} from '../../../environments/environment';
 export class GamePluginsService {
 
   private url1 = 'assets/dummyJson/';
+  private rootPath = environment.be_Url;
   private url = environment.be_Url + 'gamePlugins/';
   private signalForUpdate = new Subject<any>(); // need to create a subject
+  private game_id = (<User>JSON.parse(sessionStorage.getItem('project'))).id;
 
   constructor(private http: HttpClient, private fb: FormBuilder, private validationService: ValidationsService) { }
 
+
+  addPluginToGame(release: pluginReleasePostRequestModel): Observable<any> {
+    return this.http.post(this.rootPath + 'games/' + this.game_id + '/plugins', release);
+  }
+
+  removePluginFromGame(pluginId: number): Observable<any> {
+    return this.http.delete(this.rootPath + 'games/' + this.game_id + '/plugins/' + pluginId);
+  }
 
   getAllJsonContentByGameId(gameId: number): Observable<any> {
     return this.http.get(this.url + 'installed/contents/' + gameId);
   }
 
   getDesignerFile(name: string): Observable<DesignerModel> {
-    console.log(name);
+
     if (typeof name !== 'undefined') {
       return this.http.get<DesignerModel>(this.url + 'designer/' + name);
     } else {
