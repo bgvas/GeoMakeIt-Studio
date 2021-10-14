@@ -1,0 +1,4 @@
+.box-height {
+    max-height: 1200px;
+    overflow-y: auto;
+}

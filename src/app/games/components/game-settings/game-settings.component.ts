@@ -2,21 +2,19 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Game} from '../../models/games/game';
 import {PluginService} from '../../../plugins/services/plugin.service';
 import {Plugin} from '../../../plugins/models/plugin';
-import {Error} from '../../../error-handling/error/error';
 import {Observable, Subject} from 'rxjs';
 import {map, takeUntil} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {SelectedPlugin} from '../../../plugins/models/selectedPlugin/selected-plugin';
 import {GameService} from '../../services/game.service';
 import {ProjectUpdateModel} from '../../models/projectElements/project-update-model';
 import {Subscription} from 'rxjs/Subscription';
 import {GamePluginDataService} from '../../../gamePlugins/services/gamePluginData.service';
-import {GameAuthenticationModel} from '../../models/gameAuthentication/GameAuthenticationModel';
 import {GamePluginsService} from '../../../gamePlugins/services/game-plugins.service';
 import {ErrorResponseModel} from '../../../error-handling/error_response_model';
 import {PluginRelease} from '../../../plugins/models/available_plugins/plugin-release';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
+import {GamePlugin} from '../../../gamePlugins/models/game-plugin';
 
 
 
@@ -31,8 +29,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
 
   @Input() submitFromStepper: Observable<void>;
   @Input() isStepper: boolean;
-  availablePlugins: Plugin[];
-  logo: any;
+  allAvailablePlugins: Plugin[];
   projectForm: FormGroup;
   unsubscribe = new Subject<void>();
   selectedPlugins = [];
@@ -40,6 +37,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
   useAuthentication = false;
   check_by_email = false;
   allow_anonymous = false;
+  allPluginsOfGame = Array<GamePlugin>();
   project: Game = JSON.parse(sessionStorage.getItem('project'));
   private submitEvent: Subscription;
 
@@ -49,27 +47,43 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
               private gamePluginService: GamePluginsService, private location: Location, private router: Router) { }
 
   ngOnInit(): void {
-    /*this.logo = 'assets/img/logo-icon.png';*/ // default logo for new temporary_save //
-    this.pluginService.getAllPlugins().pipe(takeUntil(this.unsubscribe)).subscribe(projects => {
-      this.availablePlugins = projects.data; // display all available plugins//
-        },
-        (e: ErrorResponseModel) => {
-          console.log(e.message, e.errors);
-        })
-    this.initializeProjectForm();
-    this.getGameAuthFromBaseApi();
+        this.getAllAvailablePlugins();
+        this.getAllPluginsOfGame(this.project.id);
+        this.initializeProjectForm();
+        this.getGameAuthFromBaseApi();
 
     // when submit comes from stepper-wizard //
     if (typeof this.submitFromStepper !== 'undefined') {
       this.submitEvent = this.submitFromStepper?.pipe(takeUntil(this.unsubscribe)).subscribe(submit => {
         this.onSubmit();
-      })
+      },
+          (e: ErrorResponseModel) => {
+              console.log(e.message, e.errors);
+          })
     }
   }
 
-  onFetchPluginReleasesArray(array: PluginRelease[]) {
-      this.selectedPluginReleases = array;
+
+  getAllAvailablePlugins() {
+    this.pluginService.getAllPlugins().pipe(takeUntil(this.unsubscribe)).subscribe(projects => {
+          this.allAvailablePlugins = projects.data; // display all available plugins//
+        },
+        (e: ErrorResponseModel) => {
+          console.log(e.message, e.errors);
+        })
   }
+
+
+  getAllPluginsOfGame(gameId: number) {
+    this.gamePluginService.getAllPluginsOfGame(this.project?.id)
+        .pipe(takeUntil(this.unsubscribe)).subscribe(gamePlugins => {
+      this.allPluginsOfGame = gamePlugins['data'];
+    },
+        (e: ErrorResponseModel) => {
+          console.log(e.message, e.errors);
+        })
+  }
+
 
   // on exit, unsubscribe all//
   ngOnDestroy() {
@@ -78,52 +92,6 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
     this.submitEvent?.unsubscribe();
   }
 
-  // if select a logo, display it //
-  /*onLogoChange(event) {
-    if ( event.target.files.length > 0 && event.target.files[0].type.includes('image/')) {
-      const reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0]);
-      reader.onload = (_event) => {
-        this.logo = reader.result;
-      }
-    }
-  }*/
-
-/*
-  onAddPlugin(plugin: Plugin) {
-    if (typeof plugin !== 'undefined') {
-      this.projectService.checkIfPluginIsAlreadyInstalled(this.project.id, plugin.id).pipe(takeUntil(this.unsubscribe)).subscribe(isInstalled => {
-        if (!isInstalled['message']) {    // Install plugin, if is not already installed //
-           this.selectedPlugins.push(plugin);
-           const addPlugin = new SelectedPlugin();
-           addPlugin.game_id = this.project?.id;
-           addPlugin.plugin_id = plugin?.id;
-           addPlugin.enabled = true;
-           this.addPluginToProject(addPlugin);
-           this.gamePluginService.sendUpdate(true);
-        }
-      },
-          (error: ErrorResponseModel) => {
-            console.log(error.message, error.errors);
-          })
-    }
-  }
-  onRemovePlugin(plugin: Plugin) {
-      if (typeof plugin !== 'undefined') {
-        if (this.selectedPlugins.includes(plugin)) {
-          this.selectedPlugins.splice(this.selectedPlugins.indexOf(plugin), 1);
-          this.projectService.deleteInstalledPluginFromGame(this.project.id, plugin.id).pipe(takeUntil(this.unsubscribe)).subscribe(deletePlugin => {
-            console.log('Plugin removed!');
-            this.gamePluginService.sendUpdate(true);
-          },
-              (error: ErrorResponseModel) => {
-                  console.log(error.message, error.errors);
-              }
-          )
-        }
-      }
-  }
-*/
 
   initializeProjectForm() {
     this.projectForm = this.fb.group({
@@ -142,19 +110,35 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
     this.projectForm.get('description').setValue(this.project?.description);
   }
 
+  // plugins that selected from plugin-card for gameSettings //
+  returnedSelectedPlugins(gamePlugins) {
+      this.allPluginsOfGame.push(gamePlugins);
+  }
+
+  // Remove plugins-card from selectedPlugins box //
+  removeGamePluginFromArray(gamePlugin: GamePlugin) {
+      const index = this.allPluginsOfGame.findIndex(e => e.plugin_id === gamePlugin.plugin_id
+          && e.game_id === gamePlugin.game_id && e.plugin_release_id === gamePlugin.plugin_release_id);
+      this.allPluginsOfGame.splice(index, 1);
+  }
 
   onSubmit() {
     if ( this.projectForm.valid) {
+
       const projectToUpdate = new ProjectUpdateModel();
       projectToUpdate.title = this.projectForm.get('title').value;
       projectToUpdate.description = this.projectForm.get('description').value;
-      this.projectService.updateGame(this.project.id, projectToUpdate).pipe(takeUntil(this.unsubscribe)).subscribe(updatedGame => {
+
+      this.projectService.updateGame(this.project.id, projectToUpdate)
+          .pipe(takeUntil(this.unsubscribe))
+          .subscribe(updatedGame => {
             sessionStorage.setItem('project', JSON.stringify(updatedGame['data']));
             this.router.navigate(['/games/setup'])
           },
           (e: ErrorResponseModel) => {
             console.log(e.message, e.errors);
           });
+
      /* // create object for game authentication //
       const gameAuth = new GameAuthenticationModel();
 
@@ -175,14 +159,10 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
           (error: ErrorResponseModel) => {
             console.log(error.message , error.errors);
           })*/
-
     }
-
-
-
   }
 
-  // save a selected plugin from list, to db in GamePlugins table //
+  // save a isSelectedPlugin plugin from list, to db in GamePlugins table //
  /* addPluginToProject(installedPlugin: SelectedPlugin) {
        this.projectService.addPluginToProject(installedPlugin).pipe(takeUntil(this.unsubscribe)).subscribe(installPlugin => {
              console.log('Plugin added!')
@@ -213,26 +193,6 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
         })*/
   }
 
-  // get a list with installed plugins of game, from db (except base plugin)//
-  getInstalledPlugins() {
-      this.projectService.getInstalledPluginsOfGame(this.project?.id).pipe(map(allPlugins => allPlugins.filter(e => e['id'] !== 1))).subscribe(plugins => {  // get installed plugins from dataBase //
-            this.selectedPlugins = plugins;  // except the basic plugin //
-          },
-          (e: ErrorResponseModel) => {
-            console.log(e.message, e.errors)
-          })
-  }
-
-  // check, before install a new plugin, if is already connected with the game //
-  checkPlugin(plugin: Plugin) {
-      this.projectService.checkIfPluginIsAlreadyInstalled(this.project?.id, plugin?.id).pipe(takeUntil(this.unsubscribe)).subscribe(e => {
-       this.projectService.isInstalledPlugin = e['message'];
-      },
-          (e: ErrorResponseModel) => {
-            console.log(e.message, e.errors)
-          })
-  }
-
   // use auth to game //
   use_auth(event) {
       this.useAuthentication = event.checked;
@@ -247,7 +207,6 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
   anonymous_auth(event) {
     this.allow_anonymous = event.checked;
   }
-
 
   onCancel() {
     this.projectForm.reset();

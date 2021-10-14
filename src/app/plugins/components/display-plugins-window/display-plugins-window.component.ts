@@ -3,6 +3,7 @@ import {Subject} from 'rxjs';
 import {PluginService} from '../../services/plugin.service';
 import {PluginRelease} from '../../models/available_plugins/plugin-release';
 import {Plugin} from '../../models/plugin';
+import {GamePlugin} from '../../../gamePlugins/models/game-plugin';
 
 @Component({
   selector: 'app-display-plugins-window',
@@ -11,17 +12,18 @@ import {Plugin} from '../../models/plugin';
 })
 export class DisplayPluginsWindowComponent implements OnInit, OnDestroy {
 
-
-  @Output() selectedPluginsList =  new EventEmitter<PluginRelease[]>();
+  @Output() removeGamePlugin = new EventEmitter<GamePlugin>();
+  @Output() selectedGamePluginsArray = new EventEmitter<any>();
   @Input() titleOfWindow: string;
-  @Input() pluginsArray: Plugin[];
+  @Input() pluginsArray: any[];
   @Input() isSelectedPlugins: boolean;
-  selectedPluginReleasesArray = new Array<PluginRelease>();
+  selectedPluginReleasesArray = new Array<GamePlugin>();
   unsubscribe = new Subject<void>();
 
   constructor(private pluginService: PluginService) { }
 
   ngOnInit(): void {
+    console.log(this.pluginsArray);
   }
 
   ngOnDestroy() {
@@ -29,19 +31,27 @@ export class DisplayPluginsWindowComponent implements OnInit, OnDestroy {
     this.unsubscribe.complete();
   }
 
-  onRemovePlugin(pluginToRemove) {
-    const index = this.selectedPluginReleasesArray.indexOf(pluginToRemove);
-    this.selectedPluginReleasesArray = this.pluginService.temporary_save;
-    this.selectedPluginReleasesArray.splice(index, 1);
+  onRemovePlugin(gamePluginToRemove: GamePlugin) {
+    /*const index = this.selectedPluginReleasesArray.indexOf(pluginToRemove);
+    console.log(index);
+    //this.selectedPluginReleasesArray = this.pluginService.temporary_save;
+    this.selectedPluginReleasesArray.splice(index, 1);*/
+    this.removeGamePlugin.emit(gamePluginToRemove)
   }
 
-  onSelectPlugin(selectedPlugin) {
-    if (!this.selectedPluginReleasesArray.includes(selectedPlugin) &&
-       this.selectedPluginReleasesArray.filter(e => e.plugin_id === selectedPlugin.plugin_id).length === 0) {
-       this.selectedPluginReleasesArray.push(selectedPlugin);
-      this.selectedPluginsList.emit(this.selectedPluginReleasesArray);
+  onSelectPlugin(_selectedPluginRelease: GamePlugin) {
+    if (!this.selectedPluginReleasesArray.includes(_selectedPluginRelease) &&
+       this.selectedPluginReleasesArray.filter(e => e.plugin_id === _selectedPluginRelease.plugin_id).length === 0) {
+
+      this.selectedPluginReleasesArray.push(_selectedPluginRelease);
+      this.selectedGamePluginsArray.emit(_selectedPluginRelease);
+      this.pluginService.temporary_save = this.selectedPluginReleasesArray;
     }
-    this.pluginService.temporary_save = this.selectedPluginReleasesArray;
+
+   /* if(!this.pluginsArray.includes())
+    this.pluginsArray.push(_selectedPluginRelease);
+    //}*/
+
   }
 
 }

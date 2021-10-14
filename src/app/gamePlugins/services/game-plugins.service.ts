@@ -9,6 +9,7 @@ import {Designer} from '../../games/models/designers/designer/designer';
 import {environment} from '../../../environments/environment';
 import {User} from '../../user-management/models/user';
 import {pluginReleasePostRequestModel} from '../../plugins/models/plugin-release-post-request-model';
+import {GamePlugin} from '../models/game-plugin';
 
 @Injectable({
   providedIn: 'root'
@@ -24,13 +25,20 @@ export class GamePluginsService {
   constructor(private http: HttpClient, private fb: FormBuilder, private validationService: ValidationsService) { }
 
 
-  addPluginToGame(release: pluginReleasePostRequestModel): Observable<any> {
-    return this.http.post(this.rootPath + 'games/' + this.game_id + '/plugins', release);
+  addPluginToGame(release: pluginReleasePostRequestModel): Observable<GamePlugin> {
+    return this.http.post<GamePlugin>(this.rootPath + 'games/' + this.game_id + '/plugins', release);
   }
 
   removePluginFromGame(pluginId: number): Observable<any> {
     return this.http.delete(this.rootPath + 'games/' + this.game_id + '/plugins/' + pluginId);
   }
+
+  /* tested ^^^^*/
+
+  getAllPluginsOfGame(gameId: number): Observable<GamePlugin> {
+    return this.http.get<GamePlugin>(this.rootPath + 'games/' + gameId + '/plugins');
+  }
+
 
   getAllJsonContentByGameId(gameId: number): Observable<any> {
     return this.http.get(this.url + 'installed/contents/' + gameId);

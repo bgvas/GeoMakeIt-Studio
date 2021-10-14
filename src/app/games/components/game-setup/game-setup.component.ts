@@ -8,6 +8,7 @@ import {Error} from '../../../error-handling/error/error';
 import {ZoneObject} from '../../../plugins/models/designer-models/zones/ZoneObject';
 import {GameRelease} from '../../models/game-release/game-release';
 import {Game} from '../../models/games/game';
+import {takeUntil} from 'rxjs/operators';
 
 
 @Component({
@@ -70,7 +71,6 @@ export class GameSetupComponent implements OnInit, OnDestroy {
 
   // on window destroy, update records in DB //
   updateZones() {
-
      if(typeof this.pointsArray !== 'undefined') {
        this.zones_array = [];
          for (const newZone of this.pointsArray) {
@@ -89,6 +89,7 @@ export class GameSetupComponent implements OnInit, OnDestroy {
 
          }
          this.gamePlugins.updateZones(this.project.id, this.zones_array)
+             .pipe(takeUntil(this.unsubscribe))
              .subscribe(result => {
                    if (result !== null) {
                      console.log(result?.displayed_message);

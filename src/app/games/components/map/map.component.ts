@@ -51,7 +51,7 @@ export class MapComponent implements OnInit, OnDestroy  {
   clickedMarker(point: Zones_model, index: number) {
     console.log(point, index)
     point.id = index;
-    this.pointToEdit.emit(point); // send selected point to pointSetup //
+    this.pointToEdit.emit(point); // send isSelectedPlugin point to pointSetup //
   }
 
   // delete a map point //

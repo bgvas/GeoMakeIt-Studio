@@ -17,7 +17,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { DisplayPluginsWindowComponent } from './components/display-plugins-window/display-plugins-window.component';
 import {SharedModule} from '../shared/shared.module';
 import {MatSelectModule} from '@angular/material/select';
-import { PluginCardForGameSettingsComponent } from './components/plugin-card-for-modal-window/plugin-card-for-game-settings.component';
+import { PluginCardForGameSettingsComponent } from './components/plugin-card-for-game-settings/plugin-card-for-game-settings.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 
 

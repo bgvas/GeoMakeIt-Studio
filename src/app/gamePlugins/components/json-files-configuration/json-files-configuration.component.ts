@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {GamePluginsService} from '../../services/game-plugins.service';
 import {GamePluginAllDataFilesModel} from '../../models/game-plugin-all-data-files-model';
 import {Error} from '../../../error-handling/error/error';
@@ -16,6 +16,7 @@ import {Location} from '@angular/common';
 })
 export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
 
+  @Input() isStepper: boolean;
   gamePluginsArray = Array<GamePluginAllDataFilesModel>();
   names = new Array<string>();
   jsonFile?: any;
@@ -58,7 +59,7 @@ export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
       this.gamePluginsArray = name?.data
     },
         (error: Error) => {
-          this.errorMessage = 'No plugins found'
+          //this.errorMessage = 'No plugins found'
           console.log(error?.message)
         })
   }

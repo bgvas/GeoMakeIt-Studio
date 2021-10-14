@@ -19,7 +19,7 @@ export class GameService {
   _object: any;
   pathGame = environment.be_Url + 'games';
   pathGameReleases = environment.be_Url + 'game-releases';
-  filter = '?filter[]=';
+  filter = '?filter[user_id]=';
   checkPlugin: any;
   _refreshProjectsList$ = new Subject<void>();
 
@@ -32,7 +32,7 @@ export class GameService {
     }
 
     getAllGamesByUser(id: number): Observable<GameRoot> {
-        return this.http.get<GameRoot>(this.pathGame + this.filter + 'user_id=' + id).pipe(retry(3));
+        return this.http.get<GameRoot>(this.pathGame + this.filter + id).pipe(retry(3));
     }
 
     // Delete-HTTP request //
@@ -90,7 +90,7 @@ export class GameService {
  }
 
  deleteInstalledPluginFromGame(gameId: number, pluginId: number): Observable<any> {
-  return this.http.delete(this.pathGame + '/' + gameId + '/removePlugin/' + pluginId);
+  return this.http.delete(this.pathGame + '/' + gameId + '/removeSelectedGamePlugin/' + pluginId);
  }
 
  getInstalledPluginsOfGame(id: number): Observable<Plugin[]> {

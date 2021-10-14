@@ -47,6 +47,10 @@ export class PluginService {
     return this.http.get<RootPlugins>(this.path).pipe(retry(3));
   }
 
+  getReleaseById(release_id: number): Observable<PluginRelease> {
+    return this.http.get<PluginRelease>(this.pathReleases + '/' + release_id);
+  }
+
   /* tested */
 
   pluginReleasesById(pluginId): PluginRelease[] {

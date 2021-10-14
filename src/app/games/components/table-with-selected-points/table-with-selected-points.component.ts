@@ -20,7 +20,7 @@ export class TableWithSelectedPointsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // send selected pointToDelete, to gameSetup for delete //
+  // send isSelectedPlugin pointToDelete, to gameSetup for delete //
   onDelete(index: number) {
     this.pointForDelete.emit(index);
   }
@@ -30,7 +30,7 @@ export class TableWithSelectedPointsComponent implements OnInit {
     this.pointToUpdate.emit(point); // send point to gameSetup for db update//
   }
 
-  // selected point from points-table //
+  // isSelectedPlugin point from points-table //
   onSelect(point: Zones_model, index: number) {
     point.id = index;
     this.pointToEdit.emit(point); // send point to pointSetup for edit //

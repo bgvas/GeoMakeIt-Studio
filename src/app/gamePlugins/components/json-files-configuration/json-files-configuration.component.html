@@ -41,11 +41,13 @@
     </div>
 </div>
 <div class="row mt-5 text-center justify-content-center" *ngIf="gamePluginsArray?.length === 0">
-    <div class="col-4">
-        <span class="h3">
+    <div class="col-12">
+        <span class="h2 serif-font font-weight-bold">
              No Actions selected
         </span>
-        <button type="reset"  class="btn btn-outline-secondary w-100 " data-dismiss="modal" (click)="onExit()">
+    </div>
+    <div class="col-12">
+        <button type="reset" class="btn btn-outline-secondary w-25" *ngIf="!isStepper"  (click)="onExit()">
             back
         </button>
     </div>

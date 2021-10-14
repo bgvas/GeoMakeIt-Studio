@@ -1,0 +1,47 @@
+<div class="text-danger text-center" *ngIf="errorMessage !== null">
+    {{errorMessage}}
+</div>
+<div class="col-12 mb-2 p-2 border rounded border-info shadow bg-white" *ngIf="errorMessage === null && selectedPluginToDisplay !== null">
+    <div class="row">
+        <div class="col-12 mb-0 h4 text-dark text-center" style="font-weight: bold">
+            <div class="m-2 bg-secondary rounded text-white">
+                {{availablePluginFromList?.title || selectedPluginToDisplay?.title}}
+            </div>
+        </div>
+        <div class="col-lg-8 col-12 text-center">
+            <div class="row">
+                <div class="col-12 mb-0 mat-h6 disabled text-center">
+                    By: {{creatorOfPlugin?.name}} -
+                    Created at: {{pluginReleaseFromList?.created_at || selectedPluginReleaseToDisplay?.created_at | date}} -
+                    Updated at: {{pluginReleaseFromList?.updated_at || selectedPluginReleaseToDisplay?.updated_at | date}}
+                </div>
+                <div class="col-12 mb-0 mat-h6 text-dark text-center font-weight-bold">
+                    Size: {{(pluginReleaseFromList?.size)/1000 || (selectedPluginReleaseToDisplay?.size)/1000}} mb -
+                    Installs: {{pluginReleaseFromList?.installs || selectedPluginReleaseToDisplay?.installs}}
+                </div>
+                <div class="col-12 mb-0 mat-h6 text-dark text-center font-weight-bold">
+                    {{availablePluginFromList?.description || selectedPluginToDisplay?.description}}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-9 text-center">
+            <mat-form-field *ngIf="!isSelectedPlugin">
+                <mat-label>Release</mat-label>
+                <mat-select class="text-center" [(value)]="defaultRelease" (selectionChange)="onChangeSelectionInList($event)" [placeholder]="defaultRelease?.name">
+                    <mat-option class="text-dark font-weight-bold" *ngFor="let pluginRelease of pluginReleasesList" [value]="pluginRelease">
+                        {{pluginRelease?.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <p class="mat-h4" *ngIf="isSelectedPlugin && errorMessage === null">Release: {{selectedPluginReleaseToDisplay?.name}}</p>
+        </div>
+        <div class="col-lg-1 col-3">
+            <button *ngIf="!isSelectedPlugin" class="btn btn-just-icon rounded-circle mt-2" [class.btn-success]="isClickedAddButton" (click)="onClickAdd()">
+                <mat-icon>add</mat-icon>
+            </button>
+            <button *ngIf="isSelectedPlugin && selectedPluginReleaseToDisplay?.plugin_id !== 1" class="btn btn-just-icon bg-danger rounded-circle mt-2" (click)="onRemove()">
+                <mat-icon>remove</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

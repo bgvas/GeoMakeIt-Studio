@@ -27,11 +27,6 @@ export class GamePluginConfigService {
     return this.http.get(url);
   }
 
-  getAPi(): Observable<any> {
-    const url = 'http://api.geomakeit.com/v1/games';
-    return this.http.get(url);
-  }
-
   getZonesFromDB(game_id: number): Observable<Zones_model[]> {
     return this.http.get<Zones_model[]>(this.gamePlugins_path + 'zones/' + game_id)
   }
