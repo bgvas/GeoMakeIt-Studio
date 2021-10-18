@@ -19,15 +19,11 @@
 </a>
 
 <!-- collapsable table with selected points -->
-<a role="button" mat-raised-button class="text-white serif-font bg-secondary shadow rounded border border-white mt-2 mb-2 w-100"
-   data-toggle="collapse"
-   data-target="#points"
-   aria-expanded="false">
-    <mat-icon>place</mat-icon> Points of Action
+<a role="button" mat-raised-button
+   class="text-white serif-font bg-secondary shadow rounded border border-white mt-2 mb-2 w-100"
+   [routerLink]="'/games/selected-points'">
+    <mat-icon>place</mat-icon> Selected Points
 </a>
-<div id="points" class="collapse m-1 mat-h5 bg-white rounded">
-    <app-table-with-selected-points></app-table-with-selected-points>
-</div>
 
 <!-- main configurations button -->
 <a role="button" mat-raised-button
@@ -53,6 +49,7 @@
         </a>
     </div>
 </div>
+
 
 <div class="mt-5">
     <img src="assets/img/geomakeit_logo.png" class="w-100" style="opacity: 0.2" alt="geomakeit-logo">

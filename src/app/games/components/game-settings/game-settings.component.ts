@@ -16,6 +16,7 @@ import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 import {GamePlugin} from '../../../gamePlugins/models/game-plugin';
 import {PublicService} from '../../../public.service';
+import {GameAuthenticationModel} from '../../models/gameAuthentication/GameAuthenticationModel';
 
 
 
@@ -38,6 +39,8 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
   useAuthentication = false;
   check_by_email = false;
   allow_anonymous = false;
+  isLoadingAvailable: boolean;
+  isLoadingSelected: boolean;
   allPluginsOfGame = Array<GamePlugin>();
   project: Game = JSON.parse(sessionStorage.getItem('project'));
   private submitEvent: Subscription;
@@ -48,40 +51,37 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
               private gamePluginService: GamePluginsService, private location: Location, private router: Router,
               private publicService: PublicService) { }
 
+
   ngOnInit(): void {
         this.getAllAvailablePlugins();
         this.getAllPluginsOfGame(this.project.id);
         this.initializeProjectForm();
         this.getGameAuthFromBaseApi();
-
-    // when submit comes from stepper-wizard //
-   /* if (typeof this.submitFromStepper !== 'undefined') {
-      this.submitEvent = this.submitFromStepper?.pipe(takeUntil(this.unsubscribe)).subscribe(submit => {
-        this.onSubmit();
-      },
-          (e: ErrorResponseModel) => {
-              console.log(e.message, e.errors);
-          })
-    }*/
   }
 
 
   getAllAvailablePlugins() {
+    this.isLoadingAvailable = true;
     this.pluginService.getAllPlugins().pipe(takeUntil(this.unsubscribe)).subscribe(projects => {
           this.allAvailablePlugins = projects.data; // display all available plugins//
+          this.isLoadingAvailable = false;
         },
         (e: ErrorResponseModel) => {
+          this.isLoadingAvailable = false;
           console.log(e.message, e.errors);
         })
   }
 
 
   getAllPluginsOfGame(gameId: number) {
+    this.isLoadingSelected = true;
     this.gamePluginService.getAllPluginsOfGame(this.project?.id)
         .pipe(takeUntil(this.unsubscribe)).subscribe(gamePlugins => {
-      this.allPluginsOfGame = gamePlugins['data'];
+         this.allPluginsOfGame = gamePlugins['data'];
+          this.isLoadingSelected = false;
     },
         (e: ErrorResponseModel) => {
+          this.isLoadingSelected = false;
           console.log(e.message, e.errors);
         })
   }
@@ -139,11 +139,10 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
             console.log('changes saved');
           },
           (e: ErrorResponseModel) => {
-            console.log('changes didn\'t saved');
             console.log(e.message, e.errors);
           });
 
-     /* // create object for game authentication //
+      // create object for game authentication //
       const gameAuth = new GameAuthenticationModel();
 
       gameAuth.authentication.enabled = this.projectForm.get('use_auth').value;
@@ -155,9 +154,9 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
           gameAuth.authentication.providers.push('anonymous');
         }
       }
-*/
+
       // update game authentication in base plugin (name: config) //
-    /*  this.gamePluginDataService.updateBaseApiAuthConfigData(this.project.id, gameAuth).pipe(takeUntil(this.unsubscribe)).subscribe(auth => {
+     /*this.gamePluginDataService.updateBaseApiAuthConfigData(this.project.id, gameAuth).pipe(takeUntil(this.unsubscribe)).subscribe(auth => {
         console.log(auth.message);
       },
           (error: ErrorResponseModel) => {
@@ -179,7 +178,10 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
 
   // get values from geoMakeIt main plugin, (name:config) //
   getGameAuthFromBaseApi() {
-   /* this.gamePluginDataService.getBaseApiAuthConfigData(this.project?.id).pipe(takeUntil(this.unsubscribe)).subscribe(gameAuth => {
+    this.gamePluginDataService.getGamePluginDataOfMainPlugin(this.project?.id, 'config')
+        .pipe(takeUntil(this.unsubscribe)).subscribe(mainPlugin_configFile => {
+          const gameAuth = <GameAuthenticationModel>JSON.parse(mainPlugin_configFile?.data?.contents)
+
       if (typeof gameAuth.authentication !== 'undefined') {
         this.useAuthentication = gameAuth.authentication.enabled;
         this.projectForm.get('use_auth').setValue(gameAuth.authentication.enabled);
@@ -194,7 +196,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
     },
         (error: ErrorResponseModel) => {
           console.log(error.message, error.errors);
-        })*/
+        })
   }
 
   // use auth to game //

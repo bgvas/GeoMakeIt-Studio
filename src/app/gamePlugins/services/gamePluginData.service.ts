@@ -12,6 +12,7 @@ import {GamePluginDataNamesModel} from '../models/game-plugin-data-names-model';
 export class GamePluginDataService {
 
   gamePluginsData_path = environment.be_Url + 'gamePlugins/data'
+  rootPath = environment.be_Url;
 
   constructor(private http: HttpClient) { }
 
@@ -32,6 +33,10 @@ export class GamePluginDataService {
 
   updateBaseApiAuthConfigData(game_id, gameAuth: GameAuthenticationModel): any {
     return this.http.put(this.gamePluginsData_path + '/config/update/' + game_id, gameAuth);
+  }
+
+  getGamePluginDataOfMainPlugin(project_id: number, name: string): Observable<any> {
+    return this.http.get(this.rootPath + 'game-plugin-data/' + project_id + '/1/' + name);
   }
 
 

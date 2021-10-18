@@ -54,9 +54,6 @@ export class GamePluginsService {
     return this.http.delete(this.rootPath + 'games/' + this.game_id + '/plugins/' + pluginId);
   }
 
-  getGamePluginDataOfMainPlugin(project_id: number, name: string): Observable<any> {
-    return this.http.get(this.rootPath + 'game-plugin-data/' + project_id + '/1/' + name);
-  }
 
   /* tested ^^^^*/
 

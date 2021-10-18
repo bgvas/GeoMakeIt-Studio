@@ -8,6 +8,7 @@ import {Game} from '../../models/games/game';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {ErrorResponseModel} from '../../../error-handling/error_response_model';
+import {GamePluginDataService} from '../../../gamePlugins/services/gamePluginData.service';
 
 @Component({
   selector: 'app-table-with-selected-points',
@@ -26,23 +27,29 @@ export class TableWithSelectedPointsComponent implements OnInit, OnDestroy  {
   @Input() data?: any;
   arrayOfPoints = new Array<Zones_model>();
   selectedPoints = new Array<Zones_model>();
+  errorMessage = null;
   private unsubscribe = new Subject<void>();
+  isLoading: boolean;
   project = <Game>JSON.parse(sessionStorage.getItem('project')) || null;
 
 
-  constructor(private gamePluginService: GamePluginsService, private router: Router) {
+  constructor(private gamePluginDataService: GamePluginDataService, private router: Router) {
 
     if(this.project === null) {
       this.router.navigate(['home']);
     }
+    this.isLoading = true;
       // load all selected points from db, if exists //
-    this.gamePluginService.getGamePluginDataOfMainPlugin(this.project?.id, 'zones')
+    this.gamePluginDataService.getGamePluginDataOfMainPlugin(this.project?.id, 'zones')
         .pipe(takeUntil(this.unsubscribe))
         .subscribe(allPoints => {
+          this.isLoading = false;
             this.selectedPoints = <Zones_model[]>JSON.parse(allPoints?.data?.contents);
     },
             (error: ErrorResponseModel) => {
+          this.errorMessage = 'Error while loading selecting points'
                 console.log(error.message, error.errors)
+                this.isLoading = false;
             })
   }
 
@@ -52,7 +59,6 @@ export class TableWithSelectedPointsComponent implements OnInit, OnDestroy  {
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
-    console.log('exit');
   }
 
   // send selected point to gameSetup for delete //
@@ -63,7 +69,8 @@ export class TableWithSelectedPointsComponent implements OnInit, OnDestroy  {
 
   // return point from pointSetup //
   fromPointSetup(point: Zones_model) {
-    this.pointToUpdate.emit(point); // send point to gameSetup for db update//
+    this.selectedPoints[point.id] = point;
+    //this.pointToUpdate.emit(point); // send point to gameSetup for db update//
   }
 
   // point from points-table //

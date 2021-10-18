@@ -1,31 +1,38 @@
  <div class="container-fluid">
-     <div class="row justify-content-center border border-dark rounded shadow">
-         <div class="row justify-content-center" style="background-color: lightgrey; font-weight: bold">
-             <div class="col-1 text-left">
+     <div class="row" *ngIf="!isStepper">
+         <div class="col-12 text-center mt-2 mb-2 h2 serif-font font-weight-bold">
+             Table with selected points
+         </div>
+     </div>
+     <div class="row justify-content-center ml-2 mr-2 border border-dark rounded shadow">
+         <div class="row justify-content-center rounded-top" style="background-color: lightgrey; font-weight: bold">
+             <div class="col-1 text-left p-2">
                  Index
              </div>
-             <div class="col-7 text-center">
+             <div class="col-7 text-center p-2">
                  Title
              </div>
-             <div class="col-2 text-right">
+             <div class="col-2 text-right p-2">
                  remove
              </div>
          </div>
-         <div class="row justify-content-center" *ngIf="selectedPoints?.length > 0" style="max-height: 550px; overflow-y: auto">
-             <div class="row justify-content-center" *ngFor="let point of selectedPoints; let i = index" id="point{{i}}">
-                 <div class="col-1 text-left text-dark">
+         <div class="row justify-content-center mt-2" *ngIf="selectedPoints?.length > 0 && errorMessage === null"
+              style="max-height: 515px; overflow-y: auto">
+             <div class="row justify-content-center" *ngFor="let point of selectedPoints; let i = index"
+                  id="point{{i}}" [class.bg-light]="i % 2 !== 0" [class.bg-white]="i % 2 === 0">
+                 <div class="col-1 text-left text-dark p-2">
                      <a role="button" class="text-dark" href="#pointSetup" data-target="#pointSetup"
                         data-toggle="modal" (click)="onSelect(point, i)"  style="text-decoration: none">
                          {{i + 1}}
                      </a>
                  </div>
-                 <div class="col-7 text-center text-dark" style="text-decoration: none">
+                 <div class="col-7 text-center p-2" style="text-decoration: none">
                      <a role="button" class="text-dark" href="#pointSetup" data-target="#pointSetup"
                         data-toggle="modal" (click)="onSelect(point, i)"  style="text-decoration: none">
                          {{point?.title}}
                      </a>
                  </div>
-                 <div class="col-2 text-right">
+                 <div class="col-2 text-right p-2">
                      <button class="text-danger" matTooltip="Delete this point"
                              style="background-color: inherit; border: 0" (click)="onDelete(i)">
                          <mat-icon class="h5">
@@ -35,9 +42,18 @@
                  </div>
              </div>
          </div>
-         <div class="row" *ngIf="selectedPoints?.length === 0">
+         <div class="text-center m-5" *ngIf="isLoading">
+             <app-spinner [visible]="isLoading"></app-spinner>
+
+         </div>
+         <div class="row" *ngIf="selectedPoints?.length === 0 && errorMessage === null && !isLoading">
              <div class="col-12 text-center mat-h5">
                  No selected points
+             </div>
+         </div>
+         <div class="row" *ngIf="errorMessage !== null">
+             <div class="col-12 text-center text-danger font-weight-bold mat-h5">
+                 {{errorMessage}}
              </div>
          </div>
      </div>
