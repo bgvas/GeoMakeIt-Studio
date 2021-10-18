@@ -18,8 +18,8 @@
                 </div>
                 <div class="col-12">
                     <app-game-settings
-                            [isStepper] = "true"
-                            [submitFromStepper]="sendSubmit.asObservable()">
+                            [isStepper] = "true">
+                           <!-- [submitFromStepper]="sendSubmit.asObservable()">-->
                     </app-game-settings>
                 </div>
             </div>
@@ -78,27 +78,12 @@
                     </p>
                 </div>
                 <div class="col-12">
-                    <table class="w-100 shadow">
-                        <tr>
-                            <td>
-                                <table class="w-100 bg-secondary text-white" style="font-weight: bold">
-                                    <tr>
-                                        <td style="width: 10%" class="pl-2 text-center">Point</td>
-                                        <td style="width: 90%" class="pl-3 text-center">Title</td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <app-table-with-selected-points
-                                        [points]="pointsArray"
-                                        (pointToUpdate)="updateArrayOfPoints($event)"
-                                        (pointForDelete)="onDelete($event)">
-                                </app-table-with-selected-points>
-                            </td>
-                        </tr>
-                    </table>
+                    <app-table-with-selected-points
+                            [isStepper] = true
+                            [points]="pointsArray"
+                            (pointToUpdate)="updateArrayOfPoints($event)"
+                            (pointForDelete)="onDelete($event)">
+                    </app-table-with-selected-points>
                 </div>
             </div>
         </div>

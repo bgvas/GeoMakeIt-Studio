@@ -31,21 +31,10 @@
                                         Title can't be empty
                                 </div>
                             </div>
-                            <p class="pt-2 text-left text-info" *ngIf="point?.unique_id === 'zone_regen'" >This is the starting point of your temporary_save</p>
                         </div>
                     </div>
                     <hr>
                     <div class="row justify-content-center text-dark mt-2">
-                        <div class="col-5 col-lg-2 pb-2">
-                            Type of Zone
-                        </div>
-                        <div class="col-7 col-lg-2 pb-2">
-                            <select class="form-select"><!--formControlName="type_of_zone" [value]="zonesForm.get('type_of_zone').value">-->
-                                <option class="form-control" value="zone_question" selected>Question Zone</option>
-                                <option class="form-control" value="zone_fight">Fighting Zone</option>
-                                <option class="form-control" value="zone_locked">Locked Zone</option>
-                            </select>
-                        </div>
                         <div class="col-lg-2 col-5 text-right">
                             Color of Zone
                         </div>
@@ -66,8 +55,6 @@
                                     data-toggle="collapse"
                                     data-target="#actions"
                                     aria-expanded="false"
-                                    ngbTooltip="Click to open"
-                                    placement="top"
                                     aria-controls="actions">
                                 Actions
                             </button>
@@ -114,8 +101,6 @@
                                     data-toggle="collapse"
                                     data-target="#image"
                                     aria-expanded="false"
-                                    ngbTooltip="Click to open"
-                                    placement="top"
                                     aria-controls="image">
                                 Image
                             </button>

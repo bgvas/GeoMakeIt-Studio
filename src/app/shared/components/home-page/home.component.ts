@@ -48,6 +48,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   loadListOfProjects() {
       this.displaySpinnerForProject = true;
       this.gameService.getAllGamesByUser(this.appService.currentUser().id).pipe(takeUntil(this.unsubscribe)).subscribe(projects => {
+          console.log(projects);
           this.projectList = projects?.data || [];
           this.displaySpinnerForProject = false;    // hide spinner
       },

@@ -61,7 +61,7 @@ export class PluginService {
   }
   
   getPluginReleasesById(pluginId): Observable<RootPluginReleases> {
-    return this.http.get<RootPluginReleases>(this.pathReleases + '?filter[]=plugin_id=' + pluginId)
+    return this.http.get<RootPluginReleases>(this.pathReleases + '?filter[plugin_id]=' + pluginId)
   }
 
   getPluginById(pluginId: number): Observable<Plugin> {

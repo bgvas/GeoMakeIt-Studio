@@ -5,7 +5,6 @@ import {Zones_model} from '../../../plugins/models/designer-models/zones/Zones_m
 import {GamePluginConfigService} from '../../../gamePlugins/services/gamePluginConfig.service';
 import {Subject} from 'rxjs';
 import {Error} from '../../../error-handling/error/error';
-import {ZoneObject} from '../../../plugins/models/designer-models/zones/ZoneObject';
 import {GameRelease} from '../../models/game-release/game-release';
 import {Game} from '../../models/games/game';
 import {takeUntil} from 'rxjs/operators';
@@ -16,20 +15,27 @@ import {takeUntil} from 'rxjs/operators';
   templateUrl: './game-setup.component.html',
   styleUrls: ['./game-setup.component.css']
 })
-export class GameSetupComponent implements OnInit, OnDestroy {
+export class GameSetupComponent implements OnInit, OnDestroy, OnChanges {
 
   @Input() pointsArray: Zones_model[];
+  @Input() data?: any;
   project?: Game;
   selected: boolean;
   projectRelease?: GameRelease;
   zones_array = [];
+
   private unsubscribe = new Subject<void>();
 
   constructor(private service: GameService, private gamePlugins: GamePluginConfigService, private router: Router) { }
 
+
   ngOnInit(): void {
     this.project = JSON.parse(sessionStorage.getItem('project'));
     this.projectRelease = JSON.parse(localStorage.getItem('release')) || null;
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(this.data);
   }
 
 
@@ -63,18 +69,18 @@ export class GameSetupComponent implements OnInit, OnDestroy {
 
   }
 
-  // on click open stepper wizard //
+ /* // on click open stepper wizard //
   onClickOpenStepper() {
     this.service.save_temporary = this.project;
     this.router.navigate(['stepper'])
-  }
+  }*/
 
   // on window destroy, update records in DB //
   updateZones() {
      if(typeof this.pointsArray !== 'undefined') {
        this.zones_array = [];
          for (const newZone of this.pointsArray) {
-           const _zone = new ZoneObject();
+           const _zone = new Zones_model();
            _zone.title = newZone.title;
            _zone.unique_id = newZone.unique_id
            _zone.fill_color = newZone.fill_color;
@@ -107,5 +113,9 @@ export class GameSetupComponent implements OnInit, OnDestroy {
 
   onMainConfigurationClick() {
     this.router.navigate(['games/setup/main-configurations'])
+  }
+
+  sendData() {
+    this.service.save_temporary = 'Hello from Game setup';
   }
 }

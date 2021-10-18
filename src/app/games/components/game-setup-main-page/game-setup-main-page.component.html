@@ -4,11 +4,11 @@
             <app-game-setup [pointsArray]="pointsArray"></app-game-setup>
         </div>
         <div class="col-xl-10 col-lg-8 col-11 pl-0 pr-0">
-            <app-map
-                    [points] = "pointsArray"
+            <app-map>
+                    <!--[points] = "pointsArray"
                     (coordinates)="gameSetup.addPoint($event)"
                     (returnedPoint)="gameSetup.updateArrayOfPoints($event)"
-                    (pointForDelete)="gameSetup.onDelete($event)">
+                    (pointForDelete)="gameSetup.onDelete($event)">-->
             </app-map>
         </div>
     </div>

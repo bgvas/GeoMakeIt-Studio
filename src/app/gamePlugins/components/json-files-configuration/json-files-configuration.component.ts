@@ -47,7 +47,7 @@ export class JsonFilesConfigurationComponent implements OnInit, OnDestroy {
   }
 
   onExit() {
-      this.router.navigate(['games/setup']);
+      this.router.navigate(['games/map']);
   }
 
 

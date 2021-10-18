@@ -9,6 +9,7 @@ import {map, retry, take, takeUntil, tap} from 'rxjs/operators';
 import {SelectedPlugin} from '../../plugins/models/selectedPlugin/selected-plugin';
 import {Plugin} from '../../plugins/models/plugin';
 import {RootGameRelease} from '../models/game-release/root-game-release';
+import {GamePluginDataModel} from '../../gamePlugins/models/game-plugin-data-model';
 
 
 @Injectable({
@@ -21,10 +22,22 @@ export class GameService {
   pathGameReleases = environment.be_Url + 'game-releases';
   filter = '?filter[user_id]=';
   checkPlugin: any;
+  pointsChange: Subject<any> = new Subject<any>();
   _refreshProjectsList$ = new Subject<void>();
-
+  _value?: Observable<any>;
 
   constructor(private http: HttpClient) { }
+
+  setInfo(data: any) {
+     this.pointsChange = data;
+  }
+  set_Value(data) {
+      this.pointsChange.next(data);
+  }
+
+  get_value(): Observable<any> {
+      return this.pointsChange.asObservable();
+  }
 
     // Post-HTTP request //
     createNewGame(newGame: Game): Observable<any> {
@@ -32,7 +45,8 @@ export class GameService {
     }
 
     getAllGamesByUser(id: number): Observable<GameRoot> {
-        return this.http.get<GameRoot>(this.pathGame + this.filter + id).pipe(retry(3));
+      console.log(this.pathGame + '?filter[user_id]=' + id);
+        return this.http.get<GameRoot>(this.pathGame + '?filter[user_id]=' + id).pipe(retry(3));
     }
 
     // Delete-HTTP request //
@@ -55,6 +69,7 @@ export class GameService {
     set save_temporary(data) {
         this._object = data;
     }
+
 
     /* tested ^^^^ */
 
@@ -98,7 +113,7 @@ export class GameService {
   }
 
   getAllGameReleases(id: number): Observable<RootGameRelease> {
-    return this.http.get<RootGameRelease>(this.pathGameReleases + this.filter + 'game_id=' + id)
+    return this.http.get<RootGameRelease>(this.pathGameReleases + '?filter[game_id]='  + id)
   }
 
   checkIfPluginIsAlreadyInstalled(gameId: number, pluginId: number) {

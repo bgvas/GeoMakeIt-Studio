@@ -73,6 +73,6 @@ export class ProjectCardComponent implements OnInit, OnDestroy {
     if(this.gameRelease !== null) {
         localStorage.setItem('release', JSON.stringify(this.gameRelease));
     }
-    this.router.navigate(['games/setup']);
+    this.router.navigate(['games/map']);
   }
 }

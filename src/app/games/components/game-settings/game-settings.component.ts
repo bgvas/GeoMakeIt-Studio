@@ -3,7 +3,7 @@ import {Game} from '../../models/games/game';
 import {PluginService} from '../../../plugins/services/plugin.service';
 import {Plugin} from '../../../plugins/models/plugin';
 import {Observable, Subject} from 'rxjs';
-import {map, takeUntil} from 'rxjs/operators';
+import {map, take, takeUntil} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GameService} from '../../services/game.service';
 import {ProjectUpdateModel} from '../../models/projectElements/project-update-model';
@@ -15,6 +15,7 @@ import {PluginRelease} from '../../../plugins/models/available_plugins/plugin-re
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 import {GamePlugin} from '../../../gamePlugins/models/game-plugin';
+import {PublicService} from '../../../public.service';
 
 
 
@@ -44,7 +45,8 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
 
   constructor(private pluginService: PluginService, private fb: FormBuilder,
               private projectService: GameService, private gamePluginDataService: GamePluginDataService,
-              private gamePluginService: GamePluginsService, private location: Location, private router: Router) { }
+              private gamePluginService: GamePluginsService, private location: Location, private router: Router,
+              private publicService: PublicService) { }
 
   ngOnInit(): void {
         this.getAllAvailablePlugins();
@@ -53,14 +55,14 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
         this.getGameAuthFromBaseApi();
 
     // when submit comes from stepper-wizard //
-    if (typeof this.submitFromStepper !== 'undefined') {
+   /* if (typeof this.submitFromStepper !== 'undefined') {
       this.submitEvent = this.submitFromStepper?.pipe(takeUntil(this.unsubscribe)).subscribe(submit => {
         this.onSubmit();
       },
           (e: ErrorResponseModel) => {
               console.log(e.message, e.errors);
           })
-    }
+    }*/
   }
 
 
@@ -87,9 +89,10 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
 
   // on exit, unsubscribe all//
   ngOnDestroy() {
+    this.saveChanges();
     this.unsubscribe.next();
     this.unsubscribe.complete();
-    this.submitEvent?.unsubscribe();
+    console.log('exit');
   }
 
 
@@ -122,20 +125,21 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
       this.allPluginsOfGame.splice(index, 1);
   }
 
-  onSubmit() {
+  saveChanges() {
     if ( this.projectForm.valid) {
-
       const projectToUpdate = new ProjectUpdateModel();
       projectToUpdate.title = this.projectForm.get('title').value;
       projectToUpdate.description = this.projectForm.get('description').value;
 
       this.projectService.updateGame(this.project.id, projectToUpdate)
-          .pipe(takeUntil(this.unsubscribe))
+          .pipe(take(1))
           .subscribe(updatedGame => {
             sessionStorage.setItem('project', JSON.stringify(updatedGame['data']));
-            this.router.navigate(['/games/setup'])
+            this.publicService.setProject(updatedGame['data']);
+            console.log('changes saved');
           },
           (e: ErrorResponseModel) => {
+            console.log('changes didn\'t saved');
             console.log(e.message, e.errors);
           });
 

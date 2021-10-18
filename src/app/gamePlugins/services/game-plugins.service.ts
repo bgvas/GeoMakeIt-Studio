@@ -1,15 +1,14 @@
-import { Injectable } from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import { Injectable, EventEmitter } from '@angular/core';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {DesignerModel} from '../models/designer-model';
 import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {isArray} from 'rxjs/internal-compatibility';
 import {ValidationsService} from '../../shared/services/validations/validations.service';
-import {Designer} from '../../games/models/designers/designer/designer';
 import {environment} from '../../../environments/environment';
 import {User} from '../../user-management/models/user';
 import {pluginReleasePostRequestModel} from '../../plugins/models/plugin-release-post-request-model';
 import {GamePlugin} from '../models/game-plugin';
+import {Zones_model} from '../../plugins/models/designer-models/zones/Zones_model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +18,33 @@ export class GamePluginsService {
   private url1 = 'assets/dummyJson/';
   private rootPath = environment.be_Url;
   private url = environment.be_Url + 'gamePlugins/';
+  private _temporary_object?: any;
   private signalForUpdate = new Subject<any>(); // need to create a subject
+  private _arrayOfPoints = Array<Zones_model>() // need to create a subject
   private game_id = (<User>JSON.parse(sessionStorage.getItem('project'))).id;
 
   constructor(private http: HttpClient, private fb: FormBuilder, private validationService: ValidationsService) { }
 
+
+  set arrayOfPoints(array: any) {
+    this._arrayOfPoints = array;
+  }
+
+  get arrayOfPoints() {
+    return this._arrayOfPoints;
+  }
+
+  saveGamePluginDataContent(release_id: number, name: string, gamePluginDataContent: any) {
+    console.log('Saved gamePluginContent');
+  }
+
+  set temporary_save(object) {
+    this._temporary_object = object;
+  }
+
+  get temporary_save() {
+    return this._temporary_object;
+  }
 
   addPluginToGame(release: pluginReleasePostRequestModel): Observable<GamePlugin> {
     return this.http.post<GamePlugin>(this.rootPath + 'games/' + this.game_id + '/plugins', release);
@@ -31,6 +52,10 @@ export class GamePluginsService {
 
   removePluginFromGame(pluginId: number): Observable<any> {
     return this.http.delete(this.rootPath + 'games/' + this.game_id + '/plugins/' + pluginId);
+  }
+
+  getGamePluginDataOfMainPlugin(project_id: number, name: string): Observable<any> {
+    return this.http.get(this.rootPath + 'game-plugin-data/' + project_id + '/1/' + name);
   }
 
   /* tested ^^^^*/
@@ -174,13 +199,10 @@ export class GamePluginsService {
       }
       (form.get(designer?.file) as FormArray).push(newGroup);
     }
-
     return form;
   }
 
-
-
-  sendUpdate(message: boolean) { // the component that wants to update something, calls this fn
+  sendUpdate(message) { // the component that wants to update something, calls this fn
     this.signalForUpdate.next({ signal: message }); // next() will feed the value in Subject
   }
 

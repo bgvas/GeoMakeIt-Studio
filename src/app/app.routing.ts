@@ -12,6 +12,7 @@ import {AdminComponent} from './admin/admin.component';
 import {RegistrationResultsComponent} from './authentication/components/registration-results/registration-results.component';
 import {GamePluginsComponent} from './gamePlugins/game-plugins.component';
 import {GameSettingsComponent} from './games/components/game-settings/game-settings.component';
+import {GameComponent} from './games/game.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,14 @@ const routes: Routes = [
     children: [{
       path: '',
       loadChildren: './admin/admin.module#AdminModule'
+    }]
+  },
+  {
+    path: 'games',
+    component: GameComponent,
+    children: [{
+      path: '',
+      loadChildren: './games/game.module#GameModule'
     }]
   },
   {

@@ -5,7 +5,6 @@ import {Router} from '@angular/router';
 import {Zones_model} from '../../../plugins/models/designer-models/zones/Zones_model';
 import {GamePluginConfigService} from '../../../gamePlugins/services/gamePluginConfig.service';
 import {takeUntil} from 'rxjs/operators';
-import {ZoneObject} from '../../../plugins/models/designer-models/zones/ZoneObject';
 import {Error} from '../../../error-handling/error/error';
 
 
@@ -24,14 +23,15 @@ export class StepperWizardComponent implements OnInit, OnDestroy {
   private unsubscribe = new Subject<void>();
   zones_array = [];
 
-
-  constructor(private gameService: GameService, private router: Router, private gamePlugins: GamePluginConfigService) { }
+  constructor(private gameService: GameService, private router: Router, private gamePlugins: GamePluginConfigService) {
+    this.project = sessionStorage.getItem('project') || null;
+  }
 
   ngOnInit(): void {
-    if (typeof this.gameService.save_temporary === 'undefined') {
+   if (this.project === null) {
       this.router.navigate(['home']);
     }
-    this.project = this.gameService.save_temporary;
+    //this.project = this.gameService.save_temporary;*/
     this.gamePlugins.getZonesFromDB(this.project?.id).pipe(takeUntil(this.unsubscribe)).subscribe(zones => {
       if (typeof zones['contents'] !== 'undefined') {
         this.pointsArray = zones['contents'];
@@ -50,7 +50,7 @@ export class StepperWizardComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-     this.sendSubmit.next(true)
+     //this.sendSubmit.next(true)
   }
 
   // add a new point from map //
@@ -75,7 +75,7 @@ export class StepperWizardComponent implements OnInit, OnDestroy {
   }
 
   onExit() {
-    this.router.navigate(['games/setup']);
+    this.router.navigate(['games/map']);
   }
 
   // on component destroy, update zones in DB //
@@ -84,7 +84,7 @@ export class StepperWizardComponent implements OnInit, OnDestroy {
       this.zones_array = [];
       if(typeof this.pointsArray !== 'undefined') {
           for (const newZone of this.pointsArray) {
-            const _zone = new ZoneObject();
+            const _zone = new Zones_model();
             _zone.title = newZone.title;
             _zone.unique_id = newZone.unique_id
             _zone.fill_color = newZone.fill_color;

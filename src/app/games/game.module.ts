@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { GameRoutes} from './game.routing';
 import { CommonModule } from '@angular/common';
 import { GameService } from './services/game.service';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -19,7 +20,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {NgbModule, NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 import { GameSetupComponent } from './components/game-setup/game-setup.component';
 import { PointSetupComponent } from './components/point-setup/point-setup.component';
-import { GameInfoComponent } from './components/game-info/game-info.component';
+import { GameInfoComponent } from './components/game-setup-ui/game-info/game-info.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatStepperModule} from '@angular/material/stepper';
 import {StepperWizardComponent} from './components/stepper-wizard/stepper-wizard.component';
@@ -32,11 +33,13 @@ import { GameSetupMainPageComponent } from './components/game-setup-main-page/ga
 import {MapComponent} from './components/map/map.component';
 import {SharedModule} from '../shared/shared.module';
 import { AgmCoreModule } from '@agm/core';
-import { TableWithSelectedPointsComponent } from './components/table-with-selected-points/table-with-selected-points.component';
+import { TableWithSelectedPointsComponent} from './components/table-with-selected-points/table-with-selected-points.component';
 import {GamePluginsModule} from '../gamePlugins/game-plugins.module';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-
+import {GameComponent} from './game.component';
+import { GameSetupSideBarComponent } from './components/game-setup-ui/game-setup-side-bar/game-setup-side-bar.component';
+import { StepperWizardButtonComponent } from './components/game-setup-ui/stepper-wizard-button/stepper-wizard-button.component';
 
 
 @NgModule({
@@ -55,9 +58,13 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
         GameMainConfigurationComponent,
         GameSetupMainPageComponent,
         MapComponent,
-        TableWithSelectedPointsComponent
+        TableWithSelectedPointsComponent,
+        GameComponent,
+        GameSetupSideBarComponent,
+        StepperWizardButtonComponent
     ],
     imports: [
+        RouterModule.forChild(GameRoutes),
         CommonModule,
         ReactiveFormsModule,
         MatFormFieldModule,

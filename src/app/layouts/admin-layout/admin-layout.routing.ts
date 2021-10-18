@@ -8,9 +8,7 @@ import {ChangePasswordComponent} from '../../shared/components/change-password/c
 import {ChangeForgotPasswordComponent} from '../../authentication/components/change-forgot-password/change-forgot-password.component';
 import {GameSetupMainPageComponent} from '../../games/components/game-setup-main-page/game-setup-main-page.component';
 import {SocialLoginComponent} from '../../authentication/components/social-login/social-login.component';
-import {GameSettingsComponent} from '../../games/components/game-settings/game-settings.component';
-import {GameMainConfigurationComponent} from '../../games/components/game-main-configuration/game-main-configuration.component';
-import {JsonFilesConfigurationComponent} from '../../gamePlugins/components/json-files-configuration/json-files-configuration.component';
+
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -20,11 +18,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'registration',   redirectTo: '/registration'},
     { path: 'registration_result',   redirectTo: '/registration_result'},
     { path: 'guide',   redirectTo: '/guide'},
-    { path: 'games/setup/settings', component: GameSettingsComponent, canActivate: [UserGuard]},
-    { path: 'stepper',   component: StepperWizardComponent, canActivate: [UserGuard]},
+
     { path: 'forgot_password',   redirectTo: '/forgot_password'},
     { path: 'games/setup', component: GameSetupMainPageComponent, canActivate: [UserGuard]},
-    { path: 'games/setup/main-configurations', component: JsonFilesConfigurationComponent, canActivate: [UserGuard]},
     { path: 'login', redirectTo: '/login'},
     { path: 'reset_password', component: ChangeForgotPasswordComponent},
     { path: 'change_forgotten_password', redirectTo: '/change_forgotten_password'},

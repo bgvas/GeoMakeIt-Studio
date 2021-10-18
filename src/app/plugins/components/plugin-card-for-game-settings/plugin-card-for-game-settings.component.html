@@ -33,7 +33,7 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <p class="mat-h4" *ngIf="isSelectedPlugin && errorMessage === null">Release: {{selectedPluginReleaseToDisplay?.name}}</p>
+            <p class="mat-h5" *ngIf="isSelectedPlugin && errorMessage === null">Release: {{selectedPluginReleaseToDisplay?.name}}</p>
         </div>
         <div class="col-lg-1 col-3">
             <button *ngIf="!isSelectedPlugin" class="btn btn-just-icon rounded-circle mt-2" [class.btn-success]="isClickedAddButton" (click)="onClickAdd()">

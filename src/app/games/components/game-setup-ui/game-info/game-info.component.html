@@ -1,20 +1,8 @@
 <!-- Button trigger modal -->
-<button class="mat-raised-button bg-dark w-100 text-white" data-toggle="modal" data-target="#projectInfo">
-    <div class="row m-2">
-        <div class="col-3 text-right pr-0">
-            <span class="mat-h5">
-                <mat-icon class="material-icons-outlined">
-                    info
-                </mat-icon>
-            </span>
-        </div>
-        <div class="col-9 text-left">
-            <span class="mat-h5 text-lowercase">
-                Info
-            </span>
-        </div>
-    </div>
-</button>
+
+<a role="button"  data-toggle="modal" data-target="#projectInfo" mat-raised-button class="text-white serif-font bg-secondary shadow rounded border border-white mt-2 mb-2 w-100">
+    <mat-icon>info</mat-icon> Info
+</a>
 
 <!-- Modal -->
 <div class="modal fade " id="projectInfo" tabindex="-1" role="dialog" aria-labelledby="info" aria-hidden="true">
