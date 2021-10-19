@@ -5,6 +5,7 @@ import {GameAuthenticationModel} from '../../games/models/gameAuthentication/Gam
 import {Observable} from 'rxjs';
 import {Game} from '../../games/models/games/game';
 import {GamePluginDataNamesModel} from '../models/game-plugin-data-names-model';
+import {filter, map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,11 @@ export class GamePluginDataService {
     return this.http.get(this.rootPath + 'game-plugin-data?filter[game_id]=' + project_id);
   }
 
+  getOtherGamePluginDataFromGeoMakeItApi(project_id: number): Observable<any> {
+    return this.getGamePluginDataOfMainPlugin(project_id).pipe(map(gamePluginData => {
+      return gamePluginData.data.filter(e => e.name !== 'zones' && e.name !== 'config')
+    }))
+  }
 
 
 }

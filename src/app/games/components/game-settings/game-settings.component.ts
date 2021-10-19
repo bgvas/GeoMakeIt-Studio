@@ -38,6 +38,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
   useAuthentication = false;
   check_by_email = false;
   allow_anonymous = false;
+  gamePluginDataOfGeoMakeItApiArray = Array<GamePluginDataModel>();
   isLoadingAvailable: boolean;
   isLoadingSelected: boolean;
   allPluginsOfGame = Array<GamePlugin>();
@@ -59,7 +60,8 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
         this.getAllPluginsOfGame(this.project.id);
         this.getGamePluginsDataOfGeoMakeItApi();
         this.initializeProjectForm();
-        this.getGameAuthFromBaseApi();
+        this.getConfigFileFromGeoMakeItApi();
+        this.getOtherFilesFromGeoMakeItApi()
   }
 
 
@@ -180,7 +182,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
   }*/
 
   // get values from geoMakeIt main plugin, (file-name:config) //
-  getGameAuthFromBaseApi() {
+  getConfigFileFromGeoMakeItApi() {
     this.getGamePluginsDataOfGeoMakeItApi().pipe(take(1)).subscribe((gamePlugin: GamePluginDataModel[]) => {
       const mainPlugin_configFile = gamePlugin.filter(e => e.name === 'config')[0];
       const gameAuth = <GameAuthenticationModel>JSON.parse(mainPlugin_configFile.contents);
@@ -197,6 +199,16 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
         this.projectForm.get('allow_anonymous').setValue(false);
       }
     },
+        (e: ErrorResponseModel) => {
+          console.log(e.message, e.errors);
+        });
+  }
+
+  getOtherFilesFromGeoMakeItApi() {
+    this.getGamePluginsDataOfGeoMakeItApi().pipe(take(1)).subscribe((gamePlugin: GamePluginDataModel[]) => {
+          this.gamePluginDataOfGeoMakeItApiArray = gamePlugin.filter(gp => gp.name !== 'config' && gp.name !== 'zones');
+          this.gamePluginDataOfGeoMakeItApiArray.forEach(e => e.contents = JSON.parse(e.contents));
+        },
         (e: ErrorResponseModel) => {
           console.log(e.message, e.errors);
         });

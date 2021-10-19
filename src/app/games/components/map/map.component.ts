@@ -70,7 +70,7 @@ export class MapComponent implements OnInit, OnDestroy  {
   // on marker click //
   clickedMarker(point: Zones_model, index: number) {
     point.id = index;
-    this.pointToEdit.emit(point); // send selected point to pointSetup //
+    this.pointToEdit.emit(point); // send selected point to pointSetup for edit //
   }
 
   // delete a map point //
