@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthenticationRoutingModule} from './authentication-routing.module';
 import { AuthService } from './services/auth.service';
 import { CanActivateRouteService } from './guards/can-activate-route.service';
 import { LoginComponent } from './components/login/login.component';
@@ -18,6 +17,8 @@ import {UserGuardService} from './guards/user-guard.service';
 import {PluginDeveloperGuardService} from './guards/plugin-developer-guard.service';
 import { SocialLoginComponent } from './components/social-login/social-login.component';
 import { ChangeForgotPasswordComponent } from './components/change-forgot-password/change-forgot-password.component';
+import { AuthenticationComponent } from './authentication.component';
+import {AuthenticationRoutes} from './authentication.routing';
 
 
 
@@ -29,12 +30,13 @@ import { ChangeForgotPasswordComponent } from './components/change-forgot-passwo
         RegistrationComponent,
         ActivateAccountComponent,
         SocialLoginComponent,
-        ChangeForgotPasswordComponent
+        ChangeForgotPasswordComponent,
+        AuthenticationComponent
 
     ],
     imports: [
+        RouterModule.forChild(AuthenticationRoutes),
         CommonModule,
-        AuthenticationRoutingModule,
         ReactiveFormsModule,
         MatFormFieldModule,
         RouterModule,

@@ -8,6 +8,7 @@ import {PublicService} from '../../../public.service';
 import {Game} from '../../models/games/game';
 import {takeUntil} from 'rxjs/operators';
 import {GamePluginDataService} from '../../../gamePlugins/services/gamePluginData.service';
+import {ErrorResponseModel} from '../../../error-handling/error_response_model';
 
 
 
@@ -40,10 +41,13 @@ export class MapComponent implements OnInit, OnDestroy  {
       this.router.navigate(['home']);
     }
 
-    this.gamePluginDataService.getGamePluginDataOfMainPlugin(this.project?.id, 'zones')
-        .pipe(takeUntil(this.unsubscribe)).subscribe(allZones => {
-      this.points = <Zones_model[]>JSON.parse(allZones?.data?.contents);
-    })
+    this.gamePluginDataService.getGamePluginDataOfMainPlugin(this.project?.id)
+        .pipe(takeUntil(this.unsubscribe)).subscribe(allGamePlugins => {
+      this.points = <Zones_model[]>JSON.parse(allGamePlugins.data.filter(e => e.plugin_release_id === 1 && e.name === 'zones')[0].contents);
+    },
+        (error: ErrorResponseModel) => {
+          console.log(error.message, error.errors)
+        })
   }
 
   ngOnDestroy() {

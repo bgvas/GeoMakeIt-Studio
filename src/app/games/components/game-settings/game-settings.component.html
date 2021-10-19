@@ -23,6 +23,7 @@
                 </mat-form-field>
             </div>
         </div>
+        <hr>
         <div class="row">
             <div class="col-12" data-toggle="tooltip" title="Select if you want to add authentication for your project">
                 <div class="row w-100 mt-2">
@@ -48,15 +49,55 @@
                 </div>
             </div>
         </div>
+        <hr>
     </div>
-    <div>
-        <div class="mt-0 text-center serif-font h3 font-weight-bold">
+    <div class="ml-4 mr-4">
+        <mat-tab-group>
+            <mat-tab label = "Add Plugins">
+                <div class="m-3">
+                    <div class="row">
+                        <div class="col-lg-6 col-12">
+                             <!--Display all available plugins-->
+                            <app-display-plugins-window
+                                    [pluginsArray]="allAvailablePlugins"
+                                    [isSelectedPlugins]="false"
+                                    (selectedGamePluginsArray)="returnedSelectedPlugins($event)"
+                                    [titleOfWindow]="'Available Plugins'">
+                            </app-display-plugins-window>
+                            <div class="text-center m-2" *ngIf="isLoadingAvailable">
+                                <app-spinner [visible]="isLoadingAvailable"></app-spinner>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <!--Display all selected plugins-->
+                            <app-display-plugins-window
+                                    (removeGamePlugin)="removeGamePlugin($event)"
+                                    [pluginsArray]="allPluginsOfGame"
+                                    [isSelectedPlugins]="true"
+                                    [titleOfWindow]="'Selected Plugins'">
+                            </app-display-plugins-window>
+                            <div class="text-center m-2" *ngIf="isLoadingSelected">
+                                <app-spinner [visible]="isLoadingSelected"></app-spinner>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Others">
+                Others
+            </mat-tab>
+        </mat-tab-group>
+
+
+
+
+        <!--<div class="mt-0 text-center serif-font h3 font-weight-bold">
             <span>Add Plugins</span>
         </div>
         <div class="m-3">
             <div class="row">
                 <div class="col-lg-6 col-12">
-                    <!-- Display all available plugins  -->
+                    &lt;!&ndash; Display all available plugins  &ndash;&gt;
                     <app-display-plugins-window
                             [pluginsArray]="allAvailablePlugins"
                             [isSelectedPlugins]="false"
@@ -68,9 +109,9 @@
                     </div>
                 </div>
                 <div class="col-lg-6 col-12">
-                    <!-- Display all selected plugins -->
+                    &lt;!&ndash; Display all selected plugins &ndash;&gt;
                     <app-display-plugins-window
-                            (removeGamePlugin)="removeGamePluginFromArray($event)"
+                            (removeGamePlugin)="removeGamePlugin($event)"
                             [pluginsArray]="allPluginsOfGame"
                             [isSelectedPlugins]="true"
                             [titleOfWindow]="'Selected Plugins'">
@@ -80,6 +121,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
  </div>

@@ -40,14 +40,15 @@ export class TableWithSelectedPointsComponent implements OnInit, OnDestroy  {
     }
     this.isLoading = true;
       // load all selected points from db, if exists //
-    this.gamePluginDataService.getGamePluginDataOfMainPlugin(this.project?.id, 'zones')
-        .pipe(takeUntil(this.unsubscribe))
-        .subscribe(allPoints => {
-          this.isLoading = false;
-            this.selectedPoints = <Zones_model[]>JSON.parse(allPoints?.data?.contents);
+    this.gamePluginDataService.getGamePluginDataOfMainPlugin(this.project?.id)
+        .pipe(takeUntil(this.unsubscribe)).subscribe(allGamePlugins => {
+         this.selectedPoints = <Zones_model[]>JSON.parse(allGamePlugins.data
+             .filter(e => e.plugin_release_id === 1 && e.name === 'zones')[0].contents);
+             this.isLoading = false;
+
     },
             (error: ErrorResponseModel) => {
-          this.errorMessage = 'Error while loading selecting points'
+          this.errorMessage = 'Error while loading selected points'
                 console.log(error.message, error.errors)
                 this.isLoading = false;
             })

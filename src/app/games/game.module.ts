@@ -18,7 +18,6 @@ import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {NgbModule, NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
-import { GameSetupComponent } from './components/game-setup/game-setup.component';
 import { PointSetupComponent } from './components/point-setup/point-setup.component';
 import { GameInfoComponent } from './components/game-setup-ui/game-info/game-info.component';
 import {MatSelectModule} from '@angular/material/select';
@@ -29,7 +28,6 @@ import { GameSettingsComponent } from './components/game-settings/game-settings.
 import { GameMainConfigurationComponent } from './components/game-main-configuration/game-main-configuration.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDialogModule} from '@angular/material/dialog';
-import { GameSetupMainPageComponent } from './components/game-setup-main-page/game-setup-main-page.component';
 import {MapComponent} from './components/map/map.component';
 import {SharedModule} from '../shared/shared.module';
 import { AgmCoreModule } from '@agm/core';
@@ -39,7 +37,18 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {GameComponent} from './game.component';
 import { GameSetupSideBarComponent } from './components/game-setup-ui/game-setup-side-bar/game-setup-side-bar.component';
-import { StepperWizardButtonComponent } from './components/game-setup-ui/stepper-wizard-button/stepper-wizard-button.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatListModule} from '@angular/material/list';
+
+
+
+
+
+
+
+
+
 
 
 @NgModule({
@@ -50,18 +59,15 @@ import { StepperWizardButtonComponent } from './components/game-setup-ui/stepper
         DataDesignerComponent,
         InformationComponent,
         StringsComponent,
-        GameSetupComponent,
         PointSetupComponent,
         GameInfoComponent,
         StepperWizardComponent,
         GameSettingsComponent,
         GameMainConfigurationComponent,
-        GameSetupMainPageComponent,
         MapComponent,
         TableWithSelectedPointsComponent,
         GameComponent,
-        GameSetupSideBarComponent,
-        StepperWizardButtonComponent
+        GameSetupSideBarComponent
     ],
     imports: [
         RouterModule.forChild(GameRoutes),
@@ -83,12 +89,15 @@ import { StepperWizardButtonComponent } from './components/game-setup-ui/stepper
         MatCheckboxModule,
         MatDialogModule,
         SharedModule,
+        MatSidenavModule,
         GamePluginsModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyBEckmuR4cwjzfgkK_JqnzLGyViz1AdKps'
         }),
         DragDropModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        MatToolbarModule,
+        MatListModule
 
     ],
     exports: [

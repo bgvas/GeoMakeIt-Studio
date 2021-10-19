@@ -13,6 +13,7 @@ import {RegistrationResultsComponent} from './authentication/components/registra
 import {GamePluginsComponent} from './gamePlugins/game-plugins.component';
 import {GameSettingsComponent} from './games/components/game-settings/game-settings.component';
 import {GameComponent} from './games/game.component';
+import {AuthenticationComponent} from './authentication/authentication.component';
 
 const routes: Routes = [
   {
@@ -40,6 +41,14 @@ const routes: Routes = [
     children: [{
       path: '',
       loadChildren: './games/game.module#GameModule'
+    }]
+  },
+  {
+    path: 'auth',
+    component: AuthenticationComponent,
+    children: [{
+      path: '',
+      loadChildren: './authentication/authentication.module#AuthenticationModule'
     }]
   },
   {

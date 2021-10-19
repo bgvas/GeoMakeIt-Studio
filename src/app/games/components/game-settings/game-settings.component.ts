@@ -17,7 +17,7 @@ import {Router} from '@angular/router';
 import {GamePlugin} from '../../../gamePlugins/models/game-plugin';
 import {PublicService} from '../../../public.service';
 import {GameAuthenticationModel} from '../../models/gameAuthentication/GameAuthenticationModel';
-
+import {GamePluginDataModel} from '../../../gamePlugins/models/game-plugin-data-model';
 
 
 @Component({
@@ -29,12 +29,11 @@ import {GameAuthenticationModel} from '../../models/gameAuthentication/GameAuthe
 
 export class GameSettingsComponent implements OnInit, OnDestroy  {
 
-  @Input() submitFromStepper: Observable<void>;
+
   @Input() isStepper: boolean;
   allAvailablePlugins: Plugin[];
   projectForm: FormGroup;
   unsubscribe = new Subject<void>();
-  selectedPlugins = [];
   selectedPluginReleases = Array<PluginRelease>();
   useAuthentication = false;
   check_by_email = false;
@@ -42,8 +41,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
   isLoadingAvailable: boolean;
   isLoadingSelected: boolean;
   allPluginsOfGame = Array<GamePlugin>();
-  project: Game = JSON.parse(sessionStorage.getItem('project'));
-  private submitEvent: Subscription;
+  project: Game = JSON.parse(sessionStorage.getItem('project') || null);
 
 
   constructor(private pluginService: PluginService, private fb: FormBuilder,
@@ -53,8 +51,13 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
 
 
   ngOnInit(): void {
+
+    if(this.project === null) {
+      this.router.navigate(['home']);
+    }
         this.getAllAvailablePlugins();
         this.getAllPluginsOfGame(this.project.id);
+        this.getGamePluginsDataOfGeoMakeItApi();
         this.initializeProjectForm();
         this.getGameAuthFromBaseApi();
   }
@@ -119,7 +122,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
   }
 
   // Remove plugins-card from selectedPlugins box //
-  removeGamePluginFromArray(gamePlugin: GamePlugin) {
+  removeGamePlugin(gamePlugin: GamePlugin) {
       const index = this.allPluginsOfGame.findIndex(e => e.plugin_id === gamePlugin.plugin_id
           && e.game_id === gamePlugin.game_id && e.plugin_release_id === gamePlugin.plugin_release_id);
       this.allPluginsOfGame.splice(index, 1);
@@ -176,11 +179,11 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
        )
   }*/
 
-  // get values from geoMakeIt main plugin, (name:config) //
+  // get values from geoMakeIt main plugin, (file-name:config) //
   getGameAuthFromBaseApi() {
-    this.gamePluginDataService.getGamePluginDataOfMainPlugin(this.project?.id, 'config')
-        .pipe(takeUntil(this.unsubscribe)).subscribe(mainPlugin_configFile => {
-          const gameAuth = <GameAuthenticationModel>JSON.parse(mainPlugin_configFile?.data?.contents)
+    this.getGamePluginsDataOfGeoMakeItApi().pipe(take(1)).subscribe((gamePlugin: GamePluginDataModel[]) => {
+      const mainPlugin_configFile = gamePlugin.filter(e => e.name === 'config')[0];
+      const gameAuth = <GameAuthenticationModel>JSON.parse(mainPlugin_configFile.contents);
 
       if (typeof gameAuth.authentication !== 'undefined') {
         this.useAuthentication = gameAuth.authentication.enabled;
@@ -194,9 +197,18 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
         this.projectForm.get('allow_anonymous').setValue(false);
       }
     },
-        (error: ErrorResponseModel) => {
-          console.log(error.message, error.errors);
-        })
+        (e: ErrorResponseModel) => {
+          console.log(e.message, e.errors);
+        });
+  }
+
+
+  // get all geoMakeIt main plugin data of this project//
+  getGamePluginsDataOfGeoMakeItApi() {
+    return this.gamePluginDataService.getGamePluginDataOfMainPlugin(this.project?.id).pipe(
+        map(project => {
+          return project.data.filter((e: GamePluginDataModel) => e.plugin_release_id === 1);
+    }))
   }
 
   // use auth to game //

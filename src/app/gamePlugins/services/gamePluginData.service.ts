@@ -35,8 +35,8 @@ export class GamePluginDataService {
     return this.http.put(this.gamePluginsData_path + '/config/update/' + game_id, gameAuth);
   }
 
-  getGamePluginDataOfMainPlugin(project_id: number, name: string): Observable<any> {
-    return this.http.get(this.rootPath + 'game-plugin-data/' + project_id + '/1/' + name);
+  getGamePluginDataOfMainPlugin(project_id: number): Observable<any> {
+    return this.http.get(this.rootPath + 'game-plugin-data?filter[game_id]=' + project_id);
   }
 
 
