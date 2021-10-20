@@ -1,0 +1,86 @@
+<div [formGroup]="alertDialogForm" class="row w-100 justify-content-center">
+    <div formArrayName="alertsArray">
+            {{gamePluginArray[0]?.description}}
+            <div  class="row border border-primary bg-white rounded p-3 m-3" *ngFor="let item of gamePluginArray[0]?.contents; let x = index" formGroupName="{{x}}">
+                <div class="col-12 text-right">
+                    <a role="button" mat-fab class="bg-danger rounded-circle">
+                        <mat-icon>remove</mat-icon>
+                    </a>
+                </div>
+                <div class="col-6">
+                    <mat-form-field>
+                        <input matInput [placeholder]="'Unique Id'" type="text" value = "{{item['unique_id']}}" [formControlName]="'unique_id'">
+                    </mat-form-field>
+                </div>
+                <div class="col-6">
+                    <mat-form-field>
+                        <input matInput [placeholder]="'Title'" type="text" value = "{{item['title']}}" [formControlName]="'title'">
+                    </mat-form-field>
+                </div>
+                <div class ="col-3">
+                    <p>Cancelable</p>
+                    <span class="mat-h5"> No </span>
+                    <mat-slide-toggle [formControlName]="'cancelable'"></mat-slide-toggle>
+                    <span class="mat-h5"> Yes </span>
+                </div>
+                <div class="col-9">
+                    <mat-form-field>
+                        <input matInput [placeholder]="'Message'" type="text" value = "{{item['message']}}" [formControlName]="'message'">
+                    </mat-form-field>
+                </div>
+                <div class="col-12 m-2 text-center" formGroupName="positive_button">
+                    <div class="row w-100">
+                        <div class="col-2 border border-dark text-dark w-25 pt-3 rounded bg-info shadow font-weight-bold">
+                            Positive button
+                        </div>
+                        <div class="col-5">
+                            <mat-form-field>
+                                <input matInput [placeholder]="'Text'" type="text" value = "{{item['text']}}" [formControlName]="'text'">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-5">
+                            <mat-form-field>
+                                <input matInput [placeholder]="'Action'" type="text" value = "{{item['action']}}" [formControlName]="'action'">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 m-2 text-center" formGroupName="neutral_button">
+                    <div class="row w-100">
+                        <div class="col-2 border border-dark text-dark pt-3 rounded bg-secondary shadow  w-25 font-weight-bold">
+                            Neutral button
+                        </div>
+                        <div class="col-5">
+                            <mat-form-field>
+                                <input matInput [placeholder]="'Text'" type="text" value = "{{item['text']}}" [formControlName]="'text'">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-5">
+                            <mat-form-field>
+                                <input matInput [placeholder]="'Action'" type="text" value = "{{item['action']}}" [formControlName]="'action'">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 m-2 text-center" formGroupName="negative_button">
+                    <div class="row w-100">
+                        <div class="col-2 border border-dark text-dark pt-3 rounded bg-warning shadow  w-25 font-weight-bold">
+                            Negative button
+                        </div>
+                        <div class="col-5">
+                            <mat-form-field>
+                                <input matInput [placeholder]="'Text'" type="text" value = "{{item['text']}}" [formControlName]="'text'">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-5">
+                            <mat-form-field>
+                                <input matInput [placeholder]="'Action'" type="text" value = "{{item['action']}}" [formControlName]="'action'">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <button class="btn btn-warning" (click) = onSubmit()>Submit</button>
+</div>
+

@@ -24,19 +24,22 @@ import {NumberPickerModule} from 'ng-number-picker';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
 import {ReturningResultsService} from './services/returning-results.service';
+import { GeomakeitPluginAlertDialogBoxComponent } from './geomakeit-plugin-alert-dialog-box/geomakeit-plugin-alert-dialog-box.component';
 
 
 
 @NgModule({
-  declarations: [
-      GamePluginsComponent,
-      JsonFilesConfigurationComponent,
-      JsonFilesVisualizationComponent,
-      DesignerTypeOfFieldsComponent,
-      TypeInputFieldComponent,
-      TypeArrayFieldComponent,
-      TypeSelectAndCheckFieldComponent
-  ],
+    declarations: [
+        GamePluginsComponent,
+        JsonFilesConfigurationComponent,
+        JsonFilesVisualizationComponent,
+        DesignerTypeOfFieldsComponent,
+        TypeInputFieldComponent,
+        TypeArrayFieldComponent,
+        TypeSelectAndCheckFieldComponent,
+        GeomakeitPluginAlertDialogBoxComponent,
+        GeomakeitPluginAlertDialogBoxComponent
+    ],
     imports: [
         CommonModule,
         GamePluginsRoutingModule,
@@ -54,7 +57,8 @@ import {ReturningResultsService} from './services/returning-results.service';
         MatButtonModule
     ],
     exports: [
-        JsonFilesConfigurationComponent
+        JsonFilesConfigurationComponent,
+        GeomakeitPluginAlertDialogBoxComponent
     ],
   providers: [
       GamePluginsService,
