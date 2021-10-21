@@ -54,12 +54,11 @@ export class GamePluginsService {
     return this.http.delete(this.rootPath + 'games/' + this.game_id + '/plugins/' + pluginId);
   }
 
+  getAllPluginsOfGame(gameId: number): Observable<GamePlugin[]> {
+    return this.http.get<GamePlugin[]>(this.rootPath + 'games/' + gameId + '/plugins');
+  }
 
   /* tested ^^^^*/
-
-  getAllPluginsOfGame(gameId: number): Observable<GamePlugin> {
-    return this.http.get<GamePlugin>(this.rootPath + 'games/' + gameId + '/plugins');
-  }
 
 
   getAllJsonContentByGameId(gameId: number): Observable<any> {
@@ -111,7 +110,7 @@ export class GamePluginsService {
   }
 
   /**
-   * In this function we will declare form controls and we will add to form values from data file
+   * In this function we will declare form controls and we will add to form, values from data file
    * this is only for JSON files with config-type design
    *
    * @param form
@@ -153,7 +152,7 @@ export class GamePluginsService {
 
 
   /**
-   * In this function we will declare form controls and we will add to form values from data-file
+   * In this function we will declare form controls and we will add to form, values from data-file
    * this is only for JSON files with data-type design
    *
    * @param form

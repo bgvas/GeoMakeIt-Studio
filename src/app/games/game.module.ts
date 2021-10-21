@@ -40,6 +40,7 @@ import { GameSetupSideBarComponent } from './components/game-setup-ui/game-setup
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatListModule} from '@angular/material/list';
+import { GameSettingsTabGroupComponent } from './components/game-setup-ui/game-settings-tab-group/game-settings-tab-group.component';
 
 
 
@@ -67,7 +68,8 @@ import {MatListModule} from '@angular/material/list';
         MapComponent,
         TableWithSelectedPointsComponent,
         GameComponent,
-        GameSetupSideBarComponent
+        GameSetupSideBarComponent,
+        GameSettingsTabGroupComponent
     ],
     imports: [
         RouterModule.forChild(GameRoutes),

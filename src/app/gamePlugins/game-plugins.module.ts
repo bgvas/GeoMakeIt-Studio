@@ -24,7 +24,7 @@ import {NumberPickerModule} from 'ng-number-picker';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
 import {ReturningResultsService} from './services/returning-results.service';
-import { GeomakeitPluginAlertDialogBoxComponent } from './geomakeit-plugin-alert-dialog-box/geomakeit-plugin-alert-dialog-box.component';
+import { GeomakeitPluginAlertDialogBoxComponent } from './components/geomakeit-plugin-alert-dialog-box/geomakeit-plugin-alert-dialog-box.component';
 
 
 

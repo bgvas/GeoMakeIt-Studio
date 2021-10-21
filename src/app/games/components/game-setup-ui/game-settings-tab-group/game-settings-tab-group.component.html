@@ -1,0 +1,48 @@
+<mat-tab-group>
+    <mat-tab label = "Add Plugins">
+        <div class="m-3">
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                    <!--Display all available plugins-->
+                    <app-display-plugins-window
+                            [pluginsArray]="allAvailablePlugins"
+                            [isSelectedPlugins]="false"
+                            (selectedGamePluginsArray)="returnedSelectedPlugins($event)"
+                            [titleOfWindow]="'Available Plugins'">
+                    </app-display-plugins-window>
+                    <div class="text-center m-2" *ngIf="isLoadingAvailable">
+                        <app-spinner [visible]="isLoadingAvailable"></app-spinner>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                    <!--Display all selected plugins-->
+                    <app-display-plugins-window
+                            (removeGamePlugin)="removeGamePlugin($event)"
+                            [pluginsArray]="allPluginsOfGame"
+                            [isSelectedPlugins]="true"
+                            [titleOfWindow]="'Selected Plugins'">
+                    </app-display-plugins-window>
+                    <div class="text-center m-2" *ngIf="isLoadingSelected">
+                        <app-spinner [visible]="isLoadingSelected"></app-spinner>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab label="Alert dialogs">
+        <div class="row mb-5 w-100 justify-content-center">
+            <app-geomakeit-plugin-alert-dialog-box
+                    [gamePluginArray]="gamePluginDataOfGeoMakeItApiArray[0]">  <!-- <=== TODO change to dynamic  -->
+            </app-geomakeit-plugin-alert-dialog-box>
+        </div>
+    </mat-tab>
+    <mat-tab label="Markers">
+        markers
+    </mat-tab>
+    <mat-tab label="Quests">
+        quests
+    </mat-tab>
+    <mat-tab label="Startup">
+        startup
+    </mat-tab>
+</mat-tab-group>
