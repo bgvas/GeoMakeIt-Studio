@@ -37,7 +37,19 @@ export class GamePluginDataService {
   }
 
   getGamePluginDataOfMainPlugin(project_id: number): Observable<any> {
-    return this.http.get(this.rootPath + 'game-plugin-data?filter[game_id]=' + project_id);
+    return this.http.get(this.rootPath + 'game-plugin-data/' + project_id + '/1');
+  }
+
+  convertToString(content: any) {
+    return JSON.stringify(content);
+  }
+
+  toGamePluginDataUpdateRequest(name: string, content: string){
+    return {[name]: content};
+  }
+
+  updateGamePluginData(game_id: number, pluginRelease_id: number, objectToUpdate: any) {
+    return this.http.put(this.rootPath + 'game-plugin-data/' + game_id + '/' + pluginRelease_id, objectToUpdate);
   }
 
   getOtherGamePluginDataFromGeoMakeItApi(project_id: number): Observable<any> {
@@ -45,6 +57,7 @@ export class GamePluginDataService {
       return gamePluginData.data.filter(e => e.name !== 'zones' && e.name !== 'config')
     }))
   }
+
 
 
 }
