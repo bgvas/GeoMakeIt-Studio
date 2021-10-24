@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-8" [formGroup]="formSelect">
+        <label class="text-left">
+            Release
+            <select formControlName="select"  class="form-select" (change)="selectedRelease($event)">
+                <option class="form-control" *ngFor="let release of pluginReleasesArray; let x = index"
+                        [value]="release" [selected] = "(pluginReleasesArray.length - 1) === x ">
+                    {{release.name}}
+                </option>
+            </select>
+        </label>
+    </div>
+    <div class="col-4" >
+        <button mat-mini-fab  style="background-color: lightgray" (click)="onDownloadClick()" [class.bg-success]="isSelected">
+            <mat-icon>download</mat-icon>
+        </button>
+        <p *ngIf="downloadResult === true" class="text-success">OK <mat-icon>checked</mat-icon></p>
+        <p *ngIf="downloadResult === false" class="text-danger mat-h5">already added</p>
+    </div>
+    <div class="col-8">
+        <div class="mat-h6">
+            <span style="font-weight: bold" *ngFor="let star of getPopularity(defaultRelease?.installs)">
+                <span class="material-icons text-warning">
+                    star
+                </span>
+            </span>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="mat-h6">
+            Size:<span style="font-weight: bold">
+                    {{(defaultRelease?.size)/1000}}mb
+                </span>
+        </div>
+    </div>
+</div>
+

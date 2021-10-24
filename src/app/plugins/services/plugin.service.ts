@@ -51,6 +51,10 @@ export class PluginService {
     return this.http.get<PluginRelease>(this.pathReleases + '/' + release_id);
   }
 
+  getPluginReleasesById(pluginId: number): Observable<PluginRelease[]> {
+    return this.http.get<PluginRelease[]>(this.pathReleases + '?filter[plugin_id]=' + pluginId);
+  }
+
   /* tested */
 
   pluginReleasesById(pluginId): PluginRelease[] {
@@ -59,16 +63,10 @@ export class PluginService {
     })
     return this.pluginReleases;
   }
-  
-  getPluginReleasesById(pluginId): Observable<RootPluginReleases> {
-    return this.http.get<RootPluginReleases>(this.pathReleases + '?filter[plugin_id]=' + pluginId)
-  }
 
   getPluginById(pluginId: number): Observable<Plugin> {
     return this.http.get<Plugin>(this.path + '/' + pluginId);
   }
-
-
 
   getNumberOfAvailablePlugins(): Observable<number> {
     return this.getAllPlugins().pipe(map(plugins => {

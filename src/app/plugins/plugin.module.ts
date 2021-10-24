@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PluginsComponent} from './components/my-plugins/plugins.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialFileInputModule} from 'ngx-material-file-input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
@@ -19,6 +19,10 @@ import {SharedModule} from '../shared/shared.module';
 import {MatSelectModule} from '@angular/material/select';
 import { PluginCardForGameSettingsComponent } from './components/plugin-card-for-game-settings/plugin-card-for-game-settings.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {AvailablePluginsModalComponent} from './components/available-plugins-modal/available-plugins-modal.component';
+import {MatButtonModule} from '@angular/material/button';
+import { SelectReleaseOfPluginComponent } from './components/select-release-of-plugin/select-release-of-plugin.component';
+
 
 
 @NgModule({
@@ -27,7 +31,9 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
         EditPluginComponent,
         IdentifierExistsValidatorDirective,
         DisplayPluginsWindowComponent,
-        PluginCardForGameSettingsComponent
+        PluginCardForGameSettingsComponent,
+        AvailablePluginsModalComponent,
+        SelectReleaseOfPluginComponent
     ],
     imports: [
         CommonModule,
@@ -43,12 +49,15 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
         MatDialogModule,
         SharedModule,
         MatSelectModule,
-        DragDropModule
+        DragDropModule,
+        MatButtonModule,
+        FormsModule
     ],
     exports: [
         EditPluginComponent,
         IdentifierExistsValidatorDirective,
-        DisplayPluginsWindowComponent
+        DisplayPluginsWindowComponent,
+        AvailablePluginsModalComponent
     ],
     providers: [
         PluginService

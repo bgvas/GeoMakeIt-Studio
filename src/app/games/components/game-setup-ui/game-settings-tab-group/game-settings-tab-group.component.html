@@ -1,9 +1,16 @@
-<mat-tab-group>
+<mat-tab-group [color]="'accent'">
     <mat-tab label = "Add Plugins">
         <div class="m-3">
             <div class="row">
-                <div class="col-lg-6 col-12">
-                    <!--Display all available plugins-->
+                <div class="col-12">
+                    <button type="button" (click)="openAvailablePlugins()" class="btn btn-info" data-toggle="modal" data-target="#available_plugins_window">
+                        Select Plugins
+                    </button>
+                </div>
+
+
+                <!--<div class="col-lg-6 col-12">
+                    &lt;!&ndash;Display all available plugins&ndash;&gt;
                     <app-display-plugins-window
                             [pluginsArray]="allAvailablePlugins"
                             [isSelectedPlugins]="false"
@@ -13,9 +20,9 @@
                     <div class="text-center m-2" *ngIf="isLoadingAvailable">
                         <app-spinner [visible]="isLoadingAvailable"></app-spinner>
                     </div>
-                </div>
-                <div class="col-lg-6 col-12">
-                    <!--Display all selected plugins-->
+                </div>-->
+                <!--<div class="col-lg-6 col-12">
+                    &lt;!&ndash;Display all selected plugins&ndash;&gt;
                     <app-display-plugins-window
                             (removeGamePlugin)="removeGamePlugin($event)"
                             [pluginsArray]="allPluginsOfGame"
@@ -25,24 +32,32 @@
                     <div class="text-center m-2" *ngIf="isLoadingSelected">
                         <app-spinner [visible]="isLoadingSelected"></app-spinner>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
     </mat-tab>
+    <!-- ToDo Make that tabs dynamic (one tab for all) -->
     <mat-tab label="Alert dialogs">
         <div class="row mb-5 w-100 justify-content-center">
             <app-geomakeit-plugin-alert-dialog-box
-                    [gamePluginArray]="gamePluginDataOfGeoMakeItApiArray[0]">  <!-- <=== TODO change to dynamic  -->
+                    [gamePluginArray]="gamePluginDataOfGeoMakeItApiArray">
             </app-geomakeit-plugin-alert-dialog-box>
         </div>
     </mat-tab>
-    <mat-tab label="Markers">
-        markers
+   <!-- <mat-tab label="Markers">
+        <app-geomakeit-plugin-markers-box>
+               &lt;!&ndash; [gamePluginArray]="gamePluginDataOfGeoMakeItApiArray">&ndash;&gt;
+        </app-geomakeit-plugin-markers-box>
     </mat-tab>
     <mat-tab label="Quests">
-        quests
+        <app-geomakeit-plugin-quests-box>
+               &lt;!&ndash; [gamePluginArray]="gamePluginDataOfGeoMakeItApiArray">&ndash;&gt;
+        </app-geomakeit-plugin-quests-box>
     </mat-tab>
     <mat-tab label="Startup">
-        startup
-    </mat-tab>
+        <app-geomakeit-plugin-startup-box></app-geomakeit-plugin-startup-box>
+    </mat-tab>-->
 </mat-tab-group>
+
+<!-- available plugins modal -->
+<app-available-plugins-modal *ngIf="opening"></app-available-plugins-modal>

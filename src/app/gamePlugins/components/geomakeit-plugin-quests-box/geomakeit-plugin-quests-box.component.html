@@ -1,0 +1,48 @@
+<!--
+<div [formGroup]="questsForm" class="row pl-2 mt-3 w-100 justify-content-center">
+    <div class="row justify-content-center">
+        <div class="col-lg-3 col-12">
+            <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <button class="nav-link active rounded" id="v-on-first-join-tab" data-bs-toggle="pill"  data-bs-target="#v-on-first-join" role="tab" aria-selected="true">
+                    On first join
+                </button>
+                <button class="nav-link" id="v-quests-tab" data-bs-toggle="pill" data-bs-target="#v-quests"  role="tab" aria-selected="false">
+                    Quests
+                </button>
+            </div>
+        </div>
+        <div class="col-lg-9 col-12 pl-4 pr-4 pb-4">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active border border-info w-100 rounded shadow bg-white" id="v-on-first-join" role="tabpanel">
+                    <div class="row justify-content-center">
+                        <div class="col-12 text-right">
+                            <button class="btn btn-info m-2">
+                                add
+                            </button>
+                        </div>
+                        <div formArrayName="on_first_join" class="col-11 border border-info p-2 mb-3 rounded" style="max-height: 300px; overflow-y: auto">
+                            <div *ngFor="let item of onFirstJoinValuesArray ; let x = index">
+
+                                <div class="row ml-2 p-2 w-100 justify-content-center">
+                                    <div class="col-9">
+                                        <input type="text" value="{{item}}" class="form-control text-center" formControlName="{{x}}">
+                                    </div>
+                                    <div class="col-1">
+                                        <button mat-mini-fab color="warn">
+                                            -
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="v-quests" role="tabpanel">
+                    Quests
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+-->

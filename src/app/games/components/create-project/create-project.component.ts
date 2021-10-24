@@ -58,7 +58,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
                 this.notification.display('Created successfully', 'success');
             },
             (error: ErrorResponseModel) => {
-                 this.notification.display('Can\'t create new temporary_save', 'danger');
+                 this.notification.display('Can\'t create new project', 'danger');
                  console.log(error.message + ' - ' + error.errors);
           }
       )

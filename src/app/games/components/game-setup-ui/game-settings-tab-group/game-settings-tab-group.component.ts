@@ -25,6 +25,8 @@ export class GameSettingsTabGroupComponent implements OnInit, OnDestroy {
   allAvailablePlugins: Plugin[];
   mainPlugin: GamePlugin;
   gamePluginDataOfGeoMakeItApiArray = Array<GamePluginDataModel>();
+  gamePluginFromMainApi?: GamePluginDataModel;
+  opening: boolean
 
   constructor(private gamePluginService: GamePluginsService, private pluginService: PluginService,
               private gamePluginDataService: GamePluginDataService, private router: Router) { }
@@ -32,11 +34,12 @@ export class GameSettingsTabGroupComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if(this.project === null) {
       this.router.navigate(['home']);
+      this.opening = false;
     }
-    this.getAllAvailablePlugins();
-    this.getAllPluginsOfGame(this.project?.id);
-    this.getGamePluginsDataOfGeoMakeItApi();
-    this.getOtherFilesFromGeoMakeItApi()
+  }
+
+  openAvailablePlugins() {
+    this.opening = true;
   }
 
   // on exit, unsubscribe all//
@@ -84,19 +87,12 @@ export class GameSettingsTabGroupComponent implements OnInit, OnDestroy {
         })
   }
 
-  // get all geoMakeIt main plugin data of this project//
-  getGamePluginsDataOfGeoMakeItApi() {
-    return this.gamePluginDataService.getGamePluginDataOfMainPlugin(this.project?.id).pipe(
-        map(project => {
-          return project.data.filter((e: GamePluginDataModel) => e.plugin_release_id === this.mainPlugin.plugin_release_id);
-        }))
-  }
 
   getOtherFilesFromGeoMakeItApi() {
-    this.getGamePluginsDataOfGeoMakeItApi().pipe(take(1)).subscribe((gamePlugin: GamePluginDataModel[]) => {
-          this.gamePluginDataOfGeoMakeItApiArray = gamePlugin.filter(gp => gp.name !== 'config' && gp.name !== 'zones');
-          this.gamePluginDataOfGeoMakeItApiArray.forEach(e => e.contents = JSON.parse(e.contents));
-          this.gamePluginDataOfGeoMakeItApiArray = this.gamePluginDataOfGeoMakeItApiArray.filter(e => e.name === 'alert_dialogs');
+      this.gamePluginDataService.getGamePluginDataOfMainPlugin(this.project?.id).pipe(takeUntil(this.unsubscribe))
+        .subscribe((gamePlugin: GamePluginDataModel[]) => {
+            this.gamePluginDataOfGeoMakeItApiArray = gamePlugin['data'].filter(gp => gp.name !== 'config' && gp.name !== 'zones');
+            //this.gamePluginDataOfGeoMakeItApiArray.forEach(e => e.contents = JSON.parse(e.contents));
         },
         (e: ErrorResponseModel) => {
           console.log(e.message, e.errors);

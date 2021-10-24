@@ -25,6 +25,9 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
 import {ReturningResultsService} from './services/returning-results.service';
 import { GeomakeitPluginAlertDialogBoxComponent } from './components/geomakeit-plugin-alert-dialog-box/geomakeit-plugin-alert-dialog-box.component';
+import { GeomakeitPluginMarkersBoxComponent } from './components/geomakeit-plugin-markers-box/geomakeit-plugin-markers-box.component';
+import { GeomakeitPluginQuestsBoxComponent } from './components/geomakeit-plugin-quests-box/geomakeit-plugin-quests-box.component';
+import { GeomakeitPluginStartupBoxComponent } from './components/geomakeit-plugin-startup-box/geomakeit-plugin-startup-box.component';
 
 
 
@@ -38,7 +41,10 @@ import { GeomakeitPluginAlertDialogBoxComponent } from './components/geomakeit-p
         TypeArrayFieldComponent,
         TypeSelectAndCheckFieldComponent,
         GeomakeitPluginAlertDialogBoxComponent,
-        GeomakeitPluginAlertDialogBoxComponent
+        GeomakeitPluginAlertDialogBoxComponent,
+        GeomakeitPluginMarkersBoxComponent,
+        GeomakeitPluginQuestsBoxComponent,
+        GeomakeitPluginStartupBoxComponent
     ],
     imports: [
         CommonModule,
@@ -58,7 +64,10 @@ import { GeomakeitPluginAlertDialogBoxComponent } from './components/geomakeit-p
     ],
     exports: [
         JsonFilesConfigurationComponent,
-        GeomakeitPluginAlertDialogBoxComponent
+        GeomakeitPluginAlertDialogBoxComponent,
+        GeomakeitPluginMarkersBoxComponent,
+        GeomakeitPluginQuestsBoxComponent,
+        GeomakeitPluginStartupBoxComponent
     ],
   providers: [
       GamePluginsService,

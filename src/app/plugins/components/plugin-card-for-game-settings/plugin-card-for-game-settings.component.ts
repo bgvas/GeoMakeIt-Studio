@@ -112,7 +112,7 @@ export class PluginCardForGameSettingsComponent implements OnInit, OnDestroy {
 
   getListOfPluginReleases(pluginId: number) {
       this.pluginService.getPluginReleasesById(pluginId).pipe(take(1)).subscribe(releases => {
-        this.pluginReleasesList = releases.data;
+        this.pluginReleasesList = releases['data'];
         this.defaultRelease = this.pluginReleasesList[this.pluginReleasesList?.length - 1];
         this.pluginReleaseFromList = this.defaultRelease;
       },

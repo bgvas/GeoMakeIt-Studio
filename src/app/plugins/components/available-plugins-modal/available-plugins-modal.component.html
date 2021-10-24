@@ -1,0 +1,95 @@
+
+<!-- Modal -->
+<div class="modal fade" id="available_plugins_window" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content bg-light">
+            <div class="modal-header">
+                <h5 class="modal-title serif-font h2">Available Plugins</h5>
+            </div>
+            <div class="modal-body">
+                <div style="max-height: 600px; overflow-y: auto; overflow-x: hidden">
+                    <!-- Cards -->
+                    <div class="rounded shadow mb-3 ml-2 mr-2 bg-white" style="border: 2px solid #00b0ff;" *ngFor="let item of allAvailablePlugins; let x = index"> <!--*ngIf="errorMessage === null && selectedPluginToDisplay !== null">-->
+                        <div class="row ml-2 mr-2 justify-content-center" id="{{x}}">
+                            <div class="col-12 text-dark text-center">
+                                <div class="mt-2 bg-secondary rounded">
+                                    <span class="p-2 h3 text-info" style="font-weight: bold; text-shadow: 2px 2px black">{{item?.title}}</span>
+                                </div>
+                            </div>
+                            <div class="col-2 mt-1 mb-2 text-center">
+                                <span class="material-icons" style="font-size: 50px">extension</span>
+                            </div>
+                            <div class="col-lg-10 col-10 mt-1">
+                                <div class="row">
+                                    <div class="col-7 text-center">
+                                        <div class="mat-h2 mb-0 serif-font text-dark" style="font-weight: bold">{{item?.description}}</div>
+                                        <div class="mat-h4 mb-0">Created by:<span style="font-weight: bold">{{creator?.name}}</span></div>
+                                        <div class="mat-h5 mb-0">
+                                            Created at:<span style="font-weight: bold"> {{item?.created_at | date}}</span> -
+                                            Updated at:<span style="font-weight: bold"> {{item?.updated_at | date}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-5 text-center text-dark">
+                                        <app-select-release-of-plugin
+                                                (isSelectedRelease)="selectedRelease($event)"
+                                                [user_id]="item?.user_id"
+                                                (creator)="getCreator($event)"
+                                                [plugin_id]="item?.id">
+                                        </app-select-release-of-plugin>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="col-lg-1 col-1 mt-1" id="item{{x}}">
+                                <button mat-mini-fab style="background-color: lightgray" (click)="onDownloadClick(x)" [class.bg-success]="isSelected && index.includes(x)">
+                                    <mat-icon>download</mat-icon>
+                                </button>
+                                <p *ngIf="isSelected && index.includes(x)" class="text-success">OK <mat-icon>checked</mat-icon></p>
+                            </div>-->
+                            <!--<div class="col-lg-8 col-12 text-center">
+                                <div class="row">
+                                    <div class="col-12 mb-0 mat-h6 disabled text-center">
+                                        By: &lt;!&ndash;{{creatorOfPlugin?.name}} - &ndash;&gt;
+                                        Created at: &lt;!&ndash;{{pluginReleaseFromList?.created_at || selectedPluginReleaseToDisplay?.created_at | date}} - &ndash;&gt;
+                                        Updated at: &lt;!&ndash;{{pluginReleaseFromList?.updated_at || selectedPluginReleaseToDisplay?.updated_at | date}}&ndash;&gt;
+                                    </div>
+                                    <div class="col-12 mb-0 mat-h6 text-dark text-center font-weight-bold">
+                                        Size:&lt;!&ndash; {{(pluginReleaseFromList?.size)/1000 || (selectedPluginReleaseToDisplay?.size)/1000}} mb - &ndash;&gt;
+                                        Installs: &lt;!&ndash;{{pluginReleaseFromList?.installs || selectedPluginReleaseToDisplay?.installs}}&ndash;&gt;
+                                    </div>
+                                    <div class="col-12 mb-0 mat-h6 text-dark text-center font-weight-bold">
+                                       &lt;!&ndash; {{availablePluginFromList?.description || selectedPluginToDisplay?.description}}&ndash;&gt;
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-9 text-center">
+                                <mat-form-field>&lt;!&ndash; *ngIf="!isSelectedPlugin">&ndash;&gt;
+                                    <mat-label>Release</mat-label>
+                                    <mat-select class="text-center">&lt;!&ndash; [(value)]="defaultRelease" (selectionChange)="onChangeSelectionInList($event)" [placeholder]="defaultRelease?.name">&ndash;&gt;
+                                        <mat-option class="text-dark font-weight-bold">&lt;!&ndash; *ngFor="let pluginRelease of pluginReleasesList" [value]="pluginRelease">&ndash;&gt;
+                                           &lt;!&ndash; {{pluginRelease?.name}}&ndash;&gt;
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <p class="mat-h5"></p> &lt;!&ndash;*ngIf="isSelectedPlugin && errorMessage === null">Release: {{selectedPluginReleaseToDisplay?.name}}</p>&ndash;&gt;
+                            </div>
+                            <div class="col-lg-1 col-3">
+                                <button>&lt;!&ndash; *ngIf="!isSelectedPlugin" class="btn btn-just-icon rounded-circle mt-2" [class.btn-success]="isClickedAddButton" (click)="onClickAdd()">&ndash;&gt;
+                                    <mat-icon>add</mat-icon>
+                                </button>
+                            </div>-->
+                        </div>
+                    </div>
+                    <!-- cards -->
+                </div>
+            </div>
+            <app-spinner [visible]="isLoading"></app-spinner>
+            <div class="modal-footer">
+                <div class="col-12 text-center">
+                    <button type="button" class="btn btn-outline-secondary w-50" data-dismiss="modal" (click)="onClose()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
