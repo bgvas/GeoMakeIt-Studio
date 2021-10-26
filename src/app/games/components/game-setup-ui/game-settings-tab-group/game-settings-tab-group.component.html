@@ -1,42 +1,21 @@
 <mat-tab-group [color]="'accent'">
-    <mat-tab label = "Add Plugins">
+    <mat-tab label = "Plugins">
         <div class="m-3">
             <div class="row">
-                <div class="col-12">
-                    <button type="button" (click)="openAvailablePlugins()" class="btn btn-info" data-toggle="modal" data-target="#available_plugins_window">
-                        Select Plugins
+                <div class="col-lg-2 col-12 text-center">
+                    <button type="button" (click)="openAvailablePlugins()"
+                            class="btn btn-info text-lowercase"
+                            data-toggle="modal"
+                            data-target="#available_plugins_modal">
+                       add plugins
                     </button>
                 </div>
-
-
-                <!--<div class="col-lg-6 col-12">
-                    &lt;!&ndash;Display all available plugins&ndash;&gt;
-                    <app-display-plugins-window
-                            [pluginsArray]="allAvailablePlugins"
-                            [isSelectedPlugins]="false"
-                            (selectedGamePluginsArray)="returnedSelectedPlugins($event)"
-                            [titleOfWindow]="'Available Plugins'">
-                    </app-display-plugins-window>
-                    <div class="text-center m-2" *ngIf="isLoadingAvailable">
-                        <app-spinner [visible]="isLoadingAvailable"></app-spinner>
-                    </div>
-                </div>-->
-                <!--<div class="col-lg-6 col-12">
-                    &lt;!&ndash;Display all selected plugins&ndash;&gt;
-                    <app-display-plugins-window
-                            (removeGamePlugin)="removeGamePlugin($event)"
-                            [pluginsArray]="allPluginsOfGame"
-                            [isSelectedPlugins]="true"
-                            [titleOfWindow]="'Selected Plugins'">
-                    </app-display-plugins-window>
-                    <div class="text-center m-2" *ngIf="isLoadingSelected">
-                        <app-spinner [visible]="isLoadingSelected"></app-spinner>
-                    </div>
-                </div>-->
+                <div class="col-lg-10 col-12">
+                     <app-selected-game-plugins></app-selected-game-plugins>
+                </div>
             </div>
         </div>
     </mat-tab>
-    <!-- ToDo Make that tabs dynamic (one tab for all) -->
     <mat-tab label="Alert dialogs">
         <div class="row mb-5 w-100 justify-content-center">
             <app-geomakeit-plugin-alert-dialog-box

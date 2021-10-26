@@ -1,11 +1,10 @@
-import {Component, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import {filter, map, take, takeUntil} from 'rxjs/operators';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {takeUntil} from 'rxjs/operators';
 import {ErrorResponseModel} from '../../../error-handling/error_response_model';
 import {PluginService} from '../../services/plugin.service';
-import {Observable, Subject} from 'rxjs';
+import {Subject} from 'rxjs';
 import {Plugin} from '../../models/plugin';
 import {PluginRelease} from '../../models/available_plugins/plugin-release';
-import {SelectReleaseOfPluginComponent} from '../select-release-of-plugin/select-release-of-plugin.component';
 import {UserService} from '../../../user-management/services/user.service';
 import {User} from '../../../user-management/models/user';
 
@@ -21,7 +20,6 @@ export class AvailablePluginsModalComponent implements OnInit, OnDestroy {
   unsubscribe = new Subject<void>();
   allAvailablePlugins?: Plugin[];
   index = Array<number>();
-  pluginReleasesArray = Array<PluginRelease>();
   defaultRelease?: PluginRelease;
   creator?: User;
 

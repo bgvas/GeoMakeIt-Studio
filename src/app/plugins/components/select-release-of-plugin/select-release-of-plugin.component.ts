@@ -1,5 +1,5 @@
-import {Component, Input, OnChanges, OnInit, Output, SimpleChanges, EventEmitter, OnDestroy} from '@angular/core';
-import {take, takeUntil} from 'rxjs/operators';
+import {Component, Input, OnChanges, OnInit, Output, SimpleChanges, EventEmitter, OnDestroy, ViewChild} from '@angular/core';
+import {take} from 'rxjs/operators';
 import {PluginService} from '../../services/plugin.service';
 import {PluginRelease} from '../../models/available_plugins/plugin-release';
 import {FormBuilder, FormGroup} from '@angular/forms';
@@ -11,6 +11,7 @@ import {Router} from '@angular/router';
 import {AddGamePluginRequestModel} from '../../../gamePlugins/models/add-game-plugin-request-model';
 import {ErrorResponseModel} from '../../../error-handling/error_response_model';
 import {Subject} from 'rxjs';
+
 
 
 
@@ -93,6 +94,7 @@ export class SelectReleaseOfPluginComponent implements OnInit, OnChanges, OnDest
         } else {
           this.isSelected = true;
           this.downloadResult = true;
+          this.gamePluginService.sendUpdate(true);
         }
 
     },

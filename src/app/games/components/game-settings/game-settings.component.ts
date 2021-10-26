@@ -144,10 +144,10 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
 
   // get values from geoMakeIt main plugin, (file-name:config) //
   getConfigFileFromGeoMakeItApi() {
-    this.gamePluginDataService.getGamePluginDataOfMainPlugin(this.project.id).pipe(takeUntil(this.unsubscribe)).subscribe((gamePlugin: GamePluginDataModel[]) => {
+    this.gamePluginDataService.getGamePluginDataOfMainPlugin(this.project.id).pipe(takeUntil(this.unsubscribe))
+        .subscribe((gamePlugin: GamePluginDataModel[]) => {
       const mainPlugin_configFile = (<GamePluginDataModel[]>gamePlugin['data']).filter(e => e.name === 'config');
       const gameAuth = JSON.parse((mainPlugin_configFile.pop()).contents);
-      console.log(gameAuth)
 
       if (typeof gameAuth?.authentication !== 'undefined') {
         this.useAuthentication = gameAuth.authentication.enabled;
@@ -168,7 +168,8 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
 
   // get all geoMakeIt main plugin data of this project//
   getGamePluginsDataOfGeoMakeItApi() {
-    this.gamePluginDataService.getGamePluginDataOfMainPlugin(this.project?.id).pipe(takeUntil(this.unsubscribe)).subscribe(mainGamePlugin => {
+    this.gamePluginDataService.getGamePluginDataOfMainPlugin(this.project?.id)
+        .pipe(takeUntil(this.unsubscribe)).subscribe(mainGamePlugin => {
       this.mainGamePlugin = mainGamePlugin;
     })
   }

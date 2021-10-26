@@ -1,12 +1,15 @@
  <div class="h-auto mb-5">
     <div class="pt-2 pl-4 pr-4" [formGroup]="projectForm">
-        <div class="row ml-2 mr-2">
+        <div class="row justify-content-center ml-2 mr-2">
             <div class="col-12 mb-2 h2 serif-font font-weight-bold" *ngIf="!isStepper">
                 Basic settings of project
             </div>
-            <div class="col-12 pt-2 border border-dark rounded shadow">
+            <div class="col-12" style="font-weight: bold">
+                General information
+            </div>
+            <div class="col-12 pt-2 mb-3 border border-dark rounded shadow">
                 <div class="row">
-                    <div class="col-lg-6 col-12 mb-2">
+                    <div class="col-12 mb-2">
                         <mat-form-field class="bg-white p-2 border border-info rounded shadow">
                             <input type="text" class="text-dark font-weight-bold" matInput placeholder="Title of project" formControlName="title"  value="{{project?.title}}">
                             <mat-error class="mat-h5" *ngIf="projectForm.get('title').getError('required') && projectForm.get('title').touched">
@@ -14,7 +17,7 @@
                             </mat-error>
                         </mat-form-field>
                     </div>
-                    <div class="col-lg-6 col-12">
+                    <div class="col-12 mb-2">
                         <mat-form-field class="bg-white p-2 border border-info rounded shadow">
                             <input type="text" class="text-dark font-weight-bold" matInput placeholder="Description of project" formControlName="description"  value="{{project?.description}}">
                             <mat-error class="mat-h5" *ngIf="projectForm.get('description').getError('required') && projectForm.get('description').touched">
@@ -24,32 +27,35 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-12" data-toggle="tooltip" title="Select if you want to add authentication for your project">
-                <div class="row w-100 mt-2">
-                    <div class="col-2">
-                        <div class="h5 text-dark text-left pl-2">
-                            Add authentication
+            <div class="col-12" style="font-weight: bold">
+                Security
+            </div>
+            <div class="col-12 pt-2 mb-3 border border-dark rounded shadow" data-toggle="tooltip" title="Select if you want to add authentication for your project">
+                <div class="bg-white p-2 mb-2 border border-info rounded shadow">
+                    <div class="row">
+                        <div class="col-2">
+                            <div class="h5 text-dark text-left pl-2">
+                                Use authentication
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-10 text-left">
-                       No <mat-slide-toggle [checked]="projectForm.get('use_auth').value" formControlName="use_auth"
-                                            (change)="use_auth($event)">
-                    </mat-slide-toggle> Yes
-                    </div>
-                    <div class="col-12 ml-3 text-left disabled">
-                        <mat-checkbox disabled="{{!useAuthentication}}" value="{{projectForm.get('check_by_email').value}}"
-                                      formControlName="check_by_email" (change)="checkByEmail($event)">
-                            <span class="disabled" [class.text-dark]="useAuthentication">By email</span>
-                        </mat-checkbox>
-                    </div>
-                    <div class="col-12 ml-3 text-left">
-                        <mat-checkbox disabled="{{!useAuthentication}}" formControlName="allow_anonymous"
-                                      value="{{projectForm.get('allow_anonymous').value}}"
-                                      (change)="anonymous_auth($event)">
-                            <span class="disabled" [class.text-dark]="useAuthentication">Allow anonymous</span>
-                        </mat-checkbox>
+                        <div class="col-10 text-left">
+                            No <mat-slide-toggle [checked]="projectForm.get('use_auth').value" formControlName="use_auth"
+                                                 (change)="use_auth($event)">
+                            </mat-slide-toggle> Yes
+                        </div>
+                        <div class="col-lg-1 col-12 ml-3 text-left disabled">
+                            <mat-checkbox disabled="{{!useAuthentication}}" value="{{projectForm.get('check_by_email').value}}"
+                                          formControlName="check_by_email" (change)="checkByEmail($event)">
+                                <span class="disabled" [class.text-dark]="useAuthentication">By email</span>
+                            </mat-checkbox>
+                        </div>
+                        <div class="col-lg-1 col-12 ml-3 text-left">
+                            <mat-checkbox disabled="{{!useAuthentication}}" formControlName="allow_anonymous"
+                                          value="{{projectForm.get('allow_anonymous').value}}"
+                                          (change)="anonymous_auth($event)">
+                                <span class="disabled" [class.text-dark]="useAuthentication">Allow anonymous</span>
+                            </mat-checkbox>
+                        </div>
                     </div>
                 </div>
             </div>

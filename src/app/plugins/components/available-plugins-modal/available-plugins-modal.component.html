@@ -1,6 +1,6 @@
 
 <!-- Modal -->
-<div class="modal fade" id="available_plugins_window" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="available_plugins_modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content bg-light">
             <div class="modal-header">
@@ -13,7 +13,7 @@
                         <div class="row ml-2 mr-2 justify-content-center" id="{{x}}">
                             <div class="col-12 text-dark text-center">
                                 <div class="mt-2 bg-secondary rounded">
-                                    <span class="p-2 h3 text-info" style="font-weight: bold; text-shadow: 2px 2px black">{{item?.title}}</span>
+                                    <span class="p-2 h3 text-info serif-font" style="font-weight: bold; text-shadow: 2px 2px black">{{item?.title}}</span>
                                 </div>
                             </div>
                             <div class="col-2 mt-1 mb-2 text-center">
@@ -39,44 +39,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--<div class="col-lg-1 col-1 mt-1" id="item{{x}}">
-                                <button mat-mini-fab style="background-color: lightgray" (click)="onDownloadClick(x)" [class.bg-success]="isSelected && index.includes(x)">
-                                    <mat-icon>download</mat-icon>
-                                </button>
-                                <p *ngIf="isSelected && index.includes(x)" class="text-success">OK <mat-icon>checked</mat-icon></p>
-                            </div>-->
-                            <!--<div class="col-lg-8 col-12 text-center">
-                                <div class="row">
-                                    <div class="col-12 mb-0 mat-h6 disabled text-center">
-                                        By: &lt;!&ndash;{{creatorOfPlugin?.name}} - &ndash;&gt;
-                                        Created at: &lt;!&ndash;{{pluginReleaseFromList?.created_at || selectedPluginReleaseToDisplay?.created_at | date}} - &ndash;&gt;
-                                        Updated at: &lt;!&ndash;{{pluginReleaseFromList?.updated_at || selectedPluginReleaseToDisplay?.updated_at | date}}&ndash;&gt;
-                                    </div>
-                                    <div class="col-12 mb-0 mat-h6 text-dark text-center font-weight-bold">
-                                        Size:&lt;!&ndash; {{(pluginReleaseFromList?.size)/1000 || (selectedPluginReleaseToDisplay?.size)/1000}} mb - &ndash;&gt;
-                                        Installs: &lt;!&ndash;{{pluginReleaseFromList?.installs || selectedPluginReleaseToDisplay?.installs}}&ndash;&gt;
-                                    </div>
-                                    <div class="col-12 mb-0 mat-h6 text-dark text-center font-weight-bold">
-                                       &lt;!&ndash; {{availablePluginFromList?.description || selectedPluginToDisplay?.description}}&ndash;&gt;
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-9 text-center">
-                                <mat-form-field>&lt;!&ndash; *ngIf="!isSelectedPlugin">&ndash;&gt;
-                                    <mat-label>Release</mat-label>
-                                    <mat-select class="text-center">&lt;!&ndash; [(value)]="defaultRelease" (selectionChange)="onChangeSelectionInList($event)" [placeholder]="defaultRelease?.name">&ndash;&gt;
-                                        <mat-option class="text-dark font-weight-bold">&lt;!&ndash; *ngFor="let pluginRelease of pluginReleasesList" [value]="pluginRelease">&ndash;&gt;
-                                           &lt;!&ndash; {{pluginRelease?.name}}&ndash;&gt;
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                                <p class="mat-h5"></p> &lt;!&ndash;*ngIf="isSelectedPlugin && errorMessage === null">Release: {{selectedPluginReleaseToDisplay?.name}}</p>&ndash;&gt;
-                            </div>
-                            <div class="col-lg-1 col-3">
-                                <button>&lt;!&ndash; *ngIf="!isSelectedPlugin" class="btn btn-just-icon rounded-circle mt-2" [class.btn-success]="isClickedAddButton" (click)="onClickAdd()">&ndash;&gt;
-                                    <mat-icon>add</mat-icon>
-                                </button>
-                            </div>-->
                         </div>
                     </div>
                     <!-- cards -->

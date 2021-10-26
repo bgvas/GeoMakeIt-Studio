@@ -28,6 +28,7 @@ import { GeomakeitPluginAlertDialogBoxComponent } from './components/geomakeit-p
 import { GeomakeitPluginMarkersBoxComponent } from './components/geomakeit-plugin-markers-box/geomakeit-plugin-markers-box.component';
 import { GeomakeitPluginQuestsBoxComponent } from './components/geomakeit-plugin-quests-box/geomakeit-plugin-quests-box.component';
 import { GeomakeitPluginStartupBoxComponent } from './components/geomakeit-plugin-startup-box/geomakeit-plugin-startup-box.component';
+import { SelectedGamePluginsComponent } from './components/selected-game-plugins/selected-game-plugins.component';
 
 
 
@@ -44,7 +45,8 @@ import { GeomakeitPluginStartupBoxComponent } from './components/geomakeit-plugi
         GeomakeitPluginAlertDialogBoxComponent,
         GeomakeitPluginMarkersBoxComponent,
         GeomakeitPluginQuestsBoxComponent,
-        GeomakeitPluginStartupBoxComponent
+        GeomakeitPluginStartupBoxComponent,
+        SelectedGamePluginsComponent
     ],
     imports: [
         CommonModule,
@@ -67,7 +69,8 @@ import { GeomakeitPluginStartupBoxComponent } from './components/geomakeit-plugi
         GeomakeitPluginAlertDialogBoxComponent,
         GeomakeitPluginMarkersBoxComponent,
         GeomakeitPluginQuestsBoxComponent,
-        GeomakeitPluginStartupBoxComponent
+        GeomakeitPluginStartupBoxComponent,
+        SelectedGamePluginsComponent
     ],
   providers: [
       GamePluginsService,

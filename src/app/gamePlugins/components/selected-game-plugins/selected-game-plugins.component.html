@@ -1,0 +1,35 @@
+<div class="text-center" style="font-weight: bold">
+    Installed Plugins
+</div>
+<div class="text-center mt-2" style="font-weight: bold">
+    <app-spinner [visible]="isLoading"></app-spinner>
+    <p  *ngIf="installedPluginsArray.length === 0 && !isLoading">no installed plugins</p>
+</div>
+<div class="d-flex flex-row justify-content-center" style="overflow-x: auto">
+    <div class="m-2" *ngFor="let installed of installedPluginsArray; let x = index">
+        <div class="text-center m-3 p-2 border rounded shadow border-secondary bg-white" style="width: 200px">
+           <div class="row">
+               <div class="col-6 text-left">
+                   <span class="material-icons text-info" style="font-size: 40px; text-shadow: 2px 2px black">extension</span>
+               </div>
+               <div class="col-6 text-right" matTooltip="remove plugin">
+                   <button class="rounded bg-danger text-white border mat-h5 text-center p-0"
+                           (click)="deletePlugin(x, installed.plugin_id)"
+                           *ngIf="installed.plugin_id !== 1"
+                           style="width: 20px">
+                       X
+                   </button>
+                   <p *ngIf="installed.plugin_id === 1" class="text-warning mat-h5">required</p>
+               </div>
+               <div class="col-12 text-center mat-h4 serif-font" style="font-weight: bold">
+                    {{installed?.plugin_name}}
+               </div>
+               <div class="col-12 text-center mat-h5 serif-font">
+                   Release: <span style="font-weight: bold">{{installed?.plugin_release_name}}</span>
+               </div>
+           </div>
+        </div>
+    </div>
+</div>
+
+

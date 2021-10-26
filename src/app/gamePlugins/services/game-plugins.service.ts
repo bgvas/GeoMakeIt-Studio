@@ -9,6 +9,11 @@ import {User} from '../../user-management/models/user';
 import {pluginReleasePostRequestModel} from '../../plugins/models/plugin-release-post-request-model';
 import {GamePlugin} from '../models/game-plugin';
 import {Zones_model} from '../../plugins/models/designer-models/zones/Zones_model';
+import {NameOfInstalledPluginAndNameOfReleaseModel} from '../models/name-of-installed-plugin-and-name-of-release-model';
+import {map, take} from 'rxjs/operators';
+import {Plugin} from '../../plugins/models/plugin';
+import {PluginService} from '../../plugins/services/plugin.service';
+import {PluginRelease} from '../../plugins/models/available_plugins/plugin-release';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +28,8 @@ export class GamePluginsService {
   private _arrayOfPoints = Array<Zones_model>() // need to create a subject
   private game_id = (<User>JSON.parse(sessionStorage.getItem('project'))).id;
 
-  constructor(private http: HttpClient, private fb: FormBuilder, private validationService: ValidationsService) { }
+
+  constructor(private http: HttpClient, private pluginService: PluginService, private fb: FormBuilder, private validationService: ValidationsService) { }
 
 
   set arrayOfPoints(array: any) {
@@ -56,6 +62,24 @@ export class GamePluginsService {
 
   getAllPluginsOfGame(gameId: number): Observable<GamePlugin[]> {
     return this.http.get<GamePlugin[]>(this.rootPath + 'games/' + gameId + '/plugins');
+  }
+
+  getNameOfInstalledPluginsAndNameOfReleases(gameId: number): Observable<NameOfInstalledPluginAndNameOfReleaseModel[]> {
+    const pluginsArray = new Array<NameOfInstalledPluginAndNameOfReleaseModel>();
+    return this.getAllPluginsOfGame(gameId).pipe(map((gamePlugins: GamePlugin[]) => {
+          (<GamePlugin[]>gamePlugins['data']).forEach(_gamePlugin => {
+            const installedPlugin = new NameOfInstalledPluginAndNameOfReleaseModel();
+            this.pluginService.getPluginById(_gamePlugin.plugin_id).pipe(take(1)).subscribe((_plugin: Plugin) => {
+              installedPlugin.plugin_name = _plugin['data'].title
+              installedPlugin.plugin_id = _plugin['data'].id;
+            });
+            this.pluginService.getReleaseById(_gamePlugin.plugin_release_id).pipe(take(1)).subscribe((pluginRelease: PluginRelease) => {
+              installedPlugin.plugin_release_name = pluginRelease['data'].name
+            });
+            pluginsArray.push(installedPlugin);
+          })
+      return pluginsArray;
+    }))
   }
 
   /* tested ^^^^*/
