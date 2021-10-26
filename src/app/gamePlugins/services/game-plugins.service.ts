@@ -1,19 +1,16 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import { Injectable } from '@angular/core';
+import {Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {DesignerModel} from '../models/designer-model';
-import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ValidationsService} from '../../shared/services/validations/validations.service';
 import {environment} from '../../../environments/environment';
 import {User} from '../../user-management/models/user';
 import {pluginReleasePostRequestModel} from '../../plugins/models/plugin-release-post-request-model';
 import {GamePlugin} from '../models/game-plugin';
 import {Zones_model} from '../../plugins/models/designer-models/zones/Zones_model';
-import {NameOfInstalledPluginAndNameOfReleaseModel} from '../models/name-of-installed-plugin-and-name-of-release-model';
-import {map, take} from 'rxjs/operators';
-import {Plugin} from '../../plugins/models/plugin';
 import {PluginService} from '../../plugins/services/plugin.service';
-import {PluginRelease} from '../../plugins/models/available_plugins/plugin-release';
+import {Game} from '../../games/models/games/game';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +23,8 @@ export class GamePluginsService {
   private _temporary_object?: any;
   private signalForUpdate = new Subject<any>(); // need to create a subject
   private _arrayOfPoints = Array<Zones_model>() // need to create a subject
-  private game_id = (<User>JSON.parse(sessionStorage.getItem('project'))).id;
+  private game_id = (<Game>JSON.parse(sessionStorage.getItem('project'))).id;
+  private user = (<User>JSON.parse(sessionStorage.getItem('user')));
 
 
   constructor(private http: HttpClient, private pluginService: PluginService, private fb: FormBuilder, private validationService: ValidationsService) { }
@@ -64,22 +62,8 @@ export class GamePluginsService {
     return this.http.get<GamePlugin[]>(this.rootPath + 'games/' + gameId + '/plugins');
   }
 
-  getNameOfInstalledPluginsAndNameOfReleases(gameId: number): Observable<NameOfInstalledPluginAndNameOfReleaseModel[]> {
-    const pluginsArray = new Array<NameOfInstalledPluginAndNameOfReleaseModel>();
-    return this.getAllPluginsOfGame(gameId).pipe(map((gamePlugins: GamePlugin[]) => {
-          (<GamePlugin[]>gamePlugins['data']).forEach(_gamePlugin => {
-            const installedPlugin = new NameOfInstalledPluginAndNameOfReleaseModel();
-            this.pluginService.getPluginById(_gamePlugin.plugin_id).pipe(take(1)).subscribe((_plugin: Plugin) => {
-              installedPlugin.plugin_name = _plugin['data'].title
-              installedPlugin.plugin_id = _plugin['data'].id;
-            });
-            this.pluginService.getReleaseById(_gamePlugin.plugin_release_id).pipe(take(1)).subscribe((pluginRelease: PluginRelease) => {
-              installedPlugin.plugin_release_name = pluginRelease['data'].name
-            });
-            pluginsArray.push(installedPlugin);
-          })
-      return pluginsArray;
-    }))
+  getInstalledGamePluginsAndPluginReleases(): Observable<any> {
+    return this.http.get<any>(this.rootPath + 'games?include=game_plugins.plugin,game_plugins.release&filter[user_id]=' + this.user.id);
   }
 
   /* tested ^^^^*/

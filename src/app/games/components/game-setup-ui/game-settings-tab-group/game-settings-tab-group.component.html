@@ -11,7 +11,9 @@
                     </button>
                 </div>
                 <div class="col-lg-10 col-12">
-                     <app-selected-game-plugins></app-selected-game-plugins>
+                     <app-selected-game-plugins
+                             [gamePlugins]="installed">
+                     </app-selected-game-plugins>
                 </div>
             </div>
         </div>
@@ -19,18 +21,18 @@
     <mat-tab label="Alert dialogs">
         <div class="row mb-5 w-100 justify-content-center">
             <app-geomakeit-plugin-alert-dialog-box
-                    [gamePluginArray]="gamePluginDataOfGeoMakeItApiArray">
+                    [gamePlugins]="installed">
             </app-geomakeit-plugin-alert-dialog-box>
         </div>
     </mat-tab>
    <!-- <mat-tab label="Markers">
         <app-geomakeit-plugin-markers-box>
-               &lt;!&ndash; [gamePluginArray]="gamePluginDataOfGeoMakeItApiArray">&ndash;&gt;
+               &lt;!&ndash; [gamePlugins]="gamePluginDataOfGeoMakeItApiArray">&ndash;&gt;
         </app-geomakeit-plugin-markers-box>
     </mat-tab>
     <mat-tab label="Quests">
         <app-geomakeit-plugin-quests-box>
-               &lt;!&ndash; [gamePluginArray]="gamePluginDataOfGeoMakeItApiArray">&ndash;&gt;
+               &lt;!&ndash; [gamePlugins]="gamePluginDataOfGeoMakeItApiArray">&ndash;&gt;
         </app-geomakeit-plugin-quests-box>
     </mat-tab>
     <mat-tab label="Startup">

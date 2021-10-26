@@ -37,8 +37,8 @@ export class GeomakeitPluginQuestsBoxComponent implements OnInit, OnChanges, OnD
   }
 
   ngOnChanges(changes: SimpleChanges) {
-   /* this.gamePluginData = this.gamePluginArray.filter(e => e.name === 'quests').pop();
-    this.questsArray = <QuestsModel[]><any>this.gamePluginArray.filter(e => e.name === 'quests').map(k => k.contents).pop();
+   /* this.gamePluginData = this.gamePlugins.filter(e => e.name === 'quests').pop();
+    this.questsArray = <QuestsModel[]><any>this.gamePlugins.filter(e => e.name === 'quests').map(k => k.contents).pop();
     this.addValuesToForm()*/
   }
 

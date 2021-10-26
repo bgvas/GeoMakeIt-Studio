@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {map, take, takeUntil} from 'rxjs/operators';
+import {filter, map, take, takeUntil} from 'rxjs/operators';
 import {ErrorResponseModel} from '../../../../error-handling/error_response_model';
 import {Subject} from 'rxjs';
 import {GamePluginsService} from '../../../../gamePlugins/services/game-plugins.service';
@@ -10,6 +10,8 @@ import {GamePlugin} from '../../../../gamePlugins/models/game-plugin';
 import {GamePluginDataModel} from '../../../../gamePlugins/models/game-plugin-data-model';
 import {GamePluginDataService} from '../../../../gamePlugins/services/gamePluginData.service';
 import {Router} from '@angular/router';
+import {InstalledGamePluginsAndPluginsOfGameModel} from '../../../../gamePlugins/models/installed-gamePlugins-and-plugins-of-game-model';
+import {AlertDialogModel} from '../../../../gamePlugins/models/alert-dialog-model';
 
 @Component({
   selector: 'app-game-settings-tab-group',
@@ -17,26 +19,42 @@ import {Router} from '@angular/router';
   styleUrls: ['./game-settings-tab-group.component.css']
 })
 export class GameSettingsTabGroupComponent implements OnInit, OnDestroy {
-  isLoadingSelected: boolean;
+
   unsubscribe = new Subject<void>();
   project: Game = JSON.parse(sessionStorage.getItem('project') || null);
-  allPluginsOfGame = Array<GamePlugin>();
-  isLoadingAvailable: boolean;
-  allAvailablePlugins: Plugin[];
-  mainPlugin: GamePlugin;
   gamePluginDataOfGeoMakeItApiArray = Array<GamePluginDataModel>();
-  gamePluginFromMainApi?: GamePluginDataModel;
   opening: boolean
+  installed?: InstalledGamePluginsAndPluginsOfGameModel;
 
   constructor(private gamePluginService: GamePluginsService, private pluginService: PluginService,
-              private gamePluginDataService: GamePluginDataService, private router: Router) { }
+              private gamePluginDataService: GamePluginDataService, private router: Router) {
+    this.gamePluginService.getUpdate().pipe(takeUntil(this.unsubscribe)).subscribe(reload => {
+      if (reload) {
+        this.getInstalledPluginsOfGame();
+      }
+    })
+  }
+
+  getInstalledPluginsOfGame() {
+    this.gamePluginService.getInstalledGamePluginsAndPluginReleases()
+        .pipe(takeUntil(this.unsubscribe))
+        .subscribe(game => {
+              this.installed = (<InstalledGamePluginsAndPluginsOfGameModel[]>game['data']).filter(e => e.id === this.project.id).pop();
+            },
+            (error: ErrorResponseModel) => {
+              console.log(error.message, error.errors)
+            })
+  }
+
 
   ngOnInit(): void {
     if(this.project === null) {
       this.router.navigate(['home']);
       this.opening = false;
     }
+    this.getInstalledPluginsOfGame()
   }
+
 
   openAvailablePlugins() {
     this.opening = true;
@@ -49,54 +67,8 @@ export class GameSettingsTabGroupComponent implements OnInit, OnDestroy {
     console.log('exit');
   }
 
-  // plugins that selected from plugin-card for gameSettings //
-  returnedSelectedPlugins(gamePlugins) {
-    this.allPluginsOfGame.push(gamePlugins);
-  }
-
-  // Remove plugins-card from selectedPlugins box //
-  removeGamePlugin(gamePlugin: GamePlugin) {
-    const index = this.allPluginsOfGame.findIndex(e => e.plugin_id === gamePlugin.plugin_id
-        && e.game_id === gamePlugin.game_id && e.plugin_release_id === gamePlugin.plugin_release_id);
-    this.allPluginsOfGame.splice(index, 1);
-  }
-
-  getAllPluginsOfGame(gameId: number) {
-    this.isLoadingSelected = true;
-    this.gamePluginService.getAllPluginsOfGame(this.project?.id)
-        .pipe(takeUntil(this.unsubscribe)).subscribe(gamePlugins => {
-          this.allPluginsOfGame = gamePlugins['data'];
-          this.mainPlugin = this.allPluginsOfGame.filter(e => e.plugin_id === 1).pop();
-          this.isLoadingSelected = false;
-        },
-        (e: ErrorResponseModel) => {
-          this.isLoadingSelected = false;
-          console.log(e.message, e.errors);
-        })
-  }
-
-  getAllAvailablePlugins() {
-    this.isLoadingAvailable = true;
-    this.pluginService.getAllPlugins().pipe(takeUntil(this.unsubscribe)).subscribe(projects => {
-          this.allAvailablePlugins = projects.data; // display all available plugins//
-          this.isLoadingAvailable = false;
-        },
-        (e: ErrorResponseModel) => {
-          this.isLoadingAvailable = false;
-          console.log(e.message, e.errors);
-        })
-  }
 
 
-  getOtherFilesFromGeoMakeItApi() {
-      this.gamePluginDataService.getGamePluginDataOfMainPlugin(this.project?.id).pipe(takeUntil(this.unsubscribe))
-        .subscribe((gamePlugin: GamePluginDataModel[]) => {
-            this.gamePluginDataOfGeoMakeItApiArray = gamePlugin['data'].filter(gp => gp.name !== 'config' && gp.name !== 'zones');
-            //this.gamePluginDataOfGeoMakeItApiArray.forEach(e => e.contents = JSON.parse(e.contents));
-        },
-        (e: ErrorResponseModel) => {
-          console.log(e.message, e.errors);
-        });
-  }
+
 
 }

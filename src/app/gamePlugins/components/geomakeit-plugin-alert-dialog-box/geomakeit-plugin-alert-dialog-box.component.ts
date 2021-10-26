@@ -7,6 +7,7 @@ import {take} from 'rxjs/operators';
 import {ErrorResponseModel} from '../../../error-handling/error_response_model';
 import {GamePluginDataService} from '../../services/gamePluginData.service';
 import {Game} from '../../../games/models/games/game';
+import {InstalledGamePluginsAndPluginsOfGameModel} from '../../models/installed-gamePlugins-and-plugins-of-game-model';
 
 @Component({
   selector: 'app-geomakeit-plugin-alert-dialog-box',
@@ -15,8 +16,8 @@ import {Game} from '../../../games/models/games/game';
 })
 export class GeomakeitPluginAlertDialogBoxComponent implements OnInit, OnChanges, OnDestroy {
 
-  @Input() gamePluginArray: GamePluginDataModel[]
-  alertDialogArray?: AlertDialogModel[];
+  @Input() gamePlugins: any;
+  alertDialogArray = new Array<AlertDialogModel>();
   alertDialogForm: FormGroup
   gamePluginData: GamePluginDataModel;
   dialogBox: FormGroup;
@@ -27,6 +28,7 @@ export class GeomakeitPluginAlertDialogBoxComponent implements OnInit, OnChanges
   ngOnInit(): void {
     this.project = <Game>JSON.parse(sessionStorage.getItem('project'));
     this.initializeForm();
+    this.loadGeoMakeItApiContents();
   }
 
   ngOnDestroy() {
@@ -34,9 +36,6 @@ export class GeomakeitPluginAlertDialogBoxComponent implements OnInit, OnChanges
   }
 
   ngOnChanges(changes: SimpleChanges) {
-   this.gamePluginData = this.gamePluginArray.filter(e => e.name === 'alert_dialogs').pop();
-   this.alertDialogArray = <AlertDialogModel[]><any>this.gamePluginArray.filter(e => e.name === 'alert_dialogs').map(k => k.contents).pop();
-   this.addValuesToForm()
   }
 
   initializeForm() {
@@ -45,7 +44,16 @@ export class GeomakeitPluginAlertDialogBoxComponent implements OnInit, OnChanges
     });
   }
 
-  /*saveChangesOnExit() {
+  loadGeoMakeItApiContents() {
+      this.gamePluginDataService.getGamePluginDataOfMainPlugin(this.project?.id)
+          .pipe(take(1)).subscribe(data => {
+              this.alertDialogArray = <AlertDialogModel[]>JSON.parse(data['data'].filter(e => e.name === 'alert_dialogs').pop().contents);
+              this.addValuesToForm();
+          })
+  }
+
+
+  saveChangesOnExit() {
     const alertDialogObject = {
       [this.gamePluginData.name]: JSON.stringify(this.alertDialogForm.get('alertsArray').value)
     }
@@ -56,7 +64,7 @@ export class GeomakeitPluginAlertDialogBoxComponent implements OnInit, OnChanges
         (error: ErrorResponseModel) => {
           console.log(error.message, error.errors)
         })
-  }*/
+  }
 
   addValuesToForm() {
    if(this.alertDialogArray?.length > 0) {
@@ -78,9 +86,10 @@ export class GeomakeitPluginAlertDialogBoxComponent implements OnInit, OnChanges
    }
   }
 
-  /*addNewDialogBox() {
+  addNewDialogBox() {
     (this.alertDialogForm.get('alertsArray') as FormArray).push(this.alert_dialog_box());
-    this.alertDialogArray.push(this.alert_dialog_box()?.value);
+    this.alertDialogArray.push(new AlertDialogModel());
+
   }
 
   removeDialogBox(index: number) {
@@ -90,7 +99,7 @@ export class GeomakeitPluginAlertDialogBoxComponent implements OnInit, OnChanges
 
   get alertDialogBoxArray() {
     return (this.alertDialogForm.get('alertsArray') as FormArray)?.value;
-  }*/
+  }
 
 
   alert_dialog_box(): FormGroup {
