@@ -22,7 +22,7 @@ export class GameSettingsTabGroupComponent implements OnInit, OnDestroy {
 
   unsubscribe = new Subject<void>();
   project: Game = JSON.parse(sessionStorage.getItem('project') || null);
-  gamePluginDataOfGeoMakeItApiArray = Array<GamePluginDataModel>();
+  gamePluginDataOfGeoMakeItApiArray = Array<InstalledGamePluginsAndPluginsOfGameModel>();
   opening: boolean
   installed?: InstalledGamePluginsAndPluginsOfGameModel;
 
@@ -31,6 +31,7 @@ export class GameSettingsTabGroupComponent implements OnInit, OnDestroy {
     this.gamePluginService.getUpdate().pipe(takeUntil(this.unsubscribe)).subscribe(reload => {
       if (reload) {
         this.getInstalledPluginsOfGame();
+        this.loadGeoMakeItApiContents();
       }
     })
   }
@@ -46,6 +47,16 @@ export class GameSettingsTabGroupComponent implements OnInit, OnDestroy {
             })
   }
 
+  loadGeoMakeItApiContents() {
+    this.gamePluginDataService.getGamePluginDataOfMainPlugin(this.project?.id)
+        .pipe(takeUntil(this.unsubscribe)).subscribe(data => {
+            this.gamePluginDataOfGeoMakeItApiArray = data['data'];
+        },
+        (error: ErrorResponseModel) => {
+          console.log(error.message, error.errors);
+        })
+  }
+
 
   ngOnInit(): void {
     if(this.project === null) {
@@ -53,6 +64,7 @@ export class GameSettingsTabGroupComponent implements OnInit, OnDestroy {
       this.opening = false;
     }
     this.getInstalledPluginsOfGame()
+    this.loadGeoMakeItApiContents();
   }
 
 
@@ -66,9 +78,4 @@ export class GameSettingsTabGroupComponent implements OnInit, OnDestroy {
     this.unsubscribe.complete();
     console.log('exit');
   }
-
-
-
-
-
 }

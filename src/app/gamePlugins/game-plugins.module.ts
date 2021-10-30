@@ -29,6 +29,8 @@ import { GeomakeitPluginMarkersBoxComponent } from './components/geomakeit-plugi
 import { GeomakeitPluginQuestsBoxComponent } from './components/geomakeit-plugin-quests-box/geomakeit-plugin-quests-box.component';
 import { GeomakeitPluginStartupBoxComponent } from './components/geomakeit-plugin-startup-box/geomakeit-plugin-startup-box.component';
 import { SelectedGamePluginsComponent } from './components/selected-game-plugins/selected-game-plugins.component';
+import { GeomakeitPluginAlertDialogSetButtonsComponent } from './components/geomakeit-plugin-alert-dialog-set-buttons/geomakeit-plugin-alert-dialog-set-buttons.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 
 
@@ -46,7 +48,9 @@ import { SelectedGamePluginsComponent } from './components/selected-game-plugins
         GeomakeitPluginMarkersBoxComponent,
         GeomakeitPluginQuestsBoxComponent,
         GeomakeitPluginStartupBoxComponent,
-        SelectedGamePluginsComponent
+        SelectedGamePluginsComponent,
+        GeomakeitPluginAlertDialogSetButtonsComponent
+
     ],
     imports: [
         CommonModule,
@@ -62,7 +66,8 @@ import { SelectedGamePluginsComponent } from './components/selected-game-plugins
         MatSlideToggleModule,
         NumberPickerModule,
         MatSelectModule,
-        MatButtonModule
+        MatButtonModule,
+        MatExpansionModule
     ],
     exports: [
         JsonFilesConfigurationComponent,

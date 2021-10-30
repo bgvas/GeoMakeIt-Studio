@@ -1,4 +1,6 @@
-<div [formGroup]="alertDialogForm" class="row w-100 justify-content-center">
+
+
+<div  [formGroup]="alertDialogForm" class="row w-100 justify-content-center">
     <div class="row " formArrayName="alertsArray">
         <div class="col-1 text-left">
             <button class="btn btn-info" (click)="addNewDialogBox()">
@@ -6,108 +8,44 @@
             </button>
         </div>
         <div class="col-11">
-            <div class="row justify-content-center">
-                <div class="d-flex flex-row overflow-x-auto">
-                    <div class="col-5 border border-primary shadow bg-white rounded p-3 m-3" *ngFor="let item of alertDialogArray; let x = index" formGroupName="{{x}}">
-                        <div class="row">
-                            <div class="col-6 text-left">
-                                <span class="material-icons">campaign</span>
+            <div class="w-100 mt-5 text-center mat-h5" *ngIf="alertDialogArray?.length === 0">
+                no alert dialogs
+            </div>
+            <div class="row justify-content-center" *ngIf="alertDialogArray?.length > 0">
+                <div class="d-flex flex-row overflow-x-auto m-2">
+                    <div class="col-3 border border-primary shadow bg-white rounded p-2 mr-2" *ngFor="let item of alertDialogArray; let x = index">
+                        <div class="row justify-content-center" formGroupName="{{x}}">
+                            <div class="col-9">
+                                <mat-form-field>
+                                    <input matInput [placeholder]="'Unique Id'" type="text"  [formControlName]="'unique_id'">
+                                </mat-form-field>
                             </div>
-                            <div class="col-6 text-right">
-                                <a role="button" mat-mini-fab class="bg-danger" (click)="removeDialogBox(x)">
-                                    <span class="material-icons" >remove</span>
+                            <div class="col-2 text-right">
+                                <a role="button"  class="btn btn-just-icon rounded btn-danger text-center"  (click)="removeDialogBox(x)">
+                                    <span class="material-icons">remove</span>
                                 </a>
                             </div>
                             <div class="col-12">
                                 <mat-form-field>
-                                    <input matInput [placeholder]="'Unique Id'" type="text" value = "{{item['unique_id']}}" [formControlName]="'unique_id'">
+                                    <input matInput [placeholder]="'Title'" type="text"  [formControlName]="'title'">
                                 </mat-form-field>
                             </div>
-                            <div class="col-12">
-                                <mat-form-field>
-                                    <input matInput [placeholder]="'Title'" type="text" value = "{{item['title']}}" [formControlName]="'title'">
-                                </mat-form-field>
-                            </div>
-                            <div class ="col-12 mb-2">
+                            <div class ="col-5">
                                 <mat-label>
-                                    Cancelable
-                                    <mat-checkbox [formControlName]="'cancelable'"></mat-checkbox>
+                                    Cancellable
+                                    <mat-checkbox  [formControlName] ="'cancellable'"></mat-checkbox>
                                 </mat-label>
+                            </div>
+                            <div class="col-5 text-right">
+                                <app-geomakeit-plugin-alert-dialog-set-buttons
+                                        (setButtons)="returnedData($event, x)"
+                                        [dialog]="item">
+                                </app-geomakeit-plugin-alert-dialog-set-buttons>
                             </div>
                             <div class="col-12 mat-h5">
                                 <mat-form-field>
-                                    <input matInput [placeholder]="'Message'" type="text" value = "{{item['message']}}" [formControlName]="'message'">
+                                    <input matInput [placeholder]="'Message'" type="text"  [formControlName]="'message'">
                                 </mat-form-field>
-                            </div>
-                            <div class="col-12">
-                                <div class="row m-2">
-                                    <div class="col-12 text-center font-weight-bold">
-                                        Buttons
-                                    </div>
-                                  <!--  <div class="col-12 m-2 text-center" formGroupName="positive_button">
-                                        <div class="row">
-                                            <div class="col-2 mat-h4 border border-info text-center font-weight-bold">
-                                                Positive
-                                            </div>
-                                            <div class="col-10 text-center mat-h5">
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <mat-form-field>
-                                                            <input matInput [placeholder]="'Text'" type="text" value = "{{item['text']}}" [formControlName]="'text'">
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <mat-form-field>
-                                                            <input matInput [placeholder]="'Action'" type="text" value = "{{item['action']}}" [formControlName]="'action'">
-                                                        </mat-form-field>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 m-2 text-center" formGroupName="neutral_button">
-                                        <div class="row">
-                                            <div class="col-2 mat-h4 border border-secondary text-center font-weight-bold">
-                                                Neutral
-                                            </div>
-                                            <div class="col-10 text-center mat-h5">
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <mat-form-field>
-                                                            <input matInput [placeholder]="'Text'" type="text" value = "{{item['text']}}" [formControlName]="'text'">
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <mat-form-field>
-                                                            <input matInput [placeholder]="'Action'" type="text" value = "{{item['action']}}" [formControlName]="'action'">
-                                                        </mat-form-field>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 m-2 text-center" formGroupName="negative_button">
-                                        <div class="row">
-                                            <div class="col-2 border border-warning mat-h4 text-center font-weight-bold">
-                                                Negative
-                                            </div>
-                                            <div class="col-10 text-center mat-h5">
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <mat-form-field>
-                                                            <input matInput [placeholder]="'Text'" type="text" value = "{{item['text']}}" [formControlName]="'text'">
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <mat-form-field>
-                                                            <input matInput [placeholder]="'Action'" type="text" value = "{{item['action']}}" [formControlName]="'action'">
-                                                        </mat-form-field>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>-->
-                                </div>
                             </div>
                         </div>
                     </div>

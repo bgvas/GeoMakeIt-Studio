@@ -1,35 +1,38 @@
-<!--
-<div [formGroup]="questsForm" class="row pl-2 mt-3 w-100 justify-content-center">
+<div [formGroup]="questsForm" class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-lg-3 col-12">
             <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <button class="nav-link active rounded" id="v-on-first-join-tab" data-bs-toggle="pill"  data-bs-target="#v-on-first-join" role="tab" aria-selected="true">
+                <button class="nav-link active rounded" id="v-on-first-join-tab" data-bs-toggle="pill"
+                        data-bs-target="#v-on-first-join" role="tab" aria-selected="true">
                     On first join
                 </button>
-                <button class="nav-link" id="v-quests-tab" data-bs-toggle="pill" data-bs-target="#v-quests"  role="tab" aria-selected="false">
+                <button class="nav-link" id="v-quests-tab" data-bs-toggle="pill" data-bs-target="#v-quests"
+                        role="tab" aria-selected="false">
                     Quests
                 </button>
             </div>
         </div>
         <div class="col-lg-9 col-12 pl-4 pr-4 pb-4">
             <div class="tab-content" id="v-pills-tabContent">
-                <div class="tab-pane fade show active border border-info w-100 rounded shadow bg-white" id="v-on-first-join" role="tabpanel">
+                <div class="tab-pane fade show active border border-info w-100 rounded shadow bg-white"
+                     id="v-on-first-join" role="tabpanel">
                     <div class="row justify-content-center">
                         <div class="col-12 text-right">
-                            <button class="btn btn-info m-2">
+                            <button class="btn btn-info m-2" (click)="addNewFirstJoinRecord()">
                                 add
                             </button>
                         </div>
-                        <div formArrayName="on_first_join" class="col-11 border border-info p-2 mb-3 rounded" style="max-height: 300px; overflow-y: auto">
-                            <div *ngFor="let item of onFirstJoinValuesArray ; let x = index">
-
+                        <div formArrayName="on_first_join" class="col-11 border border-info p-2 mb-3 rounded"
+                             style="max-height: 300px; overflow-y: auto">
+                            <div *ngFor="let item of onFirstJoinValuesArray; let x = index">
                                 <div class="row ml-2 p-2 w-100 justify-content-center">
                                     <div class="col-9">
-                                        <input type="text" value="{{item}}" class="form-control text-center" formControlName="{{x}}">
+                                        <input type="text" class="form-control text-center" value="{{item}}"
+                                               formControlName="{{x}}">
                                     </div>
                                     <div class="col-1">
-                                        <button mat-mini-fab color="warn">
-                                            -
+                                        <button mat-mini-fab color="warn" (click)="removeRecordFromFirstJoin(x)">
+                                            <span class="material-icons">remove</span>
                                         </button>
                                     </div>
                                 </div>
@@ -38,11 +41,161 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="v-quests" role="tabpanel">
-                    Quests
+                    <div class="row w-100 mt-2 justify-content-center" formArrayName="quests">
+                        <div class="col-10">
+                            <div class="d-flex flex-row" style="overflow-x: auto">
+                                <div *ngFor="let item of questsValuesArray; let x = index" formGroupName="{{x}}">
+                                    <button role="button" class="border border-info bg-white text-info m-2 p-2"
+                                            (click)="onClickQuest(x)" [class.bg-secondary]="selected > -1">
+                                        {{x + 1}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn-info m-2" (click)="addNewQuestsBox()">
+                                add
+                            </button>
+                        </div>
+                        <div class="col-12 text-center mat-h5" *ngIf="questsValuesArray?.length == 0">
+                            no quests found
+                        </div>
+                        <div class="col-12 border border-info shadow rounded"
+                             *ngIf="selected >= 0 && questsValuesArray?.length > 0"  formGroupName="{{selected}}">
+                            <div class="row p-2 justify-content-center">
+                                <div class="col-6 text-dark text-left" style="font-weight: bold">
+                                    Details
+                                </div>
+                                <div class="col-6 text-right">
+                                    <button class="rounded bg-danger text-white border mat-h3 text-center pl-3 pr-3"
+                                            (click)="removeQuestsBox(selected)"
+                                            style="font-weight: bold">
+                                        -
+                                    </button>
+                                </div>
+                                <div class="border border-info rounded bg-white mb-3 pt-2 pb-2" style="width: 98%">
+                                    <div class="col-12">
+                                        <label class="w-100">
+                                            Unique Id
+                                            <input type="text" class="form-control" formControlName="unique_id"
+                                                   value="{{selectedQuest?.unique_id}}">
+                                        </label>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="w-100">
+                                            Title
+                                            <input type="text" class="form-control" formControlName="title"
+                                                   value="{{selectedQuest?.title}}">
+                                        </label>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="w-100">
+                                            Description
+                                            <input type="text" class="form-control" formControlName="description"
+                                                   value="{{selectedQuest?.description}}">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <mat-accordion>
+                                        <mat-expansion-panel style="border: #00bbff 1px solid">
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                        <span class="text-left" style="font-weight: bold">
+                                                            On Assignment
+                                                        </span>
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <div class="col-12 text-right">
+                                                <button class="mat-h5 text-white bg-info border border-white rounded" style="font-weight: bold"
+                                                        (click)="addNewRecordToArray(selected, 'on_assignment', selectedQuest?.on_assignment)">
+                                                    +
+                                                </button>
+                                            </div>
+                                            <div class="border border-info rounded bg-white" formArrayName="on_assignment">
+                                                <div class="row justify-content-center p-2" *ngFor="let item of selectedQuest?.on_assignment; let x = index">
+                                                    <div class="col-10 ">
+                                                        <input type="text" class="form-control" formControlName="{{x}}"
+                                                               value="{{item}}">
+                                                    </div>
+                                                    <div class="col-1" >
+                                                        <button class="mat-h5 bg-danger text-white border border-white rounded"
+                                                                (click)="removeRecordFromArray(selected, 'on_assignment', selectedQuest?.on_assignment, x)">
+                                                            x</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </mat-expansion-panel>
+                                    </mat-accordion>
+                                </div>
+                                <div class="mb-3">
+                                    <mat-accordion>
+                                        <mat-expansion-panel  style="border: #00bbff 1px solid">
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <span style="font-weight: bold">On Complete</span>
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <div class="col-12 text-right">
+                                                <button class="mat-h5 text-white bg-info border border-white rounded" style="font-weight: bold"
+                                                        (click)="addNewRecordToArray(selected, 'on_complete', selectedQuest?.on_complete)">
+                                                    +
+                                                </button>
+                                            </div>
+                                            <div class="border border-info rounded bg-white" formArrayName="on_complete">
+                                                <div class="row justify-content-center p-2" *ngFor="let item of selectedQuest?.on_complete; let x = index">
+                                                    <div class="col-10 ">
+                                                        <input type="text" class="form-control" formControlName="{{x}}"
+                                                               value="{{item}}">
+                                                    </div>
+                                                    <div class="col-1" >
+                                                        <button class="mat-h5 bg-danger text-white border border-white rounded"
+                                                                (click)="removeRecordFromArray(selected, 'on_complete', selectedQuest?.on_complete, x)">
+                                                                x
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </mat-expansion-panel>
+                                    </mat-accordion>
+                                </div>
+                                <div class="mb-3">
+                                    <mat-accordion>
+                                        <mat-expansion-panel style="border: #00bbff 1px solid">
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <span style="font-weight: bold">Actions</span>
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <div class="col-12 text-right">
+                                                <button class="mat-h5 text-white bg-info border border-white rounded" style="font-weight: bold"
+                                                        (click)="addNewRecordToArray(selected, 'actions', selectedQuest?.actions)">
+                                                    +
+                                                </button>
+                                            </div>
+                                            <div class="border border-info rounded bg-white" formArrayName="actions">
+                                                <div class="row justify-content-center p-2" *ngFor="let item of selectedQuest?.actions; let x = index">
+                                                    <div class="col-10 ">
+                                                        <input type="text" class="form-control" formControlName="{{x}}"
+                                                               value="{{item}}">
+                                                    </div>
+                                                    <div class="col-1" >
+                                                        <button class="mat-h5 bg-danger text-white border border-white rounded"
+                                                                (click)="removeRecordFromArray(selected, 'actions', selectedQuest?.actions, x)">
+                                                                x
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </mat-expansion-panel>
+                                    </mat-accordion>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
--->

@@ -1,60 +1,61 @@
 <div [formGroup]="markersForm" class="row w-100 justify-content-center">
     <div class="row" formArrayName="markersFormArray">
-        <!--<p class="text-center">{{gamePlugins?.description}}</p>-->
-        <div class="col-10 mat-h5 text-center" >
-            <span *ngIf="markerBoxArray?.length === 0">No markers found</span>
-        </div>
-        <div class="col-2 text-right">
-            <button class="btn btn-info" (click)="addNewDialogBox()">
+        <div class="col-2 text-left">
+            <button class="btn btn-info" (click)="addNewMarkerBox()">
                 add
             </button>
         </div>
-        <div class="col-12">
-            <div class="row">
-                <div class="col-3 border border-primary shadow bg-white rounded p-3 m-3" *ngFor="let item of markersArray; let x = index" formGroupName="{{x}}">
-                    <div class="row">
-                        <div class="col-6 text-left">
-                            <mat-icon>flag</mat-icon>
-                        </div>
-                        <div class="col-6 text-right">
-                            <a role="button" mat-mini-fab class="bg-danger rounded-circle" (click)="removeMarkerBox(x)">
-                                <mat-icon>remove</mat-icon>
-                            </a>
-                        </div>
-                        <div class="col-6 mt-2">
-                            <div class="row">
-                                <div class="col-12">
-                                    <mat-form-field>
-                                        <input class="h3 serif-font font-weight-bold" matInput [placeholder]="'Title'" type="text" value = "{{item?.title}}" [formControlName]="'title'">
-                                    </mat-form-field>
+        <div class="col-10  mt-5 text-center" *ngIf="markerBoxArray?.length === 0">
+            <span class="mat-h5">No markers found</span>
+        </div>
+        <div class="col-10 " *ngIf="markerBoxArray?.length > 0">
+             <div class="row justify-content-center">
+                   <div class="d-flex flex-row" style="overflow-x: auto">
+                        <div class="col-3 border border-primary shadow bg-white rounded p-3 m-3" *ngFor="let item of markersArray; let x = index" >
+                            <div class="row" formGroupName="{{x}}">
+                                <div class="col-6 text-left">
+                                    <mat-icon>flag</mat-icon>
                                 </div>
-                                <div class="col-12">
-                                    <mat-form-field>
-                                        <input matInput [placeholder]="'Unique Id'" type="text" value = "{{item?.unique_id}}" [formControlName]="'unique_id'">
-                                    </mat-form-field>
+                                <div class="col-6 text-right">
+                                    <a role="button" mat-mini-fab class="bg-danger rounded-circle" (click)="removeMarkerBox(x)">
+                                        <mat-icon>remove</mat-icon>
+                                    </a>
+                                </div>
+                                <div class="col-6 mt-2">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <mat-form-field>
+                                                <input class="h3 serif-font font-weight-bold" matInput [placeholder]="'Title'" type="text" [formControlName]="'title'">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-12">
+                                            <mat-form-field>
+                                                <input matInput [placeholder]="'Unique Id'" type="text"  [formControlName]="'unique_id'">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 mt-2">
+                                    <div class="row w-100 border p-1 shadow" formGroupName="position">
+                                        <div class="col-12 text-center h-4">
+                                           <mat-icon>location_on</mat-icon> Position
+                                        </div>
+                                        <div class="col-12 mat-h5">
+                                            <mat-form-field>
+                                                <input matInput [placeholder]="'Latitude'" type="number"  [formControlName]="'latitude'">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-12 mat-h5">
+                                            <mat-form-field>
+                                                <input matInput [placeholder]="'Longitude'" type="number"  [formControlName]="'longitude'">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6 mt-2">
-                            <div class="row w-100 border p-1 shadow" formGroupName="position">
-                                <div class="col-12 text-center h-4">
-                                   <mat-icon>location_on</mat-icon> Position
-                                </div>
-                                <div class="col-12 mat-h5">
-                                    <mat-form-field>
-                                        <input matInput [placeholder]="'Latitude'" type="number" value = "{{item?.position?.latitude}}" [formControlName]="'latitude'">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-12 mat-h5">
-                                    <mat-form-field>
-                                        <input matInput [placeholder]="'Longitude'" type="number" value = "{{item?.position?.longitude}}" [formControlName]="'longitude'">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                   </div>
+             </div>
         </div>
     </div>
 </div>

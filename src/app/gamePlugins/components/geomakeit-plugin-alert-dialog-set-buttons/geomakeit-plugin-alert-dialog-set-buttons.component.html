@@ -1,0 +1,77 @@
+<!--// modal //-->
+<ng-template #content let-c="close" let-d="dismiss" >
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-basic-title" style="font-weight: bold">
+                Buttons for <span class="text-warning">{{dialog?.unique_id}}</span> dialog
+            </h3>
+        </div>
+        <div [formGroup]="buttonForm" class="modal-body">
+            <div class="row m-3 rounded shadow bg-white" formGroupName="positive_button" style="border: 2px deepskyblue solid">
+                <div class="col-12 p-2 text-center">
+                    <p class="rounded-pill text-white" style="background-color: deepskyblue; font-weight: bold">Positive</p>
+                </div>
+                <div class="col-12 border">
+                    <label class="w-100" for="posText">
+                        Text
+                        <input type="text" style="font-weight: bold" class="form-control"
+                               value="{{dialog?.positive_button?.text}}" id="posText" formControlName="text">
+                    </label>
+                </div>
+                <div class="col-12">
+                    <label class="w-100" for="posAction">
+                        Action
+                        <input type="text" style="font-weight: bold" class="form-control"
+                               value="{{dialog?.positive_button?.action}}" id="posAction" formControlName="action">
+                    </label>
+                </div>
+            </div>
+            <div class="row m-3 rounded shadow bg-white" formGroupName="neutral_button" style="border: 2px black solid">
+                <div class="col-12 p-2 text-center">
+                    <p class="rounded-pill text-white" style="background-color: dimgrey; font-weight: bold">Neutral</p>
+                </div>
+                <div class="col-12">
+                    <label class="w-100" for="neutText">
+                        Text
+                        <input type="text" style="font-weight: bold" class="form-control"
+                               value="{{dialog?.neutral_button?.text}}" id="neutText" formControlName="text">
+                    </label>
+                </div>
+                <div class="col-12">
+                    <label class="w-100" for="neutAction">
+                        Action
+                        <input type="text" style="font-weight: bold" class="form-control"
+                               value="{{dialog?.neutral_button?.action}}" id="neutAction" formControlName="action">
+                    </label>
+                </div>
+            </div>
+            <div class="row m-3 shadow rounded bg-white" formGroupName="negative_button" style="border: 2px red solid">
+                <div class="col-12 p-2 text-center">
+                    <p class="rounded-pill text-white" style="background-color: red; font-weight: bold">Negative</p>
+                </div>
+                <div class="col-12">
+                    <label class="w-100" for="negText">
+                        Text
+                        <input type="text" style="font-weight: bold" class="form-control"
+                               value="{{dialog?.negative_button?.text}}" id="negText" formControlName="text">
+                    </label>
+                </div>
+                <div class="col-12">
+                    <label class="w-100" for="negAction">
+                        Action
+                        <input type="text" style="font-weight: bold" class="form-control"
+                               value="{{dialog?.negative_button?.action}}" id="negAction" formControlName="action">
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="w-100 text-center">
+                <button type="button" class="btn bg-secondary rounded-pill w-50 text-lowercase" (click)="onExit()">save and close</button>
+            </div>
+        </div>
+</ng-template>
+
+<!--// click to open modal //-->
+<button class="rounded-pill bg-secondary text-white mat-h4 text-center" (click)="open(content)">
+    set buttons
+</button>

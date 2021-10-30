@@ -5,8 +5,7 @@
         <div class="container-fluid">
             <div class="row h-auto">
                 <div class="col-6 text-left">
-                    <h2>Basic Settings </h2>
-                    <h4>Setup the basic settings for project</h4>
+                    <h4>configure the basic project settings</h4>
                 </div>
                 <div class="col-6">
                     <div class="text-right">
@@ -30,22 +29,22 @@
         <ng-template matStepLabel>Select location on map</ng-template>
         <div class="container-fluid">
             <div class="row justify-content-center" style="height: 700px">
-                <div class="col-6 text-left">
+                <div class="col-4 text-left">
                     <button class="btn bg-secondary shadow border border-success" mat-button matStepperPrevious>
                         Back
                     </button>
                 </div>
-                <div class="col-6 text-right">
-                    <button class="btn bg-secondary shadow border border-success" mat-button matStepperNext>
-                        Next
-                    </button>
-                </div>
-                <div class="col-12 text-center h2">
-                    Select location points
+                <div class="col-4 text-center">
                     <div class="h4">
                         Click on map to select location points for your actions
                     </div>
                 </div>
+                <div class="col-4 text-right">
+                    <button class="btn bg-secondary shadow border border-success" mat-button matStepperNext>
+                        Next
+                    </button>
+                </div>
+
                 <div class="col-12">
                     <app-map
                             [points] = "pointsArray"

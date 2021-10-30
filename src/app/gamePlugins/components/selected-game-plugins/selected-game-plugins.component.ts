@@ -23,23 +23,16 @@ export class SelectedGamePluginsComponent implements OnInit, OnDestroy, OnChange
   game = <Game>JSON.parse(sessionStorage.getItem('project')) || null;
   unsubscribe = new Subject<void>();
   plugins = new Array<Plugin>();
-  //gamePlugins?: InstalledGamePluginsAndPluginsOfGameModel;
   releases = new Array<PluginRelease>();
   isLoading: boolean;
 
-  constructor(private gamePluginService: GamePluginsService, private router: Router, private pluginService: PluginService) {
-      /*this.gamePluginService.getUpdate().pipe(takeUntil(this.unsubscribe)).subscribe(reload => {
-        if (reload) {
-          this.getInstalledPluginsOfGame();
-        }
-      })*/
-  }
+  constructor(private gamePluginService: GamePluginsService, private router: Router, private pluginService: PluginService) {}
+
 
   ngOnInit(): void {
-    if(this.game === null) {
+    if (this.game === null) {
       this.router.navigate(['home']);
     }
-    this.getInstalledPluginsOfGame();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -56,21 +49,6 @@ export class SelectedGamePluginsComponent implements OnInit, OnDestroy, OnChange
     this.unsubscribe.next();
     this.unsubscribe.complete();
     console.log('exit');
-  }
-
-
-  getInstalledPluginsOfGame() {
-    /*this.isLoading = true;
-    this.gamePluginService.getInstalledGamePluginsAndPluginReleases()
-        .pipe(takeUntil(this.unsubscribe))
-        .subscribe(game => {
-              this.gamePlugins = (<InstalledGamePluginsAndPluginsOfGameModel[]>game['data']).filter(e => e.id === this.game.id).pop();
-              this.isLoading = false;
-        },
-            (error: ErrorResponseModel) => {
-              this.isLoading = false;
-              console.log(error.message, error.errors)
-            })*/
   }
 
 
