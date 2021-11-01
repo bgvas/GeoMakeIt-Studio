@@ -1,4 +1,4 @@
-<div [formGroup]="questsForm" class="container-fluid">
+<div [formGroup]="questsForm" class="container-fluid" style="height: 350px">
     <div class="row justify-content-center">
         <div class="col-lg-3 col-12">
             <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -23,7 +23,7 @@
                             </button>
                         </div>
                         <div formArrayName="on_first_join" class="col-11 border border-info p-2 mb-3 rounded"
-                             style="max-height: 300px; overflow-y: auto">
+                             style="max-height: 250px; overflow-y: auto">
                             <div *ngFor="let item of onFirstJoinValuesArray; let x = index">
                                 <div class="row ml-2 p-2 w-100 justify-content-center">
                                     <div class="col-9">
