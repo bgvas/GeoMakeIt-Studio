@@ -32,7 +32,6 @@ import { UserManagementModule} from '../user-management/user-management.module';
 import { StepByStepComponent } from './components/help/step-by-step/step-by-step.component';
 import { RouterModule} from '@angular/router';
 import {NgApexchartsModule} from 'ng-apexcharts';
-import { PluginCardComponent } from '../plugins/components/plugin-card/plugin-card.component';
 import { NumberToBooleanPipe} from './pipes/number-to-boolean.pipe';
 import { RoleIdToRoleNamePipe } from './pipes/role-id-to-role-name.pipe';
 import { EmailExistsValidatorDirective } from './custom-validators/email-exists-validator.directive';
@@ -43,6 +42,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {ChangePasswordComponent} from './components/change-password/change-password.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
+
 
 @NgModule({
   declarations: [
@@ -61,7 +61,6 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     ProjectCardComponent,
     GeomakeitHelpComponent,
     StepByStepComponent,
-    PluginCardComponent,
     NumberToBooleanPipe,
     RoleIdToRoleNamePipe,
     EmailExistsValidatorDirective,
@@ -82,7 +81,6 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         RoleIdToRoleNamePipe,
         EmailExistsValidatorDirective,
         ColorPickerComponent,
-        PluginCardComponent,
         RemoveUnderscoresPipe,
         ValidationMessagesComponent,
         PaginatorComponent

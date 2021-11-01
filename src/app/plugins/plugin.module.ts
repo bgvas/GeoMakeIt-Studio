@@ -22,7 +22,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {AvailablePluginsModalComponent} from './components/available-plugins-modal/available-plugins-modal.component';
 import {MatButtonModule} from '@angular/material/button';
 import { SelectReleaseOfPluginComponent } from './components/select-release-of-plugin/select-release-of-plugin.component';
-
+import { PluginCardComponent} from './components/plugin-card/plugin-card.component';
 
 
 @NgModule({
@@ -33,7 +33,8 @@ import { SelectReleaseOfPluginComponent } from './components/select-release-of-p
         DisplayPluginsWindowComponent,
         PluginCardForGameSettingsComponent,
         AvailablePluginsModalComponent,
-        SelectReleaseOfPluginComponent
+        SelectReleaseOfPluginComponent,
+        PluginCardComponent
     ],
     imports: [
         CommonModule,
