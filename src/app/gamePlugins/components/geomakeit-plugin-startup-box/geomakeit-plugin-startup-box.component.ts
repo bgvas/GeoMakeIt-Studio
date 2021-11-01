@@ -1,6 +1,10 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {Game} from '../../../games/models/games/game';
-import {MarkerModel} from '../../models/marker-model';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {take} from 'rxjs/operators';
+import {ErrorResponseModel} from '../../../error-handling/error_response_model';
+import {GamePluginDataService} from '../../services/gamePluginData.service';
+
 
 @Component({
   selector: 'app-geomakeit-plugin-startup-box',
@@ -9,11 +13,12 @@ import {MarkerModel} from '../../models/marker-model';
 })
 export class GeomakeitPluginStartupBoxComponent implements OnInit, OnChanges, OnDestroy {
 
-  @Input() gamePlugins: any;
+  @Input() gamePlugins = Array<any>();
   project?: Game;
-  startUp?: any;
+  startUpArray = new Array<string>();
+  startupForm?: FormGroup
 
-  constructor() { }
+  constructor(private fb: FormBuilder, private gamePluginDataService: GamePluginDataService) { }
 
   ngOnInit(): void {
     this.project = <Game>JSON.parse(sessionStorage.getItem('project'));
@@ -21,20 +26,56 @@ export class GeomakeitPluginStartupBoxComponent implements OnInit, OnChanges, On
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.loadStartUpContents();
+    if(this.gamePlugins?.length > 0) {
+      this.loadStartupContents();
+    }
   }
 
   ngOnDestroy() {
+    this.saveChangesOnExit();
   }
 
   initializeForm() {
-
+    this.startupForm = this.fb.group({
+      startupFormArray: this.fb.array([])
+    })
   }
 
-  loadStartUpContents() {
-    const contents = this.gamePlugins?.filter(e => e['name'] === 'start-up')?.pop()?.contents || null;
-    this.startUp = <Array<string>>JSON.parse(contents);
-    console.log(this.startUp)
+  addValuesToForm() {
+    for(const item of this.startUpArray) {
+      (this.startupForm?.get('startupFormArray') as FormArray).push(this.fb.control(item));
+    }
+  }
+
+  addNewRecordToArray() {
+    (this.startupForm?.get('startupFormArray') as FormArray).push(this.fb.control(''));
+    this.startUpArray.push('');
+  }
+
+  removeRecordFromArray(index) {
+    (this.startupForm?.get('startupFormArray') as FormArray).removeAt(index);
+    this.startUpArray.splice(index, 1);
+  }
+
+  loadStartupContents() {
+      if (typeof this.gamePlugins?.filter(e => e['name'] === 'start-up')?.pop() !== 'undefined') {
+        this.startUpArray = (<string[]>(JSON.parse((this.gamePlugins?.filter(e => e['name'] === 'start-up')?.pop()?.contents)))) || [];
+        this.initializeForm();
+        this.addValuesToForm();
+      }
+  }
+
+  saveChangesOnExit() {
+    const onStartupObject = {
+      'start-up': JSON.stringify(this.startupForm.get('startupFormArray').value)
+    };
+    this.gamePluginDataService.updateGamePluginData(this.project?.id, 1, onStartupObject)
+        .pipe(take(1)).subscribe(saveUpdatedObject => {
+          console.log('on-startup updated!!!');
+        },
+        (error: ErrorResponseModel) => {
+          console.log(error.message, error.errors)
+        })
   }
 
 }

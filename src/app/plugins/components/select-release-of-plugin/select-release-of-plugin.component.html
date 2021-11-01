@@ -4,8 +4,8 @@
             Release
             <select formControlName="select"  class="form-select" (change)="selectedRelease($event)">
                 <option class="form-control" *ngFor="let release of pluginReleasesArray; let x = index"
-                        [value]="release" [selected] = "(pluginReleasesArray.length - 1) === x ">
-                    {{release.name}}
+                        [value]="release" [selected] = "(pluginReleasesArray?.length - 1) === x ">
+                    {{release?.name}}
                 </option>
             </select>
         </label>

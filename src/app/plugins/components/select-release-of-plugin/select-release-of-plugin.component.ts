@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, OnInit, Output, SimpleChanges, EventEmitter, OnDestroy, ViewChild} from '@angular/core';
-import {take} from 'rxjs/operators';
+import {take, takeUntil} from 'rxjs/operators';
 import {PluginService} from '../../services/plugin.service';
 import {PluginRelease} from '../../models/available_plugins/plugin-release';
 import {FormBuilder, FormGroup} from '@angular/forms';
@@ -11,8 +11,6 @@ import {Router} from '@angular/router';
 import {AddGamePluginRequestModel} from '../../../gamePlugins/models/add-game-plugin-request-model';
 import {ErrorResponseModel} from '../../../error-handling/error_response_model';
 import {Subject} from 'rxjs';
-
-
 
 
 @Component({
@@ -65,9 +63,9 @@ export class SelectReleaseOfPluginComponent implements OnInit, OnChanges, OnDest
   }
 
   getListOfPluginReleases(pluginId: number) {
-    this.pluginService.getPluginReleasesById(pluginId).pipe(take(1)).subscribe(e => {
-      this.pluginReleasesArray = <PluginRelease[]>e['data']
-      this.defaultRelease = this.pluginReleasesArray[this.pluginReleasesArray.length - 1];
+    this.pluginService.getPluginReleasesById(pluginId).pipe(take(1)).subscribe(release => {
+      this.pluginReleasesArray = <PluginRelease[]>release['data']
+      this.defaultRelease = this.pluginReleasesArray[(this.pluginReleasesArray?.length || 0) - 1] ;
       this.isSelectedRelease.emit(this.defaultRelease);
       this.formSelect.get('select').setValue(this.defaultRelease);
     },
@@ -84,11 +82,14 @@ export class SelectReleaseOfPluginComponent implements OnInit, OnChanges, OnDest
 
 
   onDownloadClick() {
+    this.downloadResult = null;
     const _release = new AddGamePluginRequestModel();
-    _release.plugin_release_id = this.defaultRelease.id;
+    _release.plugin_release_id = this.defaultRelease?.id;
     _release.enabled = true;
+    console.log(_release);
     this.gamePluginService.addPluginToGame(_release)
         .pipe(take(1)).subscribe(gamePlugin => {
+          console.log(gamePlugin);
         if(typeof gamePlugin['message'] !== 'undefined') {
           this.downloadResult = false;
         } else {

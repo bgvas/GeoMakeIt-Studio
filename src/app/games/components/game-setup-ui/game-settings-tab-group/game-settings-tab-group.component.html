@@ -18,19 +18,22 @@
             </div>
         </div>
     </mat-tab>
-    <mat-tab label="Alert dialogs">
-        <div class="row mb-5 w-100 justify-content-center">
-            <app-geomakeit-plugin-alert-dialog-box
-                    [gamePlugins]="gamePluginDataOfGeoMakeItApiArray">
-            </app-geomakeit-plugin-alert-dialog-box>
-        </div>
+    <mat-tab label="Game Security" >
+        <app-geomakeit-plugins-project-auth-box
+                [gamePlugins]="gamePluginDataOfGeoMakeItApiArray">
+        </app-geomakeit-plugins-project-auth-box>
     </mat-tab>
-    <mat-tab label="Markers">
+    <mat-tab label="Alert dialogs" >
+            <app-geomakeit-plugin-alert-dialog-box
+                [gamePlugins]="gamePluginDataOfGeoMakeItApiArray">
+            </app-geomakeit-plugin-alert-dialog-box>
+    </mat-tab>
+    <mat-tab label="Markers" >
         <app-geomakeit-plugin-markers-box
                 [gamePlugins]="gamePluginDataOfGeoMakeItApiArray">
         </app-geomakeit-plugin-markers-box>
     </mat-tab>
-    <mat-tab label="Quests">
+    <mat-tab label="Quests" >
         <app-geomakeit-plugin-quests-box
                 [gamePlugins]="gamePluginDataOfGeoMakeItApiArray">
         </app-geomakeit-plugin-quests-box>
@@ -43,4 +46,6 @@
 </mat-tab-group>
 
 <!-- available plugins modal -->
-<app-available-plugins-modal *ngIf="opening"></app-available-plugins-modal>
+<app-available-plugins-modal
+        *ngIf="opening">
+</app-available-plugins-modal>

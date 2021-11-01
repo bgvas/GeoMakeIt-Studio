@@ -27,38 +27,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12" style="font-weight: bold">
-                Security
-            </div>
-            <div class="col-12 pt-2 mb-3 border border-dark rounded shadow" data-toggle="tooltip" title="Select if you want to add authentication for your project">
-                <div class="bg-white p-2 mb-2 border border-info rounded shadow">
-                    <div class="row">
-                        <div class="col-2">
-                            <div class="h5 text-dark text-left pl-2">
-                                Use authentication
-                            </div>
-                        </div>
-                        <div class="col-10 text-left">
-                            No <mat-slide-toggle [checked]="projectForm.get('use_auth').value" formControlName="use_auth"
-                                                 (change)="use_auth($event)">
-                            </mat-slide-toggle> Yes
-                        </div>
-                        <div class="col-lg-1 col-12 ml-3 text-left disabled">
-                            <mat-checkbox disabled="{{!useAuthentication}}" value="{{projectForm.get('check_by_email').value}}"
-                                          formControlName="check_by_email" (change)="checkByEmail($event)">
-                                <span class="disabled" [class.text-dark]="useAuthentication">By email</span>
-                            </mat-checkbox>
-                        </div>
-                        <div class="col-lg-1 col-12 ml-3 text-left">
-                            <mat-checkbox disabled="{{!useAuthentication}}" formControlName="allow_anonymous"
-                                          value="{{projectForm.get('allow_anonymous').value}}"
-                                          (change)="anonymous_auth($event)">
-                                <span class="disabled" [class.text-dark]="useAuthentication">Allow anonymous</span>
-                            </mat-checkbox>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     <div class="ml-4 mr-4">

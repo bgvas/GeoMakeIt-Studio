@@ -1,10 +1,32 @@
-<div class="row w-100 justify-content-center">
+<div class="row w-100 justify-content-center" [formGroup]="startupForm">
     <div class="col-2" style="font-weight: bold">
-        On Startup
-    </div>
-    <div class="col-9">
-        <div class="col-12 border border-info rounded bg-white m-2" *ngFor="let item of startUp; let x = index">
-           <input class="form-control" value="{{item}}">
+        <div class="row">
+            <div class="col-12">
+                On Startup
+            </div>
+            <div class="col-12">
+                <button class="btn btn-info text-lowercase" (click)="addNewRecordToArray()">add</button>
+            </div>
         </div>
     </div>
+
+    <div class="col-9">
+        <div style="max-height: 500px; overflow-y: auto; overflow-x: hidden" formArrayName="startupFormArray">
+            <div class="col-10 border border-info rounded bg-white m-2" *ngFor="let item of startUpArray; let x = index">
+                <div class="row justify-content-center">
+                    <div class="col-10">
+                        <input class="form-control" value="{{item}}" formControlName="{{x}}">
+                    </div>
+                    <div class="col-1">
+                        <button class="mat-h4 text-white border border-white rounded bg-danger" (click)="removeRecordFromArray(x)">
+                            x
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div class="col-9 text-center mat-h5 mt-3" *ngIf="startUpArray?.length === 0">
+        No startup actions found
+    </div>-->
 </div>

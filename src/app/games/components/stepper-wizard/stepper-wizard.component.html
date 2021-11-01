@@ -47,7 +47,6 @@
 
                 <div class="col-12">
                     <app-map
-                            [points] = "pointsArray"
                             (coordinates)="addPoint($event)"
                             (pointForDelete)="onDelete($event)"
                             (returnedPoint)="updateArrayOfPoints($event)">
@@ -79,7 +78,6 @@
                 <div class="col-12">
                     <app-table-with-selected-points
                             [isStepper] = true
-                            [points]="pointsArray"
                             (pointToUpdate)="updateArrayOfPoints($event)"
                             (pointForDelete)="onDelete($event)">
                     </app-table-with-selected-points>

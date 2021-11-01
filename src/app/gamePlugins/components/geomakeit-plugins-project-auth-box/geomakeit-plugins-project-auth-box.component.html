@@ -1,0 +1,47 @@
+<div *ngIf="authContent === null">
+    <mat-error>
+        - error in main plugin -
+    </mat-error>
+</div>
+<div class="container-fluid mt-4" style="height: 330px" [formGroup]="authForm" *ngIf="authContent !== null">
+    <div class="row justify-content-center">
+        <div class="border border-info rounded w-50 p-2 bg-white">
+            <div class="row justify-content-center">
+                <div class="col-5 text-center">
+                    <span class="text-dark h4 serif-font" style="font-weight: bold">Use Authentication</span>
+                </div>
+                <div class="col-4 text-center">
+                    No <mat-slide-toggle [checked]="authContent?.enabled" formControlName="enabled" (change)="authState($event)">
+                    </mat-slide-toggle> Yes
+                </div>
+            </div>
+        </div>
+        <div class="col-9 h5 text-center mt-3 mb-2 serif-font" formArrayName="providers">
+            <div class="row justify-content-center" *ngIf="authIsEnabled">
+                <div class="col-3 text-left" style="font-weight: bold">
+                    Providers
+                </div>
+                <div class="col-3 text-right">
+                    <button class="bg-info text-lowercase text-white mat-h5 p-2 border border-white rounded"
+                        (click)="addProvider()">
+                        add
+                    </button>
+                </div>
+                <div class="col-6 p-2 m-2 border border-info rounded bg bg-white"
+                     *ngFor="let item of providersArray; let x = index" >
+                    <div class="row">
+                        <div class="col-11">
+                            <input class="form-control" type="text"   [formControlName]="x">
+                        </div>
+                        <div class="col-1">
+                            <button class="mat-h5 border border-white rounded text-white bg-danger"
+                               (click)="removeProvider(x)">
+                                x
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

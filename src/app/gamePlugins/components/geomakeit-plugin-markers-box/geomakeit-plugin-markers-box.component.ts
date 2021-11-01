@@ -32,6 +32,7 @@ export class GeomakeitPluginMarkersBoxComponent implements OnInit, OnChanges, On
 
   ngOnChanges(changes: SimpleChanges) {
     this.loadMarkerContents();
+    this.initializeForm();
     this.addValuesToForm();
   }
 

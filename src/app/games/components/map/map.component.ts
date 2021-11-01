@@ -6,7 +6,7 @@ import {GamePluginsService} from '../../../gamePlugins/services/game-plugins.ser
 import {ActivatedRoute, Router} from '@angular/router';
 import {PublicService} from '../../../public.service';
 import {Game} from '../../models/games/game';
-import {takeUntil} from 'rxjs/operators';
+import {take, takeUntil} from 'rxjs/operators';
 import {GamePluginDataService} from '../../../gamePlugins/services/gamePluginData.service';
 import {ErrorResponseModel} from '../../../error-handling/error_response_model';
 
@@ -30,6 +30,8 @@ export class MapComponent implements OnInit, OnDestroy  {
   @Output() returnedPoint = new EventEmitter<Zones_model>();
   @Output() pointForDelete = new EventEmitter<number>();
   project = <Game>JSON.parse(sessionStorage.getItem('project')) || null;
+  current_latitude?: number;
+  current_longitude?: number;
 
   constructor(private gameService: GameService, private activatedRoute: ActivatedRoute,
               private router: Router, private publicService: PublicService, private gamePluginService: GamePluginsService,
@@ -39,20 +41,29 @@ export class MapComponent implements OnInit, OnDestroy  {
   ngOnInit(): void {
     if(this.project === null) {
       this.router.navigate(['home']);
+
     }
+
+    this.gameService.getCurrentPosition().pipe(take(1)).subscribe((pos: Position) => {
+      this.current_latitude = pos?.coords?.latitude;
+      this.current_longitude = pos?.coords?.longitude;
+    })
 
     this.gamePluginDataService.getGamePluginDataOfMainPlugin(this.project?.id)
         .pipe(takeUntil(this.unsubscribe)).subscribe(allGamePlugins => {
-      this.points = <Zones_model[]>JSON.parse(allGamePlugins.data.filter(e => e.plugin_release_id === 1 && e.name === 'zones')[0].contents);
+       this.points = <Zones_model[]>JSON.parse(allGamePlugins.data.filter(e => e.plugin_release_id === 1 && e.name === 'zones').pop().contents) || [];
     },
         (error: ErrorResponseModel) => {
+          this.points = [];
           console.log(error.message, error.errors)
         })
   }
 
   ngOnDestroy() {
+    this.savePointsOnExit();
     this.unsubscribe.next();
     this.unsubscribe.complete();
+    console.log('exit');
   }
 
   // add a new point to map //
@@ -94,6 +105,18 @@ export class MapComponent implements OnInit, OnDestroy  {
   onPointReturn(pointToUpdate: Zones_model) {
     this.gameService.save_temporary = pointToUpdate;
     this.points[pointToUpdate.id] = pointToUpdate;
-    //this.returnedPoint.emit(pointToUpdate); // send it to gameSetup for db update //
+  }
+
+  savePointsOnExit() {
+    const zonesObject = {
+      'zones': JSON.stringify(this.points)
+    }
+    this.gamePluginDataService.updateGamePluginData(this.project?.id, 1, zonesObject)
+        .pipe(take(1)).subscribe(updateResult => {
+        console.log('zones updated!');
+    },
+        (error: ErrorResponseModel) => {
+          console.log(error.message, error.errors);
+        })
   }
 }

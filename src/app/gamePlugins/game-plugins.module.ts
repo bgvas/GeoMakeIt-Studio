@@ -31,6 +31,7 @@ import { GeomakeitPluginStartupBoxComponent } from './components/geomakeit-plugi
 import { SelectedGamePluginsComponent } from './components/selected-game-plugins/selected-game-plugins.component';
 import { GeomakeitPluginAlertDialogSetButtonsComponent } from './components/geomakeit-plugin-alert-dialog-set-buttons/geomakeit-plugin-alert-dialog-set-buttons.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { GeomakeitPluginsProjectAuthBoxComponent } from './components/geomakeit-plugins-project-auth-box/geomakeit-plugins-project-auth-box.component';
 
 
 
@@ -49,7 +50,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
         GeomakeitPluginQuestsBoxComponent,
         GeomakeitPluginStartupBoxComponent,
         SelectedGamePluginsComponent,
-        GeomakeitPluginAlertDialogSetButtonsComponent
+        GeomakeitPluginAlertDialogSetButtonsComponent,
+        GeomakeitPluginsProjectAuthBoxComponent
 
     ],
     imports: [
@@ -75,7 +77,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
         GeomakeitPluginMarkersBoxComponent,
         GeomakeitPluginQuestsBoxComponent,
         GeomakeitPluginStartupBoxComponent,
-        SelectedGamePluginsComponent
+        SelectedGamePluginsComponent,
+        GeomakeitPluginsProjectAuthBoxComponent
     ],
   providers: [
       GamePluginsService,

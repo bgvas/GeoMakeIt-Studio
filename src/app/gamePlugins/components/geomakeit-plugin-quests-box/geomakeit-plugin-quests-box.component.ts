@@ -52,6 +52,7 @@ export class GeomakeitPluginQuestsBoxComponent implements OnInit, OnChanges, OnD
     const contents = this.gamePlugins?.filter(e => e['name'] === 'quests')?.pop()?.contents || null;
     this.questsValuesArray = <QuestsModel[]>JSON.parse(contents)?.quests || [];
     this.onFirstJoinValuesArray = JSON.parse(contents)?.on_first_join || [];
+    this.initializeForm();
     this.addValuesToForm();
   }
 
@@ -72,8 +73,6 @@ export class GeomakeitPluginQuestsBoxComponent implements OnInit, OnChanges, OnD
   addNewFirstJoinRecord() {
     (this.questsForm.get('on_first_join') as FormArray).push(this.fb.control(''));
     this.onFirstJoinValuesArray.push('');
-    console.log(this.questsForm.value);
-    console.log(this.onFirstJoinValuesArray);
   }
 
   removeRecordFromFirstJoin(index: number) {

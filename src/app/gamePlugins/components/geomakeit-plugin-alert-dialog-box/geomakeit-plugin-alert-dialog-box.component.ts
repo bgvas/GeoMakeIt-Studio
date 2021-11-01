@@ -1,11 +1,11 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
-import {GamePluginDataModel} from '../../models/game-plugin-data-model';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {AlertDialogModel} from '../../models/alert-dialog-model';
 import {take} from 'rxjs/operators';
 import {ErrorResponseModel} from '../../../error-handling/error_response_model';
 import {GamePluginDataService} from '../../services/gamePluginData.service';
 import {Game} from '../../../games/models/games/game';
+
 
 @Component({
   selector: 'app-geomakeit-plugin-alert-dialog-box',
@@ -14,8 +14,8 @@ import {Game} from '../../../games/models/games/game';
 })
 export class GeomakeitPluginAlertDialogBoxComponent implements OnInit, OnChanges, OnDestroy {
 
-  @Input() gamePlugins: any[];
-  alertDialogArray: any;
+  @Input() gamePlugins?: any[];
+  alertDialogArray = Array<any>();
   alertDialogForm: FormGroup
   project?: Game;
 
@@ -31,7 +31,9 @@ export class GeomakeitPluginAlertDialogBoxComponent implements OnInit, OnChanges
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.loadAlertDialogContents();
+    if(this.gamePlugins?.length > 0) {
+      this.loadAlertDialogContents();
+    }
   }
 
   initializeForm() {
@@ -41,15 +43,18 @@ export class GeomakeitPluginAlertDialogBoxComponent implements OnInit, OnChanges
   }
 
   loadAlertDialogContents() {
-    this.alertDialogArray = this.gamePlugins?.filter(e => e['name'] === 'alert_dialogs')?.pop()?.contents || null;
-    this.alertDialogArray = <AlertDialogModel[]>JSON.parse(this.alertDialogArray);
-    this.addValuesToForm();
+    if (typeof this.gamePlugins?.filter(e => e['name'] === 'alert_dialogs')?.pop()?.contents !== 'undefined') {
+      const content = this.gamePlugins?.filter(e => e['name'] === 'alert_dialogs')?.pop()?.contents || '';
+      this.alertDialogArray = <AlertDialogModel[]>JSON.parse(content) || [];
+      this.initializeForm();
+      this.addValuesToForm();
+    }
   }
 
 
   saveChangesOnExit() {
     const alertDialogObject = {
-      'alert_dialogs': JSON.stringify(<AlertDialogModel[]>(this.alertDialogForm.get('alertsArray').value))
+      'alert_dialogs': JSON.stringify(<AlertDialogModel[]>(this.alertDialogForm?.get('alertsArray').value))
     };
     this.gamePluginDataService.updateGamePluginData(this.project?.id, 1, alertDialogObject)
         .pipe(take(1)).subscribe(saveUpdatedObject => {
@@ -61,22 +66,14 @@ export class GeomakeitPluginAlertDialogBoxComponent implements OnInit, OnChanges
   }
 
   addValuesToForm() {
-   if(this.alertDialogArray?.length > 0) {
-     for(const item of this.alertDialogArray) {
-       const newItem = item;
-        if (typeof item.positive_button === 'undefined') {
-          newItem.positive_button.text = '';
-          newItem.positive_button.action = '';
-        } else if (typeof item.neutral_button === 'undefined') {
-         newItem.neutral_button.text = '';
-         newItem.neutral_button.action = '';
-       } else if (typeof item.negative_button === 'undefined') {
-          newItem.negative_button.text = '';
-          newItem.negative_button.action = '';
-        }
-       (this.alertDialogForm.get('alertsArray') as FormArray).push(this.fb.group(newItem));
-     }
-   }
+    for (const item of this.alertDialogArray) {
+      const newItem = new AlertDialogModel();
+      newItem.title = item?.title || '';
+      newItem.unique_id = item?.unique_id || '';
+      newItem.cancellable = item?.cancellable || false;
+      newItem.message = item?.message || '';
+      (this.alertDialogForm?.get('alertsArray') as FormArray).push(this.fb.group(newItem));
+    }
   }
 
   returnedData(buttonForm: any, index: number) {
@@ -89,7 +86,7 @@ export class GeomakeitPluginAlertDialogBoxComponent implements OnInit, OnChanges
   }
 
   addNewDialogBox() {
-    (this.alertDialogForm.get('alertsArray') as FormArray).push(this.alert_dialog_box());
+    (this.alertDialogForm?.get('alertsArray') as FormArray).push(this.alert_dialog_box());
     this.alertDialogArray.push(new AlertDialogModel());
 
   }

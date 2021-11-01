@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable, Subject} from 'rxjs';
+import {observable, Observable, Subject} from 'rxjs';
 import {GameRoot} from '../models/games/game-root';
 import {environment} from '../../../environments/environment';
 import {Game} from '../models/games/game';
@@ -68,6 +68,15 @@ export class GameService {
     // set values to this general-use plugin //
     set save_temporary(data) {
         this._object = data;
+    }
+
+    // get current position //
+    getCurrentPosition(): Observable<any> {
+      return Observable.create(observer => {
+          navigator.geolocation.watchPosition((pos: Position) => {
+              observer.next(pos);
+          })
+      })
     }
 
 

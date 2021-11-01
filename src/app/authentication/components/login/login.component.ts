@@ -51,15 +51,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   onSubmit() {
    this.isSpinnerActive = true;
 
-   this.authService.login(this.loginForm.value).pipe(takeUntil(this.unsubscribe)).subscribe(isAuthenticatedUser => {
-     if (typeof isAuthenticatedUser !== 'undefined') {
+   this.authService.login(this.loginForm.value).pipe(takeUntil(this.unsubscribe)).subscribe(authenticated => {
+     if (typeof authenticated !== 'undefined') {
 
-       const authUser = isAuthenticatedUser.user;
-       sessionStorage.setItem('token', isAuthenticatedUser?.access_token);
-       localStorage.setItem('role_id', String(this.roleService?.getMainRole(authUser?.roles)));
-       sessionStorage.setItem('user', JSON.stringify(authUser));
+       sessionStorage.setItem('token', authenticated?.access_token);
+       localStorage.setItem('role_id', String(this.roleService?.getMainRole(authenticated?.user?.roles)));
+       sessionStorage.setItem('user', JSON.stringify(authenticated?.user));
 
-       if (this.roleService.getMainRole(authUser?.roles) === 1) {
+       if (this.roleService.getMainRole(authenticated?.user?.roles) === 1) {
          this.isSpinnerActive = false;
          this.router.navigate(['admin/home'])
        } else  {
@@ -82,7 +81,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   // if user choose to authenticated by github //
   onGitHubClick(clicked) {
       if (clicked) {
-          window.open(environment.be_Url + 'auth/socialLogin/github');
+          window.open(environment.be_Url + 'auth/social-login/github');
       }
   }
 

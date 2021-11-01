@@ -1,7 +1,6 @@
 export class GameAuthenticationModel {
 
-    public authentication = {
-            enabled: false,
-            providers: []
-    }
+    public  enabled: boolean;
+    public  providers: [];
+
 }

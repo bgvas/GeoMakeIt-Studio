@@ -21,7 +21,7 @@ import {AlertDialogModel} from '../../../../gamePlugins/models/alert-dialog-mode
 export class GameSettingsTabGroupComponent implements OnInit, OnDestroy {
 
   unsubscribe = new Subject<void>();
-  project: Game = JSON.parse(sessionStorage.getItem('project') || null);
+  project?: Game = JSON.parse(sessionStorage.getItem('project') || null);
   gamePluginDataOfGeoMakeItApiArray = Array<InstalledGamePluginsAndPluginsOfGameModel>();
   opening: boolean
   installed?: InstalledGamePluginsAndPluginsOfGameModel;
@@ -43,6 +43,7 @@ export class GameSettingsTabGroupComponent implements OnInit, OnDestroy {
               this.installed = (<InstalledGamePluginsAndPluginsOfGameModel[]>game['data']).filter(e => e.id === this.project.id).pop();
             },
             (error: ErrorResponseModel) => {
+              this.installed = null;
               console.log(error.message, error.errors)
             })
   }
@@ -51,8 +52,10 @@ export class GameSettingsTabGroupComponent implements OnInit, OnDestroy {
     this.gamePluginDataService.getGamePluginDataOfMainPlugin(this.project?.id)
         .pipe(takeUntil(this.unsubscribe)).subscribe(data => {
             this.gamePluginDataOfGeoMakeItApiArray = data['data'];
+            console.log(this.gamePluginDataOfGeoMakeItApiArray);
         },
         (error: ErrorResponseModel) => {
+          this.gamePluginDataOfGeoMakeItApiArray = [];
           console.log(error.message, error.errors);
         })
   }

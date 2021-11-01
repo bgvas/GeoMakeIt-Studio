@@ -5,7 +5,7 @@ import {PublicService} from '../../../public.service';
 import {GamePluginsService} from '../../../gamePlugins/services/game-plugins.service';
 import {Router} from '@angular/router';
 import {Game} from '../../models/games/game';
-import {takeUntil} from 'rxjs/operators';
+import {take, takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {ErrorResponseModel} from '../../../error-handling/error_response_model';
 import {GamePluginDataService} from '../../../gamePlugins/services/gamePluginData.service';
@@ -25,7 +25,6 @@ export class TableWithSelectedPointsComponent implements OnInit, OnDestroy  {
   @Output() pointToEdit = new EventEmitter<Zones_model>();
   @Output() pointToUpdate = new EventEmitter<Zones_model>();
   @Input() data?: any;
-  arrayOfPoints = new Array<Zones_model>();
   selectedPoints = new Array<Zones_model>();
   errorMessage = null;
   private unsubscribe = new Subject<void>();
@@ -42,22 +41,21 @@ export class TableWithSelectedPointsComponent implements OnInit, OnDestroy  {
       // load all selected points from db, if exists //
     this.gamePluginDataService.getGamePluginDataOfMainPlugin(this.project?.id)
         .pipe(takeUntil(this.unsubscribe)).subscribe(allGamePlugins => {
-         this.selectedPoints = <Zones_model[]>JSON.parse(allGamePlugins.data
-             .filter(e => e.plugin_release_id === 1 && e.name === 'zones')[0].contents);
-             this.isLoading = false;
-
-    },
-            (error: ErrorResponseModel) => {
-          this.errorMessage = 'Error while loading selected points'
-                console.log(error.message, error.errors)
-                this.isLoading = false;
-            })
+          this.selectedPoints = <Zones_model[]>JSON.parse(allGamePlugins.data.filter(e => e.plugin_release_id === 1 && e.name === 'zones').pop().contents) || [];
+          this.isLoading = false;
+        },
+        (error: ErrorResponseModel) => {
+          this.isLoading = false;
+          this.selectedPoints = [];
+          console.log(error.message, error.errors)
+        })
   }
 
   ngOnInit(): void {
   }
 
   ngOnDestroy() {
+    this.savePointsOnExit();
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
@@ -65,13 +63,11 @@ export class TableWithSelectedPointsComponent implements OnInit, OnDestroy  {
   // send selected point to gameSetup for delete //
   onDelete(index: number) {
       this.selectedPoints.splice(index, 1);
-     // this.pointForDelete.emit(index)
   }
 
   // return point from pointSetup //
-  fromPointSetup(point: Zones_model) {
+  returnFromPointSetup(point: Zones_model) {
     this.selectedPoints[point.id] = point;
-    //this.pointToUpdate.emit(point); // send point to gameSetup for db update//
   }
 
   // point from points-table //
@@ -80,5 +76,17 @@ export class TableWithSelectedPointsComponent implements OnInit, OnDestroy  {
     this.pointToEdit.emit(point); // send point to pointSetup for edit //
   }
 
+  savePointsOnExit() {
+    const zonesObject = {
+      'zones': JSON.stringify(this.selectedPoints)
+    }
+    this.gamePluginDataService.updateGamePluginData(this.project?.id, 1, zonesObject)
+        .pipe(take(1)).subscribe(updateResult => {
+          console.log('zones updated!');
+        },
+        (error: ErrorResponseModel) => {
+          console.log(error.message, error.errors);
+        })
+  }
 
 }
