@@ -89,7 +89,6 @@ export class SelectReleaseOfPluginComponent implements OnInit, OnChanges, OnDest
     console.log(_release);
     this.gamePluginService.addPluginToGame(_release)
         .pipe(take(1)).subscribe(gamePlugin => {
-          console.log(gamePlugin);
         if(typeof gamePlugin['message'] !== 'undefined') {
           this.downloadResult = false;
         } else {

@@ -14,7 +14,8 @@ import {takeUntil} from 'rxjs/operators';
 export class UserProfileComponent implements OnInit, OnDestroy {
 
   userProfileForm: FormGroup;
-  profile: User;
+
+  profile = <User>JSON.parse(sessionStorage.getItem('user'));
   private unsubscribe = new Subject<void>();
 
 
@@ -22,10 +23,11 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initializeForm();
-    this.service.getUserProfile().pipe(takeUntil(this.unsubscribe)).subscribe(userProfile =>{
+
+    /*this.service.getUserProfile().pipe(takeUntil(this.unsubscribe)).subscribe(userProfile => {
       this.profile = userProfile;
       this.addValuesToForm(userProfile);
-    })
+    })*/
   }
 
   ngOnDestroy() {
@@ -37,13 +39,14 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.userProfileForm = this.fb.group({
       name: this.fb.control('', Validators.required),
       email: this.fb.control('', [Validators.email, Validators.required])
-     /* photo: this.fb.control('')*/
     })
+
+    this.addValuesToForm();
   }
 
-  addValuesToForm(value){
-    this.userProfileForm.get('name').setValue(value.name);
-    this.userProfileForm.get('email').setValue(value.email);
+  addValuesToForm(){
+    this.userProfileForm.get('name').setValue(this.profile?.name);
+    this.userProfileForm.get('email').setValue(this.profile?.email);
   }
 
 

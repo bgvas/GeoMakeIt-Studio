@@ -6,7 +6,7 @@
             </div>
             <div class="modal-body bg-secondary m-2 border border-dark">
                 <div class="container-fluid">
-                    <div class="row">
+                    <div class="row justify-content-center">
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header card-header-danger">
@@ -16,7 +16,7 @@
                                 <div class="card-body">
                                     <form [formGroup]="userProfileForm">
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-12">
                                                 <mat-form-field class="example-full-width">
                                                     <input matInput placeholder="Email address" type="email" formControlName="email" [value] = "profile?.email">
                                                     <mat-error *ngIf="userProfileForm.get('email').invalid && userProfileForm.get('email').errors && userProfileForm.get('email').touched">
@@ -34,12 +34,12 @@
                                                 </mat-form-field>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-6">
+                                        <div class="row justify-content-center">
+                                            <!--<div class="col-6">
                                                 <button mat-raised-button type="submit" class="btn btn-info"  (click) = "onUpdateProfile()" [disabled]="userProfileForm.invalid" data-dismiss="modal">
                                                     Update Profile
                                                 </button>
-                                            </div>
+                                            </div>-->
                                             <div class="col-6">
                                                 <button mat-raised-button type="button" class="btn btn-danger pull-right" data-dismiss="modal">
                                                     Cancel
@@ -50,7 +50,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <!--<div class="col-md-4">
                             <div class="card card-profile">
                                 <div class="card-avatar">
                                     <a href="javascript:void(0)">
@@ -64,7 +64,7 @@
                                     </p>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
