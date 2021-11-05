@@ -81,7 +81,7 @@ export class AuthService {
   /* Tested ^^^^^ */
 
   socialAuthentication(userSocial): Observable<any> {
-    return this.http.post(this.path + '/socialLogin', userSocial);
+    return this.http.post(this.path + '/social-login', userSocial);
   }
 
 }

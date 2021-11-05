@@ -86,7 +86,6 @@ export class SelectReleaseOfPluginComponent implements OnInit, OnChanges, OnDest
     const _release = new AddGamePluginRequestModel();
     _release.plugin_release_id = this.defaultRelease?.id;
     _release.enabled = true;
-    console.log(_release);
     this.gamePluginService.addPluginToGame(_release)
         .pipe(take(1)).subscribe(gamePlugin => {
         if(typeof gamePlugin['message'] !== 'undefined') {

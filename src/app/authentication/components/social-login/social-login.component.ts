@@ -7,6 +7,8 @@ import {Error} from '../../../error-handling/error/error';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {HeaderBarComponent} from '../../../shared/components/header-bar/header-bar.component';
+import {RolesModel} from '../../../user-management/models/roles-model';
+import {RoleService} from '../../../user-management/services/role.service';
 
 
 @Component({
@@ -21,28 +23,33 @@ export class SocialLoginComponent implements OnInit, OnDestroy  {
   @ViewChild('HeaderBarComponent') headerBar: HeaderBarComponent;
 
 
-  constructor(private url: ActivatedRoute, private service: UserService, private router: Router, private authService: AuthService) { }
+  constructor(private url: ActivatedRoute, private service: UserService, private roleService: RoleService, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.isSpinnerActive = true;
 
     // get values from url parameters //
     this.url.queryParams.pipe(takeUntil(this.unsubscribe)).subscribe(params => {
-
       // create a user with elements from social-media authentication //
       const socialUser = new SocialUser();
       socialUser.email = params['email'];
       socialUser.token = params['token'];
       socialUser.social = params['social'];
 
+
       // authenticate, if user from social-media exists, or redirect to registration //
       this.authService.socialAuthentication(socialUser).pipe(takeUntil(this.unsubscribe)).subscribe(isAuthenticatedUser => {
         if (typeof isAuthenticatedUser !== 'undefined') {
-          sessionStorage.setItem('user', JSON.stringify(isAuthenticatedUser));
+          sessionStorage.setItem('user', JSON.stringify(isAuthenticatedUser?.User));
           sessionStorage.setItem('token', isAuthenticatedUser?.access_token);
-          localStorage.setItem('role_id', isAuthenticatedUser?.user.role_id);
+          const roles = <RolesModel[]>isAuthenticatedUser?.User?.roles;
+          const role_id = this.roleService.getMainRole(roles.map(role => role?.id));
 
-          if (isAuthenticatedUser?.user.role_id === 1) {  // if user is administrator, redirect to admin panel //
+          localStorage.setItem('role_id', role_id.toString());
+
+
+
+          if (role_id === 1) {  // if user is administrator, redirect to admin panel //
             this.isSpinnerActive = false;
             this.router.navigate(['admin/home'])
           }
@@ -58,7 +65,7 @@ export class SocialLoginComponent implements OnInit, OnDestroy  {
       },
           (error: Error) => {
             this.isSpinnerActive = false;
-            this.router.navigate(['login'])
+            //this.router.navigate(['login'])
             console.log('error in social signin: ' + error.message);
           })
     });
