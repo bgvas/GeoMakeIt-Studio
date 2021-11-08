@@ -52,7 +52,6 @@ export class GameSettingsTabGroupComponent implements OnInit, OnDestroy {
     this.gamePluginDataService.getGamePluginDataOfMainPlugin(this.project?.id)
         .pipe(takeUntil(this.unsubscribe)).subscribe(data => {
             this.gamePluginDataOfGeoMakeItApiArray = data['data'];
-            console.log(this.gamePluginDataOfGeoMakeItApiArray);
         },
         (error: ErrorResponseModel) => {
           this.gamePluginDataOfGeoMakeItApiArray = [];

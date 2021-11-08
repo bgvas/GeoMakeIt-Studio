@@ -51,7 +51,7 @@ export class MapComponent implements OnInit, OnDestroy  {
 
     this.gamePluginDataService.getGamePluginDataOfMainPlugin(this.project?.id)
         .pipe(takeUntil(this.unsubscribe)).subscribe(allGamePlugins => {
-       this.points = <Zones_model[]>JSON.parse(allGamePlugins.data.filter(e => e.plugin_release_id === 1 && e.name === 'zones').pop().contents) || [];
+         this.points = <Zones_model[]>JSON.parse(allGamePlugins.data.filter(e => e.name === 'zones').pop().contents);
     },
         (error: ErrorResponseModel) => {
           this.points = [];

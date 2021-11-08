@@ -54,8 +54,8 @@ export class GamePluginsService {
     return this.http.post<GamePlugin>(this.rootPath + 'games/' + this.game_id + '/plugins', release);
   }
 
-  removePluginFromGame(pluginId: number): Observable<any> {
-    return this.http.delete(this.rootPath + 'games/' + this.game_id + '/plugins/' + pluginId);
+  removePluginFromGame(game_id: number, pluginId: number): Observable<any> {
+    return this.http.delete(this.rootPath + 'games/' + game_id + '/plugins/' + pluginId);
   }
 
   getAllPluginsOfGame(gameId: number): Observable<GamePlugin[]> {

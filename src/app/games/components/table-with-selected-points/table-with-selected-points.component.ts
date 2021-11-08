@@ -41,7 +41,7 @@ export class TableWithSelectedPointsComponent implements OnInit, OnDestroy  {
       // load all selected points from db, if exists //
     this.gamePluginDataService.getGamePluginDataOfMainPlugin(this.project?.id)
         .pipe(takeUntil(this.unsubscribe)).subscribe(allGamePlugins => {
-          this.selectedPoints = <Zones_model[]>JSON.parse(allGamePlugins.data.filter(e => e.plugin_release_id === 1 && e.name === 'zones').pop().contents) || [];
+          this.selectedPoints = <Zones_model[]>JSON.parse(allGamePlugins.data.filter(e => e.name === 'zones').pop().contents) || [];
           this.isLoading = false;
         },
         (error: ErrorResponseModel) => {

@@ -53,7 +53,7 @@ export class SelectedGamePluginsComponent implements OnInit, OnDestroy, OnChange
 
 
   deletePlugin(index: number, plugin_id: number) {
-    this.gamePluginService.removePluginFromGame(plugin_id).pipe(take(1)).subscribe(deleteResult => {
+    this.gamePluginService.removePluginFromGame(this.game.id, plugin_id).pipe(take(1)).subscribe(deleteResult => {
       this.gamePlugins?.game_plugins.splice(index, 1);
     },
         (error: ErrorResponseModel) => {
