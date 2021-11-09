@@ -86,7 +86,7 @@ export class PluginCardForGameSettingsComponent implements OnInit, OnDestroy {
           removedGamePlugin.plugin_id = this.selectedPluginReleaseToDisplay.plugin_id;
           removedGamePlugin.enabled = true;
           this.removeSelectedGamePlugin.emit(removedGamePlugin);
-          this.gamePluginService.removePluginFromGame(this.selectedPluginToDisplay.id).pipe(take(1)).subscribe(removeResult => {
+          this.gamePluginService.removePluginFromGame(this.selectedGame?.id, this.selectedPluginToDisplay?.id).pipe(take(1)).subscribe(removeResult => {
                   this.removeSelectedGamePlugin.emit(this.selectedPluginReleaseToDisplay);
               },
               (error: ErrorResponseModel) => {

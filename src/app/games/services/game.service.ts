@@ -45,7 +45,6 @@ export class GameService {
     }
 
     getAllGamesByUser(id: number): Observable<GameRoot> {
-      console.log(this.pathGame + '?filter[user_id]=' + id);
         return this.http.get<GameRoot>(this.pathGame + '?filter[user_id]=' + id).pipe(retry(3));
     }
 
