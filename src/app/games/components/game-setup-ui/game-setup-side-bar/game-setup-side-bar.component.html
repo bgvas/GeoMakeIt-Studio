@@ -1,40 +1,59 @@
 
 <div class="row shadow bg-white mb-1 ">
-    <div class="col-12 text-dark mat-h2 serif-font  pt-2" style="font-weight: bold; text-align: center; text-shadow: 2px 1px  grey">
-        {{project?.title}}
+    <div class="col-12 text-warning mat-h1 serif-font pt-2" style="font-weight: bold; text-align: center; text-shadow: 2px 2px  black">
+        {{project?.title | titlecase}}
     </div>
 </div>
 
-<!-- map button -->
-<a role="button" mat-raised-button
-   class="text-white serif-font bg-secondary shadow rounded border border-white mt-2 mb-2 w-100"
-   [routerLink]="'/games/map'">
-    <mat-icon>map</mat-icon> Map
-</a>
+<div class="w-100 text-center">
+    <!-- map button -->
+    <a role="button"
+       class="text-dark text-center serif-font  mt-2 mb-2 w-100"
+       [routerLink]="'/games/map'">
+        <mat-icon>map</mat-icon> Map
+    </a>
+</div>
+<hr>
 
-<!-- basic settings button -->
-<a role="button" mat-raised-button
-   class="text-white serif-font bg-secondary shadow rounded border border-white mt-2 mb-2 w-100"
-   [routerLink]="'/games/settings'">
-    <mat-icon>settings</mat-icon> Basic Settings
-</a>
+<div class="w-100 text-center">
+    <!-- basic settings button -->
+    <a role="button"
+       class="text-dark text-center serif-font  mt-2 mb-2 w-100"
+       [routerLink]="'/games/settings'">
+        <mat-icon>settings</mat-icon> Basic Settings
+    </a>
+</div>
+<hr>
 
-<!-- collapsable table with selected points -->
-<a role="button" mat-raised-button
-   class="text-white serif-font bg-secondary shadow rounded border border-white mt-2 mb-2 w-100"
-   [routerLink]="'/games/selected-points'">
-    <mat-icon>place</mat-icon> Selected Points
-</a>
+<div class="w-100 text-center">
+    <!-- collapsable table with selected points -->
+    <a role="button"
+       class="text-dark text-center serif-font  mt-2 mb-2 w-100"
+       [routerLink]="'/games/selected-points'">
+        <mat-icon>place</mat-icon> Selected Points
+    </a>
+</div>
+<hr>
 
-<!-- main configurations button -->
-<a role="button" mat-raised-button
-   class="text-white serif-font bg-secondary shadow rounded border border-white mt-2 mb-2 w-100"
-   [routerLink]="'/games/configurations'">
-    <mat-icon>construction</mat-icon> Main Configurations
-</a>
+<div class="w-100 text-center">
+    <!-- main configurations button -->
+    <a role="button"
+       class="text-dark text-center serif-font  mt-2 mb-2 w-100"
+       [routerLink]="'/games/configurations'">
+        <mat-icon>construction</mat-icon> Main Configurations
+    </a>
+</div>
+<hr>
 
-<!-- game info button -->
-<app-game-info></app-game-info>
+<div class="w-100 text-center">
+    <!-- game info button -->
+    <app-game-info></app-game-info>
+</div>
+<hr>
+
+<div>
+    <app-build></app-build>
+</div>
 
 <!-- stepper wizard button -->
 <div class="row">
@@ -43,7 +62,7 @@
             <div class="col-12 text-center">
                 <img src="assets/img/wizard-image.png" width="60" alt="Image for step by step wizard">
             </div>
-            <div class="col-12 h5 text-info font-weight-bold text-center" style="text-shadow: 2px 2px grey">
+            <div class="col-12 h5 text-warning font-weight-bold text-center" style="text-shadow: 2px 2px grey">
                 Step by Step
                 <p class="text-secondary h6 text-lowercase" style="text-shadow: 0 0">Create a project with our help</p>
             </div>
@@ -52,7 +71,10 @@
 </div>
 
 
-<div class="mt-5">
+<div class="mt-3">
     <img src="assets/img/geomakeit_logo.png" class="w-100" style="opacity: 0.2" alt="geomakeit-logo">
     <p class="text-right serif-font">Studio</p>
 </div>
+
+
+

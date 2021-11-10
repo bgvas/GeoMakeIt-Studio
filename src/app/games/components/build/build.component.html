@@ -1,0 +1,24 @@
+<ng-template #content let-c="close" let-d="dismiss" >
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-basic-title" style="font-weight: bold">
+            Build your game
+        </h3>
+    </div>
+    <div class="modal-body">
+        <p>Your new game is ready for build.</p>
+        <p>After clicking the build-button, all settings will be checked</p>
+        <p>and if your project passes all the tests, you will be able to download it.</p>
+        <button>Start building</button>
+    </div>
+    <div class="modal-footer">
+        <div class="w-100 text-center">
+            <button type="button" class="btn bg-danger rounded-pill w-50 text-lowercase" (click)="onExit()">Cancel</button>
+        </div>
+    </div>
+</ng-template>
+
+
+<!--// click to open modal //-->
+<button class="w-100 btn btn-warning text-dark mat-h4 text-center" (click)="open(content)">
+    Build
+</button>

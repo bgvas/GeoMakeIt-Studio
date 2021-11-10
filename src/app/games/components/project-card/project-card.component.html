@@ -1,35 +1,50 @@
 
     <div class="box-lg item scale">
-        <div class="card border border-secondary shadow" style="border-radius: 25px">
-            <img src="assets/img/mapimage.jpg" width="100%"  alt="Logo of temporary_save" style="border-top-left-radius: 25px; border-top-right-radius: 25px">
+        <div class="card shadow" style="border-radius: 25px; border: 2px solid black">
+            <div class="back-image">
+                <button *ngIf="isDownloadable" matTooltip="Download" matTooltipClass="h5"
+                        (click)="downloadGame()"
+                        class="mt-3 rounded-circle m-2 btn btn-warning btn-just-icon border border-dark text-dark">
+                    <mat-icon>download</mat-icon>
+                </button>
+            </div>
             <div class="card-body" style="height: 180px">
                 <div class="card-title">
                     <div class="row justify-content-center">
-                        <div class="col-10 mat-h3 serif-font text-secondary" style="font-weight: bold; max-width: 300px; text-shadow: 1px 1px black">
-                            {{project?.title}}
+                        <div class="col-10">
+                             <input class="my-card-title text-secondary serif-font h3 w-100 mt-0"
+                                    type="text" disabled value="{{project?.title | titlecase}}"
+                                    style="border: 0; background-color: inherit">
                         </div>
                         <div class="col-2 text-right">
-                            <a matTooltip="Edit project" role="button" class="text-dark" matTooltipClass="h5" style="background-color: inherit" (click)="onClickOpenProject(project)">
+                            <a matTooltip="Edit project" role="button" class="text-dark" matTooltipClass="h5"
+                               style="background-color: inherit" (click)="onClickOpenProject(project)">
                                 <mat-icon>tune</mat-icon>
                             </a>
-                            <a matTooltip="Delete project" role="button" class="text-danger" matTooltipClass="h5" data-toggle="modal" (click)="onClickDeleteProject(project)"  [attr.href] ="'#deletePopUpProject'" style="background-color: inherit">
+                            <a matTooltip="Delete project" role="button" class="text-danger" matTooltipClass="h5"
+                               data-toggle="modal" (click)="onClickDeleteProject(project)"  [attr.href] ="'#deletePopUpProject'"
+                               style="background-color: inherit">
                                 <i class="material-icons">delete</i>
                             </a>
                         </div>
                         <div class="col-12 mat-h5 text-secondary">
-                            {{project?.description}}
+                            <input class="w-100" type="text" disabled value="{{project?.description}}"
+                                style="border: 0; background-color: inherit">
                         </div>
                     </div>
                 </div>
-                <div class="row border border-secondary shadow" style="border-radius: 15px">
+                <div class="row shadow" style="border-radius: 15px; border: 2px solid lightgrey">
                     <div class="col-12">
                         <mat-form-field>
                             <mat-label>Release</mat-label>
-                            <mat-select class="text-center" [(value)]="default_selected_game_release" (selectionChange)="onSelectRelease($event)">
-                                <mat-option class="text-secondary" [value]="default_selected_game_release" *ngIf="gameReleasesArray?.length === 0">
+                            <mat-select class="text-center"  [(value)]="default_selected_game_release"
+                                        (selectionChange)="onSelectRelease($event)">
+                                <mat-option class="text-secondary" [value]="default_selected_game_release"
+                                            *ngIf="gameReleasesArray?.length === 0">
                                     {{default_selected_game_release.name}}
                                 </mat-option>
-                                <mat-option class="text-dark font-weight-bold" *ngFor="let gameRelease of gameReleasesArray" [value]="gameRelease">
+                                <mat-option class="text-dark font-weight-bold" *ngFor="let gameRelease of gameReleasesArray"
+                                            [value]="gameRelease">
                                     {{gameRelease?.name}}
                                 </mat-option>
                             </mat-select>

@@ -8,7 +8,6 @@ import {Game} from '../../models/games/game';
 import {FeaturesService} from '../../../shared/services/features.service';
 import {ErrorResponseModel} from '../../../error-handling/error_response_model';
 import {GameRelease} from '../../models/game-release/game-release';
-import {PluginRelease} from '../../../plugins/models/available_plugins/plugin-release';
 
 @Component({
   selector: 'app-project-card',
@@ -20,6 +19,7 @@ export class ProjectCardComponent implements OnInit, OnDestroy {
   @Input() project?: Game;
   @Output() deleted = new EventEmitter();
   gameRelease: GameRelease;
+  isDownloadable: boolean;
   notification = new NotificationsComponent();
   private unsubscribe = new Subject<void>();
   gameReleasesArray = new Array<GameRelease>();
@@ -32,10 +32,11 @@ export class ProjectCardComponent implements OnInit, OnDestroy {
       this.service.getAllGameReleases(this.project?.id).pipe(takeUntil(this.unsubscribe)).subscribe(releases => {
           this.gameReleasesArray = releases.data;
 
-          if(this.gameReleasesArray.length === 0) {
+          if(this.gameReleasesArray?.length === 0) {
             this.default_selected_game_release.name = 'create your first release';
             this.gameRelease = null;
           } else {
+              this.isDownloadable = true;
             this.default_selected_game_release = releases.data[releases.data.length - 1];
             this.gameRelease = this.default_selected_game_release;
           }
@@ -47,9 +48,9 @@ export class ProjectCardComponent implements OnInit, OnDestroy {
     this.unsubscribe.complete();
   }
 
-  // returning temporary_save from deletePopUp, if user agree to delete //
+  // delete game, if user accept it in delete-game popUp //
   onDelete(project) {
-      this.service.deleteGame(project.id).pipe(take(1)).pipe(takeUntil(this.unsubscribe)).subscribe(projectDeleted => {
+      this.service.deleteGame(project.id).pipe(take(1)).pipe(take(1)).subscribe(projectDeleted => {
           this.deleted.emit(project);
         },
           (error: ErrorResponseModel) => {
@@ -58,21 +59,26 @@ export class ProjectCardComponent implements OnInit, OnDestroy {
             })
   }
 
-  // send temporary_save to deletePopUp, and ask user if he want to delete //
+  // send game to deletePopUp, and ask user if he want to delete //
   onClickDeleteProject(projectToDelete: Game) {
       this.sharedService.temporary_save = projectToDelete;
   }
 
   onSelectRelease(release) {
       this.gameRelease = release.value;
+      this.isDownloadable = true;
   }
 
-  // open temporary_save for setup //
+  // open game for setup //
   onClickOpenProject(project: Game) {
     sessionStorage.setItem('project', JSON.stringify(project));
     if(this.gameRelease !== null) {
-        localStorage.setItem('release', JSON.stringify(this.gameRelease));
+        sessionStorage.setItem('release', JSON.stringify(this.gameRelease));
     }
     this.router.navigate(['games/map']);
+  }
+
+  downloadGame() {
+      console.log(this.gameRelease);
   }
 }

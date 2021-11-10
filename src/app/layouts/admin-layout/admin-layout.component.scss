@@ -4,3 +4,10 @@
   width: 100%;
   display: block;
 }
+
+.back-box {
+  background:
+      repeating-radial-gradient(
+             circle at 0 0,#eee, #c1c1c1 150px
+      );
+}

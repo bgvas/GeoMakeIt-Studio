@@ -44,7 +44,7 @@ export class MapComponent implements OnInit, OnDestroy  {
 
     }
 
-    this.gameService.getCurrentPosition().pipe(take(1)).subscribe((pos: Position) => {
+    this.gameService.getCurrentPosition().pipe(takeUntil(this.unsubscribe)).subscribe((pos: Position) => {
       this.current_latitude = pos?.coords?.latitude;
       this.current_longitude = pos?.coords?.longitude;
     })
