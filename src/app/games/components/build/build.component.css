@@ -1,0 +1,15 @@
+.build {
+    width: 100%;
+    color: black;
+    font-weight: bold;
+    font-size: large;
+}
+
+.modal-title {
+    font-size: xx-large;
+}
+
+.modal-header {
+    text-align: center;
+    text-shadow: 2px 2px orange;
+}

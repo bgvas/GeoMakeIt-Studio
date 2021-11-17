@@ -4,14 +4,14 @@
     </mat-error>
 </div>
 <div class="container-fluid mt-4" style="height: 320px" [formGroup]="authForm" *ngIf="authContent !== null">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center" formGroupName="authentication">
         <div class="border border-info rounded w-50 p-2 bg-white">
             <div class="row justify-content-center">
                 <div class="col-5 text-center">
                     <span class="text-dark h4 serif-font" style="font-weight: bold">Use Authentication</span>
                 </div>
                 <div class="col-4 text-center">
-                    No <mat-slide-toggle [checked]="authContent?.enabled" formControlName="enabled" (change)="authState($event)">
+                    No <mat-slide-toggle [checked]="authContent?.authentication.enabled" formControlName="enabled" (change)="authState($event)">
                     </mat-slide-toggle> Yes
                 </div>
             </div>

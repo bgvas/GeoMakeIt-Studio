@@ -43,9 +43,9 @@ export class GeomakeitPluginAlertDialogBoxComponent implements OnInit, OnChanges
   }
 
   loadAlertDialogContents() {
-    if (typeof this.gamePlugins?.filter(e => e['name'] === 'alert_dialogs')?.pop()?.contents !== 'undefined') {
-      const content = this.gamePlugins?.filter(e => e['name'] === 'alert_dialogs')?.pop()?.contents || '';
-      this.alertDialogArray = <AlertDialogModel[]>JSON.parse(content) || [];
+    if(typeof this.gamePlugins?.filter(e => e['name'] === 'alert_dialogs')?.pop() !== 'undefined') {
+      const content = this.gamePlugins?.filter(e => e['name'] === 'alert_dialogs')?.pop()?.contents || null;
+      this.alertDialogArray = <AlertDialogModel[]>JSON.parse(content);
       this.initializeForm();
       this.addValuesToForm();
     }
@@ -58,7 +58,6 @@ export class GeomakeitPluginAlertDialogBoxComponent implements OnInit, OnChanges
     };
     this.gamePluginDataService.updateGamePluginData(this.project?.id, 1, alertDialogObject)
         .pipe(take(1)).subscribe(saveUpdatedObject => {
-          console.log('alert_dialogs updated!!!');
         },
         (error: ErrorResponseModel) => {
           console.log(error.message, error.errors)
@@ -77,12 +76,31 @@ export class GeomakeitPluginAlertDialogBoxComponent implements OnInit, OnChanges
   }
 
   returnedData(buttonForm: any, index: number) {
-    ((this.alertDialogForm?.get('alertsArray') as FormArray)?.
-      at(index)?.get('positive_button') as FormGroup).setValue(buttonForm?.positive_button);
-    ((this.alertDialogForm?.get('alertsArray') as FormArray)?.
-      at(index)?.get('neutral_button') as FormGroup).setValue(buttonForm?.neutral_button);
-    ((this.alertDialogForm?.get('alertsArray') as FormArray)?.
-      at(index)?.get('negative_button') as FormGroup).setValue(buttonForm?.negative_button);
+
+       if (buttonForm[0]?.positive_button !== null) {
+         (((this.alertDialogForm?.get('alertsArray') as FormArray)?.at(index) as FormGroup)
+             .setControl('positive_button', this.fb.group({
+             text: this.fb.control(buttonForm[0]?.positive_button?.text),
+             action: this.fb.control(buttonForm[0]?.positive_button?.action)
+         })))
+       }
+       if (buttonForm[1]?.neutral_button !== null) {
+        (((this.alertDialogForm?.get('alertsArray') as FormArray)?.at(index) as FormGroup)
+            .setControl('neutral_button', this.fb.group({
+              text: this.fb.control(buttonForm[1]?.neutral_button?.text),
+              action: this.fb.control(buttonForm[1]?.neutral_button?.action)
+            })))
+       }
+       if (buttonForm[2]?.negative_button !== null) {
+        (((this.alertDialogForm?.get('alertsArray') as FormArray)?.at(index) as FormGroup)
+            .setControl('negative_button', this.fb.group({
+              text: this.fb.control(buttonForm[2]?.negative_button?.text),
+              action: this.fb.control(buttonForm[2]?.negative_button?.action)
+            })))
+       }
+
+       console.log(this.alertDialogForm.value);
+
   }
 
   addNewDialogBox() {

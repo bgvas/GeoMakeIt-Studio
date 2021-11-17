@@ -38,10 +38,10 @@ export class GeomakeitPluginsProjectAuthBoxComponent implements OnInit, OnChange
   }
 
   loadProjectsAuthContent() {
-    if(this.gamePlugins?.length > 0 && typeof this.gamePlugins?.filter(e => e['name'] === 'config')?.pop() !== 'undefined' ) {
-      this.authContent = <GameAuthenticationModel>JSON.parse(this.gamePlugins?.filter(e => e['name'] === 'config')?.pop()?.contents) || null;
-      this.providersArray = this.authContent?.providers || [];
-      this.authIsEnabled = this.authContent?.enabled || false;
+    if(typeof this.gamePlugins?.filter(e => e['name'] === 'config')?.pop() !== 'undefined' ) {
+      this.authContent = <GameAuthenticationModel>JSON.parse(this.gamePlugins?.filter(e => e['name'] === 'config')?.pop()?.contents);
+      this.providersArray = this.authContent?.authentication.providers;
+      this.authIsEnabled = this.authContent?.authentication.enabled;
       this.initializeForm();
       this.addValuesToForm();
     }
@@ -49,15 +49,17 @@ export class GeomakeitPluginsProjectAuthBoxComponent implements OnInit, OnChange
 
   initializeForm() {
     this.authForm = this.fb.group({
-      enabled: this.fb.control(''),
-      providers: this.fb.array([])
+      authentication: this.fb.group({
+        enabled: this.fb.control(''),
+        providers: this.fb.array([])
+      })
     })
   }
 
   addValuesToForm() {
-    this.authForm?.get('enabled').setValue(this.authIsEnabled);
+    this.authForm?.get('authentication').get('enabled').setValue(this.authIsEnabled);
     for (const item of this.providersArray) {
-      (this.authForm?.get('providers') as FormArray).push(this.fb.control(item));
+      (this.authForm?.get('authentication').get('providers') as FormArray).push(this.fb.control(item));
     }
   }
 
@@ -66,12 +68,12 @@ export class GeomakeitPluginsProjectAuthBoxComponent implements OnInit, OnChange
   }
 
   addProvider() {
-    (this.authForm?.get('providers') as FormArray).push(this.fb.control(''));
+    (this.authForm?.get('authentication')?.get('providers') as FormArray).push(this.fb.control(''));
    this.providersArray.push('');
   }
 
   removeProvider(index: number) {
-    (this.authForm?.get('providers') as FormArray).removeAt(index);
+    (this.authForm?.get('authentication')?.get('providers') as FormArray).removeAt(index);
    this.providersArray.splice(index, 1);
   }
 
@@ -81,7 +83,6 @@ export class GeomakeitPluginsProjectAuthBoxComponent implements OnInit, OnChange
     };
     this.gamePluginDataService.updateGamePluginData(this.project?.id, 1, authObject)
         .pipe(take(1)).subscribe(saveUpdatedObject => {
-          console.log('config updated!!!');
         },
         (error: ErrorResponseModel) => {
           console.log(error.message, error.errors)

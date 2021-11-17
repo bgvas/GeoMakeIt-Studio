@@ -58,8 +58,8 @@ export class GeomakeitPluginStartupBoxComponent implements OnInit, OnChanges, On
   }
 
   loadStartupContents() {
-      if (typeof this.gamePlugins?.filter(e => e['name'] === 'start-up')?.pop() !== 'undefined') {
-        this.startUpArray = (<string[]>(JSON.parse((this.gamePlugins?.filter(e => e['name'] === 'start-up')?.pop()?.contents)))) || [];
+      if (typeof this.gamePlugins?.filter(e => e['name'] === 'startup')?.pop() !== 'undefined') {
+        this.startUpArray = (<string[]>(JSON.parse((this.gamePlugins?.filter(e => e['name'] === 'startup')?.pop()?.contents))));
         this.initializeForm();
         this.addValuesToForm();
       }
@@ -67,11 +67,11 @@ export class GeomakeitPluginStartupBoxComponent implements OnInit, OnChanges, On
 
   saveChangesOnExit() {
     const onStartupObject = {
-      'start-up': JSON.stringify(this.startupForm.get('startupFormArray').value)
+      'startup': JSON.stringify(this.startupForm.get('startupFormArray').value)
     };
+
     this.gamePluginDataService.updateGamePluginData(this.project?.id, 1, onStartupObject)
         .pipe(take(1)).subscribe(saveUpdatedObject => {
-          console.log('on-startup updated!!!');
         },
         (error: ErrorResponseModel) => {
           console.log(error.message, error.errors)

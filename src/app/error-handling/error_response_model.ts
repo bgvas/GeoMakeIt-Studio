@@ -1,5 +1,5 @@
 export class ErrorResponseModel {
 
     public message: string;
-    public errors: any;
+    public errors: any[];
 }

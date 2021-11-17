@@ -30,15 +30,9 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
 
 
   @Input() isStepper: boolean;
-  allAvailablePlugins: Plugin[];
   projectForm: FormGroup;
   unsubscribe = new Subject<void>();
-  selectedPluginReleases = Array<PluginRelease>();
-  useAuthentication = false;
   isLoading: boolean;
-  check_by_email = false;
-  allow_anonymous = false;
-  isLoadingAvailable: boolean;
   project: Game = JSON.parse(sessionStorage.getItem('project') || null);
   mainPlugin?: GamePlugin;
   private mainGamePlugin: any;
@@ -65,7 +59,6 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
     this.saveChanges();
     this.unsubscribe.next();
     this.unsubscribe.complete();
-    console.log('exit');
   }
 
   getMainPlugin() {
@@ -104,7 +97,6 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
           .subscribe(updatedGame => {
             sessionStorage.setItem('project', JSON.stringify(updatedGame['data']));
             this.publicService.setProject(updatedGame['data']);
-            console.log('changes saved');
           },
           (e: ErrorResponseModel) => {
             console.log(e.message, e.errors);

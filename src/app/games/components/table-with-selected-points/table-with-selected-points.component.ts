@@ -1,8 +1,5 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Zones_model} from '../../../plugins/models/designer-models/zones/Zones_model';
-import {GameService} from '../../services/game.service';
-import {PublicService} from '../../../public.service';
-import {GamePluginsService} from '../../../gamePlugins/services/game-plugins.service';
 import {Router} from '@angular/router';
 import {Game} from '../../models/games/game';
 import {take, takeUntil} from 'rxjs/operators';
@@ -19,7 +16,6 @@ export class TableWithSelectedPointsComponent implements OnInit, OnDestroy  {
 
 
 
-  points: Zones_model[];
   @Input() isStepper: boolean;
   @Output() pointForDelete = new EventEmitter<number>();
   @Output() pointToEdit = new EventEmitter<Zones_model>();
@@ -82,7 +78,6 @@ export class TableWithSelectedPointsComponent implements OnInit, OnDestroy  {
     }
     this.gamePluginDataService.updateGamePluginData(this.project?.id, 1, zonesObject)
         .pipe(take(1)).subscribe(updateResult => {
-          console.log('zones updated!');
         },
         (error: ErrorResponseModel) => {
           console.log(error.message, error.errors);

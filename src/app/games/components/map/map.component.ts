@@ -51,7 +51,7 @@ export class MapComponent implements OnInit, OnDestroy  {
 
     this.gamePluginDataService.getGamePluginDataOfMainPlugin(this.project?.id)
         .pipe(takeUntil(this.unsubscribe)).subscribe(allGamePlugins => {
-         this.points = <Zones_model[]>JSON.parse(allGamePlugins.data.filter(e => e.name === 'zones').pop().contents);
+         this.points = <Zones_model[]>JSON.parse(allGamePlugins.data.filter(e => e.name === 'zones')?.pop()?.contents);
     },
         (error: ErrorResponseModel) => {
           this.points = [];
@@ -63,7 +63,6 @@ export class MapComponent implements OnInit, OnDestroy  {
     this.savePointsOnExit();
     this.unsubscribe.next();
     this.unsubscribe.complete();
-    console.log('exit');
   }
 
   // add a new point to map //
@@ -113,7 +112,6 @@ export class MapComponent implements OnInit, OnDestroy  {
     }
     this.gamePluginDataService.updateGamePluginData(this.project?.id, 1, zonesObject)
         .pipe(take(1)).subscribe(updateResult => {
-        console.log('zones updated!');
     },
         (error: ErrorResponseModel) => {
           console.log(error.message, error.errors);

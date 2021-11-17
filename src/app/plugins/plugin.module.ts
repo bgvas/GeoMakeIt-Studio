@@ -58,7 +58,8 @@ import { PluginCardComponent} from './components/plugin-card/plugin-card.compone
         EditPluginComponent,
         IdentifierExistsValidatorDirective,
         DisplayPluginsWindowComponent,
-        AvailablePluginsModalComponent
+        AvailablePluginsModalComponent,
+        PluginCardComponent
     ],
     providers: [
         PluginService

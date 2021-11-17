@@ -28,10 +28,6 @@ export class GamePluginDataService {
     return this.http.get(url);
   }
 
-  getBaseApiAuthConfigData(game_id): Observable<GameAuthenticationModel> {
-    return this.http.get<GameAuthenticationModel>(this.gamePluginsData_path + '/config/' + game_id);
-  }
-
   updateBaseApiAuthConfigData(game_id, gameAuth: GameAuthenticationModel): any {
     return this.http.put(this.gamePluginsData_path + '/config/update/' + game_id, gameAuth);
   }
@@ -51,13 +47,5 @@ export class GamePluginDataService {
   updateGamePluginData(game_id: number, pluginRelease_id: number, objectToUpdate: any) {
     return this.http.put(this.rootPath + 'game-plugin-data/' + game_id + '/' + pluginRelease_id, objectToUpdate);
   }
-
-  getOtherGamePluginDataFromGeoMakeItApi(project_id: number): Observable<any> {
-    return this.getGamePluginDataOfMainPlugin(project_id).pipe(map(gamePluginData => {
-      return gamePluginData.data.filter(e => e.name !== 'zones' && e.name !== 'config')
-    }))
-  }
-
-
 
 }

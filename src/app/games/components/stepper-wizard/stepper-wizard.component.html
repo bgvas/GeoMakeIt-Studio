@@ -89,7 +89,7 @@
     <mat-step>
         <ng-template matStepLabel>Setup Main configuration</ng-template>
         <div class="container-fluid">
-            <div class="row justify-content-center" style="height: 720px; overflow-y: scroll">
+            <div class="row justify-content-center" style="height: 720px; overflow-y: auto">
                 <div class="col-6 text-left">
                     <button mat-button matStepperPrevious class="btn bg-secondary shadow border border-success">
                         Back
@@ -124,21 +124,25 @@
                     Exit
                 </button>
             </div>
-            <div class="col-12 text-center font-weight-bold">
-                <div class="h2">
-                    Done!
+            <div class="col-12 text-center font-weight-bold ">
+                <div class="row justify-content-center">
+                    <div class="col-12 h2">
+                        Done!
+                    </div>
+                    <div class="col-12 h4">
+                        Click Build button, to check and build your project
+                    </div>
+                    <!-- <button class="btn btn-warning text-dark" style="width: 20%">
+                         <mat-icon class="material-icons-outlined">
+                             app_settings_alt
+                         </mat-icon>
+                         Build
+                     </button> -->
+                    <div class="col-5">
+                        <app-build></app-build>
+                    </div>
                 </div>
-                <div class="h4">
-                    Click Build button, to check and build your project
-                </div>
-                <button class="btn btn-warning" style="width: 50%">
-                    <mat-icon class="material-icons-outlined">
-                        app_settings_alt
-                    </mat-icon>
-                    Build
-                </button>
             </div>
-
         </div>
     </mat-step>
 </mat-horizontal-stepper>

@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from 
 import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {AlertDialogModel} from '../../models/alert-dialog-model';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {AlertDialogButtonsModel} from '../../models/alert-dialog-buttons-model';
 
 @Component({
   selector: 'app-geomakeit-plugin-alert-dialog-set-buttons',
@@ -31,7 +32,7 @@ export class GeomakeitPluginAlertDialogSetButtonsComponent implements OnInit{
   }
 
   onExit() {
-    this.setButtons.emit(this.buttonForm.value);
+    this.setButtons.emit(this.createReturningObject(this.buttonForm?.value) || []);
     this.modalService.dismissAll()
   }
 
@@ -59,5 +60,27 @@ export class GeomakeitPluginAlertDialogSetButtonsComponent implements OnInit{
         action: this.fb.control('')
       })
     })
+  }
+
+  createReturningObject(buttonsObject: AlertDialogButtonsModel) {
+
+    const selectedButtons = [];
+    if (buttonsObject?.positive_button?.text !== '' && buttonsObject?.positive_button?.action !== '') {
+      selectedButtons.push({'positive_button': buttonsObject?.positive_button})
+    } else {
+      selectedButtons.push({'positive_button': null})
+    }
+    if (buttonsObject?.neutral_button?.text !== '' && buttonsObject?.neutral_button?.action !== '') {
+      selectedButtons.push({'neutral_button': buttonsObject?.neutral_button})
+    } else {
+      selectedButtons.push({'neutral_button': null})
+    }
+    if (buttonsObject?.negative_button?.text !== '' && buttonsObject?.negative_button?.action !== '') {
+      selectedButtons.push({'negative_button': buttonsObject?.negative_button})
+    } else {
+      selectedButtons.push({'negative_button': null})
+    }
+
+    return selectedButtons;
   }
 }

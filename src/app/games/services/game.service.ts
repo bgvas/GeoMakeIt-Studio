@@ -10,6 +10,8 @@ import {SelectedPlugin} from '../../plugins/models/selectedPlugin/selected-plugi
 import {Plugin} from '../../plugins/models/plugin';
 import {RootGameRelease} from '../models/game-release/root-game-release';
 import {GamePluginDataModel} from '../../gamePlugins/models/game-plugin-data-model';
+import {BuildGameRequestModel} from '../models/build-game-request-model';
+import {DownloadGameRequestModel} from '../models/download-game-request-model';
 
 
 @Injectable({
@@ -76,6 +78,14 @@ export class GameService {
               observer.next(pos);
           })
       })
+    }
+
+    buildGame(gameToBuild: BuildGameRequestModel): Observable<any> {
+      return this.http.post(this.pathGameReleases, gameToBuild);
+    }
+
+    downloadGame(gameToDownload: DownloadGameRequestModel): Observable<Blob> {
+      return this.http.get(this.pathGameReleases + '/' + gameToDownload.game_id + '/download/' + gameToDownload.name, {responseType: 'blob'});
     }
 
 

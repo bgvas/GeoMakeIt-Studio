@@ -1,24 +1,37 @@
 <ng-template #content let-c="close" let-d="dismiss" >
-    <div class="modal-header">
-        <h3 class="modal-title" id="modal-basic-title" style="font-weight: bold">
-            Build your game
-        </h3>
-    </div>
-    <div class="modal-body">
-        <p>Your new game is ready for build.</p>
-        <p>After clicking the build-button, all settings will be checked</p>
-        <p>and if your project passes all the tests, you will be able to download it.</p>
-        <button>Start building</button>
-    </div>
-    <div class="modal-footer">
-        <div class="w-100 text-center">
-            <button type="button" class="btn bg-danger rounded-pill w-50 text-lowercase" (click)="onExit()">Cancel</button>
+    <div style="border: 4px darkgrey solid" [style.background]="'linear-gradient(0deg, rgba(240, 143, 0, 1) , rgba(255,255,255, 1) )'">
+        <div class="modal-header bg-light border-bottom border-secondary align-items-center">
+            <h3 class="modal-title text-center" id="modal-basic-title" style="font-weight: bold">
+                Build your game
+            </h3>
+        </div>
+        <div class="modal-body">
+            <div class="text-center">
+                <p class="h3">Your new game is ready for build.</p>
+                <p>After button click, all settings will be checked</p>
+                <p>and if your project passes all tests, you will be able to download it.</p>
+                <button (click)="onStartBuilding()" class="btn btn-dark text-white rounded shadow">
+                         <span class="material-icons" style="font-weight: bold; font-size: x-large">
+                             build
+                         </span>
+                         <span class="serif-font" style="font-weight: bold">
+                            Start
+                         </span>
+                </button>
+            </div>
+            <app-spinner [visible]="isBuilding"></app-spinner>
+        </div>
+        <div class="modal-footer bg-light border-top border-secondary">
+            <div class="w-100 text-center">
+                <button type="button" class="btn btn-outline-secondary w-50 text-lowercase" (click)="onExit()">Cancel</button>
+            </div>
         </div>
     </div>
 </ng-template>
 
 
 <!--// click to open modal //-->
-<button class="w-100 btn btn-warning text-dark mat-h4 text-center" (click)="open(content)">
+<button class="btn btn-warning serif-font text-center rounded text-lowercase build"
+        (click)="open(content)" style="font-weight: bold; border: 2px solid black">
     Build
 </button>

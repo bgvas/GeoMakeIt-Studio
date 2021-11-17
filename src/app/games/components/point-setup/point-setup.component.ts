@@ -106,7 +106,7 @@ export class PointSetupComponent implements OnInit, OnDestroy {
      const newPoint = new Zones_model();
      newPoint.id = this.zonesForm.get('id').value;
      newPoint.title = this.zonesForm.get('title').value;
-     newPoint.unique_id = (this.zonesForm.get('title').value).toString().toLowerCase();
+     newPoint.unique_id = (this.zonesForm.get('title').value).toString().toLowerCase() + '_zone';
      newPoint.center.longitude = this.zonesForm.get('longitude').value;
      newPoint.center.latitude = this.zonesForm.get('latitude').value;
      newPoint.fill_color = this.zonesForm.get('fill_color').value;
@@ -121,7 +121,7 @@ export class PointSetupComponent implements OnInit, OnDestroy {
      newPoint.stroke_width =  this.zonesForm.get('stroke_width').value;
      newPoint.icon.width = this.zonesForm.get('width').value;
      newPoint.icon.image = this.zonesForm.get('image').value;
-
+     console.log(newPoint.unique_id);
      this.returnedPoint.emit(newPoint);  // return updated point  //
      this.actionsArray.clear();
   }

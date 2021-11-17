@@ -36,6 +36,7 @@ export class SelectedGamePluginsComponent implements OnInit, OnDestroy, OnChange
   }
 
   ngOnChanges(changes: SimpleChanges) {
+      console.log(this.gamePlugins);
       if (typeof this.gamePlugins === 'undefined') {
           this.isLoading = true;
       } else {
@@ -48,7 +49,6 @@ export class SelectedGamePluginsComponent implements OnInit, OnDestroy, OnChange
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
-    console.log('exit');
   }
 
 

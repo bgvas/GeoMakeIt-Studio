@@ -31,9 +31,11 @@ export class GeomakeitPluginMarkersBoxComponent implements OnInit, OnChanges, On
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.loadMarkerContents();
-    this.initializeForm();
-    this.addValuesToForm();
+    if (this.gamePlugins?.length > 0) {
+      this.loadMarkerContents();
+      this.initializeForm();
+      this.addValuesToForm();
+    }
   }
 
   initializeForm() {
@@ -43,8 +45,10 @@ export class GeomakeitPluginMarkersBoxComponent implements OnInit, OnChanges, On
   }
 
   loadMarkerContents() {
-    const contents = this.gamePlugins?.filter(e => e['name'] === 'markers')?.pop()?.contents || null;
-    this.markersArray = <MarkerModel[]>JSON.parse(contents);
+    if (typeof this.gamePlugins?.filter(e => e['name'] === 'markers')?.pop() !== 'undefined') {
+      const contents = this.gamePlugins?.filter(e => e['name'] === 'markers')?.pop()?.contents || null;
+      this.markersArray = <MarkerModel[]>JSON.parse(contents);
+    }
   }
 
   saveChangesOnExit() {
@@ -53,7 +57,6 @@ export class GeomakeitPluginMarkersBoxComponent implements OnInit, OnChanges, On
     }
     this.gamePluginDataService.updateGamePluginData(this.project?.id, 1, markersObject)
         .pipe(take(1)).subscribe(saveUpdatedObject => {
-          console.log('markers updated!!!');
     },
         (error: ErrorResponseModel) => {
             console.log(error.message, error.errors)
@@ -62,7 +65,6 @@ export class GeomakeitPluginMarkersBoxComponent implements OnInit, OnChanges, On
 
   addValuesToForm() {
     if(this.markersArray?.length > 0) {
-      console.log(this.markersArray);
       for(const item of this.markersArray) {
         const newBox = this.markers_box();
         newBox.get('unique_id').setValue(item?.unique_id);

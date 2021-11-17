@@ -14,13 +14,10 @@ import {QuestsModel} from '../../models/quests-model';
 })
 export class GeomakeitPluginQuestsBoxComponent implements OnInit, OnChanges, OnDestroy {
 
-  @Input() gamePluginArray?: GamePluginDataModel[]
   @Input() gamePlugins?: any;
-  questsArray?: QuestsModel[];
   questsForm?: FormGroup
   questsValuesArray = Array<QuestsModel>();
   onFirstJoinValuesArray = Array<string>();
-  gamePluginData?: GamePluginDataModel;
   project?: Game;
   selected = -1;
   selectedQuest?: QuestsModel;
@@ -38,7 +35,9 @@ export class GeomakeitPluginQuestsBoxComponent implements OnInit, OnChanges, OnD
   }
 
   ngOnChanges(changes: SimpleChanges) {
-   this.loadQuestContents();
+    if(this.gamePlugins?.length > 0) {
+      this.loadQuestContents();
+    }
   }
 
   initializeForm() {
@@ -49,11 +48,13 @@ export class GeomakeitPluginQuestsBoxComponent implements OnInit, OnChanges, OnD
   }
 
   loadQuestContents() {
-    const contents = this.gamePlugins?.filter(e => e['name'] === 'quests')?.pop()?.contents || null;
-    this.questsValuesArray = <QuestsModel[]>JSON.parse(contents)?.quests || [];
-    this.onFirstJoinValuesArray = JSON.parse(contents)?.on_first_join || [];
-    this.initializeForm();
-    this.addValuesToForm();
+    if (typeof this.gamePlugins?.filter(e => e['name'] === 'quests')?.pop() !== 'undefined' ) {
+      const contents = this.gamePlugins?.filter(e => e['name'] === 'quests')?.pop()?.contents || null;
+      this.questsValuesArray = <QuestsModel[]>JSON.parse(contents)?.quests;
+      this.onFirstJoinValuesArray = JSON.parse(contents)?.on_first_join;
+      this.initializeForm();
+      this.addValuesToForm();
+    }
   }
 
   saveChangesOnExit() {
@@ -63,7 +64,6 @@ export class GeomakeitPluginQuestsBoxComponent implements OnInit, OnChanges, OnD
 
     this.gamePluginDataService.updateGamePluginData(this.project?.id, 1, questsObject)
         .pipe(take(1)).subscribe(saveUpdatedObject => {
-          console.log('quests updated!!!');
         },
         (error: ErrorResponseModel) => {
           console.log(error.message, error.errors)
@@ -84,9 +84,9 @@ export class GeomakeitPluginQuestsBoxComponent implements OnInit, OnChanges, OnD
     if(this.questsValuesArray?.length > 0) {
       for(const item of this.questsValuesArray) {
         const newQuestBox = this.quests_box();
-        newQuestBox.get('unique_id').setValue(item.unique_id || '');
-        newQuestBox.get('title').setValue(item.title || '');
-        newQuestBox.get('description').setValue(item.description || '');
+        newQuestBox.get('unique_id').setValue(item.unique_id);
+        newQuestBox.get('title').setValue(item.title);
+        newQuestBox.get('description').setValue(item.description);
         for (const action of item.actions) {
           (newQuestBox.get('actions') as FormArray).push(this.fb.control(action));
         }
@@ -109,7 +109,6 @@ export class GeomakeitPluginQuestsBoxComponent implements OnInit, OnChanges, OnD
 
   addNewQuestsBox() {
     (this.questsForm.get('quests') as FormArray).push(this.quests_box());
-    console.log(this.questsValuesArray);
     this.questsValuesArray.push(this.quests_box()?.value);
   }
 
