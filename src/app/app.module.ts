@@ -25,6 +25,7 @@ import { AdminComponent } from './admin/admin.component';
 import {AdminModule} from './admin/admin.module';
 import { AngularD3CloudModule } from 'angular-d3-cloud';
 import {GamePluginsModule} from './gamePlugins/game-plugins.module';
+import {UiModule} from './ui/ui.module';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import {GamePluginsModule} from './gamePlugins/game-plugins.module';
         NgbModule,
         AdminModule,
         AngularD3CloudModule,
-        GamePluginsModule
+        GamePluginsModule,
+        UiModule
     ],
     declarations: [
         AppComponent,

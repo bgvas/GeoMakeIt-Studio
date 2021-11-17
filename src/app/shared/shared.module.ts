@@ -13,9 +13,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { ValidationMessagesComponent } from './components/validation-messages/validation-messages.component';
 import {DeclareFormControlsService} from './services/declareFormControls/declare-form-controls.service';
 import {ValidationsService} from './services/validations/validations.service';
-import { HomeComponent } from './components/home-page/home.component'
-import { HeaderBarComponent } from './components/header-bar/header-bar.component';
-import { FooterBarComponent } from './components/footer-bar/footer-bar.component';
 import {MatIconModule} from '@angular/material/icon';
 import {NgbModule, NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
@@ -39,7 +36,7 @@ import { ColorPickerComponent } from './components/color-picker/color-picker.com
 import {AngularD3CloudModule} from 'angular-d3-cloud';
 import { RemoveUnderscoresPipe } from './components/pipes/remove-underscores.pipe';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {ChangePasswordComponent} from './components/change-password/change-password.component';
+import {ChangePasswordComponent} from '../authentication/components/change-password/change-password.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 
@@ -53,9 +50,6 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     InputComponent,
     NotificationsComponent,
     ValidationMessagesComponent,
-    HomeComponent,
-    HeaderBarComponent,
-    FooterBarComponent,
     CreateProjectComponent,
     ImageAsCheckBoxComponent,
     ProjectCardComponent,
@@ -74,8 +68,6 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         SpinnerComponent,
         DeletePopUpComponent,
         InputComponent,
-        HeaderBarComponent,
-        FooterBarComponent,
         NotificationsComponent,
         NumberToBooleanPipe,
         RoleIdToRoleNamePipe,
@@ -83,7 +75,12 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         ColorPickerComponent,
         RemoveUnderscoresPipe,
         ValidationMessagesComponent,
-        PaginatorComponent
+        PaginatorComponent,
+        GeomakeitHelpComponent,
+        ChangePasswordComponent,
+        ProjectCardComponent,
+        CreateProjectComponent,
+        CreatePluginComponent
     ],
     imports: [
         CommonModule,

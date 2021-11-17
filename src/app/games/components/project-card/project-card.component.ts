@@ -9,9 +9,6 @@ import {FeaturesService} from '../../../shared/services/features.service';
 import {ErrorResponseModel} from '../../../error-handling/error_response_model';
 import {GameRelease} from '../../models/game-release/game-release';
 import {DownloadGameRequestModel} from '../../models/download-game-request-model';
-import {file} from 'googleapis/build/src/apis/file';
-
-
 
 
 
@@ -35,6 +32,8 @@ export class ProjectCardComponent implements OnInit, OnDestroy, OnChanges {
   constructor(private service: GameService, private router: Router, private sharedService: FeaturesService) { }
 
   ngOnInit(): void {
+      sessionStorage.removeItem('project');
+      sessionStorage.removeItem('release');
   }
 
 
@@ -47,7 +46,6 @@ export class ProjectCardComponent implements OnInit, OnDestroy, OnChanges {
                   } else {
                       this.default_selected_game_release = releases.data[releases.data.length - 1];
                       this.gameRelease = this.default_selected_game_release;
-                      console.log(this.gameRelease.file)
                       if (this.gameRelease.file !== null) {
                           this.isDownloadable = true;
                       }

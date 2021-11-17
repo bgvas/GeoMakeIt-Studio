@@ -6,7 +6,7 @@ import {SocialUser} from '../../Models/socialUser';
 import {Error} from '../../../error-handling/error/error';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {HeaderBarComponent} from '../../../shared/components/header-bar/header-bar.component';
+import {HeaderBarComponent} from '../../../ui/components/header-bar/header-bar.component';
 import {RolesModel} from '../../../user/models/roles-model';
 import {RoleService} from '../../../user/services/role.service';
 

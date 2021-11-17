@@ -1,10 +1,9 @@
-import {ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {FeaturesService} from '../../services/features.service';
+import {FeaturesService} from '../../../shared/services/features.service';
 import {Subject} from 'rxjs';
-import {take, takeUntil} from 'rxjs/operators';
+import {take} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
-import {ChangePasswordComponent} from '../change-password/change-password.component';
 import {AuthService} from '../../../authentication/services/auth.service';
 
 

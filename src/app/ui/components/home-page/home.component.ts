@@ -2,16 +2,13 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GameService} from '../../../games/services/game.service';
 import {Subject} from 'rxjs';
 import {Game} from '../../../games/models/games/game';
-import {Error} from '../../../error-handling/error/error';
-import {NotificationsComponent} from '../notifications/notifications.component';
+import {NotificationsComponent} from '../../../shared/components/notifications/notifications.component';
 import {PluginService} from '../../../plugins/services/plugin.service';
 import {Plugin} from '../../../plugins/models/plugin';
 import {AppService} from '../../../app.service';
 import {takeUntil} from 'rxjs/operators';
 import {ErrorResponseModel} from '../../../error-handling/error_response_model';
-import {FeaturesService} from '../../services/features.service';
-import {type} from 'os';
-
+import {FeaturesService} from '../../../shared/services/features.service';
 
 
 @Component({
@@ -41,9 +38,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       if (this.isPluginDeveloper()) {
           this.loadListOfPlugins();
       }
+
       if (typeof this.featuresService?.temporary_save !== 'undefined' && this.featuresService?.temporary_save !== null) {
-          const build = this.featuresService.temporary_save;
-          console.log(build);
+          const build = this.featuresService?.temporary_save;
           this.notification.display('Project ' + build['project'].title + ', ' + build['version']  + ', is under construction', 'warning');
           this.featuresService.temporary_save = null;
       }

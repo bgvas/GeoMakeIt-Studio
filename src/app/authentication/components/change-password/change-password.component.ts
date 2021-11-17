@@ -1,15 +1,15 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Subject} from 'rxjs';
-import {passwordMatchValidator} from '../../custom-validators/passwordsMatchValidator';
+import {passwordMatchValidator} from '../../../shared/custom-validators/passwordsMatchValidator';
 import {Error} from '../../../error-handling/error/error';
 import {User} from '../../../user/models/user';
 import {AppService} from '../../../app.service';
 import {UserService} from '../../../user/services/user.service';
-import {NotificationsComponent} from '../notifications/notifications.component';
+import {NotificationsComponent} from '../../../shared/components/notifications/notifications.component';
 import {environment} from '../../../../environments/environment';
-import {AuthService} from '../../../authentication/services/auth.service';
-import {ChangePasswordRequestModel} from '../../models/change-password-request-model';
+import {AuthService} from '../../services/auth.service';
+import {ChangePasswordRequestModel} from '../../../shared/models/change-password-request-model';
 import {ErrorResponseModel} from '../../../error-handling/error_response_model';
 
 @Component({

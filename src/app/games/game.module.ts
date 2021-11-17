@@ -42,6 +42,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatListModule} from '@angular/material/list';
 import { GameSettingsTabGroupComponent } from './components/game-setup-ui/game-settings-tab-group/game-settings-tab-group.component';
 import { BuildComponent } from './components/build/build.component';
+import {UiModule} from '../ui/ui.module';
 
 
 
@@ -101,7 +102,8 @@ import { BuildComponent } from './components/build/build.component';
         DragDropModule,
         MatSlideToggleModule,
         MatToolbarModule,
-        MatListModule
+        MatListModule,
+        UiModule
 
     ],
     exports: [

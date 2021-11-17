@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from '../../shared/components/home-page/home.component';
+import { HomeComponent } from '../../ui/components/home-page/home.component';
 import { UserProfileComponent } from '../../user/components/user-profile/user-profile.component';
 import {UserGuardService as UserGuard} from '../../authentication/guards/user-guard.service';
 import {ActivateAccountComponent} from '../../authentication/components/activate-account/activate-account.component';
-import {ChangePasswordComponent} from '../../shared/components/change-password/change-password.component';
+import {ChangePasswordComponent} from '../../authentication/components/change-password/change-password.component';
 import {ChangeForgotPasswordComponent} from '../../authentication/components/change-forgot-password/change-forgot-password.component';
 
 
