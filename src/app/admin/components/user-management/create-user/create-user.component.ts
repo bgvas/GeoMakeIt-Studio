@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from '../../../../user-management/models/user';
-import {UserService} from '../../../../user-management/services/user.service';
+import {User} from '../../../../user/models/user';
+import {UserService} from '../../../../user/services/user.service';
 import {NotificationsComponent} from '../../../../shared/components/notifications/notifications.component';
 import {Router} from '@angular/router';
 

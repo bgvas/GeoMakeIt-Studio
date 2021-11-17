@@ -15,7 +15,7 @@ import {AdminLayoutModule} from './layouts/admin-layout/admin-layout.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import {GlobalHttpInterceptor} from './global-http.interceptor';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { UserManagementModule } from './user-management/user-management.module';
+import { UserModule } from './user/user.module';
 import { AuthenticationModule} from './authentication/authentication.module';
 import { PluginModule } from './plugins/plugin.module';
 import { SharedModule} from './shared/shared.module';
@@ -43,7 +43,7 @@ import {GamePluginsModule} from './gamePlugins/game-plugins.module';
         AdminLayoutModule,
         MatTabsModule,
         MatProgressBarModule,
-        UserManagementModule,
+        UserModule,
         AuthenticationModule,
         PluginModule,
         SharedModule,

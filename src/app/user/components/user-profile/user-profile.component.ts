@@ -1,6 +1,6 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { User } from 'app/user-management/models/user';
+import { User } from 'app/user/models/user';
 import { Subject } from 'rxjs';
 import {UserService} from '../../services/user.service';
 import {takeUntil} from 'rxjs/operators';

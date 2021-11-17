@@ -5,8 +5,8 @@ import {PluginService} from '../../services/plugin.service';
 import {Subject} from 'rxjs';
 import {Plugin} from '../../models/plugin';
 import {PluginRelease} from '../../models/available_plugins/plugin-release';
-import {UserService} from '../../../user-management/services/user.service';
-import {User} from '../../../user-management/models/user';
+import {UserService} from '../../../user/services/user.service';
+import {User} from '../../../user/models/user';
 
 @Component({
   selector: 'app-available-plugins-modal',

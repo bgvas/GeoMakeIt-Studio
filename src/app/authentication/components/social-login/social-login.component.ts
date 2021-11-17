@@ -1,14 +1,14 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {UserService} from '../../../user-management/services/user.service';
+import {UserService} from '../../../user/services/user.service';
 import {AuthService} from '../../services/auth.service';
 import {SocialUser} from '../../Models/socialUser';
 import {Error} from '../../../error-handling/error/error';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {HeaderBarComponent} from '../../../shared/components/header-bar/header-bar.component';
-import {RolesModel} from '../../../user-management/models/roles-model';
-import {RoleService} from '../../../user-management/services/role.service';
+import {RolesModel} from '../../../user/models/roles-model';
+import {RoleService} from '../../../user/services/role.service';
 
 
 @Component({

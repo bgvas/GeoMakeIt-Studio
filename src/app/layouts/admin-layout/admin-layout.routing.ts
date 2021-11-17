@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from '../../shared/components/home-page/home.component';
-import { UserProfileComponent } from '../../user-management/components/user-profile/user-profile.component';
+import { UserProfileComponent } from '../../user/components/user-profile/user-profile.component';
 import {UserGuardService as UserGuard} from '../../authentication/guards/user-guard.service';
 import {ActivateAccountComponent} from '../../authentication/components/activate-account/activate-account.component';
 import {ChangePasswordComponent} from '../../shared/components/change-password/change-password.component';

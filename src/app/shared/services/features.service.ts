@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../../authentication/services/auth.service';
 import {environment} from '../../../environments/environment';
-import {User} from '../../user-management/models/user';
+import {User} from '../../user/models/user';
 import {take} from 'rxjs/operators';
 
 @Injectable({

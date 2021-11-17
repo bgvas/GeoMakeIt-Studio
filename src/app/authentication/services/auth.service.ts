@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {AuthCredentials} from '../Models/auth-credentials';
 import {environment} from '../../../environments/environment';
-import {ChangeUsersPassword} from '../../user-management/models/change-users-password';
+import {ChangeUsersPassword} from '../../user/models/change-users-password';
 import {Response} from '../../shared/models/Response';
 import {AuthenticatedUserModel} from '../Models/authenticated-user-model';
 import {UserRegistrationModel} from '../Models/user_registration_model';

@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Error} from '../../../error-handling/error/error';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {UserService} from '../../../user-management/services/user.service';
+import {UserService} from '../../../user/services/user.service';
 import {AuthService} from '../../services/auth.service';
 
 @Component({

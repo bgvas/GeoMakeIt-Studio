@@ -9,6 +9,8 @@ import {Plugin} from '../../../plugins/models/plugin';
 import {AppService} from '../../../app.service';
 import {takeUntil} from 'rxjs/operators';
 import {ErrorResponseModel} from '../../../error-handling/error_response_model';
+import {FeaturesService} from '../../services/features.service';
+import {type} from 'os';
 
 
 
@@ -29,14 +31,21 @@ export class HomeComponent implements OnInit, OnDestroy {
   private unsubscribe = new Subject<void>();
 
 
-  constructor(private gameService: GameService, private pluginService: PluginService, private appService: AppService) { }
+  constructor(private gameService: GameService, private pluginService: PluginService, private appService: AppService, private featuresService: FeaturesService) { }
 
   ngOnInit() {
       sessionStorage.removeItem('project');
       localStorage.removeItem('release');
       this.loadListOfProjects();
+
       if (this.isPluginDeveloper()) {
           this.loadListOfPlugins();
+      }
+      if (typeof this.featuresService?.temporary_save !== 'undefined' && this.featuresService?.temporary_save !== null) {
+          const build = this.featuresService.temporary_save;
+          console.log(build);
+          this.notification.display('Project ' + build['project'].title + ', ' + build['version']  + ', is under construction', 'warning');
+          this.featuresService.temporary_save = null;
       }
   }
 

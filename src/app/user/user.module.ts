@@ -34,4 +34,4 @@ import {RoleService} from './services/role.service';
         RoleService
     ]
 })
-export class UserManagementModule { }
+export class UserModule { }

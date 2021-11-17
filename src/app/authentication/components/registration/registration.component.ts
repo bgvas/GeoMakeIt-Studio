@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {passwordMatchValidator} from '../../../shared/custom-validators/passwordsMatchValidator';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
-import {UserService} from '../../../user-management/services/user.service';
+import {UserService} from '../../../user/services/user.service';
 import {UserRegistrationModel} from '../../Models/user_registration_model';
 import {environment} from '../../../../environments/environment';
 import {RegistrationResponseModel} from '../../Models/registration_response_model';

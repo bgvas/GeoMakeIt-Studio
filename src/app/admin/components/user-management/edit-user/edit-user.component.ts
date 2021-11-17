@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AdminService} from '../../../services/admin.service';
-import {UserService} from '../../../../user-management/services/user.service';
+import {UserService} from '../../../../user/services/user.service';
 import {NotificationsComponent} from '../../../../shared/components/notifications/notifications.component';
 import {Router} from '@angular/router';
 import {FeaturesService} from '../../../../shared/services/features.service';

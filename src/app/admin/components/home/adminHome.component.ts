@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {User} from '../../../user-management/models/user';
+import {User} from '../../../user/models/user';
 import {AdminService} from '../../services/admin.service';
 import {GameService} from '../../../games/services/game.service';
 import {PluginService} from '../../../plugins/services/plugin.service';

@@ -28,7 +28,7 @@ import { ImageAsCheckBoxComponent } from './components/image-as-check-box/image-
 import { ProjectCardComponent } from '../games/components/project-card/project-card.component';
 import { GeomakeitHelpComponent } from './components/help/geomakeit-help/geomakeit-help.component';
 import { MatSelectModule} from '@angular/material/select';
-import { UserManagementModule} from '../user-management/user-management.module';
+import { UserModule} from '../user/user.module';
 import { StepByStepComponent } from './components/help/step-by-step/step-by-step.component';
 import { RouterModule} from '@angular/router';
 import {NgApexchartsModule} from 'ng-apexcharts';
@@ -98,7 +98,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         MatInputModule,
         NgbModule,
         MatSelectModule,
-        UserManagementModule,
+        UserModule,
         RouterModule,
         NgApexchartsModule,
         AngularD3CloudModule,

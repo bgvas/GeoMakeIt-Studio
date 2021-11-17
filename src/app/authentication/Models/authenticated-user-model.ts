@@ -1,4 +1,4 @@
-import {User} from '../../user-management/models/user';
+import {User} from '../../user/models/user';
 
 export class AuthenticatedUserModel {
 

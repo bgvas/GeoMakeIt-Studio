@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Error} from '../../../error-handling/error/error';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {UserService} from '../../../user-management/services/user.service';
+import {UserService} from '../../../user/services/user.service';
 import {AuthService} from '../../services/auth.service';
 import {ErrorResponseModel} from '../../../error-handling/error_response_model';
 import {ActivateAccountRequestModel} from '../../Models/activate-account-request-model';

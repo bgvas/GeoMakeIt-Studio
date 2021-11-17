@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Plugin} from '../../models/plugin';
-import {User} from '../../../user-management/models/user';
-import {UserService} from '../../../user-management/services/user.service';
+import {User} from '../../../user/models/user';
+import {UserService} from '../../../user/services/user.service';
 import {ErrorResponseModel} from '../../../error-handling/error_response_model';
 import {Subject} from 'rxjs';
 import {take, takeUntil} from 'rxjs/operators';

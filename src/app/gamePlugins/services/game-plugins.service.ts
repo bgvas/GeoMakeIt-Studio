@@ -5,7 +5,7 @@ import {DesignerModel} from '../models/designer-model';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ValidationsService} from '../../shared/services/validations/validations.service';
 import {environment} from '../../../environments/environment';
-import {User} from '../../user-management/models/user';
+import {User} from '../../user/models/user';
 import {pluginReleasePostRequestModel} from '../../plugins/models/plugin-release-post-request-model';
 import {GamePlugin} from '../models/game-plugin';
 import {Zones_model} from '../../plugins/models/designer-models/zones/Zones_model';

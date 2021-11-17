@@ -2,11 +2,11 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
-import {UserService} from '../../../user-management/services/user.service';
+import {UserService} from '../../../user/services/user.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {environment} from '../../../../environments/environment';
-import {RoleService} from '../../../user-management/services/role.service';
+import {RoleService} from '../../../user/services/role.service';
 
 
 @Component({

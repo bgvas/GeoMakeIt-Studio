@@ -1,7 +1,7 @@
 import {AfterViewChecked, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {UserService} from '../../../../user-management/services/user.service';
+import {UserService} from '../../../../user/services/user.service';
 
 
 
