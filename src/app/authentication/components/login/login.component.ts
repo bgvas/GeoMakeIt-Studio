@@ -7,6 +7,7 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {environment} from '../../../../environments/environment';
 import {RoleService} from '../../../user/services/role.service';
+import {AppService} from '../../../app.service';
 
 
 @Component({
@@ -25,13 +26,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router,
-              private userService: UserService, private roleService: RoleService) { }
+              private userService: UserService, private roleService: RoleService, private appService: AppService) { }
 
   ngOnInit(): void {
     this.successMessages = this.authService.successMessage || null;
-    console.log(this.successMessages);
     this.errorMessages = this.authService.errorMessage || null;
-    console.log(this.errorMessages);
     this.initializeForm();
   }
 
@@ -54,15 +53,17 @@ export class LoginComponent implements OnInit, OnDestroy {
    this.authService.login(this.loginForm.value).pipe(takeUntil(this.unsubscribe)).subscribe(authenticated => {
      if (typeof authenticated !== 'undefined') {
 
-       sessionStorage.setItem('token', authenticated?.access_token);
+       this.appService.token = authenticated?.access_token;
        localStorage.setItem('role_id', String(this.roleService?.getMainRole(authenticated?.user?.roles)));
        sessionStorage.setItem('user', JSON.stringify(authenticated?.user));
 
        if (this.roleService.getMainRole(authenticated?.user?.roles) === 1) {
          this.isSpinnerActive = false;
+         this.appService.guard_activator = {'role': 1, 'authenticated': true}
          this.router.navigate(['admin/home'])
        } else  {
            this.isSpinnerActive = false;
+           this.appService.guard_activator = {'role': 2, 'authenticated': true}
            this.router.navigate(['home'])
        }
      } else {

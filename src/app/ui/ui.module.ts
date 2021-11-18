@@ -10,6 +10,7 @@ import {UserModule} from '../user/user.module';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {PluginModule} from '../plugins/plugin.module';
+import {AuthenticationModule} from '../authentication/authentication.module';
 
 
 
@@ -31,7 +32,8 @@ import {PluginModule} from '../plugins/plugin.module';
     UserModule,
     MatButtonModule,
     MatTooltipModule,
-    PluginModule
+    PluginModule,
+    AuthenticationModule
   ]
 })
 export class UiModule { }

@@ -10,7 +10,7 @@ import {TableWithSelectedPointsComponent} from './components/table-with-selected
 export const GameRoutes: Routes = [
 
     { path: 'games',  component: GameComponent, canActivate: [UserGuard]},
-    { path: 'map', component: MapComponent, data: {title: 'map'}, canActivate: [UserGuard]},
+    { path: 'map', component: MapComponent, canActivate: [UserGuard]},
     { path: 'settings', component: GameSettingsComponent, canActivate: [UserGuard]},
     { path: 'selected-points', component: TableWithSelectedPointsComponent, canActivate: [UserGuard]},
     { path: 'configurations', component: JsonFilesConfigurationComponent, canActivate: [UserGuard]},

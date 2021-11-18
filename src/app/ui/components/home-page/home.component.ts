@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {GameService} from '../../../games/services/game.service';
 import {Subject} from 'rxjs';
 import {Game} from '../../../games/models/games/game';
@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private gameService: GameService, private pluginService: PluginService, private appService: AppService, private featuresService: FeaturesService) { }
 
   ngOnInit() {
+
       sessionStorage.removeItem('project');
       localStorage.removeItem('release');
       this.loadListOfProjects();

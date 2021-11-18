@@ -17,6 +17,7 @@ import {UserGuardService} from './guards/user-guard.service';
 import {PluginDeveloperGuardService} from './guards/plugin-developer-guard.service';
 import { SocialLoginComponent } from './components/social-login/social-login.component';
 import { ChangeForgotPasswordComponent } from './components/change-forgot-password/change-forgot-password.component';
+import { ChangePasswordComponent} from './components/change-password/change-password.component';
 import { AuthenticationComponent } from './authentication.component';
 import {AuthenticationRoutes} from './authentication.routing';
 
@@ -31,7 +32,8 @@ import {AuthenticationRoutes} from './authentication.routing';
         ActivateAccountComponent,
         SocialLoginComponent,
         ChangeForgotPasswordComponent,
-        AuthenticationComponent
+        AuthenticationComponent,
+        ChangePasswordComponent
 
     ],
     imports: [
@@ -43,7 +45,9 @@ import {AuthenticationRoutes} from './authentication.routing';
         SharedModule,
         MatInputModule
     ],
-    exports: [],
+    exports: [
+        ChangePasswordComponent
+    ],
     providers: [
         AuthService,
         CanActivateRouteService,

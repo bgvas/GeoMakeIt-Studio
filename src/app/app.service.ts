@@ -7,10 +7,28 @@ import {User} from './user/models/user';
 })
 export class AppService {
 
+  private _guardValidator: any;
+  private _token: any;
   constructor(private http: HttpClient) {
   }
 
   currentUser( ): User {
   return JSON.parse(sessionStorage.getItem('user'));
+  }
+
+  get guard_activator() {
+    return this._guardValidator;
+  }
+
+  set guard_activator(validator: any) {
+    this._guardValidator = validator;
+  }
+
+  get token() {
+    return this._token;
+  }
+
+  set token(token: any) {
+    this._token = token;
   }
 }

@@ -36,7 +36,6 @@ import { ColorPickerComponent } from './components/color-picker/color-picker.com
 import {AngularD3CloudModule} from 'angular-d3-cloud';
 import { RemoveUnderscoresPipe } from './components/pipes/remove-underscores.pipe';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {ChangePasswordComponent} from '../authentication/components/change-password/change-password.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 
@@ -60,7 +59,6 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     EmailExistsValidatorDirective,
     ColorPickerComponent,
     RemoveUnderscoresPipe,
-    ChangePasswordComponent,
     PaginatorComponent,
     CreatePluginComponent
 ],
@@ -77,7 +75,6 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         ValidationMessagesComponent,
         PaginatorComponent,
         GeomakeitHelpComponent,
-        ChangePasswordComponent,
         ProjectCardComponent,
         CreateProjectComponent,
         CreatePluginComponent

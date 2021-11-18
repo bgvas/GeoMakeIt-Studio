@@ -9,6 +9,7 @@ import {takeUntil} from 'rxjs/operators';
 import {HeaderBarComponent} from '../../../ui/components/header-bar/header-bar.component';
 import {RolesModel} from '../../../user/models/roles-model';
 import {RoleService} from '../../../user/services/role.service';
+import {AppService} from '../../../app.service';
 
 
 @Component({
@@ -23,7 +24,8 @@ export class SocialLoginComponent implements OnInit, OnDestroy  {
   @ViewChild('HeaderBarComponent') headerBar: HeaderBarComponent;
 
 
-  constructor(private url: ActivatedRoute, private service: UserService, private roleService: RoleService, private router: Router, private authService: AuthService) { }
+  constructor(private url: ActivatedRoute, private service: UserService, private roleService: RoleService,
+              private router: Router, private authService: AuthService, private appService: AppService) { }
 
   ngOnInit(): void {
     this.isSpinnerActive = true;
@@ -49,8 +51,10 @@ export class SocialLoginComponent implements OnInit, OnDestroy  {
 
           if (role_id === 1) {  // if user is administrator, redirect to admin panel //
             this.isSpinnerActive = false;
+            this.appService.guard_activator = {'role': 1, 'authenticated': true}
             this.router.navigate(['admin/home'])
           } else {
+            this.appService.guard_activator = {'role': 2, 'authenticated': true}
             this.router.navigate(['home'])
             this.isSpinnerActive = false;
           }

@@ -20,8 +20,11 @@ export class AuthService {
   _temporary_save: any;
   _successMessage: any;
   _errorMessage: any;
+
   private path = environment.be_Url + 'auth';
   constructor(private http: HttpClient) { }
+
+
 
 
   get temporary_save() {
