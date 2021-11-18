@@ -42,11 +42,11 @@ export class SocialLoginComponent implements OnInit, OnDestroy  {
       // authenticate, if user from social-media exists, or redirect to registration //
       this.authService.socialAuthentication(socialUser).pipe(takeUntil(this.unsubscribe)).subscribe(isAuthenticatedUser => {
         if (typeof isAuthenticatedUser !== 'undefined') {
+
+          this.appService.token = isAuthenticatedUser?.access_token;
           sessionStorage.setItem('user', JSON.stringify(isAuthenticatedUser?.user));
-          sessionStorage.setItem('token', isAuthenticatedUser?.access_token);
 
           const role_id = this.roleService.getMainRole(isAuthenticatedUser?.user?.roles);
-
           localStorage.setItem('role_id', role_id.toString());
 
           if (role_id === 1) {  // if user is administrator, redirect to admin panel //
