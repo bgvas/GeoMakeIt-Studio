@@ -9,6 +9,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {RouterModule} from '@angular/router';
 import {RoleService} from './services/role.service';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 
 
@@ -23,7 +24,8 @@ import {RoleService} from './services/role.service';
         ReactiveFormsModule,
         MatInputModule,
         MatButtonModule,
-        RouterModule
+        RouterModule,
+        MatSlideToggleModule
     ],
     exports: [
         UserProfileComponent,

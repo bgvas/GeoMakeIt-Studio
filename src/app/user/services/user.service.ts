@@ -4,6 +4,7 @@ import {User} from '../models/user';
 import {Observable, of} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {RootUser} from '../models/root-user';
+import {UpdateUserProfileRequestModel} from '../models/update-user-profile-request-model';
 
 
 @Injectable({
@@ -22,6 +23,9 @@ export class UserService {
     return this.http.get<User>(this.path + '/' + id);
   }
 
+  updateUser(detailsForUpdate: UpdateUserProfileRequestModel, id: number): Observable<User> {
+    return this.http.put<User>(this.path + '/' + id, detailsForUpdate);
+  }
   /* tested^^^ */
 
   getUserProfile(): Observable<User> {
@@ -43,10 +47,6 @@ export class UserService {
 
   deleteUser(userId): Observable<any> {
     return this.http.delete(this.path + '/delete/' + userId);
-  }
-
-  updateUser(user, id): Observable<any> {
-    return this.http.put(this.path + '/update/' + id, [user]);
   }
 
   newUser(user: User): Observable<any> {
