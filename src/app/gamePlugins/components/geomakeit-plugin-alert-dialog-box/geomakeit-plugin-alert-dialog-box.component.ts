@@ -5,6 +5,7 @@ import {take} from 'rxjs/operators';
 import {ErrorResponseModel} from '../../../error-handling/error_response_model';
 import {GamePluginDataService} from '../../services/gamePluginData.service';
 import {Game} from '../../../games/models/games/game';
+import {AlertDialogButtonsModel} from '../../models/alert-dialog-buttons-model';
 
 
 @Component({
@@ -71,12 +72,21 @@ export class GeomakeitPluginAlertDialogBoxComponent implements OnInit, OnChanges
       newItem.unique_id = item?.unique_id || '';
       newItem.cancellable = item?.cancellable || false;
       newItem.message = item?.message || '';
+      if (typeof item?.positive_button !== 'undefined') {
+        newItem.positive_button = item?.positive_button
+      }
+      if (typeof item?.neutral_button !== 'undefined') {
+        newItem.neutral_button = item?.neutral_button
+      }
+      if (typeof item?.negative_button !== 'undefined') {
+        newItem.negative_button = item?.negative_button;
+      }
+
       (this.alertDialogForm?.get('alertsArray') as FormArray).push(this.fb.group(newItem));
     }
   }
 
   returnedData(buttonForm: any, index: number) {
-
        if (buttonForm[0]?.positive_button !== null) {
          (((this.alertDialogForm?.get('alertsArray') as FormArray)?.at(index) as FormGroup)
              .setControl('positive_button', this.fb.group({
@@ -92,15 +102,12 @@ export class GeomakeitPluginAlertDialogBoxComponent implements OnInit, OnChanges
             })))
        }
        if (buttonForm[2]?.negative_button !== null) {
-        (((this.alertDialogForm?.get('alertsArray') as FormArray)?.at(index) as FormGroup)
-            .setControl('negative_button', this.fb.group({
-              text: this.fb.control(buttonForm[2]?.negative_button?.text),
-              action: this.fb.control(buttonForm[2]?.negative_button?.action)
-            })))
+         (((this.alertDialogForm?.get('alertsArray') as FormArray)?.at(index) as FormGroup)
+             .setControl('negative_button', this.fb.group({
+               text: this.fb.control(buttonForm[2]?.negative_button?.text),
+               action: this.fb.control(buttonForm[2]?.negative_button?.action)
+             })))
        }
-
-       console.log(this.alertDialogForm.value);
-
   }
 
   addNewDialogBox() {
@@ -120,19 +127,7 @@ export class GeomakeitPluginAlertDialogBoxComponent implements OnInit, OnChanges
       unique_id: this.fb.control(''),
       title: this.fb.control(''),
       cancellable: this.fb.control(''),
-      message: this.fb.control(''),
-      positive_button: this.fb.group({
-        text: this.fb.control(''),
-        action: this.fb.control('')
-      }),
-      neutral_button: this.fb.group({
-        text: this.fb.control(''),
-        action: this.fb.control('')
-      }),
-      negative_button: this.fb.group({
-        text: this.fb.control(''),
-        action: this.fb.control('')
-      })
+      message: this.fb.control('')
     })
   }
 }
