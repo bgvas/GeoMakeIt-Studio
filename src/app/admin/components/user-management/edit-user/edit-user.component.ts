@@ -44,7 +44,7 @@ export class EditUserComponent implements OnInit {
 
   onSubmit(form) {
       this.userService.updateUser(form, this.user?.id).subscribe(updated => {
-        this.notification.display(updated.displayed_message, 'success')
+        this.notification.display('User updated successfully.', 'success')
         this.router.navigate(['admin/users']);
       },
       (error) => {
