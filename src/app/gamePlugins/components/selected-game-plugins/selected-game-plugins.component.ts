@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {GamePluginsService} from '../../services/game-plugins.service';
 import {GamePlugin} from '../../models/game-plugin';
 import {Router} from '@angular/router';
@@ -20,6 +20,7 @@ import {InstalledGamePluginsAndPluginsOfGameModel} from '../../models/installed-
 export class SelectedGamePluginsComponent implements OnInit, OnDestroy, OnChanges {
 
   @Input() gamePlugins: any;
+  @Output() selectPlugins = new EventEmitter<any>();
   game = <Game>JSON.parse(sessionStorage.getItem('project')) || null;
   unsubscribe = new Subject<void>();
   plugins = new Array<Plugin>();
@@ -59,6 +60,10 @@ export class SelectedGamePluginsComponent implements OnInit, OnDestroy, OnChange
         (error: ErrorResponseModel) => {
           console.log(error.message, error.errors)
         })
+  }
+
+  onSelectePlugins() {
+      this.selectPlugins.emit(true)
   }
 
 

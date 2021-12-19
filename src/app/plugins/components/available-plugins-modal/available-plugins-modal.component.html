@@ -22,11 +22,31 @@
                             <div class="col-lg-10 col-10 mt-1">
                                 <div class="row">
                                     <div class="col-7 text-center">
-                                        <div class="mat-h2 mb-0 serif-font text-dark" style="font-weight: bold">{{item?.description}}</div>
-                                        <div class="mat-h4 mb-0">Created by:<span style="font-weight: bold">{{creator?.name}}</span></div>
+                                        <div class="mat-h4 mb-1 mt-1 serif-font text-dark text-left" style="font-weight: bold">
+                                            {{item?.description}}
+                                        </div>
+                                        <hr>
                                         <div class="mat-h5 mb-0">
-                                            Created at:<span style="font-weight: bold"> {{item?.created_at | date}}</span> -
-                                            Updated at:<span style="font-weight: bold"> {{item?.updated_at | date}}</span>
+                                            <span class="font-weight-bolder text-secondary">
+                                                Created by:
+                                            </span>
+                                            <span class="text-secondary">
+                                                {{creator?.name}}
+                                            </span>
+                                            -
+                                            <span class="font-weight-bolder h6 text-secondary text-lowercase">
+                                                Created at:
+                                            </span>
+                                            <span class="text-lowercase h6">
+                                                {{item?.created_at | date}}
+                                            </span>
+                                            -
+                                            <span class="font-weight-bolder h6 text-secondary text-lowercase">
+                                                Updated at:
+                                            </span>
+                                            <span class="text-lowercase h6">
+                                                {{item?.updated_at | date}}
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="col-5 text-center text-dark">

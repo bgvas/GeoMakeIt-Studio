@@ -1,10 +1,10 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {MarkerModel} from '../../models/marker-model';
-import {GamePluginDataService} from '../../services/gamePluginData.service';
-import {Game} from '../../../games/models/games/game';
+import {MarkerModel} from '../../../models/marker-model';
+import {GamePluginDataService} from '../../../services/gamePluginData.service';
+import {Game} from '../../../../games/models/games/game';
 import {take} from 'rxjs/operators';
-import {ErrorResponseModel} from '../../../error-handling/error_response_model';
+import {ErrorResponseModel} from '../../../../error-handling/error_response_model';
 
 
 @Component({

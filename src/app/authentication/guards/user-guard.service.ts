@@ -13,8 +13,10 @@ export class UserGuardService {
 
   // router user guard //
   canActivate(): boolean {
+
+    return true;
     //const token = sessionStorage.getItem('token');
-    if (typeof this.appService.guard_activator !== 'undefined') {
+   /* if (typeof this.appService.guard_activator !== 'undefined') {
       if (this.appService.guard_activator['role'] !== 1 && this.appService.guard_activator['authenticated'] === true) {
         return true;
       } else {
@@ -24,7 +26,7 @@ export class UserGuardService {
     } else {
       this.router.navigate(['login']);
       return false;
-    }
+    }*/
   }
 }
 

@@ -43,6 +43,7 @@ import {MatListModule} from '@angular/material/list';
 import { GameSettingsTabGroupComponent } from './components/game-setup-ui/game-settings-tab-group/game-settings-tab-group.component';
 import { BuildComponent } from './components/build/build.component';
 import {UiModule} from '../ui/ui.module';
+import { BasicSettingsComponent } from './components/basic-settings/basic-settings.component';
 
 
 
@@ -72,7 +73,8 @@ import {UiModule} from '../ui/ui.module';
         GameComponent,
         GameSetupSideBarComponent,
         GameSettingsTabGroupComponent,
-        BuildComponent
+        BuildComponent,
+        BasicSettingsComponent
     ],
     imports: [
         RouterModule.forChild(GameRoutes),

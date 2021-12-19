@@ -2,13 +2,10 @@
     <!-- Step-1 Basic Settings -->
     <mat-step>
         <ng-template matStepLabel>Setup Basic Settings</ng-template>
-        <div class="container-fluid">
-            <div class="row h-auto">
-                <div class="col-6 text-left">
-                    <h4>configure the basic project settings</h4>
-                </div>
-                <div class="col-6">
-                    <div class="text-right">
+        <div class="container-fluid" style="height: 700px">
+            <div class="row">
+                <div class="col-12">
+                    <div class="float-right">
                         <button class="btn bg-secondary shadow border border-success" mat-button matStepperNext
                                 (click) = "onSubmit()">
                             Next
@@ -16,10 +13,7 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <app-game-settings
-                            [isStepper] = "true">
-                           <!-- [submitFromStepper]="sendSubmit.asObservable()">-->
-                    </app-game-settings>
+                    <app-basic-settings></app-basic-settings>
                 </div>
             </div>
         </div>
@@ -27,8 +21,8 @@
     <!-- Step-2 Select points on map -->
     <mat-step>
         <ng-template matStepLabel>Select location on map</ng-template>
-        <div class="container-fluid">
-            <div class="row justify-content-center" style="height: 700px">
+        <div class="container-fluid" style="height: 700px">
+            <div class="row">
                 <div class="col-4 text-left">
                     <button class="btn bg-secondary shadow border border-success" mat-button matStepperPrevious>
                         Back
@@ -58,8 +52,8 @@
     <!-- Step-3 Setup actions -->
     <mat-step>
         <ng-template matStepLabel>Add action in location-point</ng-template>
-        <div class="container-fluid">
-            <div class="row justify-content-center">
+        <div class="container-fluid" style="height: 700px">
+            <div class="row">
                 <div class="col-6 text-left">
                     <button class="btn bg-secondary shadow border border-success" mat-button matStepperPrevious>
                         Back
@@ -88,8 +82,8 @@
     <!-- Step-4 Main configuration -->
     <mat-step>
         <ng-template matStepLabel>Setup Main configuration</ng-template>
-        <div class="container-fluid">
-            <div class="row justify-content-center" style="height: 720px; overflow-y: auto">
+        <div class="container-fluid" style="height: 700px">
+            <div class="row">
                 <div class="col-6 text-left">
                     <button mat-button matStepperPrevious class="btn bg-secondary shadow border border-success">
                         Back
@@ -113,33 +107,29 @@
     <!-- Step-5 build -->
     <mat-step>
         <ng-template matStepLabel>Done</ng-template>
-        <div class="row">
-            <div class="col-6 text-left">
-                <button mat-button matStepperPrevious class="btn bg-secondary shadow border border-success">
-                    Back
-                </button>
-            </div>
-            <div class="col-6 text-right">
-                <button mat-button class="btn btn-outline-secondary" (click)="onExit()">
-                    Exit
-                </button>
-            </div>
-            <div class="col-12 text-center font-weight-bold ">
-                <div class="row justify-content-center">
-                    <div class="col-12 h2">
-                        Done!
-                    </div>
-                    <div class="col-12 h4">
-                        Click Build button, to check and build your project
-                    </div>
-                    <!-- <button class="btn btn-warning text-dark" style="width: 20%">
-                         <mat-icon class="material-icons-outlined">
-                             app_settings_alt
-                         </mat-icon>
-                         Build
-                     </button> -->
-                    <div class="col-5">
-                        <app-build></app-build>
+        <div class="container-fluid" style="height: 700px">
+            <div class="row">
+                <div class="col-6 text-left">
+                    <button mat-button matStepperPrevious class="btn bg-secondary shadow border border-success">
+                        Back
+                    </button>
+                </div>
+                <div class="col-6 text-right">
+                    <button mat-button class="btn btn-outline-secondary" (click)="onExit()">
+                        Exit
+                    </button>
+                </div>
+                <div class="col-12 text-center font-weight-bold ">
+                    <div class="row justify-content-center">
+                        <div class="col-12 h2">
+                            Done!
+                        </div>
+                        <div class="col-12 h4">
+                            Click Build button, to check and build your project
+                        </div>
+                        <div class="col-5">
+                            <app-build></app-build>
+                        </div>
                     </div>
                 </div>
             </div>

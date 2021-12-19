@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
-import {AlertDialogModel} from '../../models/alert-dialog-model';
+import {AlertDialogModel} from '../../../models/alert-dialog-model';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {AlertDialogButtonsModel} from '../../models/alert-dialog-buttons-model';
+import {AlertDialogButtonsModel} from '../../../models/alert-dialog-buttons-model';
 
 @Component({
   selector: 'app-geomakeit-plugin-alert-dialog-set-buttons',

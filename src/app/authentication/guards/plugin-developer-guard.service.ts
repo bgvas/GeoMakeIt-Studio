@@ -11,7 +11,7 @@ export class PluginDeveloperGuardService {
 
   // router plugin developer guard //
   canActivate(): boolean {
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token')//sessionStorage.getItem('token');
 
     if (token != null &&  localStorage.getItem('role_id') === '3') {
       return true;

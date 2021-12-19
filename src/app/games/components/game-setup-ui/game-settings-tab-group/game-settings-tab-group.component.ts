@@ -1,17 +1,13 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {filter, map, take, takeUntil} from 'rxjs/operators';
+import {takeUntil} from 'rxjs/operators';
 import {ErrorResponseModel} from '../../../../error-handling/error_response_model';
 import {Subject} from 'rxjs';
 import {GamePluginsService} from '../../../../gamePlugins/services/game-plugins.service';
 import {PluginService} from '../../../../plugins/services/plugin.service';
-import {Plugin} from '../../../../plugins/models/plugin';
 import {Game} from '../../../models/games/game';
-import {GamePlugin} from '../../../../gamePlugins/models/game-plugin';
-import {GamePluginDataModel} from '../../../../gamePlugins/models/game-plugin-data-model';
 import {GamePluginDataService} from '../../../../gamePlugins/services/gamePluginData.service';
 import {Router} from '@angular/router';
 import {InstalledGamePluginsAndPluginsOfGameModel} from '../../../../gamePlugins/models/installed-gamePlugins-and-plugins-of-game-model';
-import {AlertDialogModel} from '../../../../gamePlugins/models/alert-dialog-model';
 
 @Component({
   selector: 'app-game-settings-tab-group',
@@ -70,7 +66,7 @@ export class GameSettingsTabGroupComponent implements OnInit, OnDestroy {
   }
 
 
-  openAvailablePlugins() {
+  openAvailablePlugins(confirmed) {
     this.opening = true;
   }
 
@@ -78,6 +74,5 @@ export class GameSettingsTabGroupComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
-    console.log('exit');
   }
 }

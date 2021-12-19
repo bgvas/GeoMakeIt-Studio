@@ -53,7 +53,8 @@ export class LoginComponent implements OnInit, OnDestroy {
    this.authService.login(this.loginForm.value).pipe(takeUntil(this.unsubscribe)).subscribe(authenticated => {
      if (typeof authenticated !== 'undefined') {
 
-       this.appService.token = authenticated?.access_token;
+        localStorage.setItem('token', authenticated.access_token);
+       //this.appService.token = authenticated?.access_token;
        localStorage.setItem('role_id', String(this.roleService?.getMainRole(authenticated?.user?.roles)));
        sessionStorage.setItem('user', JSON.stringify(authenticated?.user));
 

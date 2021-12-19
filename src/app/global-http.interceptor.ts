@@ -23,7 +23,7 @@ export class GlobalHttpInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     // add Bearer token in every request //
-    const token = this.appService.token;
+    const token = localStorage.getItem('token'); //this.appService.token;
       this.requestWithAuth = request.clone({
         setHeaders: {
           Authorization: 'Bearer ' + token
@@ -31,24 +31,24 @@ export class GlobalHttpInterceptor implements HttpInterceptor {
       })
 
     return next.handle(this.requestWithAuth).pipe(
-    catchError((error: HttpErrorResponse) => {
-      if (error.status === 401) {  // if user is not authenticated, redirect to login form
-        this.auth.temporary_save = 'Unauthorized User.'
-        this.router.navigate(['login'])
-        this.auth.logout().pipe(take(1)).subscribe();
-      }
-      if (error.status >= 500) {
-        this.auth.errorMessage = 'General Error. Try again later or contact the administrator.'
-        this.router.navigate(['login'])
-        this.auth.logout().pipe(take(1)).subscribe();
-      }
-      const errorMessage =  new Error();
-      errorMessage.message = error.error.message;
-      errorMessage.code = error.status;
-      errorMessage.displayed_message = error.error.displayed_message;
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 401) {  // if user is not authenticated, redirect to login form
+          this.auth.temporary_save = 'Unauthorized User.'
+          this.router.navigate(['login'])
+          this.auth.logout().pipe(take(1)).subscribe();
+        }
+        if (error.status >= 500) {
+          this.auth.errorMessage = 'General Error. Try again later or contact the administrator.'
+          this.router.navigate(['login'])
+          this.auth.logout().pipe(take(1)).subscribe();
+        }
+        const errorMessage =  new Error();
+        errorMessage.message = error.error.message;
+        errorMessage.code = error.status;
+        errorMessage.displayed_message = error.error.displayed_message;
 
-      return throwError(errorMessage);
-    })
+        return throwError(errorMessage);
+      })
     );
   }
 }

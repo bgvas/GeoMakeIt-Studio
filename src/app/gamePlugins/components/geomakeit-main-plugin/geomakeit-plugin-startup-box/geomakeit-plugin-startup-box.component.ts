@@ -1,9 +1,9 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
-import {Game} from '../../../games/models/games/game';
+import {Game} from '../../../../games/models/games/game';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {take} from 'rxjs/operators';
-import {ErrorResponseModel} from '../../../error-handling/error_response_model';
-import {GamePluginDataService} from '../../services/gamePluginData.service';
+import {ErrorResponseModel} from '../../../../error-handling/error_response_model';
+import {GamePluginDataService} from '../../../services/gamePluginData.service';
 
 
 @Component({

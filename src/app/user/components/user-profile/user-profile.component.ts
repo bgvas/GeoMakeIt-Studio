@@ -14,7 +14,7 @@ import {NotificationsComponent} from '../../../shared/components/notifications/n
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
-export class UserProfileComponent implements OnInit, OnDestroy{
+export class UserProfileComponent implements OnInit, OnDestroy {
 
   userProfileForm: FormGroup;
   editProfile: boolean;
@@ -28,7 +28,6 @@ export class UserProfileComponent implements OnInit, OnDestroy{
     this.editProfile = false;
     this.initializeForm();
   }
-
 
   onEdit() {
     this.editProfile = !this.editProfile;

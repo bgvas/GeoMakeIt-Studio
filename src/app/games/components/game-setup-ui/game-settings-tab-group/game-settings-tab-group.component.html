@@ -1,49 +1,97 @@
-<mat-tab-group [color]="'accent'">
-    <mat-tab label = "Plugins">
-        <div class="m-3">
-            <div class="row">
-                <div class="col-lg-2 col-12 text-center">
-                    <button type="button" (click)="openAvailablePlugins()"
-                            class="btn btn-info text-lowercase"
-                            data-toggle="modal"
-                            data-target="#available_plugins_modal">
-                       add plugins
-                    </button>
+    <div class="d-flex align-items-start">
+        <div class="container-fluid">
+                <div class="h2 serif-font font-weight-bolder">
+                    Basic Settings of Project
                 </div>
-                <div class="col-lg-10 col-12">
-                     <app-selected-game-plugins
-                             [gamePlugins]="installed">
-                     </app-selected-game-plugins>
+            <div class="row justify-content-center">
+                <div class="col-md-2 col-12">
+                    <div class="card border shadow">
+                        <div class="card-body">
+                            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                <button class="nav-link active" id="information-tab" data-bs-toggle="pill"
+                                        data-bs-target="#information" type="button" role="tab"
+                                        aria-controls="information" aria-selected="true">
+                                    Basic Information
+                                </button>
+                                <button class="nav-link" id="plugins-tab" data-bs-toggle="pill"
+                                        data-bs-target="#plugins" type="button" role="tab"
+                                        aria-controls="plugins" aria-selected="false">
+                                    Installed Plugins
+                                </button>
+                                <button class="nav-link" id="security-tab" data-bs-toggle="pill"
+                                        data-bs-target="#security" type="button" role="tab"
+                                        aria-controls="security" aria-selected="false">
+                                    Security
+                                </button>
+                                <button class="nav-link" id="alerts-tab" data-bs-toggle="pill"
+                                        data-bs-target="#alerts" type="button" role="tab"
+                                        aria-controls="alerts" aria-selected="false">
+                                    Alerts
+                                </button>
+                                <button class="nav-link" id="markers-tab" data-bs-toggle="pill"
+                                        data-bs-target="#markers" type="button" role="tab"
+                                        aria-controls="markers" aria-selected="false">
+                                    Markers
+                                </button>
+                                <button class="nav-link" id="quests-tab" data-bs-toggle="pill"
+                                        data-bs-target="#quests" type="button" role="tab"
+                                        aria-controls="quests" aria-selected="false">
+                                    Quests
+                                </button>
+                                <button class="nav-link" id="start-tab" data-bs-toggle="pill"
+                                        data-bs-target="#start" type="button" role="tab"
+                                        aria-controls="start" aria-selected="false">
+                                    On StartUp
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-10 col-12">
+                    <div class="card border shadow">
+                        <div class="card-body">
+                            <div class="tab-content" id="v-pills-tabContent">
+                                <div class="tab-pane fade show active" id="information" role="tabpanel" aria-labelledby="information-tab">
+                                    <app-game-settings></app-game-settings>
+                                </div>
+                                <div class="tab-pane fade" id="plugins" role="tabpanel" aria-labelledby="plugins-tab">
+                                    <app-selected-game-plugins
+                                            (selectPlugins)="openAvailablePlugins($event)"
+                                            [gamePlugins]="installed">
+                                    </app-selected-game-plugins>
+                                </div>
+                                <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
+                                    <app-geomakeit-plugins-project-auth-box
+                                            [gamePlugins]="gamePluginDataOfGeoMakeItApiArray">
+                                    </app-geomakeit-plugins-project-auth-box>
+                                </div>
+                                <div class="tab-pane fade" id="alerts" role="tabpanel" aria-labelledby="alerts-tab">
+                                    <app-geomakeit-plugin-alert-dialog-box
+                                            [gamePlugins]="gamePluginDataOfGeoMakeItApiArray">
+                                    </app-geomakeit-plugin-alert-dialog-box>
+                                </div>
+                                <div class="tab-pane fade" id="markers" role="tabpanel" aria-labelledby="markers-tab">
+                                    <app-geomakeit-plugin-markers-box
+                                            [gamePlugins]="gamePluginDataOfGeoMakeItApiArray">
+                                    </app-geomakeit-plugin-markers-box>
+                                </div>
+                                <div class="tab-pane fade" id="quests" role="tabpanel" aria-labelledby="quests-tab">
+                                    <app-geomakeit-plugin-quests-box
+                                            [gamePlugins]="gamePluginDataOfGeoMakeItApiArray">
+                                    </app-geomakeit-plugin-quests-box>
+                                </div>
+                                <div class="tab-pane fade" id="start" role="tabpanel" aria-labelledby="start-tab">
+                                    <app-geomakeit-plugin-startup-box
+                                            [gamePlugins]="gamePluginDataOfGeoMakeItApiArray">
+                                    </app-geomakeit-plugin-startup-box>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </mat-tab>
-    <mat-tab label="Game Security" >
-        <app-geomakeit-plugins-project-auth-box
-                [gamePlugins]="gamePluginDataOfGeoMakeItApiArray">
-        </app-geomakeit-plugins-project-auth-box>
-    </mat-tab>
-    <mat-tab label="Alert dialogs" >
-            <app-geomakeit-plugin-alert-dialog-box
-                [gamePlugins]="gamePluginDataOfGeoMakeItApiArray">
-            </app-geomakeit-plugin-alert-dialog-box>
-    </mat-tab>
-    <mat-tab label="Markers" >
-        <app-geomakeit-plugin-markers-box
-                [gamePlugins]="gamePluginDataOfGeoMakeItApiArray">
-        </app-geomakeit-plugin-markers-box>
-    </mat-tab>
-    <mat-tab label="Quests" >
-        <app-geomakeit-plugin-quests-box
-                [gamePlugins]="gamePluginDataOfGeoMakeItApiArray">
-        </app-geomakeit-plugin-quests-box>
-    </mat-tab>
-    <mat-tab label="Startup">
-        <app-geomakeit-plugin-startup-box
-                [gamePlugins]="gamePluginDataOfGeoMakeItApiArray">
-        </app-geomakeit-plugin-startup-box>
-    </mat-tab>
-</mat-tab-group>
+    </div>
 
 <!-- available plugins modal -->
 <app-available-plugins-modal

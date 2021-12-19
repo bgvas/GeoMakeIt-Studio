@@ -1,11 +1,11 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {AlertDialogModel} from '../../models/alert-dialog-model';
+import {AlertDialogModel} from '../../../models/alert-dialog-model';
 
-import {ErrorResponseModel} from '../../../error-handling/error_response_model';
-import {GamePluginDataService} from '../../services/gamePluginData.service';
-import {Game} from '../../../games/models/games/game';
-import {AlertDialogButtonsModel} from '../../models/alert-dialog-buttons-model';
+import {ErrorResponseModel} from '../../../../error-handling/error_response_model';
+import {GamePluginDataService} from '../../../services/gamePluginData.service';
+import {Game} from '../../../../games/models/games/game';
+import {AlertDialogButtonsModel} from '../../../models/alert-dialog-buttons-model';
 import {take} from 'rxjs/operators';
 
 

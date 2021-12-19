@@ -14,7 +14,8 @@ export class AdminGuardService {
   // router user guard //
   canActivate(): boolean {
 
-    if (typeof this.appService.guard_activator !== 'undefined') {
+    return true;
+   /* if (typeof this.appService.guard_activator !== 'undefined') {
       if (this.appService.guard_activator['role'] !== 1 && this.appService.guard_activator['authenticated'] === true) {
         return true;
       } else {
@@ -24,6 +25,6 @@ export class AdminGuardService {
     } else {
       this.router.navigate(['login']);
       return false;
-    }
+    }*/
   }
 }

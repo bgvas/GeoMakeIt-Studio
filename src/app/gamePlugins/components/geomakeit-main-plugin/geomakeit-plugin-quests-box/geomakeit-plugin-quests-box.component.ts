@@ -1,11 +1,11 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
-import {GamePluginDataModel} from '../../models/game-plugin-data-model';
+import {GamePluginDataModel} from '../../../models/game-plugin-data-model';
 import {Form, FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {GamePluginDataService} from '../../services/gamePluginData.service';
-import {Game} from '../../../games/models/games/game';
+import {GamePluginDataService} from '../../../services/gamePluginData.service';
+import {Game} from '../../../../games/models/games/game';
 import {take} from 'rxjs/operators';
-import {ErrorResponseModel} from '../../../error-handling/error_response_model';
-import {QuestsModel} from '../../models/quests-model';
+import {ErrorResponseModel} from '../../../../error-handling/error_response_model';
+import {QuestsModel} from '../../../models/quests-model';
 
 @Component({
   selector: 'app-geomakeit-plugin-quests-box',

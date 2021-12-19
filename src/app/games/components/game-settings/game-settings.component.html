@@ -1,35 +1,35 @@
- <div class="mb-2">
-    <div class="container-fluid pt-2 pl-4 pr-4" [formGroup]="projectForm">
-        <div class="row w-100 justify-content-center ml-2 mr-2">
-            <div class="col-12 mb-2 h2 serif-font font-weight-bold" *ngIf="!isStepper">
-                Basic settings of project
-            </div>
-            <div class="col-12" style="font-weight: bold">
-                General information
-            </div>
-            <div class="col-12 pt-2 mb-3 border border-dark rounded shadow">
-                <div class="row">
-                    <div class="col-12 mb-2">
-                        <mat-form-field class="bg-white p-2 border border-info rounded shadow">
-                            <input type="text" class="text-dark font-weight-bold" matInput placeholder="Title of project" formControlName="title"  value="{{project?.title}}">
-                            <mat-error class="mat-h5" *ngIf="projectForm.get('title').getError('required') && projectForm.get('title').touched">
-                                Title can't be empty
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-12 mb-2">
-                        <mat-form-field class="bg-white p-2 border border-info rounded shadow">
-                            <input type="text" class="text-dark font-weight-bold" matInput placeholder="Description of project" formControlName="description"  value="{{project?.description}}">
-                            <mat-error class="mat-h5" *ngIf="projectForm.get('description').getError('required') && projectForm.get('description').touched">
-                                Description can't be empty
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
+<div class="container-fluid border pt-2 pl-4 pr-4" [formGroup]="projectForm">
+    <div class="row justify-content-center">
+        <div class="col-md-11 col-12 mb-2">
+            <span class="mat-h3" style="font-weight: bold">Preview or Edit basic information of project</span>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-11 col-12 pt-2">
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <mat-form-field class="bg-white p-2">
+                        <input type="text" class="text-dark font-weight-bold" matInput placeholder="Title of project"  formControlName="title" value="{{project?.title}}">
+                        <mat-error class="mat-h5" *ngIf="projectForm.get('title').getError('required') && projectForm.get('title').touched">
+                            Title can't be empty
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 mb-2">
+                    <mat-form-field class="bg-white p-2">
+                        <input type="text" class="text-dark font-weight-bold" matInput placeholder="Description of project" formControlName="description"  value="{{project?.description}}">
+                        <mat-error class="mat-h5" *ngIf="projectForm.get('description').getError('required') && projectForm.get('description').touched">
+                            Description can't be empty
+                        </mat-error>
+                    </mat-form-field>
                 </div>
             </div>
         </div>
+        <div class="col-md-11 col-12">
+            <button class="btn btn-info text-lowercase" (click)="onClickSave()">
+                Save Changes
+            </button>
+        </div>
     </div>
-    <div class="ml-4 mr-4">
-        <app-game-settings-tab-group></app-game-settings-tab-group>
-    </div>
- </div>
+</div>
+

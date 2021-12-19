@@ -1,7 +1,6 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Game} from '../../models/games/game';
 import {PluginService} from '../../../plugins/services/plugin.service';
-import {Plugin} from '../../../plugins/models/plugin';
 import {Subject} from 'rxjs';
 import {map, take, takeUntil} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -10,14 +9,11 @@ import {ProjectUpdateModel} from '../../models/projectElements/project-update-mo
 import {GamePluginDataService} from '../../../gamePlugins/services/gamePluginData.service';
 import {GamePluginsService} from '../../../gamePlugins/services/game-plugins.service';
 import {ErrorResponseModel} from '../../../error-handling/error_response_model';
-import {PluginRelease} from '../../../plugins/models/available_plugins/plugin-release';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 import {GamePlugin} from '../../../gamePlugins/models/game-plugin';
 import {PublicService} from '../../../public.service';
-import {GameAuthenticationModel} from '../../models/gameAuthentication/GameAuthenticationModel';
-import {GamePluginDataModel} from '../../../gamePlugins/models/game-plugin-data-model';
-
+import {NotificationsComponent} from '../../../shared/components/notifications/notifications.component';
 
 @Component({
   selector: 'app-game-settings',
@@ -35,6 +31,7 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
   isLoading: boolean;
   project: Game = JSON.parse(sessionStorage.getItem('project') || null);
   mainPlugin?: GamePlugin;
+  notification = new NotificationsComponent();
   private mainGamePlugin: any;
 
 
@@ -56,7 +53,6 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
 
   // on exit, unsubscribe all//
   ngOnDestroy() {
-    this.saveChanges();
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
@@ -97,8 +93,10 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
           .subscribe(updatedGame => {
             sessionStorage.setItem('project', JSON.stringify(updatedGame['data']));
             this.publicService.setProject(updatedGame['data']);
+            this.notification.display('Your changes saved successfully', 'success');
           },
           (e: ErrorResponseModel) => {
+            this.notification.display('Can\'t save your changes', 'danger');
             console.log(e.message, e.errors);
           });
     }
@@ -112,5 +110,8 @@ export class GameSettingsComponent implements OnInit, OnDestroy  {
     })
   }
 
+  onClickSave() {
+    this.saveChanges();
+  }
 
 }

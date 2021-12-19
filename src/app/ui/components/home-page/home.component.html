@@ -37,7 +37,6 @@
                     <div class="text-center mt-5 mb-5 text-secondary h3 font-weight-bold"
                          *ngIf="!displaySpinnerForProject &&  projectList?.length === 0">
                         <p class="mb-5">no projects found</p>
-                        <hr>
                     </div>
                 </div>
             </div>
@@ -73,7 +72,6 @@
                             <div class="text-center h3 mt-5 mb-5 text-secondary font-weight-bold"
                                  *ngIf="!displaySpinnerForPlugins &&  pluginList?.length === 0">
                                 <p class="mb-5">no plugins found</p>
-                                <hr>
                             </div>
                             <div class="wrapper">
                                 <div class="item" *ngFor="let pluginFile of pluginList; let i = index" id ="plugin{{i}}">

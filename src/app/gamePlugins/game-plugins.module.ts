@@ -24,14 +24,15 @@ import {NumberPickerModule} from 'ng-number-picker';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
 import {ReturningResultsService} from './services/returning-results.service';
-import { GeomakeitPluginAlertDialogBoxComponent } from './components/geomakeit-plugin-alert-dialog-box/geomakeit-plugin-alert-dialog-box.component';
-import { GeomakeitPluginMarkersBoxComponent } from './components/geomakeit-plugin-markers-box/geomakeit-plugin-markers-box.component';
-import { GeomakeitPluginQuestsBoxComponent } from './components/geomakeit-plugin-quests-box/geomakeit-plugin-quests-box.component';
-import { GeomakeitPluginStartupBoxComponent } from './components/geomakeit-plugin-startup-box/geomakeit-plugin-startup-box.component';
+import { GeomakeitPluginAlertDialogBoxComponent } from './components/geomakeit-main-plugin/geomakeit-plugin-alert-dialog-box/geomakeit-plugin-alert-dialog-box.component';
+import { GeomakeitPluginMarkersBoxComponent } from './components/geomakeit-main-plugin/geomakeit-plugin-markers-box/geomakeit-plugin-markers-box.component';
+import { GeomakeitPluginQuestsBoxComponent } from './components/geomakeit-main-plugin/geomakeit-plugin-quests-box/geomakeit-plugin-quests-box.component';
+import { GeomakeitPluginStartupBoxComponent } from './components/geomakeit-main-plugin/geomakeit-plugin-startup-box/geomakeit-plugin-startup-box.component';
 import { SelectedGamePluginsComponent } from './components/selected-game-plugins/selected-game-plugins.component';
-import { GeomakeitPluginAlertDialogSetButtonsComponent } from './components/geomakeit-plugin-alert-dialog-set-buttons/geomakeit-plugin-alert-dialog-set-buttons.component';
+import { GeomakeitPluginAlertDialogSetButtonsComponent } from './components/geomakeit-main-plugin/geomakeit-plugin-alert-dialog-set-buttons/geomakeit-plugin-alert-dialog-set-buttons.component';
 import {MatExpansionModule} from '@angular/material/expansion';
-import { GeomakeitPluginsProjectAuthBoxComponent } from './components/geomakeit-plugins-project-auth-box/geomakeit-plugins-project-auth-box.component';
+import { GeomakeitPluginsProjectAuthBoxComponent } from './components/geomakeit-main-plugin/geomakeit-plugins-project-auth-box/geomakeit-plugins-project-auth-box.component';
+import {PluginModule} from '../plugins/plugin.module';
 
 
 
@@ -69,7 +70,8 @@ import { GeomakeitPluginsProjectAuthBoxComponent } from './components/geomakeit-
         NumberPickerModule,
         MatSelectModule,
         MatButtonModule,
-        MatExpansionModule
+        MatExpansionModule,
+        PluginModule
     ],
     exports: [
         JsonFilesConfigurationComponent,
