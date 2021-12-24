@@ -1,0 +1,25 @@
+
+<div class="form-group row">
+    <div class="col-md-5">
+        <select  class="form-control border rounded" [(ngModel)]="selectedToAdd" multiple name="availableItems">
+            <option class="text-center font-weight-bolder form-control" *ngFor="let item of availableItems" [ngValue]="item">{{item}}</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <div class="row justify-content-center mt-1">
+            <div class="col-12 text-center">
+                <button (click)="assign()" mat-button class="border bg-info shadow rounded font-weight-bolder h3" ><i class="fa fa-angle-double-right text-warning"></i></button>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-1">
+            <div class="col-12 text-center">
+                <button (click)="unassign()" mat-button class="border bg-info shadow rounded font-weight-bolder h3" ><i class="fa fa-angle-double-left text-warning"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <select class="form-control" [(ngModel)]="selectedToRemove" multiple name="selectedItems">
+            <option class="text-center font-weight-bolder form-control" *ngFor="let item of _selectedItems; let x = index" [ngValue]="item" id="{{x}}">{{item}}</option>
+        </select>
+    </div>
+</div>

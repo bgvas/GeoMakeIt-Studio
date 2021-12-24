@@ -8,7 +8,7 @@ import { InputComponent } from './components/input/input.component';
 import {NotificationsComponent} from './components/notifications/notifications.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { ValidationMessagesComponent } from './components/validation-messages/validation-messages.component';
 import {DeclareFormControlsService} from './services/declareFormControls/declare-form-controls.service';
@@ -38,6 +38,7 @@ import { RemoveUnderscoresPipe } from './components/pipes/remove-underscores.pip
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { FromListToListComponent } from './components/from-list-to-list/from-list-to-list.component';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     ColorPickerComponent,
     RemoveUnderscoresPipe,
     PaginatorComponent,
-    CreatePluginComponent
+    CreatePluginComponent,
+    FromListToListComponent
 ],
     exports: [
         SpinnerComponent,
@@ -77,7 +79,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         GeomakeitHelpComponent,
         ProjectCardComponent,
         CreateProjectComponent,
-        CreatePluginComponent
+        CreatePluginComponent,
+        FromListToListComponent
     ],
     imports: [
         CommonModule,
@@ -97,7 +100,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         NgApexchartsModule,
         AngularD3CloudModule,
         MatCheckboxModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        FormsModule
 
     ],
     providers: [

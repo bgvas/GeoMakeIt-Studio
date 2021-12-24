@@ -1,4 +1,4 @@
-<p class="mt-5 text-center h3">
+<!--<p class="mt-5 text-center h3">
     List with installed plugins of project
 </p>
 <div class="ml-4">
@@ -39,6 +39,53 @@
            </div>
         </div>
     </div>
+</div>-->
+
+<div class="container-fluid border bg-light pt-2 pl-2 pr-2">
+    <div class="row justify-content-center">
+        <div class="col-md-11 col-12">
+            <span class="mat-h3" style="font-weight: bold">List with installed Plugins</span>
+        </div>
+        <div class="col-md-11 col-12">
+            <button type="button"
+                    class="btn btn-info text-lowercase"
+                    data-toggle="modal"
+                    (click)="onSelectePlugins()"
+                    data-target="#available_plugins_modal">
+                add plugins
+            </button>
+        </div>
+        <div class="col-md-11 col-12 mt-4 mb-4">
+            <div class="text-center" style="font-weight: bold">
+                <app-spinner [visible]="isLoading"></app-spinner>
+                <p class="mat-h5 text-danger" *ngIf="gamePlugins?.game_plugins?.length === 0 && !isLoading">no installed plugins</p>
+            </div>
+            <div class="d-flex flex-row" style="overflow-x: auto" *ngIf="gamePlugins?.game_plugins?.length > 0 && !isLoading">
+                <div  *ngFor="let installed of gamePlugins?.game_plugins; let x = index">
+                    <div class="text-center border rounded shadow border-secondary bg-white mr-4" style="width: 200px">
+                        <div class="row">
+                            <div class="col-6 text-left">
+                                <span class="material-icons text-info" style="font-size: 40px; text-shadow: 2px 2px black">extension</span>
+                            </div>
+                            <div class="col-6 text-right" matTooltip="remove plugin ">
+                                <button class="rounded bg-danger text-white border mat-h5 text-center mr-1 mt-1"
+                                        (click)="deletePlugin(x, installed?.plugin?.id)"
+                                        *ngIf="installed?.plugin?.id !== 1"
+                                        style="width: 20px">
+                                    X
+                                </button>
+                                <p *ngIf="installed?.plugin?.id === 1" class="text-warning mat-h5 mt-1 mr-1">required</p>
+                            </div>
+                            <div class="col-12 text-center mat-h4 serif-font" style="font-weight: bold">
+                                {{installed?.plugin?.title}}
+                            </div>
+                            <div class="col-12 text-center mat-h5 serif-font">
+                                Release: <span style="font-weight: bold">{{installed?.release?.name}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-
